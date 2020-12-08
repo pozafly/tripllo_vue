@@ -1,5 +1,44 @@
 html {
-  padding: 0;
+  height: 100%;
+}
+body {
+  display: flex;
+  justify-content: center;
+  background: #f9fafc;
+  position: relative;
   margin: 0;
+  height: 100%;
+}
+.app {
+	width: 100vh;
+	height: 100vh;
+  font-size: 1.4rem;
+  display: flex;
+}
+.app-contents {
+  height: calc(100% - 64px - 102px);
+}
+h1 {
+	text-align: center;
+	font-weight: 100;
+}
+
+/*--- LINK ---*/
+a {
+  color: #0282ce;
+  text-decoration: none;
+}
+a:hover {
+  color: #3fc1c9;
+}
+button {
+  cursor: pointer;
+}
+input {    
+  font-size: 14px;
+  background-color: #FAFBFC;
+  border: 2px solid #DFE1E6;
   box-sizing: border-box;
+  border-radius: 3px;
+  padding:0px 0px 0px 15px;
 }

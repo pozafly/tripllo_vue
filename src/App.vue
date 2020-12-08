@@ -1,15 +1,17 @@
 <template>
   <div id="app">
     <router-view></router-view>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import MainPage from '@/views/MainPage.vue';
+import Footer from '@/components/common/Footer.vue';
 
 export default {
   components: {
-    //MainPage,
+    Footer,
   },
   created() {},
 };
