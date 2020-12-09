@@ -2,10 +2,20 @@
   <main>
     <div class="container">
       <span class="login_text"><b>Login to Tripllo</b></span>
-      <form>
+      <form @submit.prevent="submitForm">
         <div class="submit_items">
-          <input class="submit_item" type="text" placeholder="Enter email" />
-          <input class="submit_item" type="text" placeholder="Enter password" />
+          <input
+            class="submit_item"
+            type="text"
+            placeholder="Enter email"
+            v-model="email"
+          />
+          <input
+            class="submit_item"
+            type="text"
+            placeholder="Enter password"
+            v-model="password"
+          />
           <button class="submit_item btn" type="submit">
             <b>Log in</b>
           </button>
@@ -22,16 +32,38 @@
           <b> Continue with FaceBook</b>
         </button>
         <button class="external_item">
-          <img src="@/assets/login/logo/naver.png" />
-          <b> Continue with Naver</b>
+          <img src="@/assets/login/logo/kakao.png" />
+          <b> Continue with KakaoTalk</b>
         </button>
       </div>
     </div>
+    {{ response }}
   </main>
 </template>
 
 <script>
-export default {};
+import { registerUser } from '@/api/index';
+
+export default {
+  data() {
+    return {
+      email: '',
+      password: '',
+      response: '',
+    };
+  },
+  methods: {
+    async submitForm() {
+      const userData = {
+        email: this.email,
+        password: this.password,
+      };
+      const response = await registerUser(userData);
+      console.log(response);
+      this.response = response;
+    },
+  },
+};
 </script>
 
 <style scoped>
