@@ -2,7 +2,6 @@ html {
   height: 100%;
 }
 body {
-  display: flex;
   justify-content: center;
   background: #f9fafc;
   position: relative;
@@ -13,7 +12,6 @@ body {
 	width: 100vh;
 	height: 100vh;
   font-size: 1.4rem;
-  display: flex;
 }
 .app-contents {
   height: calc(100% - 64px - 102px);
