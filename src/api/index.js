@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-function registerUser(userData) {
-  const url = 'http://localhost:3000/api/getMethod';
-  return axios.get(url, userData);
+function createUser(userData) {
+  const url = 'http://localhost:3000/user';
+  return axios.post(url, userData);
 }
 
-export { registerUser };
+export { createUser };
