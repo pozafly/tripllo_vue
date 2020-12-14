@@ -47,13 +47,11 @@
 </template>
 
 <script>
-import { registerUser } from '@/api/index';
-
 export default {
   data() {
     return {
-      id: '',
-      password: '',
+      id: 'pain103',
+      password: '1234',
       response: '',
       pushYn: false,
     };
@@ -64,8 +62,9 @@ export default {
         id: this.id,
         password: this.password,
       };
-      // const response = await registerUser(userData);
-      // console.log(response);
+      console.log('loginform');
+      const response = await this.$store.dispatch('LOGIN', userData);
+      console.log(response);
     },
     goToSignUp() {
       this.$emit('changeForm');

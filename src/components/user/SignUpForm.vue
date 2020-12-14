@@ -46,8 +46,6 @@
 </template>
 
 <script>
-import { createUser } from '@/api/index';
-
 export default {
   data() {
     return {

@@ -1,8 +1,19 @@
 import axios from 'axios';
+import { setInterceptors } from './common/interceptors';
 
-function createUser(userData) {
-  const url = 'http://localhost:3000/user';
-  return axios.post(url, userData);
+function createInstance() {
+  return axios.create({
+    baseURL: process.env.VUE_APP_API_URL,
+  });
 }
 
-export { createUser };
+// 엑시오스 초기화 함수
+function createInstanceWithAuth(url) {
+  const instance = axios.create({
+    baseURL: `${process.env.VUE_APP_API_URL}${url}`,
+  });
+  return setInterceptors(instance);
+}
+
+export const instance = createInstance();
+// export const posts = createInstanceWithAuth('');
