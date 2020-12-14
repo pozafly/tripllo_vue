@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <div class="push_container" v-if="pushYn">
+    <div class="push_container" v-if="push.pushYn">
       <div class="push_box">
-        <span>아이디와 비밀번호가 일치하지 않습니다..</span>
+        <span>{{ push.message }}</span>
       </div>
     </div>
     <span class="login_text"><b>Login to Tripllo</b></span>
@@ -12,13 +12,13 @@
           class="submit_item"
           type="text"
           placeholder="Enter id"
-          v-model="id"
+          v-model="userData.id"
         />
         <input
           class="submit_item"
           type="text"
           placeholder="Enter password"
-          v-model="password"
+          v-model="userData.password"
         />
         <button class="submit_item btn" type="submit">
           <b>Log in</b>
@@ -50,21 +50,27 @@
 export default {
   data() {
     return {
-      id: 'pain103',
-      password: '1234',
-      response: '',
-      pushYn: false,
+      userData: {
+        id: 'pain103',
+        password: '1234',
+      },
+      push: {
+        pushYn: false,
+        message: '',
+      },
     };
   },
   methods: {
     async submitForm() {
-      const userData = {
-        id: this.id,
-        password: this.password,
-      };
-      console.log('loginform');
-      const response = await this.$store.dispatch('LOGIN', userData);
-      console.log(response);
+      try {
+        await this.$store.dispatch('LOGIN', this.userData);
+        console.log(this.$store.state);
+        //this.$router.push('/main');
+      } catch (error) {
+        console.log(error.response.data.message);
+        this.push.pushYn = true;
+        this.push.message = error.response.data.message;
+      }
     },
     goToSignUp() {
       this.$emit('changeForm');

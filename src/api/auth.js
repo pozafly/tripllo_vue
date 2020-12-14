@@ -3,7 +3,6 @@ import { instance } from './index';
 
 // 로그인 API
 function loginUser(userData) {
-  console.log('auth.js');
   return instance.post('login', userData);
 }
 
