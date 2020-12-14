@@ -15,7 +15,7 @@ const router = new VueRouter({
       component: () => import('@/views/MainPage.vue'),
     },
     {
-      path: '/user',
+      path: '/user/:id',
       component: () => import('@/views/UserPage.vue'),
     },
   ],

@@ -3,7 +3,7 @@
     <div class="container">
       <div class="push_container" v-if="push.pushYn">
         <div class="push_box">
-          <span>이미 존재하는 ID입니다..</span>
+          <span>{{ push.message }}</span>
         </div>
       </div>
       <span class="sign_up_text"><b>Sign up to Tripllo</b></span>
@@ -13,31 +13,52 @@
             class="submit_item"
             type="text"
             placeholder="Enter id"
-            v-model="id"
+            v-model="userData.id"
           />
           <input
             class="submit_item"
             type="text"
             placeholder="Enter password"
-            v-model="password"
+            v-model="userData.password"
+          />
+          <input
+            class="submit_item"
+            type="text"
+            placeholder="Enter password again"
+            v-model="userData.againPassword"
           />
           <input
             class="submit_item"
             type="text"
             placeholder="Enter email"
-            v-model="email"
+            v-model="userData.email"
           />
           <input
             class="submit_item"
             type="text"
             placeholder="Enter name"
-            v-model="name"
+            v-model="userData.name"
           />
           <button class="submit_item btn" type="submit">
             <b>Sign Up</b>
           </button>
         </div>
       </form>
+      <div class="text">OR</div>
+      <div class="external_login_container">
+        <button class="external_item">
+          <img src="@/assets/user/logo/google.png" />
+          <b> Continue with Google</b>
+        </button>
+        <button class="external_item">
+          <img src="@/assets/user/logo/facebook.png" />
+          <b> Continue with FaceBook</b>
+        </button>
+        <button class="external_item">
+          <img src="@/assets/user/logo/kakao.png" />
+          <b> Continue with KakaoTalk</b>
+        </button>
+      </div>
       <div class="sign_up">
         <span @click="goToLogin" class="go_to_login">Go to Login</span>
       </div>
@@ -49,37 +70,45 @@
 export default {
   data() {
     return {
-      id: '',
-      password: '',
-      email: '',
-      name: '',
-      response: '',
+      userData: {
+        id: '',
+        password: '',
+        againPassword: '',
+        email: '',
+        name: '',
+      },
       push: {
         pushYn: false,
-        pushText: '',
+        message: '',
       },
     };
   },
   methods: {
     async submitForm() {
-      const userData = {
-        id: this.id,
-        password: this.password,
-        email: this.email,
-        name: this.name,
-      };
       try {
-        const response = await createUser(userData);
+        const response = await createUser(this.userData);
         console.log(response);
-        // $route();
+        // this.$router();
       } catch ({ response }) {
         console.log(response);
         this.push.pushYn = true;
-        this.push.pushText = response.data.message;
+        this.push.message = response.data.message;
       }
+    },
+    validUserId() {
+      this.$store.dispatch('VALIDID', this.userData.id);
     },
     goToLogin() {
       this.$emit('changeForm');
+    },
+  },
+  watch: {
+    userData: {
+      deep: true,
+      id: function() {
+        console.log(1);
+        // this.validUserId();
+      },
     },
   },
 };
@@ -127,6 +156,35 @@ img {
 }
 .container .submit_items .submit_item {
   height: 2.3rem;
+}
+.container .text {
+  text-align: center;
+  font-size: 0.8rem;
+  margin-top: 1rem;
+}
+.container .external_login_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 10rem;
+  margin-top: 1rem;
+}
+.container .external_login_container .external_item {
+  background: #fff;
+  color: rgba(0, 0, 0, 0.54);
+  box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px 0;
+  border-color: transparent;
+  border-radius: 3px;
+  width: 99%;
+  height: 39px;
+  padding-top: 0;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container .external_login_container .external_item:hover {
+  background-color: #f9fafc;
 }
 .container .sign_up {
   margin-top: 1.2rem;

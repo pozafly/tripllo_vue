@@ -6,4 +6,8 @@ function loginUser(userData) {
   return instance.post('login', userData);
 }
 
-export { loginUser };
+function validId(userId) {
+  return instance.get(`valid/${userId}`);
+}
+
+export { loginUser, validId };

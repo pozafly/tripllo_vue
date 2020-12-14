@@ -42,6 +42,14 @@ export default {
       this.formSwich = !this.formSwich;
     },
   },
+  created() {
+    const param = this.$router.history.current.params.id;
+    if (param === 'login') {
+      this.formSwich = false;
+    } else if (param === 'signUp') {
+      this.formSwich = true;
+    }
+  },
 };
 </script>
 
