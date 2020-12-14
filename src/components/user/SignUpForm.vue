@@ -14,6 +14,7 @@
             type="text"
             placeholder="Enter id"
             v-model="userData.id"
+            ref="submitBtn"
           />
           <input
             class="submit_item"
@@ -25,7 +26,7 @@
             class="submit_item"
             type="text"
             placeholder="Enter password again"
-            v-model="userData.againPassword"
+            v-model="againPassword"
           />
           <input
             class="submit_item"
@@ -39,7 +40,7 @@
             placeholder="Enter name"
             v-model="userData.name"
           />
-          <button class="submit_item btn" type="submit">
+          <button class="submit_item btn" type="submit" :disabled="disabled">
             <b>Sign Up</b>
           </button>
         </div>
@@ -67,48 +68,109 @@
 </template>
 
 <script>
+import _ from 'lodash';
+import { validateId, validatePw, validateEmail } from '@/utils/validation';
+
 export default {
   data() {
     return {
       userData: {
         id: '',
         password: '',
-        againPassword: '',
         email: '',
         name: '',
       },
+      againPassword: '',
       push: {
         pushYn: false,
         message: '',
       },
+      disabled: true,
     };
+  },
+  watch: {
+    'userData.id': _.debounce(function(e) {
+      this.validUserId(e);
+    }, 750),
+    'userData.password': _.debounce(function(e) {
+      this.validatePw(e);
+    }, 750),
+    againPassword: _.debounce(function(e) {
+      this.validateAgainPw(e);
+    }, 750),
+    'userData.email': _.debounce(function(e) {
+      this.validateEmail(e);
+    }, 750),
   },
   methods: {
     async submitForm() {
+      if (
+        !this.userData.id ||
+        !this.userData.password ||
+        !this.userData.email ||
+        !this.userData.name ||
+        !this.againPassword
+      ) {
+        this.disabled = false;
+      } else {
+        this.pushInsert('현재 입력하지 않은 빈 칸이 있습니다.');
+      }
       try {
         const response = await createUser(this.userData);
         console.log(response);
         // this.$router();
       } catch ({ response }) {
         console.log(response);
-        this.push.pushYn = true;
-        this.push.message = response.data.message;
+        this.pushInsert(response.data.message);
       }
     },
-    validUserId() {
-      this.$store.dispatch('VALIDID', this.userData.id);
+    async validUserId(id) {
+      // lodash logic
+      if (!validateId(id)) {
+        this.pushInsert(
+          '아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.',
+        );
+      } else {
+        try {
+          console.log(id);
+          await this.$store.dispatch('VALIDID', id);
+          this.push.pushYn = false;
+          this.valid = false;
+        } catch ({ response }) {
+          this.pushInsert(response.data.message);
+        }
+      }
+    },
+    validatePw(pw) {
+      let pwValid = validatePw(pw);
+      if (!pwValid[0]) {
+        this.pushInsert(pwValid[1]);
+      } else {
+        this.push.pushYn = false;
+      }
+    },
+    validateAgainPw(pw) {
+      const realPw = this.userData.password;
+      const againPw = this.againPassword;
+      if (realPw !== againPw) {
+        this.pushInsert('다시 입력한 비밀번호가 같지 않습니다.');
+      } else {
+        this.push.pushYn = false;
+      }
+    },
+    validateEmail(email) {
+      if (!validateEmail(email)) {
+        this.pushInsert('이메일 유형에 맞지 않습니다.');
+      } else {
+        this.push.pushYn = false;
+      }
+    },
+    pushInsert(message) {
+      this.push.pushYn = true;
+      this.push.message = message;
     },
     goToLogin() {
       this.$emit('changeForm');
-    },
-  },
-  watch: {
-    userData: {
-      deep: true,
-      id: function() {
-        console.log(1);
-        // this.validUserId();
-      },
     },
   },
 };
@@ -157,6 +219,10 @@ img {
 .container .submit_items .submit_item {
   height: 2.3rem;
 }
+.container .submit_items .submit_item:disabled {
+  background: #ccc;
+  cursor: default;
+}
 .container .text {
   text-align: center;
   font-size: 0.8rem;
@@ -203,15 +269,17 @@ img {
   display: flex;
   height: 2rem;
   padding-bottom: 1.2rem;
+  height: 4rem;
 }
 .push_box {
   display: flex;
   flex-direction: column;
-  padding: 0 16px;
+  padding: 0 10px;
   border-radius: 4px;
   background-color: #eb5a46;
   color: #fff;
   font-size: 0.875rem;
   justify-content: center;
+  height: 2.5rem;
 }
 </style>

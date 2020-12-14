@@ -6,8 +6,6 @@ export function setInterceptors(instance) {
   // request
   instance.interceptors.request.use(
     function(config) {
-      console.log('interceptors다.');
-      console.log(config);
       return config;
     },
     function(error) {

@@ -7,7 +7,7 @@ function loginUser(userData) {
 }
 
 function validId(userId) {
-  return instance.get(`valid/${userId}`);
+  return instance.get(`user/valid/${userId}`);
 }
 
 export { loginUser, validId };

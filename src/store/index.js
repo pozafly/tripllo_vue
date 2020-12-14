@@ -25,8 +25,8 @@ export default new Vuex.Store({
       commit('setToken', data.data.token);
       commit('setUsername', data.data.userName);
     },
-    VALIDID({ commit }, userId) {
-      const { data } = validId(userId);
+    async VALIDID({ commit }, userId) {
+      const { data } = await validId(userId);
       console.log(data);
     },
   },
