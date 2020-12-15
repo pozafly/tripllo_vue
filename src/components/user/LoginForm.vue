@@ -65,7 +65,7 @@ export default {
       try {
         await this.$store.dispatch('LOGIN', this.userData);
         console.log(this.$store.state);
-        // this.$router.push('/main');
+        this.$router.push('/main');
       } catch ({ response }) {
         this.push.pushYn = true;
         this.push.message = response.data.message;
