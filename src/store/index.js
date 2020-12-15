@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { loginUser, validId } from '@/api/auth.js';
+import { loginUser, validId, signUp } from '@/api/auth.js';
 
 Vue.use(Vuex);
 
@@ -27,6 +27,10 @@ export default new Vuex.Store({
     },
     async VALIDID({ commit }, userId) {
       const { data } = await validId(userId);
+      console.log(data);
+    },
+    async SIGNUP({ commit }, userData) {
+      const { data } = await signUp(userData);
       console.log(data);
     },
   },

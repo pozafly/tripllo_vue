@@ -10,4 +10,8 @@ function validId(userId) {
   return instance.get(`user/valid/${userId}`);
 }
 
-export { loginUser, validId };
+function signUp(userData) {
+  return instance.post('user', userData);
+}
+
+export { loginUser, validId, signUp };

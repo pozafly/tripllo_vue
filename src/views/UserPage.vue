@@ -10,7 +10,7 @@
       </template>
 
       <template v-else>
-        <SignUpForm @changeForm="changeForm" />
+        <SignupForm @changeForm="changeForm" />
       </template>
     </main>
     <aside>
@@ -25,7 +25,7 @@
 
 <script>
 import LoginForm from '@/components/user/LoginForm.vue';
-import SignUpForm from '@/components/user/SignUpForm.vue';
+import SignupForm from '@/components/user/SignupForm';
 
 export default {
   data() {
@@ -35,7 +35,7 @@ export default {
   },
   components: {
     LoginForm,
-    SignUpForm,
+    SignupForm,
   },
   methods: {
     changeForm() {
@@ -46,7 +46,7 @@ export default {
     const param = this.$router.history.current.params.id;
     if (param === 'login') {
       this.formSwich = false;
-    } else if (param === 'signUp') {
+    } else if (param === 'signup') {
       this.formSwich = true;
     }
   },
@@ -61,7 +61,7 @@ header {
   display: flex;
   justify-content: center;
   font-size: 2rem;
-  padding: 3rem;
+  margin: 3rem;
   align-items: center;
 }
 header .fas.fa-suitcase {

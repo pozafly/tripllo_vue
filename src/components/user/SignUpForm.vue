@@ -40,25 +40,27 @@
             placeholder="Enter name"
             v-model="userData.name"
           />
-          <button class="submit_item btn" type="submit" :disabled="disabled">
+          <button class="submit_item btn" type="submit" :disabled="btnDisabled">
             <b>Sign Up</b>
           </button>
         </div>
       </form>
-      <div class="text">OR</div>
-      <div class="external_login_container">
-        <button class="external_item">
-          <img src="@/assets/user/logo/google.png" />
-          <b> Continue with Google</b>
-        </button>
-        <button class="external_item">
-          <img src="@/assets/user/logo/facebook.png" />
-          <b> Continue with FaceBook</b>
-        </button>
-        <button class="external_item">
-          <img src="@/assets/user/logo/kakao.png" />
-          <b> Continue with KakaoTalk</b>
-        </button>
+      <div class="another_form_container" v-if="anotherFormYn">
+        <div class="text">OR</div>
+        <div class="external_login_container">
+          <button class="external_item">
+            <img src="@/assets/user/logo/google.png" />
+            <b> Continue with Google</b>
+          </button>
+          <button class="external_item">
+            <img src="@/assets/user/logo/facebook.png" />
+            <b> Continue with FaceBook</b>
+          </button>
+          <button class="external_item">
+            <img src="@/assets/user/logo/kakao.png" />
+            <b> Continue with KakaoTalk</b>
+          </button>
+        </div>
       </div>
       <div class="sign_up">
         <span @click="goToLogin" class="go_to_login">Go to Login</span>
@@ -85,7 +87,15 @@ export default {
         pushYn: false,
         message: '',
       },
-      disabled: true,
+      btnDisabled: true,
+      anotherFormYn: true,
+      formValid: {
+        id: false,
+        password: false,
+        againPassword: false,
+        email: false,
+        name: false,
+      },
     };
   },
   watch: {
@@ -101,24 +111,35 @@ export default {
     'userData.email': _.debounce(function(e) {
       this.validateEmail(e);
     }, 750),
+    'userData.name': _.debounce(function(e) {
+      this.validName(e);
+    }),
+    formValid: {
+      handler: function(val, oldVal) {
+        !val.id &&
+        !val.password &&
+        !val.againPassword &&
+        !val.email &&
+        !val.name
+          ? (this.anotherFormYn = true)
+          : (this.anotherFormYn = false);
+
+        val.id && val.password && val.againPassword && val.email && val.name
+          ? (this.btnDisabled = false)
+          : (this.btnDisabled = true);
+      },
+      deep: true,
+    },
   },
   methods: {
     async submitForm() {
-      if (
-        !this.userData.id ||
-        !this.userData.password ||
-        !this.userData.email ||
-        !this.userData.name ||
-        !this.againPassword
-      ) {
-        this.disabled = false;
-      } else {
-        this.pushInsert('현재 입력하지 않은 빈 칸이 있습니다.');
-      }
       try {
-        const response = await createUser(this.userData);
-        console.log(response);
-        // this.$router();
+        await this.$store.dispatch('SIGNUP', this.userData);
+        await this.$store.dispatch('LOGIN', {
+          id: this.userData.id,
+          password: this.userData.password,
+        });
+        this.$router.push('/main');
       } catch ({ response }) {
         console.log(response);
         this.pushInsert(response.data.message);
@@ -130,6 +151,7 @@ export default {
         this.pushInsert(
           '아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.',
         );
+        this.formValid.id = false;
       } else {
         try {
           console.log(id);
@@ -139,14 +161,17 @@ export default {
         } catch ({ response }) {
           this.pushInsert(response.data.message);
         }
+        this.formValid.id = true;
       }
     },
     validatePw(pw) {
       let pwValid = validatePw(pw);
       if (!pwValid[0]) {
         this.pushInsert(pwValid[1]);
+        this.formValid.password = false;
       } else {
         this.push.pushYn = false;
+        this.formValid.password = true;
       }
     },
     validateAgainPw(pw) {
@@ -154,16 +179,25 @@ export default {
       const againPw = this.againPassword;
       if (realPw !== againPw) {
         this.pushInsert('다시 입력한 비밀번호가 같지 않습니다.');
+        this.formValid.againPassword = false;
       } else {
         this.push.pushYn = false;
+        this.formValid.againPassword = true;
       }
     },
     validateEmail(email) {
       if (!validateEmail(email)) {
         this.pushInsert('이메일 유형에 맞지 않습니다.');
+        this.formValid.email = false;
       } else {
         this.push.pushYn = false;
+        this.formValid.email = true;
       }
+    },
+    validName(name) {
+      name !== ''
+        ? (this.formValid.name = true)
+        : (this.formValid.name = false);
     },
     pushInsert(message) {
       this.push.pushYn = true;

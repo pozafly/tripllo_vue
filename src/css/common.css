@@ -1,10 +1,11 @@
 html {
   height: 100%;
+  overFlow : scroll;
 }
 body {
-  justify-content: center;
+  /* justify-content: center; */
   background: #f9fafc;
-  position: relative;
+  /* position: relative; */
   margin: 0;
   height: 100%;
 }
