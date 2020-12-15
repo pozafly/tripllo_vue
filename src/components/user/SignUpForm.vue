@@ -97,11 +97,7 @@ export default {
           ? (this.anotherFormYn = true)
           : (this.anotherFormYn = false);
 
-        e.id !== '' &&
-        e.password !== '' &&
-        e.againPassword !== '' &&
-        e.email !== '' &&
-        e.name !== ''
+        e.id !== '' && e.password !== '' && e.email !== '' && e.name !== ''
           ? (this.btnDisabled = false)
           : (this.btnDisabled = true);
       },

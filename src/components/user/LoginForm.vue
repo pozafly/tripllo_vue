@@ -31,11 +31,11 @@
         <img src="@/assets/user/logo/google.png" />
         <b> Continue with Google</b>
       </button>
-      <button class="external_item">
+      <button class="external_item" @click="facebookLogin">
         <img src="@/assets/user/logo/facebook.png" />
         <b> Continue with FaceBook</b>
       </button>
-      <button class="external_item">
+      <button class="external_item" @click="kakaoLogin">
         <img src="@/assets/user/logo/kakao.png" />
         <b> Continue with KakaoTalk</b>
       </button>
@@ -47,6 +47,9 @@
 </template>
 
 <script>
+import Facebook from '@/utils/socialLogin/Facebook';
+import Kakao from '@/utils/socialLogin/Kakao';
+
 export default {
   data() {
     return {
@@ -74,6 +77,21 @@ export default {
     goToSignUp() {
       this.$emit('changeForm');
     },
+    facebookLogin() {
+      if (localStorage.getItem('JWT_token'))
+        return alert('이미 로그인 되어 있습니다.');
+      Facebook.login();
+    },
+    kakaoLogin() {
+      console.log('카카오 ㅇ로그인');
+      if (localStorage.getItem('JWT_token'))
+        return alert('이미 로그인 되어 있습니다.');
+      Kakao.login();
+    },
+  },
+  created() {
+    // if (!window.FB) Facebook.init();
+    if (!window.Kakao) Kakao.init();
   },
 };
 </script>
