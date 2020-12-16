@@ -19,11 +19,23 @@ function setUserData(req) {
 }
 
 async function socialLogin(req) {
-  console.log('index.js의 req를 보자');
   console.log(req);
-  const userData = setUserData(req);
-  setVuex(userData);
-  router.push('/main');
+  console.log('로그인 시작');
+  try {
+    const { data } = await store.dispatch('VALIDID', req.id);
+    if (data.status === 'OK') {
+      console.log('1');
+      const confirmYn = confirm(
+        '아직 가입되지 않은 회원입니다. \n회원가입 화면으로 이동하시겠습니까?',
+      );
+      if (confirmYn) router.push('/user/signup');
+    }
+  } catch (error) {
+    console.log(error);
+    const userData = setUserData(req);
+    setVuex(userData);
+    router.push('/main');
+  }
 }
 
 async function socialSignup(req) {
@@ -32,20 +44,15 @@ async function socialSignup(req) {
     const userData = setUserData(req);
     await store.dispatch('SIGNUP', userData);
     setVuex(userData);
-  } catch ({ response }) {
-    console.log(response.data.message);
-    const confirm = confirm(
-      '이미 가입된 카카오톡 회원입니다. \n카카오톡으로 로그인 하기를 눌러주세요.',
+    alert('회원가입 완료! 메인 페이지로 이동합니다.');
+    router.push('/main');
+  } catch (error) {
+    console.log(error);
+    const confirmYn = confirm(
+      '이미 가입된 소셜 회원입니다. \n로그인 화면으로 이동하시겠습니까?',
     );
-    if (confirm) router.push('/user/login');
+    if (confirmYn) router.push('/user/login');
   }
 }
 
 export { socialLogin, socialSignup };
-
-// email: 'paina103@daum.net';
-// id: 1563754176;
-// kakaoAccessToken: '_k_XPiuccrre-5L-9Tg4_D4o7oNE6DLG-TQ0kQorDSAAAAF2aQgJbw';
-// name: '선태황';
-// profileIMG: 'http://k.kakaocdn.net/dn/5vqfh/btqNMhfyibS/uKqYwFMOII66Tyaeumgbi0/img_640x640.jpg';
-// source: 'k';
