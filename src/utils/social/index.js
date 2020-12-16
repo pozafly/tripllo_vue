@@ -1,12 +1,15 @@
 import store from '@/store';
 import router from '@/routes/index';
-import { saveAuthToCookie, saveUserToCookie } from '@/utils/cookies';
+import {
+  saveAuthToLocalStorage,
+  saveUserToLocalStorage,
+} from '@/utils/localStorage';
 
-function setCookie(userData) {
+function setLocalStorage(userData) {
   store.commit('setToken', userData.kakaoAccessToken);
   store.commit('setUsername', userData.name);
-  saveAuthToCookie(userData.kakaoAccessToken);
-  saveUserToCookie(userData.name);
+  saveAuthToLocalStorage(userData.kakaoAccessToken);
+  saveUserToLocalStorage(userData.name);
 }
 
 function setUserData(req) {
@@ -25,7 +28,8 @@ async function socialLogin(req) {
   if (req.source === 'k') {
     // 카카오일 경우
     const userData = setUserData(req);
-    setCookie(userData);
+    setLocalStorage(userData);
+    router.push('/main');
   } else if (req.source === 'f') {
     // 페이스북일 경우
   } else if (req.source === 'g') {
@@ -40,7 +44,7 @@ async function socialSignup(req) {
       await store.dispatch('VALIDID', req.id);
       const userData = setUserData(req);
       await store.dispatch('SIGNUP', userData);
-      setCookie(userData);
+      setLocalStorage(userData);
     } catch ({ response }) {
       console.log(response.data.message);
       const confirm = confirm(

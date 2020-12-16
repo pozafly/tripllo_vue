@@ -1,7 +1,10 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { loginUser, validId, signup } from '@/api/auth.js';
-import { saveAuthToCookie, saveUserToCookie } from '@/utils/cookies';
+import {
+  saveAuthToLocalStorage,
+  saveUserToLocalStorage,
+} from '@/utils/localStorage';
 
 Vue.use(Vuex);
 
@@ -31,8 +34,8 @@ export default new Vuex.Store({
       console.log(data);
       commit('setToken', data.data.token);
       commit('setUsername', data.data.userName);
-      saveAuthToCookie(data.data.token);
-      saveUserToCookie(data.data.userName);
+      saveAuthToLocalStorage(data.data.token);
+      saveUserToLocalStorage(data.data.userName);
     },
     async VALIDID({ commit }, userId) {
       return await validId(userId);

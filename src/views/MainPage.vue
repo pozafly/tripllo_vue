@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { deleteCookie } from '@/utils/cookies';
+import { deleteLocalStorage } from '@/utils/localStorage';
 
 export default {
   created() {
@@ -25,8 +25,8 @@ export default {
     logoutUser() {
       this.$store.commit('clearUsername');
       this.$store.commit('clearToken');
-      deleteCookie('user_token');
-      deleteCookie('user_username');
+      deleteLocalStorage('user_token');
+      deleteLocalStorage('user_username');
       this.$router.push('/user/login');
     },
   },
