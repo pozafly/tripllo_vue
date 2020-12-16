@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import MainPage from '@/views/MainPage.vue';
 import Footer from '@/components/common/Footer.vue';
 
 export default {

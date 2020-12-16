@@ -19,12 +19,9 @@ function setUserData(req) {
 }
 
 async function socialLogin(req) {
-  console.log(req);
-  console.log('로그인 시작');
   try {
     const { data } = await store.dispatch('VALIDID', req.id);
     if (data.status === 'OK') {
-      console.log('1');
       const confirmYn = confirm(
         '아직 가입되지 않은 회원입니다. \n회원가입 화면으로 이동하시겠습니까?',
       );

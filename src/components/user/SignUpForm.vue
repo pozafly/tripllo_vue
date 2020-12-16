@@ -78,14 +78,8 @@
 <script>
 import _ from 'lodash';
 import { validateId, validatePw, validateEmail } from '@/utils/validation';
-import Kakao from '@/utils/social/Kakao';
-import GoogleLogin from 'vue-google-login';
-import Google from '@/utils/social/Google';
 
 export default {
-  components: {
-    GoogleLogin,
-  },
   data() {
     return {
       userData: {
@@ -193,10 +187,10 @@ export default {
     googleSuccess(googleUser) {
       if (localStorage.getItem('JWT_token'))
         return alert('이미 로그인 되어 있습니다.');
-      Google.signup(googleUser);
+      this.$Google.signup(googleUser);
     },
     kakaoSignup() {
-      Kakao.signup();
+      this.$Kakao.signup();
     },
   },
 };

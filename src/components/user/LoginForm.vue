@@ -54,14 +54,8 @@
 
 <script>
 import Facebook from '@/utils/social/Facebook';
-import Kakao from '@/utils/social/Kakao';
-import GoogleLogin from 'vue-google-login';
-import Google from '@/utils/social/Google';
 
 export default {
-  components: {
-    GoogleLogin,
-  },
   data() {
     return {
       userData: {
@@ -91,18 +85,18 @@ export default {
     googleSuccess(googleUser) {
       if (localStorage.getItem('JWT_token'))
         return alert('이미 로그인 되어 있습니다.');
-      Google.login(googleUser);
+      this.$Google.login(googleUser);
     },
     facebookLogin() {
       if (localStorage.getItem('JWT_token'))
         return alert('이미 로그인 되어 있습니다.');
-      Facebook.login();
+      this.$Facebook.login();
     },
     kakaoLogin() {
       console.log('카카오 ㅇ로그인');
       if (localStorage.getItem('JWT_token'))
         return alert('이미 로그인 되어 있습니다.');
-      Kakao.login();
+      this.$Kakao.login();
     },
   },
 };
