@@ -175,7 +175,7 @@ export default {
       this.push.message = message;
     },
     goToLogin() {
-      this.$emit('changeForm');
+      this.$router.push('/user/login');
     },
   },
 };

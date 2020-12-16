@@ -19,13 +19,10 @@ function socialLogin(req) {
 }
 
 async function process(userData) {
-  console.log('process 접근');
-  const { data } = await store.dispatch('SIGNUP', userData);
-  console.log('process');
-  console.log(data);
+  await store.dispatch('SIGNUP', userData);
+
   store.commit('setToken', userData.kakaoAccessToken);
   store.commit('setUsername', userData.name);
-  console.log('commit 잘했니?');
   console.log(store.state);
 }
 

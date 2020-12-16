@@ -5,13 +5,7 @@
       <span class="title">Tripllo</span>
     </header>
     <main>
-      <template v-if="!formSwich">
-        <LoginForm @changeForm="changeForm" />
-      </template>
-
-      <template v-else>
-        <SignupForm @changeForm="changeForm" />
-      </template>
+      <router-view></router-view>
     </main>
     <aside>
       <a href="">Privacy Policy</a>
@@ -24,31 +18,16 @@
 </template>
 
 <script>
-import LoginForm from '@/components/user/LoginForm.vue';
-import SignupForm from '@/components/user/SignupForm';
-
 export default {
   data() {
     return {
       formSwich: false,
     };
   },
-  components: {
-    LoginForm,
-    SignupForm,
-  },
   methods: {
     changeForm() {
       this.formSwich = !this.formSwich;
     },
-  },
-  created() {
-    const param = this.$router.history.current.params.id;
-    if (param === 'login') {
-      this.formSwich = false;
-    } else if (param === 'signup') {
-      this.formSwich = true;
-    }
   },
 };
 </script>

@@ -75,7 +75,7 @@ export default {
       }
     },
     goToSignUp() {
-      this.$emit('changeForm');
+      this.$router.push('/user/signup');
     },
     facebookLogin() {
       if (localStorage.getItem('JWT_token'))
