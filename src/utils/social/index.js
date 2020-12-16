@@ -2,7 +2,7 @@ import store from '@/store';
 import router from '@/routes/index';
 
 function setVuex(userData) {
-  store.commit('setToken', userData.kakaoAccessToken);
+  store.commit('setToken', userData.accessToken);
   store.commit('setUsername', userData.name);
 }
 
@@ -12,44 +12,32 @@ function setUserData(req) {
     name: req.name,
     email: req.email,
     picture: req.profileImg,
-    kakaoAccessToken: req.kakaoAccessToken,
-    socialYn: 'Y',
+    accessToken: req.accessToken,
+    socialYn: req.source,
   };
   return userData;
 }
 
 async function socialLogin(req) {
-  if (req.source === 'k') {
-    // 카카오일 경우
-    const userData = setUserData(req);
-    setVuex(userData);
-    router.push('/main');
-  } else if (req.source === 'f') {
-    // 페이스북일 경우
-  } else if (req.source === 'g') {
-    // 구글일 경우
-  }
+  console.log('index.js의 req를 보자');
+  console.log(req);
+  const userData = setUserData(req);
+  setVuex(userData);
+  router.push('/main');
 }
 
 async function socialSignup(req) {
-  if (req.source === 'k') {
-    // 카카오일 경우
-    try {
-      await store.dispatch('VALIDID', req.id);
-      const userData = setUserData(req);
-      await store.dispatch('SIGNUP', userData);
-      setVuex(userData);
-    } catch ({ response }) {
-      console.log(response.data.message);
-      const confirm = confirm(
-        '이미 가입된 카카오톡 회원입니다. \n카카오톡으로 로그인 하기를 눌러주세요.',
-      );
-      if (confirm) router.push('/user/login');
-    }
-  } else if (req.source === 'f') {
-    // 페이스북일 경우
-  } else if (req.source === 'g') {
-    // 구글일 경우
+  try {
+    await store.dispatch('VALIDID', req.id);
+    const userData = setUserData(req);
+    await store.dispatch('SIGNUP', userData);
+    setVuex(userData);
+  } catch ({ response }) {
+    console.log(response.data.message);
+    const confirm = confirm(
+      '이미 가입된 카카오톡 회원입니다. \n카카오톡으로 로그인 하기를 눌러주세요.',
+    );
+    if (confirm) router.push('/user/login');
   }
 }
 

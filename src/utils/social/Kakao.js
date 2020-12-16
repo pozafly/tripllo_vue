@@ -13,15 +13,15 @@ const Kakao = {
       success: async res => {
         console.log(res);
         const kakao_account = res.kakao_account;
-        const req_body = {
+        const req = {
           id: res.id,
           name: kakao_account.profile.nickname,
           email: kakao_account.email,
-          kakaoAccessToken: authObj.access_token,
+          accessToken: authObj.access_token,
           profileImg: kakao_account.profile.profile_image_url,
           source: 'k',
         };
-        socialLogin(req_body);
+        socialLogin(req);
       },
       fail: error => {
         console.log(error);
@@ -36,15 +36,15 @@ const Kakao = {
       success: async res => {
         console.log(res);
         const kakao_account = res.kakao_account;
-        const req_body = {
+        const req = {
           id: res.id,
           name: kakao_account.profile.nickname,
           email: kakao_account.email,
-          kakaoAccessToken: authObj.access_token,
+          accessToken: authObj.access_token,
           profileImg: kakao_account.profile.profile_image_url,
           source: 'k',
         };
-        socialSignup(req_body);
+        socialSignup(req);
       },
       fail: error => {
         console.log(error);

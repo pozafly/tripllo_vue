@@ -27,10 +27,14 @@
       <div class="text">OR</div>
     </form>
     <div class="external_login_container">
-      <button class="external_item">
+      <GoogleLogin
+        class="external_item"
+        :params="googleParams"
+        :onSuccess="googleSuccess"
+      >
         <img src="@/assets/user/logo/google.png" />
         <b> Continue with Google</b>
-      </button>
+      </GoogleLogin>
       <button class="external_item" @click="facebookLogin">
         <img src="@/assets/user/logo/facebook.png" />
         <b> Continue with FaceBook</b>
@@ -51,8 +55,13 @@
 <script>
 import Facebook from '@/utils/social/Facebook';
 import Kakao from '@/utils/social/Kakao';
+import GoogleLogin from 'vue-google-login';
+import Google from '@/utils/social/Google';
 
 export default {
+  components: {
+    GoogleLogin,
+  },
   data() {
     return {
       userData: {
@@ -62,6 +71,9 @@ export default {
       push: {
         pushYn: false,
         message: '',
+      },
+      googleParams: {
+        client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID,
       },
     };
   },
@@ -75,6 +87,11 @@ export default {
         this.push.pushYn = true;
         this.push.message = response.data.message;
       }
+    },
+    googleSuccess(googleUser) {
+      if (localStorage.getItem('JWT_token'))
+        return alert('이미 로그인 되어 있습니다.');
+      Google.login(googleUser);
     },
     facebookLogin() {
       if (localStorage.getItem('JWT_token'))
