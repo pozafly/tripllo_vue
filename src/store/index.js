@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { loginUser, validId, signUp } from '@/api/auth.js';
+import { loginUser, validId, signup } from '@/api/auth.js';
 import { saveAuthToCookie, saveUserToCookie } from '@/utils/cookies';
 
 Vue.use(Vuex);
@@ -18,6 +18,12 @@ export default new Vuex.Store({
     setUsername(state, username) {
       state.username = username;
     },
+    clearUsername(state) {
+      state.username = '';
+    },
+    clearToken(state) {
+      state.token = '';
+    },
   },
   actions: {
     async LOGIN({ commit }, userData) {
@@ -29,11 +35,10 @@ export default new Vuex.Store({
       saveUserToCookie(data.data.userName);
     },
     async VALIDID({ commit }, userId) {
-      const { data } = await validId(userId);
-      console.log(data);
+      return await validId(userId);
     },
     async SIGNUP({ commit }, userData) {
-      await signUp(userData);
+      return await signup(userData);
     },
   },
 });

@@ -141,7 +141,6 @@ export default {
           console.log(id);
           await this.$store.dispatch('VALIDID', id);
           this.push.pushYn = false;
-          this.valid = false;
         } catch ({ response }) {
           this.pushInsert(response.data.message);
         }

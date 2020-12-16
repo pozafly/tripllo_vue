@@ -1,6 +1,8 @@
+import { socialLogin } from '@/utils/socialLogin/index';
+
 const Kakao = {
   init() {
-    console.log('kakao init');
+    console.log('kakao init!!');
     window.Kakao.init(process.env.VUE_APP_KAKAO_APP_KEY);
   },
 
@@ -15,32 +17,29 @@ const Kakao = {
           id: res.id,
           name: kakao_account.profile.nickname,
           email: kakao_account.email,
-          birthday: kakao_account.birthday,
           kakaoAccessToken: authObj.access_token,
-          profileIMG: kakao_account.profile.profile_image_url,
+          profileImg: kakao_account.profile.profile_image_url,
           source: 'k',
         };
-        social_login(req_body);
+        socialLogin(req_body);
       },
       fail: error => {
-        LoginFailure();
         console.log(error);
       },
     });
   },
 
   login() {
-    console.log(window.Kakao.Auth);
     window.Kakao.Auth.login({
-      scope: 'account_email, gender',
+      scope: 'profile, account_email',
       success: this.getMe,
-      fail: LogoutFailure,
+      fail: error => console.log(error),
     });
   },
 
   logout() {
     window.Kakao.Auth.logout(res => {
-      if (!res) return LogoutFailure();
+      if (!res) return console.log(error);
       social_logout();
     });
   },

@@ -89,9 +89,10 @@ export default {
       Kakao.login();
     },
   },
-  created() {
+  async created() {
     // if (!window.FB) Facebook.init();
-    if (!window.Kakao) Kakao.init();
+    if (!window.Kako) await Kakao.init();
+    console.log(window.Kakao);
   },
 };
 </script>
