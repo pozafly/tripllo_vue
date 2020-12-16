@@ -41,14 +41,16 @@
       </button>
     </div>
     <div class="sign_up">
-      <span @click="goToSignUp">Do you want to Sign up?</span>
+      <router-link to="/user/signup" class="go_to_signup">
+        Do you want to Sign up?
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import Facebook from '@/utils/socialLogin/Facebook';
-import Kakao from '@/utils/socialLogin/Kakao';
+import Facebook from '@/utils/social/Facebook';
+import Kakao from '@/utils/social/Kakao';
 
 export default {
   data() {
@@ -74,9 +76,6 @@ export default {
         this.push.message = response.data.message;
       }
     },
-    goToSignUp() {
-      this.$router.push('/user/signup');
-    },
     facebookLogin() {
       if (localStorage.getItem('JWT_token'))
         return alert('이미 로그인 되어 있습니다.');
@@ -88,11 +87,6 @@ export default {
         return alert('이미 로그인 되어 있습니다.');
       Kakao.login();
     },
-  },
-  async created() {
-    // if (!window.FB) Facebook.init();
-    if (!window.Kako) await Kakao.init();
-    console.log(window.Kakao);
   },
 };
 </script>

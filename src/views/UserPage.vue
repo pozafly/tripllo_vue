@@ -18,16 +18,13 @@
 </template>
 
 <script>
+import Kakao from '@/utils/social/Kakao';
+
 export default {
-  data() {
-    return {
-      formSwich: false,
-    };
-  },
-  methods: {
-    changeForm() {
-      this.formSwich = !this.formSwich;
-    },
+  async created() {
+    // if (!window.FB) Facebook.init();
+    console.log(window.Kakao);
+    if (!window.Kako) await Kakao.init();
   },
 };
 </script>

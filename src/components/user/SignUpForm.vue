@@ -56,14 +56,16 @@
             <img src="@/assets/user/logo/facebook.png" />
             <b> Continue with FaceBook</b>
           </button>
-          <button class="external_item">
+          <button class="external_item" @click="kakaoSignup">
             <img src="@/assets/user/logo/kakao.png" />
             <b> Continue with KakaoTalk</b>
           </button>
         </div>
       </div>
       <div class="sign_up">
-        <span @click="goToLogin" class="go_to_login">Go to Login</span>
+        <router-link to="/user/login" class="go_to_login">
+          Go to Login
+        </router-link>
       </div>
     </div>
   </main>
@@ -72,6 +74,8 @@
 <script>
 import _ from 'lodash';
 import { validateId, validatePw, validateEmail } from '@/utils/validation';
+import Kakao from '@/utils/social/Kakao';
+
 export default {
   data() {
     return {
@@ -174,8 +178,8 @@ export default {
       this.push.pushYn = true;
       this.push.message = message;
     },
-    goToLogin() {
-      this.$router.push('/user/login');
+    kakaoSignup() {
+      Kakao.signup();
     },
   },
 };
