@@ -185,8 +185,6 @@ export default {
       this.push.message = message;
     },
     googleSuccess(googleUser) {
-      if (localStorage.getItem('JWT_token'))
-        return alert('이미 로그인 되어 있습니다.');
       this.$Google.signup(googleUser);
     },
     async githubSignup() {
@@ -195,12 +193,6 @@ export default {
     kakaoSignup() {
       this.$Kakao.signup();
     },
-    // mounted() {
-    //   console.log(this.$route.query.code);
-    //   if (this.$route.query.code) {
-    //     this.$Github.signup(this.$route.query.code);
-    //   }
-    // },
   },
 };
 </script>
