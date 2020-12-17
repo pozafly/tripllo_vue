@@ -8,7 +8,7 @@ const Google = {
       id: googleUser.xt.du,
       email: googleUser.xt.du,
       profileImg: googleUser.xt.iK,
-      source: 'g',
+      source: 'Google',
     };
     socialLogin(req);
   },
@@ -20,7 +20,7 @@ const Google = {
       id: googleUser.xt.du,
       email: googleUser.xt.du,
       profileImg: googleUser.xt.iK,
-      source: 'g',
+      source: 'Google',
     };
     socialSignup(req);
   },

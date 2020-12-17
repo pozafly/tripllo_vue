@@ -13,7 +13,6 @@ export default new Vuex.Store({
     token: '',
     username: '',
   },
-  getters: {},
   mutations: {
     setToken(state, token) {
       saveAuthToLocalStorage(token);
@@ -38,6 +37,7 @@ export default new Vuex.Store({
       commit('setUsername', data.data.userName);
     },
     async VALIDID({ commit }, userId) {
+      console.log(userId);
       return await validId(userId);
     },
     async SIGNUP({ commit }, userData) {

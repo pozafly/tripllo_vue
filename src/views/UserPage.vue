@@ -18,13 +18,9 @@
 </template>
 
 <script>
-import Kakao from '@/utils/social/Kakao';
-
 export default {
-  async created() {
-    // if (!window.FB) Facebook.init();
-    console.log(window.Kakao);
-    if (!window.Kako) await Kakao.init();
+  created() {
+    this.$Kakao.init();
   },
 };
 </script>

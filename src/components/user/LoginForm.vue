@@ -35,10 +35,11 @@
         <img src="@/assets/user/logo/google.png" />
         <b> Continue with Google</b>
       </GoogleLogin>
-      <button class="external_item" @click="facebookLogin">
-        <img src="@/assets/user/logo/facebook.png" />
-        <b> Continue with FaceBook</b>
+      <button class="external_item" @click="githubLogin">
+        <img src="@/assets/user/logo/github.png" />
+        <b> Continue with Github</b>
       </button>
+      <div id="naverIdLogin"></div>
       <button class="external_item" @click="kakaoLogin">
         <img src="@/assets/user/logo/kakao.png" />
         <b> Continue with KakaoTalk</b>
@@ -53,8 +54,6 @@
 </template>
 
 <script>
-import Facebook from '@/utils/social/Facebook';
-
 export default {
   data() {
     return {
@@ -75,7 +74,6 @@ export default {
     async submitForm() {
       try {
         await this.$store.dispatch('LOGIN', this.userData);
-        console.log(this.$store.state);
         this.$router.push('/main');
       } catch ({ response }) {
         this.push.pushYn = true;
@@ -83,21 +81,22 @@ export default {
       }
     },
     googleSuccess(googleUser) {
-      if (localStorage.getItem('JWT_token'))
-        return alert('이미 로그인 되어 있습니다.');
+      // if (localStorage.getItem('user_token'))
+      //   return alert('이미 로그인 되어 있습니다.');
       this.$Google.login(googleUser);
     },
-    facebookLogin() {
-      if (localStorage.getItem('JWT_token'))
-        return alert('이미 로그인 되어 있습니다.');
-      this.$Facebook.login();
+    githubLogin: async function() {
+      window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.VUE_APP_GITHUB_CLIENT_ID}&redirect_uri=http://localhost:8080/user/login&scope=user`;
     },
     kakaoLogin() {
-      console.log('카카오 ㅇ로그인');
-      if (localStorage.getItem('JWT_token'))
-        return alert('이미 로그인 되어 있습니다.');
       this.$Kakao.login();
     },
+  },
+  mounted() {
+    console.log(this.$route.query.code);
+    if (this.$route.query.code) {
+      this.$Github.signup(this.$route.query.code);
+    }
   },
 };
 </script>

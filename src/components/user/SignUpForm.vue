@@ -56,9 +56,9 @@
             <img src="@/assets/user/logo/google.png" />
             <b> Continue with Google</b>
           </GoogleLogin>
-          <button class="external_item">
-            <img src="@/assets/user/logo/facebook.png" />
-            <b> Continue with FaceBook</b>
+          <button class="external_item" @click="githubSignup">
+            <img src="@/assets/user/logo/github.png" />
+            <b> Continue with Github</b>
           </button>
           <button class="external_item" @click="kakaoSignup">
             <img src="@/assets/user/logo/kakao.png" />
@@ -189,9 +189,18 @@ export default {
         return alert('이미 로그인 되어 있습니다.');
       this.$Google.signup(googleUser);
     },
+    async githubSignup() {
+      window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.VUE_APP_GITHUB_CLIENT_ID}&redirect_uri=http://localhost:8080/user/login&scope=user`;
+    },
     kakaoSignup() {
       this.$Kakao.signup();
     },
+    // mounted() {
+    //   console.log(this.$route.query.code);
+    //   if (this.$route.query.code) {
+    //     this.$Github.signup(this.$route.query.code);
+    //   }
+    // },
   },
 };
 </script>

@@ -15,12 +15,15 @@ function setUserData(req) {
     accessToken: req.accessToken,
     socialYn: req.source,
   };
+  console.log('userData');
+  console.log(userData);
   return userData;
 }
 
 async function socialLogin(req) {
   try {
     const { data } = await store.dispatch('VALIDID', req.id);
+    console.log(data);
     if (data.status === 'OK') {
       const confirmYn = confirm(
         '아직 가입되지 않은 회원입니다. \n회원가입 화면으로 이동하시겠습니까?',
@@ -45,10 +48,14 @@ async function socialSignup(req) {
     router.push('/main');
   } catch (error) {
     console.log(error);
-    const confirmYn = confirm(
-      '이미 가입된 소셜 회원입니다. \n로그인 화면으로 이동하시겠습니까?',
-    );
-    if (confirmYn) router.push('/user/login');
+    if (req.source === 'Github') {
+      router.push('/main');
+    } else {
+      const confirmYn = confirm(
+        '이미 가입된 소셜 회원입니다. \n로그인 화면으로 이동하시겠습니까?',
+      );
+      if (confirmYn) router.push('/user/login');
+    }
   }
 }
 

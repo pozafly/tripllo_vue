@@ -19,7 +19,7 @@ const Kakao = {
           email: kakao_account.email,
           accessToken: authObj.access_token,
           profileImg: kakao_account.profile.profile_image_url,
-          source: 'k',
+          source: 'Kakao',
         };
         socialLogin(req);
       },
@@ -42,7 +42,7 @@ const Kakao = {
           email: kakao_account.email,
           accessToken: authObj.access_token,
           profileImg: kakao_account.profile.profile_image_url,
-          source: 'k',
+          source: 'Kakao',
         };
         socialSignup(req);
       },
