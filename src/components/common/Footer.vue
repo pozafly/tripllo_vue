@@ -23,7 +23,4 @@ footer {
   justify-content: center;
   padding-top: 4rem;
 }
-.wrapper {
-  /* justify-content: center; */
-}
 </style>

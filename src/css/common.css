@@ -16,9 +16,6 @@ body {
   font-size: 1.4rem;
   display: flex;
 }
-.app-contents {
-  /* height: calc(100% - 64px - 102px); */
-}
 h1 {
 	text-align: center;
 	font-weight: 100;
