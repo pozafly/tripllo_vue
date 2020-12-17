@@ -20,12 +20,12 @@
           placeholder="Enter password"
           v-model="userData.password"
         />
-        <button class="submit_item btn" type="submit">
+        <button class="submit_item btn" type="submit" :disabled="btnDisabled">
           <b>Log in</b>
         </button>
       </div>
-      <div class="text">OR</div>
     </form>
+    <div class="text">OR</div>
     <div class="external_login_container">
       <GoogleLogin
         class="external_item"
@@ -58,17 +58,28 @@ export default {
   data() {
     return {
       userData: {
-        id: 'pain103',
-        password: '1234',
+        id: '',
+        password: '',
       },
       push: {
         pushYn: false,
         message: '',
       },
+      btnDisabled: true,
       googleParams: {
         client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID,
       },
     };
+  },
+  watch: {
+    userData: {
+      handler(e) {
+        e.id !== '' && e.password !== ''
+          ? (this.btnDisabled = false)
+          : (this.btnDisabled = true);
+      },
+      deep: true,
+    },
   },
   methods: {
     async submitForm() {
@@ -117,7 +128,6 @@ button {
 .btn:hover {
   background: #60bd4e;
 }
-
 .container {
   background: #fff;
   padding: 1rem;
@@ -140,6 +150,10 @@ button {
 }
 .container .submit_items .submit_item {
   height: 2.3rem;
+}
+.container .submit_items .submit_item:disabled {
+  background: #ccc;
+  cursor: default;
 }
 .container .text {
   text-align: center;
