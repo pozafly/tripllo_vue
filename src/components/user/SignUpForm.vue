@@ -18,13 +18,13 @@
           />
           <input
             class="submit_item"
-            type="text"
+            type="password"
             placeholder="Enter password"
             v-model="userData.password"
           />
           <input
             class="submit_item"
-            type="text"
+            type="password"
             placeholder="Enter password again"
             v-model="againPassword"
           />

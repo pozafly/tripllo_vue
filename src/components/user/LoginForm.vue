@@ -16,7 +16,7 @@
         />
         <input
           class="submit_item"
-          type="text"
+          type="password"
           placeholder="Enter password"
           v-model="userData.password"
         />

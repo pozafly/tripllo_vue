@@ -10,6 +10,7 @@
     <aside>
       <a href="">Privacy Policy</a>
     </aside>
+    <Footer></Footer>
     <div class="back">
       <img class="back item1" src="@/assets/user/back/1.png" alt="" />
       <img class="back item2" src="@/assets/user/back/2.png" alt="" />
@@ -18,7 +19,12 @@
 </template>
 
 <script>
+import Footer from '@/components/common/Footer.vue';
+
 export default {
+  components: {
+    Footer,
+  },
   created() {
     this.$Kakao.init();
   },
@@ -27,13 +33,21 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+/* * {
+  border: 1px solid black;
+} */
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 96%;
+}
 header {
   font-family: 'Pacifico', cursive;
   color: #0282ce;
   display: flex;
   justify-content: center;
   font-size: 2rem;
-  margin: 3rem;
+  margin: 2rem;
   align-items: center;
 }
 header .fas.fa-suitcase {
@@ -50,13 +64,9 @@ main {
   margin: 0 auto;
   position: relative;
 }
-.page {
-  display: flex;
-  flex-direction: column;
-}
 .page aside {
-  display: flex;
-  justify-content: center;
+  position: relative;
+  text-align: center;
   margin-top: 1.6rem;
   font-size: 0.9rem;
 }
@@ -71,5 +81,8 @@ main {
 }
 .back .item2 {
   right: 0;
+}
+footer {
+  text-align: center;
 }
 </style>

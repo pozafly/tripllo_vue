@@ -2,19 +2,19 @@
   border: 1px solid black;
 } */
 html {
-  /* height: 100%; */
+  height: 900px;
   overFlow : scroll;
 }
 body {
   background: #f9fafc;
   margin: 0;
+  padding: 0;
   height: 100%;
 }
-.app {
-	width: 100vh;
-	height: 1500px;
-  font-size: 1.4rem;
-  display: flex;
+#app {
+	width: 100%;
+  height: 100%;
+  position: relative;
 }
 h1 {
 	text-align: center;
