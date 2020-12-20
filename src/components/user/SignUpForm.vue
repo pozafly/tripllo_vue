@@ -218,6 +218,8 @@ img {
   padding-right: 0.3rem;
 }
 .container {
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0 19px;
   background: #fff;
   padding: 1rem;
   display: flex;

@@ -4,12 +4,14 @@
       <i class="fas fa-suitcase"></i>
       <span class="title">Tripllo</span>
     </header>
-    <main>
-      <router-view></router-view>
-    </main>
-    <aside>
-      <a href="">Privacy Policy</a>
-    </aside>
+    <div class="wrap">
+      <main>
+        <router-view></router-view>
+      </main>
+      <aside>
+        <a href="">Privacy Policy</a>
+      </aside>
+    </div>
     <Footer></Footer>
     <div class="back">
       <img class="back item1" src="@/assets/user/back/1.png" alt="" />
@@ -39,7 +41,7 @@ export default {
 .page {
   display: flex;
   flex-direction: column;
-  height: 96%;
+  height: 100%;
 }
 header {
   font-family: 'Pacifico', cursive;
@@ -54,14 +56,19 @@ header .fas.fa-suitcase {
   font-size: 3rem;
   padding-right: 0.3rem;
 }
+.wrap {
+  margin: 0 auto;
+  margin-top: -4rem;
+  padding-top: 4rem;
+  box-sizing: border-box;
+  height: 100%;
+}
 main {
-  border-radius: 3px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 0 10px;
   flex-direction: column;
   align-items: center;
   display: block;
   max-width: 585px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   position: relative;
 }
 .page aside {
@@ -81,8 +88,5 @@ main {
 }
 .back .item2 {
   right: 0;
-}
-footer {
-  text-align: center;
 }
 </style>
