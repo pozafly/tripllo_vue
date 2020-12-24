@@ -41,6 +41,8 @@ async function socialLogin(req) {
 async function socialSignup(req) {
   try {
     await store.dispatch('VALIDID', req.id);
+    console.log('req');
+    console.log(req);
     const userData = setUserData(req);
     await store.dispatch('SIGNUP', userData);
     setVuex(userData);

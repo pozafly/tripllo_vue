@@ -68,7 +68,6 @@ main {
   align-items: center;
   display: block;
   max-width: 585px;
-  /* margin: 0 auto; */
   position: relative;
 }
 .page aside {

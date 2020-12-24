@@ -16,15 +16,13 @@ const Github = {
 
   async getData(code) {
     const { data } = await axios({
-      method: 'post',
+      method: 'POST',
       url: `https://github.com/login/oauth/access_token?client_id=${process.env.VUE_APP_GITHUB_CLIENT_ID}&client_secret=${process.env.VUE_APP_GITHUB_CLIENT_SECRET}&code=${code}`,
       headers: {
         accept: 'application/json',
       },
     });
     const token = data.access_token;
-    console.log(data);
-
     const response = await axios.get('https://api.github.com/user', {
       headers: {
         Authorization: `token ${token}`,
