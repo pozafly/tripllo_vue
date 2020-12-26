@@ -26,7 +26,7 @@
       </div>
     </form>
     <div class="text">OR</div>
-    <div class="external_login_container">
+    <div class="external_login_container" v-if="anotherFormYn">
       <GoogleLogin
         class="external_item"
         :params="googleParams"
@@ -69,11 +69,16 @@ export default {
       googleParams: {
         client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID,
       },
+      anotherFormYn: true,
     };
   },
   watch: {
     userData: {
       handler(e) {
+        e.id === '' && e.password === ''
+          ? (this.anotherFormYn = true)
+          : (this.anotherFormYn = false);
+
         e.id !== '' && e.password !== ''
           ? (this.btnDisabled = false)
           : (this.btnDisabled = true);
@@ -92,19 +97,25 @@ export default {
       }
     },
     googleSuccess(googleUser) {
-      // if (localStorage.getItem('user_token'))
-      //   return alert('이미 로그인 되어 있습니다.');
+      alreadyLoginCheck();
       this.$Google.login(googleUser);
     },
     githubLogin: async function() {
+      alreadyLoginCheck();
       window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.VUE_APP_GITHUB_CLIENT_ID}&redirect_uri=http://localhost:8080/user/login&scope=user`;
     },
     kakaoLogin() {
+      alreadyLoginCheck();
       this.$Kakao.login();
+    },
+    alreadyLoginCheck() {
+      if (localStorage.getItem('token')) {
+        alert('이미 로그인 되어 있습니다.');
+        this.$router.push('/main');
+      }
     },
   },
   mounted() {
-    console.log(this.$route.query.code);
     if (this.$route.query.code) {
       this.$Github.signup(this.$route.query.code);
     }
@@ -196,7 +207,7 @@ img {
   border-top: 1px solid #e6e6e6;
   display: flex;
   justify-content: center;
-  font-size: 0.8rem;
+  font-size: 0.92rem;
   color: #0282ce;
 }
 .container .sign_up:hover {

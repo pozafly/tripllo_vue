@@ -2,7 +2,6 @@ import { socialLogin, socialSignup } from '@/utils/social/index';
 
 const Kakao = {
   init() {
-    console.log('kakao init!!');
     window.Kakao.init(process.env.VUE_APP_KAKAO_APP_KEY);
   },
 

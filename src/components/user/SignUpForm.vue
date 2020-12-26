@@ -68,7 +68,7 @@
       </div>
       <div class="sign_up">
         <router-link to="/user/login" class="go_to_login">
-          Go to Login
+          Already have an account? Log In
         </router-link>
       </div>
     </div>
@@ -281,7 +281,7 @@ img {
   border-top: 1px solid #e6e6e6;
   display: flex;
   justify-content: center;
-  font-size: 0.8rem;
+  font-size: 0.92rem;
   color: #0282ce;
 }
 .container .sign_up:hover {
