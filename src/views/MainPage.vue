@@ -1,13 +1,13 @@
 <template>
   <div>
     Main
-    <router-link to="/user/login" class="create-button">
+    <router-link to="/user/login">
       login
     </router-link>
-    <router-link to="/user/signup" class="create-button">
+    <router-link to="/user/signup">
       회원가입
     </router-link>
-    <a href="javascript:;" @click="logoutUser" class="logout-button">
+    <a href="javascript:;" @click="logoutUser">
       Logout
     </a>
   </div>

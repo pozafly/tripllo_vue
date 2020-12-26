@@ -1,8 +1,10 @@
 <template>
   <div class="page">
     <header>
-      <i class="fas fa-suitcase"></i>
-      <span class="title">Tripllo</span>
+      <ul class="header-wrap" @click="goMain">
+        <li><i class="fas fa-suitcase"></i></li>
+        <li><span class="title">Tripllo</span></li>
+      </ul>
     </header>
     <div class="main-wrap">
       <main>
@@ -13,14 +15,14 @@
       </aside>
     </div>
     <footer>
-      <div class="footer-wrap">
-        <i class="fas fa-suitcase"></i>
-        <span> Tripllo</span>
-        <span>
-          Coded and maintained with ❤️ by
-          <a href="https://github.com/pozafly" target="_sub">pozafly</a> © 2020
-        </span>
-      </div>
+      <i class="fas fa-suitcase footer-item"></i>
+      <span class="footer-item">
+        Tripllo Coded and maintained with ❤️ by
+        <a href="https://github.com/pozafly" target="_sub" class="footer-item">
+          pozafly
+        </a>
+        © 2020
+      </span>
     </footer>
     <div class="back">
       <img class="back item1" src="@/assets/user/back/1.png" alt="" />
@@ -31,6 +33,11 @@
 
 <script>
 export default {
+  methods: {
+    goMain() {
+      this.$router.push('/main');
+    },
+  },
   created() {
     this.$Kakao.init();
   },
@@ -39,6 +46,9 @@ export default {
 
 <style scoped lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+/* * {
+  border: 1px solid black;
+} */
 .page {
   display: flex;
   flex-direction: column;
@@ -49,17 +59,21 @@ export default {
     display: flex;
     justify-content: center;
     font-size: 2rem;
-    margin: 2rem;
     align-items: center;
-    .fas.fa-suitcase {
-      font-size: 3rem;
-      padding-right: 0.3rem;
+    .header-wrap {
+      padding: 0.1rem;
+      display: flex;
+      cursor: pointer;
+      .fas.fa-suitcase {
+        font-size: 3rem;
+        padding-right: 0.3rem;
+      }
     }
   }
   .main-wrap {
     margin: 0 auto;
-    margin-top: -4rem;
-    padding-top: 4rem;
+    margin-top: -6.1rem;
+    padding-top: 6.1rem;
     box-sizing: border-box;
     height: 100%;
     main {
@@ -77,9 +91,15 @@ export default {
     }
   }
   footer {
-    text-align: center;
-    .footer-wrap {
-      padding: 0.3rem;
+    padding: 0.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .fas.fa-suitcase.footer-item {
+      margin-right: 3px;
+    }
+    .footer-item {
+      margin-right: 3px;
     }
   }
   .back {
