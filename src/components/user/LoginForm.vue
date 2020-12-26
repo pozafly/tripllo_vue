@@ -1,32 +1,32 @@
 <template>
   <div class="container">
-    <div class="push_container" v-if="push.pushYn">
-      <div class="push_box">
+    <div class="push-container" v-if="push.pushYn">
+      <div class="push-box">
         <span>{{ push.message }}</span>
       </div>
     </div>
-    <span class="login_text"><b>Login to Tripllo</b></span>
+    <span class="login-text"><b>Login to Tripllo</b></span>
     <form @submit.prevent="submitForm">
-      <div class="submit_items">
+      <div class="submit-items">
         <input
-          class="submit_item"
+          class="submit-item"
           type="text"
           placeholder="Enter id"
           v-model="userData.id"
         />
         <input
-          class="submit_item"
+          class="submit-item"
           type="password"
           placeholder="Enter password"
           v-model="userData.password"
         />
-        <button class="submit_item btn" type="submit" :disabled="btnDisabled">
+        <button class="submit-item btn" type="submit" :disabled="btnDisabled">
           <b>Log in</b>
         </button>
       </div>
     </form>
     <div class="text">OR</div>
-    <div class="external_login_container" v-if="anotherFormYn">
+    <div class="external-login-container" v-if="anotherFormYn">
       <GoogleLogin
         class="external_item"
         :params="googleParams"
@@ -39,7 +39,6 @@
         <img src="@/assets/user/logo/github.png" />
         <b> Continue with Github</b>
       </button>
-      <div id="naverIdLogin"></div>
       <button class="external_item" @click="kakaoLogin">
         <img src="@/assets/user/logo/kakao.png" />
         <b> Continue with KakaoTalk</b>
@@ -129,22 +128,7 @@ export default {
 };
 </script>
 
-<style scoped>
-/* * {
-  border: 1px solid black;
-} */
-button {
-  border: 0;
-  border-radius: 3px;
-  box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px 0;
-}
-.btn {
-  background: #5aac44;
-  color: white;
-}
-.btn:hover {
-  background: #60bd4e;
-}
+<style scoped lang="scss">
 .container {
   border-radius: 3px;
   box-shadow: rgba(0, 0, 0, 0.1) 0 0 19px;
@@ -154,85 +138,87 @@ button {
   flex-direction: column;
   width: 23rem;
   padding: 2rem;
-}
-.container .login_text {
-  text-align: center;
-  font-size: 1.2rem;
-  margin-bottom: 1.2rem;
-  color: #5e6c84;
-}
-.container .submit_items {
-  display: flex;
-  flex-direction: column;
-  height: 11rem;
-  justify-content: space-around;
-}
-.container .submit_items .submit_item {
-  height: 2.3rem;
-}
-.container .submit_items .submit_item:disabled {
-  background: #ccc;
-  cursor: default;
-}
-.container .text {
-  text-align: center;
-  font-size: 0.8rem;
-  margin-top: 1rem;
-}
-img {
-  width: 1.3rem;
-  padding-right: 0.3rem;
-}
-.container .external_login_container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 10rem;
-  margin-top: 1rem;
-}
-.container .external_login_container .external_item {
-  background: #fff;
-  color: rgba(0, 0, 0, 0.54);
-  box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px 0;
-  border-color: transparent;
-  border-radius: 3px;
-  width: 99%;
-  height: 39px;
-  padding-top: 0;
-  margin-bottom: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.container .external_login_container .external_item:hover {
-  background-color: #f9fafc;
-}
-.container .sign_up {
-  margin-top: 1.2rem;
-  padding-top: 1.2rem;
-  border-top: 1px solid #e6e6e6;
-  display: flex;
-  justify-content: center;
-  font-size: 0.92rem;
-  color: #0282ce;
-}
-.container .sign_up:hover {
-  cursor: pointer;
-  color: #3fc1c9;
-}
-.push_container {
-  display: flex;
-  height: 2rem;
-  padding-bottom: 1.2rem;
-}
-.push_box {
-  display: flex;
-  flex-direction: column;
-  padding: 0 16px;
-  border-radius: 4px;
-  background-color: #eb5a46;
-  color: #fff;
-  font-size: 0.875rem;
-  justify-content: center;
+  .push-container {
+    display: flex;
+    height: 2rem;
+    padding-bottom: 1.2rem;
+    .push-box {
+      display: flex;
+      flex-direction: column;
+      padding: 0 16px;
+      border-radius: 4px;
+      background-color: #eb5a46;
+      color: #fff;
+      font-size: 0.875rem;
+      justify-content: center;
+    }
+  }
+  .login-text {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    color: #5e6c84;
+  }
+  .submit-items {
+    display: flex;
+    flex-direction: column;
+    height: 11rem;
+    justify-content: space-around;
+    .submit-item {
+      height: 2.3rem;
+      &.btn {
+        background: #5aac44;
+        color: white;
+        &:hover {
+          background: #60bd4e;
+        }
+        &:disabled {
+          background: #ccc;
+          cursor: default;
+        }
+      }
+    }
+  }
+  .text {
+    text-align: center;
+    font-size: 0.8rem;
+    margin-top: 1rem;
+  }
+  .external-login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 10rem;
+    margin-top: 1rem;
+    .external_item {
+      background: #fff;
+      color: rgba(0, 0, 0, 0.54);
+      box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px 0;
+      border-color: transparent;
+      border-radius: 3px;
+      width: 99%;
+      height: 39px;
+      padding-top: 0;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &:hover {
+        background-color: #f9fafc;
+      }
+      img {
+        width: 1.3rem;
+        padding-right: 0.3rem;
+      }
+    }
+  }
+  .sign_up {
+    margin-top: 1.2rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid #e6e6e6;
+    display: flex;
+    justify-content: center;
+    font-size: 0.92rem;
+  }
 }
 </style>

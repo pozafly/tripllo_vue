@@ -1,73 +1,73 @@
 <template>
   <main>
     <div class="container">
-      <div class="push_container" v-if="push.pushYn">
-        <div class="push_box">
+      <div class="push-conatiner" v-if="push.pushYn">
+        <div class="push-box">
           <span>{{ push.message }}</span>
         </div>
       </div>
-      <span class="sign_up_text"><b>Sign up to Tripllo</b></span>
+      <span class="sign-up-text"><b>Sign up to Tripllo</b></span>
       <form @submit.prevent="submitForm">
-        <div class="submit_items">
+        <div class="submit-items">
           <input
-            class="submit_item"
+            class="submit-item"
             type="text"
             placeholder="Enter id"
             v-model="userData.id"
             ref="submitBtn"
           />
           <input
-            class="submit_item"
+            class="submit-item"
             type="password"
             placeholder="Enter password"
             v-model="userData.password"
           />
           <input
-            class="submit_item"
+            class="submit-item"
             type="password"
             placeholder="Enter password again"
             v-model="againPassword"
           />
           <input
-            class="submit_item"
+            class="submit-item"
             type="text"
             placeholder="Enter email"
             v-model="userData.email"
           />
           <input
-            class="submit_item"
+            class="submit-item"
             type="text"
             placeholder="Enter name"
             v-model="userData.name"
           />
-          <button class="submit_item btn" type="submit" :disabled="btnDisabled">
+          <button class="submit-item btn" type="submit" :disabled="btnDisabled">
             <b>Sign Up</b>
           </button>
         </div>
       </form>
-      <div class="another_form_container" v-if="anotherFormYn">
+      <template v-if="anotherFormYn">
         <div class="text">OR</div>
-        <div class="external_login_container">
+        <div class="external-items">
           <GoogleLogin
-            class="external_item"
+            class="external-item"
             :params="googleParams"
             :onSuccess="googleSuccess"
           >
             <img src="@/assets/user/logo/google.png" />
             <b> Continue with Google</b>
           </GoogleLogin>
-          <button class="external_item" @click="githubSignup">
+          <button class="external-item" @click="githubSignup">
             <img src="@/assets/user/logo/github.png" />
             <b> Continue with Github</b>
           </button>
-          <button class="external_item" @click="kakaoSignup">
+          <button class="external-item" @click="kakaoSignup">
             <img src="@/assets/user/logo/kakao.png" />
             <b> Continue with KakaoTalk</b>
           </button>
         </div>
-      </div>
-      <div class="sign_up">
-        <router-link to="/user/login" class="go_to_login">
+      </template>
+      <div class="login">
+        <router-link to="/user/login">
           Already have an account? Log In
         </router-link>
       </div>
@@ -150,7 +150,6 @@ export default {
         );
       } else {
         try {
-          console.log(id);
           await this.VALID_ID(id);
           this.push.pushYn = false;
         } catch ({ response }) {
@@ -214,22 +213,7 @@ export default {
 };
 </script>
 
-<style scoped>
-/* * {
-  border: 1px solid black;
-} */
-button {
-  border: 0;
-  border-radius: 3px;
-  box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px 0;
-}
-.btn {
-  background: #5aac44;
-  color: white;
-}
-.btn:hover {
-  background: #60bd4e;
-}
+<style scoped lang="scss">
 img {
   width: 1.3rem;
   padding-right: 0.3rem;
@@ -243,83 +227,85 @@ img {
   flex-direction: column;
   width: 23rem;
   padding: 2rem;
-}
-.container .sign_up_text {
-  text-align: center;
-  font-size: 1.2rem;
-  margin-bottom: 1.2rem;
-  color: #5e6c84;
-}
-.container .submit_items {
-  display: flex;
-  flex-direction: column;
-  height: 20rem;
-  justify-content: space-around;
-}
-.container .submit_items .submit_item {
-  height: 2.3rem;
-}
-.container .submit_items .submit_item:disabled {
-  background: #ccc;
-  cursor: default;
-}
-.container .text {
-  text-align: center;
-  font-size: 0.8rem;
-  margin-top: 1rem;
-}
-.container .external_login_container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  height: 10rem;
-  margin-top: 1rem;
-}
-.container .external_login_container .external_item {
-  background: #fff;
-  color: rgba(0, 0, 0, 0.54);
-  box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px 0;
-  border-color: transparent;
-  border-radius: 3px;
-  width: 99%;
-  height: 39px;
-  padding-top: 0;
-  margin-bottom: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.container .external_login_container .external_item:hover {
-  background-color: #f9fafc;
-}
-.container .sign_up {
-  margin-top: 1.2rem;
-  padding-top: 1.2rem;
-  border-top: 1px solid #e6e6e6;
-  display: flex;
-  justify-content: center;
-  font-size: 0.92rem;
-  color: #0282ce;
-}
-.container .sign_up:hover {
-  cursor: pointer;
-  color: #3fc1c9;
-}
-.push_container {
-  display: flex;
-  height: 2rem;
-  padding-bottom: 1.2rem;
-  height: 4rem;
-}
-.push_box {
-  display: flex;
-  flex-direction: column;
-  padding: 0 10px;
-  border-radius: 4px;
-  background-color: #eb5a46;
-  color: #fff;
-  font-size: 0.875rem;
-  justify-content: center;
-  height: 2.5rem;
+  .push-conatiner {
+    display: flex;
+    height: 2rem;
+    padding-bottom: 1.2rem;
+    height: 4rem;
+    .push-box {
+      display: flex;
+      flex-direction: column;
+      padding: 0 10px;
+      border-radius: 4px;
+      background-color: #eb5a46;
+      color: #fff;
+      font-size: 0.875rem;
+      justify-content: center;
+      height: 2.5rem;
+    }
+  }
+  .sign-up-text {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    color: #5e6c84;
+  }
+  .submit-items {
+    display: flex;
+    flex-direction: column;
+    height: 20rem;
+    justify-content: space-around;
+  }
+  .submit-item {
+    height: 2.3rem;
+    &.btn {
+      background: #5aac44;
+      color: white;
+      &:hover {
+        background: #60bd4e;
+      }
+      &:disabled {
+        background: #ccc;
+        cursor: default;
+      }
+    }
+  }
+  .text {
+    text-align: center;
+    font-size: 0.8rem;
+    margin-top: 1rem;
+  }
+  .external-items {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 10rem;
+    margin-top: 1rem;
+    .external-item {
+      background: #fff;
+      color: rgba(0, 0, 0, 0.54);
+      box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px 0;
+      border-color: transparent;
+      border-radius: 3px;
+      width: 99%;
+      height: 39px;
+      padding-top: 0;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &:hover {
+        background-color: #f9fafc;
+      }
+    }
+  }
+  .login {
+    margin-top: 1.2rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid #e6e6e6;
+    display: flex;
+    justify-content: center;
+    font-size: 0.92rem;
+  }
 }
 </style>

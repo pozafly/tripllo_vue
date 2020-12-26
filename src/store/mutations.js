@@ -23,8 +23,6 @@ const mutations = {
 
   // board
   readBoardList(state, boardList) {
-    console.log('mutations');
-    console.log(boardList);
     state.boardList = boardList;
   },
 };

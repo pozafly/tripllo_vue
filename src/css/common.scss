@@ -12,15 +12,16 @@ body {
   height: 100%;
 }
 #app {
-	width: 100%;
+  width: 100%;
   height: 100%;
 }
-h1 {
-	text-align: center;
-	font-weight: 100;
-}
+
 
 /*--- LINK ---*/
+h1 {
+  text-align: center;
+  font-weight: 100;
+}
 a {
   color: #0282ce;
   text-decoration: none;
@@ -30,6 +31,9 @@ a:hover {
 }
 button {
   cursor: pointer;
+  border: 0;
+  border-radius: 3px;
+  box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px 0;
 }
 input {    
   font-size: 14px;

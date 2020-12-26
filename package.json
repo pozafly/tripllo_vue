@@ -12,6 +12,8 @@
     "axios": "^0.21.0",
     "core-js": "^3.6.5",
     "lodash": "^4.17.20",
+    "node-sass": "^5.0.0",
+    "sass-loader": "^10.1.0",
     "vee-validate": "^3.4.5",
     "vue": "^2.6.11",
     "vue-google-login": "^2.0.5",

@@ -9,5 +9,5 @@ export default {};
 </script>
 
 <style>
-@import './css/common.css';
+@import './css/common.scss';
 </style>
