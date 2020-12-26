@@ -78,6 +78,7 @@
 <script>
 import _ from 'lodash';
 import { validateId, validatePw, validateEmail } from '@/utils/validation';
+import { mapActions, mapMutations } from 'vuex';
 
 export default {
   data() {
@@ -127,10 +128,11 @@ export default {
     }, 750),
   },
   methods: {
+    ...mapActions(['SIGNUP', 'LOGIN', 'VALID_ID']),
     async submitForm() {
       try {
-        await this.$store.dispatch('SIGNUP', this.userData);
-        await this.$store.dispatch('LOGIN', {
+        await this.SIGNUP(this.userData);
+        await this.LOGIN({
           id: this.userData.id,
           password: this.userData.password,
         });
@@ -149,7 +151,7 @@ export default {
       } else {
         try {
           console.log(id);
-          await this.$store.dispatch('VALIDID', id);
+          await this.VALID_ID(id);
           this.push.pushYn = false;
         } catch ({ response }) {
           this.pushInsert(response.data.message);
@@ -185,13 +187,28 @@ export default {
       this.push.message = message;
     },
     googleSuccess(googleUser) {
-      this.$Google.signup(googleUser);
+      if (localStorage.getItem('user_token')) {
+        alert('이미 로그인 되어 있습니다.');
+        this.$router.push('/main');
+      } else {
+        this.$Google.signup(googleUser);
+      }
     },
     async githubSignup() {
-      window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.VUE_APP_GITHUB_CLIENT_ID}&redirect_uri=http://localhost:8080/user/login&scope=user`;
+      if (localStorage.getItem('user_token')) {
+        alert('이미 로그인 되어 있습니다.');
+        this.$router.push('/main');
+      } else {
+        window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.VUE_APP_GITHUB_CLIENT_ID}&redirect_uri=http://localhost:8080/user/login&scope=user`;
+      }
     },
     kakaoSignup() {
-      this.$Kakao.signup();
+      if (localStorage.getItem('user_token')) {
+        alert('이미 로그인 되어 있습니다.');
+        this.$router.push('/main');
+      } else {
+        this.$Kakao.signup();
+      }
     },
   },
 };

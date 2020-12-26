@@ -22,10 +22,10 @@ export default {
     ...mapState(['boardList']),
   },
   methods: {
-    ...mapActions(['READBOARDLIST']),
+    ...mapActions(['READ_BOARD_LIST']),
   },
   created() {
-    this.READBOARDLIST('pain103');
+    this.READ_BOARD_LIST('pain103');
   },
 };
 </script>

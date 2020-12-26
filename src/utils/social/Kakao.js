@@ -1,8 +1,9 @@
-import { socialLogin, socialSignup } from '@/utils/social/index';
+import { socialLogin, socialSignup } from '@/utils/social';
 
 const Kakao = {
   init() {
     window.Kakao.init(process.env.VUE_APP_KAKAO_APP_KEY);
+    return true;
   },
 
   getMe(authObj) {

@@ -5,7 +5,11 @@ import { instance } from '@/api';
 function loginUser(userData) {
   return instance.post('login', userData);
 }
+function apiSocialLogin(userId) {
+  return instance.get(`login/social/${userId}`);
+}
 
+// user
 function validId(userId) {
   return instance.get(`user/valid/${userId}`);
 }
@@ -14,4 +18,4 @@ function signup(userData) {
   return instance.post('user', userData);
 }
 
-export { loginUser, validId, signup };
+export { loginUser, validId, signup, apiSocialLogin };

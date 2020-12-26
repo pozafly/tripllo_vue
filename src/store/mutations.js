@@ -1,9 +1,11 @@
 import {
   saveAuthToLocalStorage,
   saveUserToLocalStorage,
+  deleteLocalStorage,
 } from '@/utils/localStorage';
 
 const mutations = {
+  // user
   setToken(state, user_token) {
     saveAuthToLocalStorage(user_token);
     state.user_token = user_token;
@@ -12,13 +14,17 @@ const mutations = {
     saveUserToLocalStorage(user_name);
     state.user_name = user_name;
   },
-  clearUsername(state) {
+  logout(state) {
     state.user_name = '';
-  },
-  clearToken(state) {
     state.user_token = '';
+    deleteLocalStorage('user_token');
+    deleteLocalStorage('user_name');
   },
+
+  // board
   readBoardList(state, boardList) {
+    console.log('mutations');
+    console.log(boardList);
     state.boardList = boardList;
   },
 };

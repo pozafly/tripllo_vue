@@ -1,25 +1,30 @@
-import { loginUser, validId, signup } from '@/api/auth';
+import { loginUser, validId, signup, apiSocialLogin } from '@/api/auth';
 import { readBoardList } from '@/api/board';
 
 const actions = {
   // user
-  async LOGIN({ commit }, userData) {
-    const { data } = await loginUser(userData);
+  LOGIN({ commit }, userData) {
+    const { data } = loginUser(userData);
     console.log(data);
     commit('setToken', data.data.token);
     commit('setUsername', data.data.userName);
   },
-  async VALIDID({ commit }, userId) {
+  VALID_ID(_, userId) {
     console.log(userId);
-    return await validId(userId);
+    return validId(userId);
   },
-  async SIGNUP({ commit }, userData) {
-    return await signup(userData);
+  SIGNUP(_, userData) {
+    return signup(userData);
+  },
+  SOCIAL_LOGIN(_, userId) {
+    return apiSocialLogin(userId);
   },
 
   //board
-  async READBOARDLIST({ commit }, userId) {
-    return readBoardList(userId).then(() => commit('readBoardList'));
+  READ_BOARD_LIST({ commit }, userId) {
+    return readBoardList(userId).then(({ data }) =>
+      commit('readBoardList', data),
+    );
   },
 };
 

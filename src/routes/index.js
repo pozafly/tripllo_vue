@@ -20,7 +20,10 @@ const router = new VueRouter({
         { path: 'signup', component: SignupForm },
       ],
     },
-    { path: '/select', component: () => import('@/views/SelectPage.vue') },
+    {
+      path: '/selectBoard',
+      component: () => import('@/views/SelectBoardPage.vue'),
+    },
     { path: '/board', component: () => import('@/views/BoardPage.vue') },
   ],
 });

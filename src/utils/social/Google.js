@@ -1,4 +1,4 @@
-import { socialLogin, socialSignup } from '@/utils/social/index';
+import { socialLogin, socialSignup } from '@/utils/social';
 
 const Google = {
   login(googleUser) {

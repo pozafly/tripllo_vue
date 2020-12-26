@@ -1,28 +1,21 @@
 import store from '@/store';
-import router from '@/routes/index';
+import router from '@/routes';
 
-function setVuex(userData) {
-  store.commit('setToken', userData.accessToken);
-  store.commit('setUsername', userData.name);
-}
-
-function setUserData(req) {
-  const userData = {
-    id: req.id,
-    name: req.name,
-    email: req.email,
-    picture: req.profileImg,
-    accessToken: req.accessToken,
-    socialYn: req.source,
-  };
-  console.log('userData');
-  console.log(userData);
-  return userData;
-}
-
-async function socialLogin(req) {
+async function socialLogin(req, isSignup) {
   try {
-    const { data } = await store.dispatch('VALIDID', req.id);
+    const { data } = await store.dispatch('SOCIAL_LOGIN', req.id);
+
+    store.commit('setToken', data.data.token);
+    store.commit('setUsername', data.data.userName);
+
+    if (isSignup === 'afterSignup') {
+      alert('회원가입 완료! 메인 페이지로 이동합니다.');
+    }
+    router.push('/selectBoard');
+  } catch (error) {
+    console.log(error);
+
+    const { data } = await store.dispatch('VALID_ID', req.id);
     console.log(data);
     if (data.status === 'OK') {
       const confirmYn = confirm(
@@ -30,24 +23,16 @@ async function socialLogin(req) {
       );
       if (confirmYn) router.push('/user/signup');
     }
-  } catch (error) {
-    console.log(error);
-    const userData = setUserData(req);
-    setVuex(userData);
-    router.push('/main');
   }
 }
 
 async function socialSignup(req) {
   try {
-    await store.dispatch('VALIDID', req.id);
-    console.log('req');
-    console.log(req);
+    await store.dispatch('VALID_ID', req.id);
     const userData = setUserData(req);
     await store.dispatch('SIGNUP', userData);
-    setVuex(userData);
-    alert('회원가입 완료! 메인 페이지로 이동합니다.');
-    router.push('/main');
+
+    socialLogin(req, 'afterSignup');
   } catch (error) {
     console.log(error);
     if (req.source === 'Github') {
@@ -59,6 +44,18 @@ async function socialSignup(req) {
       if (confirmYn) router.push('/user/login');
     }
   }
+}
+
+function setUserData(req) {
+  const userData = {
+    id: req.id,
+    name: req.name,
+    email: req.email,
+    picture: req.profileImg,
+    accessToken: req.accessToken,
+    socialYn: req.source,
+  };
+  return userData;
 }
 
 export { socialLogin, socialSignup };

@@ -15,18 +15,14 @@
 
 <script>
 import { deleteLocalStorage } from '@/utils/localStorage';
+import { mapMutations } from 'vuex';
 
 export default {
-  created() {
-    console.log('여긴 메인페이지');
-    console.log(this.$store.state);
-  },
+  created() {},
   methods: {
+    ...mapMutations(['logout']),
     logoutUser() {
-      this.$store.commit('clearUsername');
-      this.$store.commit('clearToken');
-      deleteLocalStorage('user_token');
-      deleteLocalStorage('user_name');
+      this.logout();
       this.$router.push('/user/login');
     },
   },
