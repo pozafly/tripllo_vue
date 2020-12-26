@@ -26,7 +26,7 @@ export default {
       this.$store.commit('clearUsername');
       this.$store.commit('clearToken');
       deleteLocalStorage('user_token');
-      deleteLocalStorage('user_username');
+      deleteLocalStorage('user_name');
       this.$router.push('/user/login');
     },
   },

@@ -3,7 +3,7 @@ function saveAuthToLocalStorage(value) {
 }
 
 function saveUserToLocalStorage(value) {
-  localStorage.setItem('user_username', value);
+  localStorage.setItem('user_name', value);
 }
 
 function getAuthFromLocalStorage() {
@@ -11,7 +11,7 @@ function getAuthFromLocalStorage() {
 }
 
 function getUserFromLocalStorage() {
-  return localStorage.getItem('user_username');
+  return localStorage.getItem('user_name');
 }
 
 function deleteLocalStorage(value) {

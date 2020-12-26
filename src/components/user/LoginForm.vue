@@ -97,19 +97,19 @@ export default {
       }
     },
     googleSuccess(googleUser) {
-      alreadyLoginCheck();
+      this.alreadyLoginCheck();
       this.$Google.login(googleUser);
     },
     githubLogin: async function() {
-      alreadyLoginCheck();
+      this.alreadyLoginCheck();
       window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.VUE_APP_GITHUB_CLIENT_ID}&redirect_uri=http://localhost:8080/user/login&scope=user`;
     },
     kakaoLogin() {
-      alreadyLoginCheck();
+      this.alreadyLoginCheck();
       this.$Kakao.login();
     },
     alreadyLoginCheck() {
-      if (localStorage.getItem('token')) {
+      if (localStorage.getItem('user_token')) {
         alert('이미 로그인 되어 있습니다.');
         this.$router.push('/main');
       }

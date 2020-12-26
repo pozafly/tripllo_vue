@@ -16,4 +16,4 @@ function createInstanceWithAuth(url) {
 }
 
 export const instance = createInstance();
-// export const posts = createInstanceWithAuth('');
+export const board = createInstanceWithAuth('board');

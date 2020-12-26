@@ -1,5 +1,5 @@
 // 로그인, 회원가입, 회원탈퇴
-import { instance } from './index';
+import { instance } from '@/api';
 
 // 로그인 API
 function loginUser(userData) {

@@ -28,16 +28,6 @@ export default {
       },
     });
     const token = data.access_token;
-    console.log(data);
-    console.log(token);
-
-    // const response = await axios({
-    //   method: 'get',
-    //   url: `https://api.github.com/user`,
-    //   headers: {
-    //     Authorization: `token ${token}`,
-    //   },
-    // });
 
     const response = await axios.get('https://api.github.com/user', {
       headers: {

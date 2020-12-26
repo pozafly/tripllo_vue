@@ -2,6 +2,8 @@ import { socialLogin, socialSignup } from '@/utils/social/index';
 
 const Google = {
   login(googleUser) {
+    console.log('googel');
+    console.log(googleUser);
     const req = {
       accessToken: googleUser.xc.access_token,
       name: googleUser.xt.Ad,
