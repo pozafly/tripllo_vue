@@ -35,6 +35,7 @@
 export default {
   methods: {
     goMain() {
+      console.log('dfff');
       this.$router.push('/main');
     },
   },
@@ -63,6 +64,7 @@ export default {
     .header-wrap {
       padding: 0.1rem;
       display: flex;
+      position: relative;
       cursor: pointer;
       .fas.fa-suitcase {
         font-size: 3rem;

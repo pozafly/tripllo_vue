@@ -25,30 +25,32 @@
         </button>
       </div>
     </form>
-    <div class="text">OR</div>
-    <div class="external-login-container" v-if="anotherFormYn">
-      <GoogleLogin
-        class="external_item"
-        :params="googleParams"
-        :onSuccess="googleSuccess"
-      >
-        <img src="@/assets/user/logo/google.png" />
-        <b> Continue with Google</b>
-      </GoogleLogin>
-      <button class="external_item" @click="githubLogin">
-        <img src="@/assets/user/logo/github.png" />
-        <b> Continue with Github</b>
-      </button>
-      <button class="external_item" @click="kakaoLogin">
-        <img src="@/assets/user/logo/kakao.png" />
-        <b> Continue with KakaoTalk</b>
-      </button>
-    </div>
-    <div class="sign_up">
-      <router-link to="/user/signup" class="go_to_signup">
-        Do you want to Sign up?
-      </router-link>
-    </div>
+    <template v-if="anotherFormYn">
+      <div class="text">OR</div>
+      <div class="external-items">
+        <GoogleLogin
+          class="external_item"
+          :params="googleParams"
+          :onSuccess="googleSuccess"
+        >
+          <img src="@/assets/user/logo/google.png" />
+          <b> Continue with Google</b>
+        </GoogleLogin>
+        <button class="external_item" @click="githubLogin">
+          <img src="@/assets/user/logo/github.png" />
+          <b> Continue with Github</b>
+        </button>
+        <button class="external_item" @click="kakaoLogin">
+          <img src="@/assets/user/logo/kakao.png" />
+          <b> Continue with KakaoTalk</b>
+        </button>
+      </div>
+      <div class="sign_up">
+        <router-link to="/user/signup" class="go_to_signup">
+          Do you want to Sign up?
+        </router-link>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -184,7 +186,7 @@ export default {
     font-size: 0.8rem;
     margin-top: 1rem;
   }
-  .external-login-container {
+  .external-items {
     display: flex;
     flex-direction: column;
     justify-content: space-around;

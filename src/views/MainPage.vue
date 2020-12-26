@@ -1,30 +1,15 @@
 <template>
   <div>
-    Main
-    <router-link to="/user/login">
-      login
-    </router-link>
-    <router-link to="/user/signup">
-      회원가입
-    </router-link>
-    <a href="javascript:;" @click="logoutUser">
-      Logout
-    </a>
+    <Header />
   </div>
 </template>
 
 <script>
-import { deleteLocalStorage } from '@/utils/localStorage';
-import { mapMutations } from 'vuex';
+import Header from '@/components/common/Header';
 
 export default {
-  created() {},
-  methods: {
-    ...mapMutations(['logout']),
-    logoutUser() {
-      this.logout();
-      this.$router.push('/user/login');
-    },
+  components: {
+    Header,
   },
 };
 </script>
