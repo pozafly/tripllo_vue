@@ -91,7 +91,7 @@ export default {
     async submitForm() {
       try {
         await this.$store.dispatch('LOGIN', this.userData);
-        this.$router.push('/main');
+        this.$router.push('/board');
       } catch (response) {
         this.push.pushYn = true;
         this.push.message = response.message;
@@ -100,7 +100,7 @@ export default {
     async googleSuccess(googleUser) {
       if (localStorage.getItem('user_token')) {
         alert('이미 로그인 되어 있습니다.');
-        this.$router.push('/main');
+        this.$router.push('/board');
       } else {
         this.$Google.login(googleUser);
       }
@@ -108,7 +108,7 @@ export default {
     githubLogin: async function() {
       if (localStorage.getItem('user_token')) {
         alert('이미 로그인 되어 있습니다.');
-        this.$router.push('/main');
+        this.$router.push('/board');
       } else {
         window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.VUE_APP_GITHUB_CLIENT_ID}&redirect_uri=http://localhost:8080/user/login&scope=user`;
       }
@@ -116,7 +116,7 @@ export default {
     kakaoLogin() {
       if (localStorage.getItem('user_token')) {
         alert('이미 로그인 되어 있습니다.');
-        this.$router.push('/main');
+        this.$router.push('/board');
       } else {
         this.$Kakao.login();
       }

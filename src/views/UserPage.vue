@@ -35,8 +35,7 @@
 export default {
   methods: {
     goMain() {
-      console.log('dfff');
-      this.$router.push('/main');
+      this.$router.push('/board');
     },
   },
   created() {
