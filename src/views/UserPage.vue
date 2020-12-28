@@ -46,7 +46,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 /* * {
   border: 1px solid black;
 } */

@@ -6,9 +6,11 @@ const actions = {
   async LOGIN({ commit }, userData) {
     console.log(userData);
     const { data } = await loginUser(userData);
+    console.log('로그인 시도한다.');
     console.log(data);
     commit('setToken', data.data.token);
     commit('setUsername', data.data.userName);
+    commit('setUserPicture', data.data.picture);
   },
   SOCIAL_LOGIN(_, userId) {
     return apiSocialLogin(userId);

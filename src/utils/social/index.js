@@ -7,11 +7,12 @@ async function socialLogin(req, isSignup) {
 
     store.commit('setToken', data.data.token);
     store.commit('setUsername', data.data.userName);
+    store.commit('setUserPicture', data.data.picture);
 
     if (isSignup === 'afterSignup') {
       alert('회원가입 완료! 메인 페이지로 이동합니다.');
     }
-    router.push('/selectBoard');
+    router.push('/main');
   } catch (error) {
     console.log(error);
 

@@ -1,8 +1,9 @@
 import {
   saveAuthToLocalStorage,
   saveUserToLocalStorage,
+  savePictureToLocalStorage,
   deleteLocalStorage,
-} from '@/utils/localStorage';
+} from '@/utils/webStorage';
 
 const mutations = {
   // user
@@ -14,11 +15,17 @@ const mutations = {
     saveUserToLocalStorage(user_name);
     state.user_name = user_name;
   },
+  setUserPicture(state, user_picture) {
+    savePictureToLocalStorage(user_picture);
+    state.user_picture = user_picture;
+  },
   logout(state) {
     state.user_name = '';
     state.user_token = '';
+    state.user_picture = '';
     deleteLocalStorage('user_token');
     deleteLocalStorage('user_name');
+    deleteLocalStorage('user_picture');
   },
 
   // board
