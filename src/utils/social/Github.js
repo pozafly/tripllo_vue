@@ -33,7 +33,7 @@ const Github = {
     const req = {
       id: response.data.id,
       name: response.data.name,
-      email: response.data.email,
+      email: response.data.blog,
       profileImg: response.data.avatar_url,
       accessToken: token,
       source: 'Github',

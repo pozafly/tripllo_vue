@@ -13,14 +13,63 @@
           <a href="" class="auth-item"><i class="fas fa-info-circle"></i></a>
         </li>
         <li class="auth-items">
-          <a href="" class="auth-item profile"></a>
+          <a href="" class="auth-item img" @click.prevent="menuShow"></a>
         </li>
-        <li><a href="" v-if="isAuth" @click.prevent="logoutUser">Logout</a></li>
-        <li><router-link to="/user/login">Login</router-link></li>
       </ul>
     </div>
+
+    <section class="menu" v-show="isMenuShow">
+      <div class="menu-item img"></div>
+      <div class="menu-profile">
+        <div class="profile-item name">{{ user.name }}</div>
+        <div class="profile-item email">{{ user.email }}</div>
+      </div>
+      <a class="menu-close" @click.prevent="menuShow">&times;</a>
+      <a class="menu-item" @click="$router.push('/user')">
+        <span>Edit profile</span>
+      </a>
+      <a class="menu-item" href="" v-if="isAuth" @click.prevent="logoutUser">
+        <span>Logout</span>
+      </a>
+      <router-link class="menu-item" v-else to="/user/login">
+        <span>Login</span>
+      </router-link>
+    </section>
   </nav>
 </template>
+
+<script>
+import { mapGetters, mapMutations, mapState } from 'vuex';
+
+export default {
+  data() {
+    return {
+      isMenuShow: false,
+    };
+  },
+  computed: {
+    ...mapGetters(['isAuth']),
+    ...mapState(['user']),
+  },
+  methods: {
+    ...mapMutations(['logout']),
+    logoutUser() {
+      this.logout();
+      this.$router.push('/user/login');
+    },
+    menuShow() {
+      this.isMenuShow = !this.isMenuShow;
+    },
+  },
+  mounted() {
+    // 프로필에 이미지 넣기
+    const imgList = this.$el.querySelectorAll('.img');
+    Array.from(imgList).forEach(e => {
+      e.style.backgroundImage = `url(${this.user.picture})`;
+    });
+  },
+};
+</script>
 
 <style scoped lang="scss">
 .header {
@@ -69,7 +118,7 @@
           &:focus {
             background-color: rgba(255, 255, 255, 0.3);
           }
-          &.profile {
+          &.img {
             border-radius: 100px;
             padding: 0 15px;
             background-size: cover;
@@ -80,29 +129,78 @@
       }
     }
   }
+  .menu {
+    position: fixed;
+    right: 3px;
+    width: 304px;
+    top: 44px;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    background-color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25),
+      0 0 0 1px rgba(9, 30, 66, 0.08);
+    box-sizing: border-box;
+    overflow: hidden;
+    .menu-item {
+      background-color: transparent;
+      color: #172b4d;
+      display: block;
+      height: 100%;
+      padding: 10px 12px;
+      text-align: left;
+      text-decoration: none;
+      width: 100%;
+      transition: none;
+      cursor: pointer;
+      &.img {
+        display: inline-block;
+        position: relative;
+        padding: 0;
+        margin: 0.6rem;
+        min-height: 40px;
+        max-width: 40px;
+        border-radius: 40px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+    }
+    .menu-profile {
+      position: absolute;
+      left: 63px;
+      top: 0px;
+      width: 200px;
+    }
+    .profile-item {
+      padding: 6px 4px;
+      &.name {
+        color: #172b4d;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 400;
+        margin-top: 3px;
+      }
+      &.email {
+        font-size: 9pt;
+        color: #b3bac5;
+        display: block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 230px;
+      }
+    }
+    .menu-close {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      color: #172b4d;
+      font-size: 17px;
+      margin-top: 4px;
+      max-width: 230px;
+      cursor: pointer;
+    }
+  }
 }
 </style>
-
-<script>
-import { mapGetters, mapMutations, mapState } from 'vuex';
-
-export default {
-  computed: {
-    ...mapGetters(['isAuth']),
-    ...mapState(['user_picture']),
-  },
-  methods: {
-    ...mapMutations(['logout']),
-    logoutUser() {
-      this.logout();
-      this.$router.push('/user/login');
-    },
-  },
-  mounted() {
-    // 프로필에 이미지 넣기
-    this.$el.querySelector(
-      '.profile',
-    ).style.backgroundImage = `url(${this.user_picture})`;
-  },
-};
-</script>

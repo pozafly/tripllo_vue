@@ -92,9 +92,9 @@ export default {
       try {
         await this.$store.dispatch('LOGIN', this.userData);
         this.$router.push('/main');
-      } catch ({ response }) {
+      } catch (response) {
         this.push.pushYn = true;
-        this.push.message = response.data.message;
+        this.push.message = response.message;
       }
     },
     async googleSuccess(googleUser) {

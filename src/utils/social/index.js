@@ -4,10 +4,7 @@ import router from '@/routes';
 async function socialLogin(req, isSignup) {
   try {
     const { data } = await store.dispatch('SOCIAL_LOGIN', req.id);
-
-    store.commit('setToken', data.data.token);
-    store.commit('setUsername', data.data.userName);
-    store.commit('setUserPicture', data.data.picture);
+    store.commit('setUser', data.data);
 
     if (isSignup === 'afterSignup') {
       alert('회원가입 완료! 메인 페이지로 이동합니다.');
@@ -37,7 +34,8 @@ async function socialSignup(req) {
   } catch (error) {
     console.log(error);
     if (req.source === 'Github') {
-      router.push('/main');
+      socialLogin(req);
+      //router.push('/main');
     } else {
       const confirmYn = confirm(
         '이미 가입된 소셜 회원입니다. \n로그인 화면으로 이동하시겠습니까?',

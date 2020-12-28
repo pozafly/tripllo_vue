@@ -1,13 +1,13 @@
-import {
-  getAuthFromLocalStorage,
-  getUserFromLocalStorage,
-  getPictureFromLocalStorage,
-} from '@/utils/webStorage';
+import { getUserFromLocalStorage } from '@/utils/webStorage';
 
 const state = {
-  user_token: getAuthFromLocalStorage() || '',
-  user_name: getUserFromLocalStorage() || '',
-  user_picture: getPictureFromLocalStorage() || '',
+  user: {
+    token: getUserFromLocalStorage('user_token') || '',
+    id: getUserFromLocalStorage('user_id') || '',
+    email: getUserFromLocalStorage('user_email') || '',
+    name: getUserFromLocalStorage('user_name') || '',
+    picture: getUserFromLocalStorage('user_picture') || '',
+  },
   boardList: {},
 };
 

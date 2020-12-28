@@ -1,37 +1,25 @@
-function saveAuthToLocalStorage(value) {
-  localStorage.setItem('user_token', value);
+function saveUserToLocalStorage(user) {
+  localStorage.setItem('user_token', user.token);
+  localStorage.setItem('user_id', user.id);
+  localStorage.setItem('user_email', user.email);
+  localStorage.setItem('user_name', user.name);
+  localStorage.setItem('user_picture', user.picture);
 }
 
-function saveUserToLocalStorage(value) {
-  localStorage.setItem('user_name', value);
+function getUserFromLocalStorage(key) {
+  return localStorage.getItem(key);
 }
 
-function savePictureToLocalStorage(value) {
-  localStorage.setItem('user_picture', value);
-}
-
-function getAuthFromLocalStorage() {
-  return localStorage.getItem('user_token');
-}
-
-function getUserFromLocalStorage() {
-  return localStorage.getItem('user_name');
-}
-
-function getPictureFromLocalStorage() {
-  return localStorage.getItem('user_picture');
-}
-
-function deleteLocalStorage(value) {
-  localStorage.removeItem(value);
+function deleteUserLocalStorage(key) {
+  localStorage.removeItem('user_token');
+  localStorage.removeItem('user_id');
+  localStorage.removeItem('user_email');
+  localStorage.removeItem('user_name');
+  localStorage.removeItem('user_picture');
 }
 
 export {
-  saveAuthToLocalStorage,
   saveUserToLocalStorage,
-  savePictureToLocalStorage,
-  getAuthFromLocalStorage,
   getUserFromLocalStorage,
-  getPictureFromLocalStorage,
-  deleteLocalStorage,
+  deleteUserLocalStorage,
 };

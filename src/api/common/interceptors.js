@@ -6,7 +6,7 @@ export function setInterceptors(instance) {
   // request
   instance.interceptors.request.use(
     function(config) {
-      config.headers.Authorization = store.state.user_token;
+      config.headers.Authorization = store.state.user.token;
       return config;
     },
     function(error) {

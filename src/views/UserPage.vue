@@ -61,6 +61,7 @@ export default {
     font-size: 2rem;
     align-items: center;
     .header-wrap {
+      margin: 32px 0;
       padding: 0.1rem;
       display: flex;
       position: relative;
