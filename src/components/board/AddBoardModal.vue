@@ -54,7 +54,7 @@ export default {
     this.$refs.input.focus();
   },
   methods: {
-    ...mapActions(['ADD_BOARD', 'FETCH_BOARD']),
+    ...mapActions(['ADD_BOARD']),
     addBoard() {
       this.ADD_BOARD(this.input).then(({ data }) => {
         this.$router.push(`/board/${data.data.id}`);
