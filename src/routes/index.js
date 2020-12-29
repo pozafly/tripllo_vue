@@ -8,8 +8,8 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    { path: '/', redirect: '/board' },
-    { path: '/board', component: () => import('@/views/BoardPage') },
+    { path: '/', redirect: '/main' },
+    { path: '/main', component: () => import('@/views/MainPage') },
     {
       // 중첩된 라우트 : 한 페이지에 url에 따라서 다른 컴포넌트를 보여야 할 때 사용.
       path: '/user',
@@ -25,6 +25,10 @@ const router = new VueRouter({
           component: () => import('@/components/user/SignupForm'),
         },
       ],
+    },
+    {
+      path: '/board',
+      component: () => import('@/views/BoardPage'),
     },
   ],
 });

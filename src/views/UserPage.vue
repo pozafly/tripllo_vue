@@ -35,11 +35,13 @@
 export default {
   methods: {
     goMain() {
-      this.$router.push('/board');
+      this.$router.push('/main');
     },
   },
   created() {
-    this.$Kakao.init();
+    if (!window.Kakao.isInitialized()) {
+      this.$Kakao.init();
+    }
   },
 };
 </script>

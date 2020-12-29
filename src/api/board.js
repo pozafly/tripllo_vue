@@ -4,4 +4,8 @@ function readBoardList(userId) {
   return board.get(userId);
 }
 
-export { readBoardList };
+function addBoard(title) {
+  return board.post('/', { title });
+}
+
+export { readBoardList, addBoard };

@@ -1,17 +1,24 @@
-import { loginUser, validId, signup, apiSocialLogin } from '@/api/auth';
-import { readBoardList } from '@/api/board';
+import {
+  loginUser,
+  validId,
+  signup,
+  apiSocialLogin,
+  logoutUser,
+} from '@/api/auth';
+import { readBoardList, addBoard } from '@/api/board';
 
 const actions = {
   // 로그인
   async LOGIN({ commit }, userData) {
-    console.log(userData);
     const { data } = await loginUser(userData);
-    console.log('로그인 시도한다.');
-    console.log(data);
     commit('setUser', data.data);
   },
   SOCIAL_LOGIN(_, userId) {
     return apiSocialLogin(userId);
+  },
+  async LOGOUT({ commit }) {
+    await logoutUser();
+    commit('logout');
   },
 
   // user
@@ -26,9 +33,12 @@ const actions = {
   //board
   READ_BOARD_LIST({ commit }, userId) {
     return readBoardList(userId).then(({ data }) => {
-      console.log(data);
-      commit('readBoardList', data);
+      console.log(data.data);
+      commit('readBoardList', data.data);
     });
+  },
+  ADD_BOARD(ctx, title) {
+    return addBoard(title);
   },
 };
 

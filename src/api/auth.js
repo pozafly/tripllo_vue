@@ -8,6 +8,9 @@ function loginUser(userData) {
 function apiSocialLogin(userId) {
   return instance.get(`login/social/${userId}`);
 }
+function logoutUser() {
+  return instance.get('logout');
+}
 
 // user
 function validId(userId) {
@@ -18,4 +21,4 @@ function signup(userData) {
   return instance.post('user', userData);
 }
 
-export { loginUser, validId, signup, apiSocialLogin };
+export { loginUser, validId, logoutUser, signup, apiSocialLogin };

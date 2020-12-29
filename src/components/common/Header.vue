@@ -13,13 +13,23 @@
           <a href="" class="auth-item"><i class="fas fa-info-circle"></i></a>
         </li>
         <li class="auth-items">
-          <a href="" class="auth-item img" @click.prevent="menuShow"></a>
+          <a
+            href=""
+            class="auth-item img"
+            @click.prevent="menuShow"
+            v-if="this.user.picture !== null && this.user.picture !== 'null'"
+          ></a>
+          <i class="fas fa-user auth-item" @click.prevent="menuShow" v-else></i>
         </li>
       </ul>
     </div>
 
     <section class="menu" v-show="isMenuShow">
-      <div class="menu-item img"></div>
+      <div
+        class="menu-item img"
+        v-if="this.user.picture !== null && this.user.picture !== 'null'"
+      ></div>
+      <i class="fas fa-user menu-item img" v-else></i>
       <div class="menu-profile">
         <div class="profile-item name">{{ user.name }}</div>
         <div class="profile-item email">{{ user.email }}</div>
@@ -39,7 +49,7 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations, mapState } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 
 export default {
   data() {
@@ -52,9 +62,9 @@ export default {
     ...mapState(['user']),
   },
   methods: {
-    ...mapMutations(['logout']),
+    ...mapActions(['LOGOUT']),
     logoutUser() {
-      this.logout();
+      this.LOGOUT();
       this.$router.push('/user/login');
     },
     menuShow() {
@@ -109,6 +119,7 @@ export default {
       .auth-items {
         margin-right: 5px;
         .auth-item {
+          cursor: pointer;
           border-radius: 2px;
           padding: 0 10px;
           background-color: rgba(255, 255, 255, 0.5);
@@ -117,6 +128,14 @@ export default {
           &:hover,
           &:focus {
             background-color: rgba(255, 255, 255, 0.3);
+          }
+          &.fa-user {
+            padding: 10px;
+            display: inline-block;
+            vertical-align: middle;
+            border-radius: 100px;
+            height: 13px;
+            width: 13px;
           }
           &.img {
             border-radius: 100px;
@@ -154,6 +173,20 @@ export default {
       width: 100%;
       transition: none;
       cursor: pointer;
+      &.fa-user {
+        background: #0282ce;
+        color: #fff;
+        display: inline-block;
+        margin: 0.6rem;
+        min-height: 40px;
+        max-width: 40px;
+        &::before {
+          position: absolute;
+          left: 11.5px;
+          top: 9px;
+          font-size: 20px;
+        }
+      }
       &.img {
         display: inline-block;
         position: relative;
@@ -161,7 +194,7 @@ export default {
         margin: 0.6rem;
         min-height: 40px;
         max-width: 40px;
-        border-radius: 40px;
+        border-radius: 90px;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;

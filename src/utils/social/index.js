@@ -52,7 +52,7 @@ function setUserData(req) {
     email: req.email,
     picture: req.profileImg,
     accessToken: req.accessToken,
-    socialYn: req.source,
+    social: req.source,
   };
   return userData;
 }

@@ -17,6 +17,7 @@ body {
 ul, ol, li {
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
 /*--- LINK ---*/
@@ -27,15 +28,24 @@ h1 {
 a {
   color: #0282ce;
   text-decoration: none;
-}
-a:hover {
-  color: #3fc1c9;
+  &:hover {
+    color: #3fc1c9;
+  }
 }
 button {
   cursor: pointer;
   border: 0;
   border-radius: 3px;
   box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px 0;
+  background: #5aac44;
+  color: white;
+  &:hover {
+    background: #60bd4e;
+  }
+  &:disabled {
+    background: #ccc;
+    cursor: default;
+  }
 }
 input {    
   font-size: 14px;
@@ -44,7 +54,4 @@ input {
   box-sizing: border-box;
   border-radius: 3px;
   padding:0px 0px 0px 15px;
-}
-li, ul, ol {
-  list-style: none;
 }

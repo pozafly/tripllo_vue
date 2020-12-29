@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
   data() {
     return {
@@ -88,19 +89,20 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['LOGIN']),
     async submitForm() {
       try {
-        await this.$store.dispatch('LOGIN', this.userData);
-        this.$router.push('/board');
-      } catch (response) {
+        await this.LOGIN(this.userData);
+        this.$router.push('/main');
+      } catch ({ response }) {
         this.push.pushYn = true;
-        this.push.message = response.message;
+        this.push.message = response.data.message;
       }
     },
     async googleSuccess(googleUser) {
       if (localStorage.getItem('user_token')) {
         alert('이미 로그인 되어 있습니다.');
-        this.$router.push('/board');
+        this.$router.push('/main');
       } else {
         this.$Google.login(googleUser);
       }
@@ -108,7 +110,7 @@ export default {
     githubLogin: async function() {
       if (localStorage.getItem('user_token')) {
         alert('이미 로그인 되어 있습니다.');
-        this.$router.push('/board');
+        this.$router.push('/main');
       } else {
         window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.VUE_APP_GITHUB_CLIENT_ID}&redirect_uri=http://localhost:8080/user/login&scope=user`;
       }
@@ -116,7 +118,7 @@ export default {
     kakaoLogin() {
       if (localStorage.getItem('user_token')) {
         alert('이미 로그인 되어 있습니다.');
-        this.$router.push('/board');
+        this.$router.push('/main');
       } else {
         this.$Kakao.login();
       }

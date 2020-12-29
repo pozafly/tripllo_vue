@@ -1,7 +1,6 @@
 // axios의 interceptor 설정
-import store from '@/store/index';
+import store from '@/store';
 
-// 요청 인터셉터 추가
 export function setInterceptors(instance) {
   // request
   instance.interceptors.request.use(

@@ -136,7 +136,7 @@ export default {
           id: this.userData.id,
           password: this.userData.password,
         });
-        this.$router.push('/board');
+        this.$router.push('/main');
       } catch ({ response }) {
         console.log(response);
         this.pushInsert(response.data.message);
@@ -188,7 +188,7 @@ export default {
     googleSuccess(googleUser) {
       if (localStorage.getItem('user_token')) {
         alert('이미 로그인 되어 있습니다.');
-        this.$router.push('/board');
+        this.$router.push('/main');
       } else {
         this.$Google.signup(googleUser);
       }
@@ -196,7 +196,7 @@ export default {
     async githubSignup() {
       if (localStorage.getItem('user_token')) {
         alert('이미 로그인 되어 있습니다.');
-        this.$router.push('/board');
+        this.$router.push('/main');
       } else {
         window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.VUE_APP_GITHUB_CLIENT_ID}&redirect_uri=http://localhost:8080/user/login&scope=user`;
       }
@@ -204,7 +204,7 @@ export default {
     kakaoSignup() {
       if (localStorage.getItem('user_token')) {
         alert('이미 로그인 되어 있습니다.');
-        this.$router.push('/board');
+        this.$router.push('/main');
       } else {
         this.$Kakao.signup();
       }

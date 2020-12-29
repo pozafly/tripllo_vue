@@ -8,7 +8,7 @@ const state = {
     name: getUserFromLocalStorage('user_name') || '',
     picture: getUserFromLocalStorage('user_picture') || '',
   },
-  boardList: {},
+  boardList: [],
 };
 
 export default state;
