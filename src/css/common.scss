@@ -55,3 +55,22 @@ input {
   border-radius: 3px;
   padding:0px 0px 0px 15px;
 }
+.form-control {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #e2e4e6;
+  border: 1px solid #cdd2d4;
+  border-radius: 3px;
+  display: block;
+  margin-bottom: 12px;
+  padding: 6px 8px;
+  transition: background-color 0.3s;
+}
+input[type='text'].form-control,
+input[type='password'].form-control,
+textarea.form-control {
+  font-size: 14px;
+}
+.form-control:focus {
+  background-color: #fff;
+}

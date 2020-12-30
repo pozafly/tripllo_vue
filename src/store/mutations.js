@@ -18,6 +18,9 @@ const mutations = {
   readBoardList(state, boardList) {
     state.boardList = boardList;
   },
+  readBoardDetail(state, board) {
+    state.board = board;
+  },
 };
 
 export default mutations;

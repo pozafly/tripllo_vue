@@ -87,6 +87,7 @@ export default {
   height: 32px;
   padding: 4px;
   position: relative;
+  z-index: 1;
   a {
     display: block;
     height: 30px;
@@ -130,9 +131,8 @@ export default {
             background-color: rgba(255, 255, 255, 0.3);
           }
           &.fa-user {
-            padding: 10px;
+            padding: 9px;
             display: inline-block;
-            vertical-align: middle;
             border-radius: 100px;
             height: 13px;
             width: 13px;

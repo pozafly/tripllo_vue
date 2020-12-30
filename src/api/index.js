@@ -14,9 +14,12 @@ function createInstanceWithAuth(url) {
   const instance = axios.create({
     baseURL: `${process.env.VUE_APP_API_URL}/api/${url}`,
     withCredentials: true,
+    timeout: 0,
   });
   return setInterceptors(instance);
 }
 
 export const instance = createInstance();
 export const board = createInstanceWithAuth('board');
+export const list = createInstanceWithAuth('list');
+export const card = createInstanceWithAuth('card');

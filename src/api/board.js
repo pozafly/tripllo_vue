@@ -8,4 +8,12 @@ function addBoard(title) {
   return board.post('/', { title });
 }
 
-export { readBoardList, addBoard };
+function readBoardDetail(boardId) {
+  return board.get(`detail/${boardId}`);
+}
+
+function updateBoard(id, payload) {
+  return board.put(`/${id}`, payload);
+}
+
+export { readBoardList, addBoard, readBoardDetail, updateBoard };

@@ -9,6 +9,7 @@ const state = {
     picture: getUserFromLocalStorage('user_picture') || '',
   },
   boardList: [],
+  board: {},
 };
 
 export default state;

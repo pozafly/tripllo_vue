@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <!-- card -->
-  </div>
+  <div>boardSetting</div>
 </template>
 
 <script>
