@@ -1,5 +1,5 @@
 <template>
-  <modal>
+  <Modal>
     <div slot="header">
       <h2>
         Create new board
@@ -30,7 +30,7 @@
         Create Board
       </button>
     </div>
-  </modal>
+  </Modal>
 </template>
 
 <script>

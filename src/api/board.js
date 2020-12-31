@@ -1,19 +1,21 @@
 import { board } from '@/api';
 
-function readBoardList(userId) {
-  return board.get(userId);
-}
+const boardApi = {
+  readBoardList(userId) {
+    return board.get(userId);
+  },
 
-function addBoard(title) {
-  return board.post('/', { title });
-}
+  addBoard(title) {
+    return board.post('/', { title });
+  },
 
-function readBoardDetail(boardId) {
-  return board.get(`detail/${boardId}`);
-}
+  readBoardDetail(boardId) {
+    return board.get(`detail/${boardId}`);
+  },
 
-function updateBoard(id, payload) {
-  return board.put(`/${id}`, payload);
-}
+  updateBoard(id, payload) {
+    return board.put(`/${id}`, payload);
+  },
+};
 
-export { readBoardList, addBoard, readBoardDetail, updateBoard };
+export default boardApi;

@@ -1,87 +1,82 @@
-import {
-  loginUser,
-  validId,
-  signup,
-  apiSocialLogin,
-  logoutUser,
-} from '@/api/auth';
-import {
-  readBoardList,
-  addBoard,
-  readBoardDetail,
-  updateBoard,
-} from '@/api/board';
-import { createList, updateList, deleteList } from '@/api/list';
-import { createCard, deleteCard } from '@/api/card';
+import authApi from '@/api/auth';
+import boardApi from '@/api/board';
+import listApi from '@/api/list';
+import cardApi from '@/api/card';
 
 const actions = {
   // 로그인
   async LOGIN({ commit }, userData) {
-    const { data } = await loginUser(userData);
+    const { data } = await authApi.loginUser(userData);
     commit('setUser', data.data);
   },
   SOCIAL_LOGIN(_, userId) {
-    return apiSocialLogin(userId);
+    return authApi.apiSocialLogin(userId);
   },
   async LOGOUT({ commit }) {
-    await logoutUser();
+    await authApi.logoutUser();
     commit('logout');
   },
 
   // user
   async VALID_ID(_, userId) {
     console.log(userId);
-    return await validId(userId);
+    return await authApi.validId(userId);
   },
   async SIGNUP(_, userData) {
-    return await signup(userData);
+    return await authApi.signup(userData);
   },
 
   //board
   READ_BOARD_LIST({ commit }, userId) {
-    return readBoardList(userId).then(({ data }) => {
+    return boardApi.readBoardList(userId).then(({ data }) => {
       commit('readBoardList', data.data);
     });
   },
-  ADD_BOARD(ctx, title) {
-    return addBoard(title);
+  ADD_BOARD(_, title) {
+    return boardApi.addBoard(title);
   },
   READ_BOARD_DETAIL({ commit }, boardId) {
-    return readBoardDetail(boardId).then(({ data }) => {
+    return boardApi.readBoardDetail(boardId).then(({ data }) => {
       commit('readBoardDetail', data.data);
     });
   },
   UPDATE_BOARD({ dispatch, state }, { id, title, bgColor }) {
-    return updateBoard(id, { title, bgColor }).then(() => {
+    return boardApi.updateBoard(id, { title, bgColor }).then(() => {
       dispatch('READ_BOARD_DETAIL', state.board.id);
     });
   },
 
   //list
   CREATE_LIST({ dispatch, state }, { title, boardId }) {
-    return createList({ title, boardId }).then(() => {
+    return listApi.createList({ title, boardId }).then(() => {
       dispatch('READ_BOARD_DETAIL', state.board.id);
     });
   },
   UPDATE_LIST({ dispatch, state }, { id, pos, title }) {
-    return updateList(id, { pos, title }).then(() => {
+    return listApi.updateList(id, { pos, title }).then(() => {
       dispatch('READ_BOARD_DETAIL', state.board.id);
     });
   },
   DELETE_LIST({ dispatch, state }, { id }) {
-    return deleteList(id).then(() => {
+    return listApi.deleteList(id).then(() => {
       dispatch('READ_BOARD_DETAIL', state.board.id);
     });
   },
 
   //card
   CREATE_CARD({ dispatch, state }, { title, listId, pos }) {
-    return createCard({ title, listId, pos }).then(() => {
+    return cardApi.createCard({ title, listId, pos }).then(() => {
       dispatch('READ_BOARD_DETAIL', state.board.id);
     });
   },
+  READ_CARD({ commit }, { id }) {
+    return cardApi.readCard(id).then(response => {
+      console.log(response);
+      // commit('readCard', );
+    });
+  },
   DELETE_CARD({ dispatch, state }, { id }) {
-    return deleteCard(id).then(() => {
+    return cardApi.deleteCard(id).then(() => {
       dispatch('READ_BOARD_DETAIL', state.board.id);
     });
   },

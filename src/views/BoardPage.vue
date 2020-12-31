@@ -45,7 +45,6 @@
       <BoardSettings v-if="isShowBoardSettings" />
       <router-view></router-view>
     </div>
-    <!-- <pre>{{ board }}</pre> -->
   </div>
 </template>
 

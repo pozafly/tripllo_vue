@@ -2,23 +2,25 @@
 import { instance } from '@/api';
 
 // 로그인 API
-function loginUser(userData) {
-  return instance.post('login', userData);
-}
-function apiSocialLogin(userId) {
-  return instance.get(`login/social/${userId}`);
-}
-function logoutUser() {
-  return instance.get('logout');
-}
+const authApi = {
+  loginUser(userData) {
+    return instance.post('login', userData);
+  },
+  apiSocialLogin(userId) {
+    return instance.get(`login/social/${userId}`);
+  },
+  logoutUser() {
+    return instance.get('logout');
+  },
 
-// user
-function validId(userId) {
-  return instance.get(`user/valid/${userId}`);
-}
+  // user
+  validId(userId) {
+    return instance.get(`user/valid/${userId}`);
+  },
 
-function signup(userData) {
-  return instance.post('user', userData);
-}
+  signup(userData) {
+    return instance.post('user', userData);
+  },
+};
 
-export { loginUser, validId, logoutUser, signup, apiSocialLogin };
+export default authApi;
