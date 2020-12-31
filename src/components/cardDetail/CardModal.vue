@@ -15,22 +15,12 @@
         <a v-else href="" @click.prevent="onEditTitle">{{ card.title }}</a>
         <span class="card-list-title">in list {{ listTitle }}</span>
       </div>
-      <a
-        class="modal-close-btn"
-        href=""
-        @click.prevent="$router.push(`/board/${board.id}`)"
-      >
-        &times;
-      </a>
     </div>
     <div slot="body" class="modal-card-body">
       <i class="fas fa-layer-group"></i>
       <span class="body-card-text">Description</span>
       <textarea
         class="form-control card-desc textarea"
-        cols="30"
-        rows="3"
-        placeholder="Add a more detailed description..."
         ref="inputDesc"
         v-model="description"
         v-if="isEditDesc"
@@ -43,6 +33,7 @@
         @click="onEditDesc"
         :value="card.description"
         spellcheck="false"
+        placeholder="Add a more detailed description..."
       >
       </textarea>
       <template v-if="isEditDesc">
@@ -61,19 +52,23 @@
         <i class="fas fa-comments"></i>
         <span class="body-card-text">Comments</span>
       </div>
-      <div class="side">asdk;fj;aslkdfj;aslkdja;sdlkfjen</div>
     </div>
     <div slot="footer"></div>
+    <div slot="side" class="side-slot">
+      <CardModalSide />
+    </div>
   </Modal>
 </template>
 
 <script>
 import Modal from '@/components/common/Modal';
+import CardModalSide from '@/components/cardDetail/CardModalSide';
 import { mapActions, mapState } from 'vuex';
 
 export default {
   components: {
     Modal,
+    CardModalSide,
   },
   data() {
     return {
@@ -104,8 +99,7 @@ export default {
     onSubmitTitle() {
       this.isEditTitle = false;
 
-      const inputTitle = this.$refs.inputTitle.value.trim();
-      if (!inputTitle) return;
+      const inputTitle = this.$refs.inputTitle.value || '';
       if (inputTitle === this.card.title) return;
       this.UPDATE_CARD({ id: this.card.id, title: inputTitle });
     },
@@ -174,13 +168,6 @@ export default {
         font-size: 20px;
       }
     }
-    .modal-close-btn {
-      position: absolute;
-      top: 0px;
-      right: 0px;
-      font-size: 24px;
-      color: black;
-    }
   }
   .modal-card-body {
     margin-bottom: 10px;
@@ -207,7 +194,7 @@ export default {
       border: none;
       font-family: Arial;
       font-size: 14px;
-      background: bottom;
+      background: rgba(9, 30, 66, 0.04);
       height: 5rem;
       &:hover {
         background-color: rgba(9, 30, 66, 0.1);
@@ -228,6 +215,9 @@ export default {
       font-size: 25px;
       color: black;
     }
+  }
+  .side-slot {
+    height: 100%;
   }
 }
 </style>

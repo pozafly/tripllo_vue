@@ -30,6 +30,7 @@
         Create Board
       </button>
     </div>
+    <div slot="side"></div>
   </Modal>
 </template>
 

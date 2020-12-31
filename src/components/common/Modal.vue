@@ -3,24 +3,31 @@
     <div class="modal-mask">
       <div class="modal-wrapper">
         <div class="modal-container">
-          <div class="modal-header">
-            <slot name="header">
-              default header
-            </slot>
-          </div>
+          <div class="modal-main">
+            <div class="modal-header">
+              <slot name="header">
+                default header
+              </slot>
+            </div>
 
-          <div class="modal-body">
-            <slot name="body">
-              default body
-            </slot>
-          </div>
+            <div class="modal-body">
+              <slot name="body">
+                default body
+              </slot>
+            </div>
 
-          <div class="modal-footer">
-            <slot name="footer">
-              default footer
-              <button class="modal-default-button" @click="$emit('close')">
-                OK
-              </button>
+            <div class="modal-footer">
+              <slot name="footer">
+                default footer
+                <button class="modal-default-button" @click="$emit('close')">
+                  OK
+                </button>
+              </slot>
+            </div>
+          </div>
+          <div class="modal-side">
+            <slot name="side">
+              side
             </slot>
           </div>
         </div>
@@ -28,10 +35,6 @@
     </div>
   </transition>
 </template>
-
-<script>
-export default {};
-</script>
 
 <style>
 .modal-mask {
@@ -50,6 +53,8 @@ export default {};
   vertical-align: middle;
 }
 .modal-container {
+  display: flex;
+  flex-wrap: wrap;
   width: 300px;
   margin: 0px auto;
   padding: 20px 30px;
@@ -79,5 +84,13 @@ export default {};
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+.modal-main {
+  min-width: 470px;
+  width: 80%;
+}
+.modal-side {
+  width: 20%;
+  text-align: center;
 }
 </style>
