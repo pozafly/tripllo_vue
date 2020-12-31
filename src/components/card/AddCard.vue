@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   props: ['listId'],
@@ -34,6 +34,7 @@ export default {
     invalidInput() {
       return !this.inputTitle.trim();
     },
+    ...mapState(['board']),
   },
   mounted() {
     this.$refs.inputTitle.focus();
@@ -46,13 +47,26 @@ export default {
         return;
       }
       const { inputTitle, listId } = this;
+      const pos = this.newCardPos();
 
-      await this.CREATE_CARD({ title: inputTitle, listId }).finally(() => {
+      await this.CREATE_CARD({ title: inputTitle, listId, pos }).finally(() => {
         this.$nextTick(() => {
           this.inputTitle = '';
           this.$refs.inputTitle.focus();
         });
       });
+    },
+    newCardPos() {
+      // 맨 마지막(최근) 카드를 가져온다.
+      const curList = this.board.lists.filter(l => l.id === this.listId)[0];
+      if (!curList) return 65535;
+
+      // 카드 배열을 가져온다.
+      const { cards } = curList;
+      if (!cards.length) return 65535;
+
+      // 맨 마지막에 있는 카드의 pos의 정보를 가져와서 * 2
+      return cards[cards.length - 1].pos * 2;
     },
     onKeyupEnter() {
       // 이벤트 트리거. onSubmitTitle이 두번 실행되는 것을 방지. https://velog.io/@kyh196201/1025

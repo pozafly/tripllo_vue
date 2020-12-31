@@ -1,5 +1,5 @@
 <template>
-  <div class="card-item" :data-card-id="card.id">
+  <div class="card-item" :data-card-id="card.id" :data-card-pos="card.pos">
     <router-link :to="`/board/${boardId}/card/${card.id}`">
       <div>{{ card.title }}</div>
       <!-- 햄버거 -->

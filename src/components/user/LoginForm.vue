@@ -45,12 +45,12 @@
           <b> Continue with KakaoTalk</b>
         </button>
       </div>
-      <div class="sign_up">
-        <router-link to="/user/signup" class="go_to_signup">
-          Do you want to Sign up?
-        </router-link>
-      </div>
     </template>
+    <div class="sign_up">
+      <router-link to="/user/signup" class="go_to_signup">
+        Do you want to Sign up?
+      </router-link>
+    </div>
   </div>
 </template>
 
