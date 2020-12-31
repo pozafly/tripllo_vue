@@ -9,6 +9,10 @@ const cardApi = {
     return card.get(`/${id}`);
   },
 
+  updateCard(id, payload) {
+    return card.put(`/${id}`, payload);
+  },
+
   deleteCard(id) {
     return card.delete(`/${id}`);
   },

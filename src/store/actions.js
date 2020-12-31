@@ -74,6 +74,17 @@ const actions = {
       commit('setCard', data.data);
     });
   },
+  UPDATE_CARD(
+    { dispatch, state },
+    { id, title, pos, description, labelColor, location, listId },
+  ) {
+    return cardApi
+      .updateCard(id, { title, pos, description, labelColor, location, listId })
+      .then(() => {
+        dispatch('READ_CARD', { id });
+        dispatch('READ_BOARD_DETAIL', state.board.id);
+      });
+  },
   DELETE_CARD({ dispatch, state }, { id }) {
     return cardApi.deleteCard(id).then(() => {
       dispatch('READ_BOARD_DETAIL', state.board.id);

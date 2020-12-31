@@ -23,7 +23,7 @@
     </div>
 
     <div v-if="isAddCard">
-      <AddCard :list-id="list.id" @close="isAddCard = false" />
+      <AddCard :listId="list.id" @close="isAddCard = false" />
     </div>
     <div v-else>
       <a class="add-card-btn" href="" @click.prevent="isAddCard = true">
