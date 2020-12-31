@@ -61,6 +61,7 @@
         <i class="fas fa-comments"></i>
         <span class="body-card-text">Comments</span>
       </div>
+      <div class="side">asdk;fj;aslkdfj;aslkdja;sdlkfjen</div>
     </div>
     <div slot="footer"></div>
   </Modal>
@@ -78,12 +79,21 @@ export default {
     return {
       isEditTitle: false,
       isEditDesc: false,
-      listTitle: '',
       description: '',
+      listTitle: '',
     };
   },
   computed: {
     ...mapState(['card', 'board']),
+  },
+  watch: {
+    // UPDATE_CARD 후 card가 들어오면 실행되도록.
+    card() {
+      const { title } = this.board.lists.filter(l => {
+        return l.id == this.card.listId;
+      })[0];
+      this.listTitle = title;
+    },
   },
   methods: {
     ...mapActions(['READ_CARD', 'UPDATE_CARD']),
@@ -109,20 +119,11 @@ export default {
       this.isEditDesc = false;
     },
     onKeyupEnter() {
-      // 이벤트 트리거. onSubmitTitle이 두번 실행되는 것을 방지. https://velog.io/@kyh196201/1025
       event.target.blur();
     },
   },
-  async created() {
-    await this.READ_CARD({ id: this.$route.params.cardId });
-    console.log('created');
-    this.$nextTick(() => {
-      const { title } = this.board.lists.filter(l => {
-        return l.id == this.card.listId;
-      })[0];
-      this.listTitle = title;
-      console.log(this.card);
-    });
+  created() {
+    this.READ_CARD({ id: this.$route.params.cardId });
   },
 };
 </script>
@@ -178,7 +179,7 @@ export default {
       top: 0px;
       right: 0px;
       font-size: 24px;
-      text-decoration: none;
+      color: black;
     }
   }
   .modal-card-body {

@@ -1,5 +1,5 @@
 <template>
-  <div class="add-list">
+  <div class="add-list" @click.prevent="onAddList">
     <input
       v-if="isAddList"
       type="text"
@@ -10,7 +10,7 @@
       @blur="onSubmitTitle"
       @keypress.enter="onKeyupEnter"
     />
-    <a v-else href="" @click.prevent="onAddList">&plus; Add another list</a>
+    <a v-else href="">&plus; Add another list</a>
   </div>
 </template>
 

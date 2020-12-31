@@ -46,7 +46,7 @@ const router = new VueRouter({
       children: [
         {
           path: 'card/:cardId',
-          component: () => import('@/components/card/CardDetail'),
+          component: () => import('@/components/cardDetail/CardModal'),
           beforeEnter: requireAuth,
         },
       ],
