@@ -15,11 +15,16 @@ const mutations = {
   },
 
   // board
-  readBoardList(state, boardList) {
+  setBoardList(state, boardList) {
     state.boardList = boardList;
   },
-  readBoardDetail(state, board) {
+  setBoardDetail(state, board) {
     state.board = board;
+  },
+
+  // card
+  setCard(state, card) {
+    state.card = card;
   },
 };
 

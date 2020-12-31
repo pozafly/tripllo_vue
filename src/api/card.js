@@ -5,6 +5,10 @@ const cardApi = {
     return card.post('/', payload);
   },
 
+  readCard(id) {
+    return card.get(`/${id}`);
+  },
+
   deleteCard(id) {
     return card.delete(`/${id}`);
   },

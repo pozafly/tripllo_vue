@@ -29,7 +29,7 @@ const actions = {
   //board
   READ_BOARD_LIST({ commit }, userId) {
     return boardApi.readBoardList(userId).then(({ data }) => {
-      commit('readBoardList', data.data);
+      commit('setBoardList', data.data);
     });
   },
   ADD_BOARD(_, title) {
@@ -37,7 +37,7 @@ const actions = {
   },
   READ_BOARD_DETAIL({ commit }, boardId) {
     return boardApi.readBoardDetail(boardId).then(({ data }) => {
-      commit('readBoardDetail', data.data);
+      commit('setBoardDetail', data.data);
     });
   },
   UPDATE_BOARD({ dispatch, state }, { id, title, bgColor }) {
@@ -70,9 +70,8 @@ const actions = {
     });
   },
   READ_CARD({ commit }, { id }) {
-    return cardApi.readCard(id).then(response => {
-      console.log(response);
-      // commit('readCard', );
+    return cardApi.readCard(id).then(({ data }) => {
+      commit('setCard', data.data);
     });
   },
   DELETE_CARD({ dispatch, state }, { id }) {

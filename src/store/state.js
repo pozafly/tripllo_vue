@@ -10,6 +10,7 @@ const state = {
   },
   boardList: [],
   board: {},
+  card: {},
 };
 
 export default state;
