@@ -1,4 +1,4 @@
-<template>
+<template class="container">
   <div class="page">
     <Header />
     <div class="wrap">
@@ -42,7 +42,10 @@
           </div>
         </div>
       </div>
-      <BoardSettings v-if="isShowBoardSettings" />
+      <BoardSettings
+        v-if="isShowBoardSettings"
+        @close="isShowBoardSettings = false"
+      />
       <router-view></router-view>
     </div>
   </div>
@@ -53,7 +56,7 @@ import Header from '@/components/common/Header';
 import List from '@/components/list/List';
 import AddList from '@/components/list/AddList';
 import BoardSettings from '@/components/board/BoardSettings';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
   components: {
@@ -68,13 +71,15 @@ export default {
       loading: false,
       isEditTitle: false,
       inputTitle: '',
+      isShowBoardSettings: '',
     };
   },
   computed: {
-    ...mapState(['board', 'isShowBoardSettings']),
+    ...mapState(['board']),
   },
   methods: {
     ...mapActions(['READ_BOARD_DETAIL', 'UPDATE_BOARD']),
+    ...mapMutations(['setTheme']),
     onClickTitle() {
       this.isEditTitle = true;
       //$nextTick : 시간 지연 // https://backback.tistory.com/382
@@ -99,9 +104,14 @@ export default {
 
       this.UPDATE_BOARD({ id, title });
     },
+    onShowSettings() {
+      this.isShowBoardSettings = true;
+    },
   },
   created() {
-    this.READ_BOARD_DETAIL(this.$route.params.boardId);
+    this.READ_BOARD_DETAIL(this.$route.params.boardId).then(() => {
+      this.setTheme(this.board.bgColor);
+    });
   },
 };
 </script>
@@ -111,7 +121,6 @@ export default {
   border: 1px solid black;
 } */
 .page {
-  background: rgb(0, 121, 191);
   position: relative;
   height: 100%;
   .wrap {

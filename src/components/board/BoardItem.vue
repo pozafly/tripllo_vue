@@ -11,6 +11,19 @@
 <script>
 export default {
   props: ['board'],
+  watch: {
+    board() {
+      this.setboardItemTheme();
+    },
+  },
+  mounted() {
+    this.setboardItemTheme();
+  },
+  methods: {
+    setboardItemTheme() {
+      this.$refs.boardItem.style.backgroundColor = this.board.bgColor;
+    },
+  },
 };
 </script>
 
@@ -19,7 +32,7 @@ export default {
   width: 225px;
   height: 100px;
   border-radius: 3px;
-  background-color: #026aa7;
+  /* background-color: #026aa7; */
   a {
     display: block;
     width: 100%;

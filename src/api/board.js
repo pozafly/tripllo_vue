@@ -16,6 +16,10 @@ const boardApi = {
   updateBoard(id, payload) {
     return board.put(`/${id}`, payload);
   },
+
+  deleteBoard(id) {
+    return board.delete(`/${id}`);
+  },
 };
 
 export default boardApi;

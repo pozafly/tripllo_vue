@@ -1,5 +1,5 @@
 <template>
-  <Modal class="modal-card">
+  <CardModalBase class="modal-card">
     <div slot="header" class="modal-card-header">
       <div class="modal-card-header-title">
         <i class="far fa-clipboard"></i>
@@ -57,17 +57,17 @@
     <div slot="side" class="side-slot">
       <CardModalSide />
     </div>
-  </Modal>
+  </CardModalBase>
 </template>
 
 <script>
-import Modal from '@/components/common/Modal';
+import CardModalBase from '@/components/cardDetail/CardModalBase';
 import CardModalSide from '@/components/cardDetail/CardModalSide';
 import { mapActions, mapState } from 'vuex';
 
 export default {
   components: {
-    Modal,
+    CardModalBase,
     CardModalSide,
   },
   data() {

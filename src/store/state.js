@@ -11,6 +11,7 @@ const state = {
   boardList: [],
   board: {},
   card: {},
+  bgColor: '',
 };
 
 export default state;

@@ -45,6 +45,9 @@ const actions = {
       dispatch('READ_BOARD_DETAIL', state.board.id);
     });
   },
+  DELETE_BOARD(_, { id }) {
+    return boardApi.deleteBoard(id);
+  },
 
   //list
   CREATE_LIST({ dispatch, state }, { title, boardId }) {

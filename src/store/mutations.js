@@ -21,6 +21,10 @@ const mutations = {
   setBoardDetail(state, board) {
     state.board = board;
   },
+  setTheme(state, bgColor) {
+    console.log('setTheme mutation');
+    state.bgColor = bgColor ? bgColor : 'rgb(0, 121, 191);';
+  },
 
   // card
   setCard(state, card) {

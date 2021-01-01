@@ -46,7 +46,7 @@ export default {
     display: block;
     .card-item-meta {
       font-size: 26px;
-      padding: 5px 0 0 3px;
+      padding: 5px 5px 0 3px;
       color: #8c8c8c;
     }
   }

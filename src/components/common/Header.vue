@@ -24,7 +24,7 @@
       </ul>
     </div>
 
-    <section class="menu" v-show="isMenuShow">
+    <div class="menu" v-show="isMenuShow">
       <div
         class="menu-item img"
         v-if="this.user.picture !== null && this.user.picture !== 'null'"
@@ -44,7 +44,7 @@
       <router-link class="menu-item" v-else to="/user/login">
         <span>Login</span>
       </router-link>
-    </section>
+    </div>
   </nav>
 </template>
 
@@ -59,7 +59,12 @@ export default {
   },
   computed: {
     ...mapGetters(['isAuth']),
-    ...mapState(['user']),
+    ...mapState(['user', 'bgColor']),
+  },
+  watch: {
+    bgColor() {
+      this.updateTheme();
+    },
   },
   methods: {
     ...mapActions(['LOGOUT']),
@@ -70,8 +75,17 @@ export default {
     menuShow() {
       this.isMenuShow = !this.isMenuShow;
     },
+    updateTheme() {
+      if (this.$route.path.includes('main')) return;
+
+      const board = document.querySelector('.board');
+      const header = document.querySelector('.header');
+      if (board) board.style.backgroundColor = this.bgColor;
+      if (header) header.style.backgroundColor = this.bgColor;
+    },
   },
   mounted() {
+    this.updateTheme();
     // 프로필에 이미지 넣기
     const imgList = this.$el.querySelectorAll('.img');
     Array.from(imgList).forEach(e => {
@@ -83,16 +97,27 @@ export default {
 
 <style scoped lang="scss">
 .header {
-  background-color: #026aa7;
+  background-color: rgb(0, 121, 191);
+  z-index: 3;
   height: 32px;
   padding: 4px;
   position: relative;
-  z-index: 1;
+  &:after {
+    position: absolute;
+    content: '';
+    background: rgba(0, 0, 0, 0.1);
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
   a {
+    z-index: 999;
     display: block;
     height: 30px;
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.8);
   }
   .header-logo {
     font-family: 'Pacifico', cursive;
@@ -104,7 +129,7 @@ export default {
     font-size: 21px;
     line-height: 22px;
     a:hover {
-      color: rgba(255, 255, 255, 0.9);
+      color: white;
     }
   }
   .header-auth {
@@ -149,6 +174,7 @@ export default {
     }
   }
   .menu {
+    /* filter: Grayscale(150%); */
     position: fixed;
     right: 3px;
     width: 304px;
@@ -156,7 +182,7 @@ export default {
     font-size: 14px;
     line-height: 20px;
     font-weight: 400;
-    background-color: #fff;
+    background: white;
     border-radius: 3px;
     box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25),
       0 0 0 1px rgba(9, 30, 66, 0.08);
