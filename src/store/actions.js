@@ -90,6 +90,7 @@ const actions = {
       listId,
     });
     // CardModal의 listTitle을 불러오기위해 동기 형식 택함.
+    // await dispatch('READ_BOARD_DETAIL', state.board.id);
     await dispatch('READ_CARD', { id });
   },
   DELETE_CARD({ dispatch, state }, { id }) {

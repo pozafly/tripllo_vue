@@ -99,7 +99,7 @@ export default {
 
 <style scoped lang="scss">
 .header {
-  background-color: rgb(0, 121, 191);
+  background-color: #339af0;
   z-index: 3;
   height: 32px;
   padding: 4px;
@@ -194,7 +194,7 @@ export default {
       transition: none;
       cursor: pointer;
       &.fa-user {
-        background: #0282ce;
+        background: #339af0;
         color: #fff;
         display: inline-block;
         margin: 0.6rem;

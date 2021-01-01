@@ -17,11 +17,7 @@
           <a href="" :data-value="blue" @click.prevent="onChangeTheme"></a>
           <a href="" :data-value="indigo" @click.prevent="onChangeTheme"></a>
           <a href="" :data-value="violet" @click.prevent="onChangeTheme"></a>
-          <a
-            href=""
-            :data-value="draculaorchid"
-            @click.prevent="onChangeTheme"
-          ></a>
+          <a href="" :data-value="black" @click.prevent="onChangeTheme"></a>
         </div>
         <li>
           <i class="fas fa-trash-alt"></i>
@@ -45,7 +41,7 @@ export default {
       blue: '#339af0',
       indigo: '#5c7cfa',
       violet: '#7950f2',
-      draculaorchid: '#2d3436',
+      black: '#3a4142',
     };
   },
   computed: {
@@ -125,6 +121,7 @@ export default {
           height: 100px;
           border-radius: 8px;
           margin-right: 5.2px;
+          cursor: pointer;
         }
       }
     }
