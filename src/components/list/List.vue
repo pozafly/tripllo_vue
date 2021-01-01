@@ -102,14 +102,14 @@ export default {
     height: 30px;
     padding: 10px 8px 8px;
     position: relative;
-    .input-title {
-      width: 90%;
-    }
     .list-header-title {
       font-size: 15px;
       font-weight: 700;
-      padding-left: 8px;
+      padding: 0 10px 0 8px;
       line-height: 30px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       cursor: pointer;
       .fa-edit {
         display: none;

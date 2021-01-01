@@ -63,6 +63,7 @@ export default {
   padding: 12px;
   color: #ddd;
   transition: all 0.3s;
+  cursor: pointer;
   a {
     color: #ddd;
   }

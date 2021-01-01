@@ -80,8 +80,10 @@ export default {
 
       const board = document.querySelector('.board');
       const header = document.querySelector('.header');
+      const menuImg = document.querySelector('.img');
       if (board) board.style.backgroundColor = this.bgColor;
       if (header) header.style.backgroundColor = this.bgColor;
+      if (menuImg) menuImg.style.backgroundColor = this.bgColor;
     },
   },
   mounted() {
@@ -156,18 +158,10 @@ export default {
             background-color: rgba(255, 255, 255, 0.3);
           }
           &.fa-user {
-            padding: 9px;
-            display: inline-block;
+            padding: 7px 8px 11px;
             border-radius: 100px;
             height: 13px;
-            width: 13px;
-          }
-          &.img {
-            border-radius: 100px;
-            padding: 0 15px;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            width: 14px;
           }
         }
       }
@@ -224,6 +218,7 @@ export default {
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        cursor: auto;
       }
     }
     .menu-profile {

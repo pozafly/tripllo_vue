@@ -10,24 +10,16 @@
       <ul class="menu-list">
         <li><i class="fas fa-exchange-alt"></i>Change Background</li>
         <div class="color-picker">
+          <a href="" :data-value="red" @click.prevent="onChangeTheme"></a>
+          <a href="" :data-value="orange" @click.prevent="onChangeTheme"></a>
+          <a href="" :data-value="yellow" @click.prevent="onChangeTheme"></a>
+          <a href="" :data-value="green" @click.prevent="onChangeTheme"></a>
+          <a href="" :data-value="blue" @click.prevent="onChangeTheme"></a>
+          <a href="" :data-value="indigo" @click.prevent="onChangeTheme"></a>
+          <a href="" :data-value="violet" @click.prevent="onChangeTheme"></a>
           <a
             href=""
-            data-value="rgb(0, 121, 191)"
-            @click.prevent="onChangeTheme"
-          ></a>
-          <a
-            href=""
-            data-value="rgb(210, 144, 52)"
-            @click.prevent="onChangeTheme"
-          ></a>
-          <a
-            href=""
-            data-value="rgb(81, 152, 57)"
-            @click.prevent="onChangeTheme"
-          ></a>
-          <a
-            href=""
-            data-value="rgb(176, 70, 50)"
+            :data-value="draculaorchid"
             @click.prevent="onChangeTheme"
           ></a>
         </div>
@@ -44,6 +36,18 @@
 import { mapMutations, mapActions, mapState } from 'vuex';
 
 export default {
+  data() {
+    return {
+      red: '#fa5252',
+      orange: '#fd7e14',
+      yellow: '#ffa500',
+      green: '#4AC06A',
+      blue: '#339af0',
+      indigo: '#5c7cfa',
+      violet: '#7950f2',
+      draculaorchid: '#2d3436',
+    };
+  },
   computed: {
     ...mapState(['board']),
   },

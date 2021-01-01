@@ -67,7 +67,6 @@ export default {
   },
   data() {
     return {
-      bid: 0,
       loading: false,
       isEditTitle: false,
       inputTitle: '',

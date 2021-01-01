@@ -12,7 +12,9 @@
           @blur="onSubmitTitle"
           @keypress.enter="onKeyupEnter"
         />
-        <a v-else href="" @click.prevent="onEditTitle">{{ card.title }}</a>
+        <a v-else href="" @click.prevent="onEditTitle">
+          {{ card.title }} <i class="fas fa-edit"></i>
+        </a>
         <span class="card-list-title">in list {{ listTitle }}</span>
       </div>
     </div>
@@ -26,6 +28,7 @@
         v-if="isEditDesc"
         :readonly="!isEditDesc"
         spellcheck="false"
+        @blur="onSubmitDesc"
       />
       <textarea
         v-else
@@ -61,8 +64,8 @@
 </template>
 
 <script>
-import CardModalBase from '@/components/cardDetail/CardModalBase';
-import CardModalSide from '@/components/cardDetail/CardModalSide';
+import CardModalBase from '@/components/card/cardDetail/CardModalBase';
+import CardModalSide from '@/components/card/cardDetail/CardModalSide';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -108,9 +111,18 @@ export default {
       this.description = this.card.description;
       this.$nextTick(() => this.$refs.inputDesc.focus());
     },
-    onSubmitDesc() {
-      this.UPDATE_CARD({ id: this.card.id, description: this.description });
+    // relatedTarget: 이벤트 발생 타겟을 의미함.
+    onSubmitDesc({ relatedTarget }) {
       this.isEditDesc = false;
+
+      // body를 눌렀을 때, 이벤트 타겟이 null로 나오므로 그냥 통과(저장된단 말임.)
+      if (relatedTarget) {
+        if (relatedTarget.className === 'desc-cancel') return; // x버튼을 눌렀을 때는 return
+      }
+
+      if (this.description === this.card.description) return;
+
+      this.UPDATE_CARD({ id: this.card.id, description: this.description });
     },
     onKeyupEnter() {
       event.target.blur();
@@ -143,8 +155,15 @@ export default {
         color: black;
         font-size: 23px;
         margin-left: 15px;
+        .fa-edit {
+          display: none;
+        }
         &:hover {
           color: rgba(0, 0, 0, 0.3);
+          .fa-edit {
+            display: inline-block;
+            font-size: 10px;
+          }
         }
       }
       .card-title-input {

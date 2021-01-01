@@ -22,7 +22,6 @@ const mutations = {
     state.board = board;
   },
   setTheme(state, bgColor) {
-    console.log('setTheme mutation');
     state.bgColor = bgColor ? bgColor : 'rgb(0, 121, 191);';
   },
 

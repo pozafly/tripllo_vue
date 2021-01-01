@@ -14,11 +14,18 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   computed: {
     ...mapState(['board']),
+  },
+  beforeDestroy() {
+    // 모달 창을 닫을 때, board detail 화면을 갱신하기 위함.
+    this.READ_BOARD_DETAIL(this.board.id);
+  },
+  methods: {
+    ...mapActions(['READ_BOARD_DETAIL']),
   },
 };
 </script>
