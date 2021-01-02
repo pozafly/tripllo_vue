@@ -25,41 +25,12 @@
           <i class="fas fa-exchange-alt"></i>Change Background
         </li>
         <div class="color-picker">
-          <a class="color" :data-value="red" @click.prevent="onChangeTheme"></a>
           <a
             class="color"
-            :data-value="orange"
+            :data-value="item"
             @click.prevent="onChangeTheme"
-          ></a>
-          <a
-            class="color"
-            :data-value="yellow"
-            @click.prevent="onChangeTheme"
-          ></a>
-          <a
-            class="color"
-            :data-value="green"
-            @click.prevent="onChangeTheme"
-          ></a>
-          <a
-            class="color"
-            :data-value="blue"
-            @click.prevent="onChangeTheme"
-          ></a>
-          <a
-            class="color"
-            :data-value="indigo"
-            @click.prevent="onChangeTheme"
-          ></a>
-          <a
-            class="color"
-            :data-value="violet"
-            @click.prevent="onChangeTheme"
-          ></a>
-          <a
-            class="color"
-            :data-value="black"
-            @click.prevent="onChangeTheme"
+            v-for="item in colors"
+            :key="item"
           ></a>
           <a class="new-pick" @click.prevent="onChangeTheme">
             <div class="color new-pick-text" @click="isPicker = true">
@@ -89,14 +60,16 @@ export default {
   },
   data() {
     return {
-      red: '#fa5252',
-      orange: '#fd7e14',
-      yellow: '#ffa500',
-      green: '#4AC06A',
-      blue: '#339af0',
-      indigo: '#5c7cfa',
-      violet: '#7950f2',
-      black: '#3a4142',
+      colors: {
+        red: '#fa5252',
+        orange: '#fd7e14',
+        yellow: '#ffa500',
+        green: '#4AC06A',
+        blue: '#339af0',
+        indigo: '#5c7cfa',
+        violet: '#7950f2',
+        black: '#3a4142',
+      },
       isPicker: false,
     };
   },
@@ -104,13 +77,11 @@ export default {
     ...mapState(['board', 'user']),
   },
   mounted() {
-    console.log(this.user);
     Array.from(this.$el.querySelectorAll('.color-picker a')).forEach(el => {
       el.style.backgroundColor = el.dataset.value;
     });
 
     const imgList = this.$el.querySelectorAll('.img');
-    console.log(imgList);
     Array.from(imgList).forEach(e => {
       e.style.backgroundImage = `url(${this.user.picture})`;
     });
@@ -209,10 +180,8 @@ export default {
       .fa-user:nth-child(2) {
         font-size: 20px;
         &.icon {
-          /* border: 1px solid black; */
           display: inline-block;
           padding: 14px;
-          margin-top: 15px;
           color: white;
           border-radius: 90px;
           background-size: cover;
@@ -244,13 +213,14 @@ export default {
     }
     .menu-item {
       display: inline-block;
-      margin-top: 23px;
       &:nth-child(2) {
-        margin-top: 90px;
+        margin-top: 60px;
       }
       &.delete-board {
-        display: block;
-        margin-top: 50px;
+        position: absolute;
+        bottom: 30px;
+        left: 15px;
+        right: 15px;
         padding: 13px 19px;
         cursor: pointer;
         &:hover {
