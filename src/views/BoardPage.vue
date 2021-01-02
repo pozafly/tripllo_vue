@@ -85,8 +85,8 @@ export default {
     });
   },
   updated() {
-    this.setCardDragger();
-    this.setListDragger();
+    dragger.cardDragger();
+    dragger.listDragger();
   },
   methods: {
     ...mapActions([
@@ -122,67 +122,6 @@ export default {
     },
     onShowSettings() {
       this.isShowBoardSettings = true;
-    },
-    setCardDragger() {
-      if (this.cDragger) this.cDragger.destroy();
-      this.cDragger = dragger.init(
-        Array.from(this.$el.querySelectorAll('.card-list')),
-      );
-
-      this.cDragger.on('drop', (el, wrapper, target, siblings) => {
-        const targetCard = {
-          id: el.dataset.cardId * 1,
-          // list 이동과는 다르게, card 이동은 list간의 이동도 가능해야하기때문에 listId 를 줌.
-          listId: wrapper.dataset.listId * 1,
-          pos: 65535,
-        };
-        const { prev, next } = dragger.siblings({
-          el,
-          wrapper,
-          candidates: Array.from(wrapper.querySelectorAll('.card-item')),
-          type: 'card',
-        });
-
-        // 맨 앞으로 옮겼다면,
-        if (!prev && next) targetCard.pos = next.pos / 2;
-        // 맨 뒤로 옮겼다면,
-        else if (!next && prev) targetCard.pos = prev.pos * 2;
-        // 중간 어딘가로 옮겼다면,
-        else if (prev && next) targetCard.pos = (prev.pos + next.pos) / 2;
-
-        this.UPDATE_CARD(targetCard);
-      });
-    },
-    setListDragger() {
-      if (this.lDragger) this.lDragger.destroy();
-      const options = {
-        invalid: (el, handle) => !/^list/.test(handle.className),
-        // list는 가로 방향으로만 동작하므로 options에 direction을 넣어줘야 함.
-        direction: 'horizontal',
-      };
-      this.lDragger = dragger.init(
-        Array.from(this.$el.querySelectorAll('.list-section')),
-        options,
-        'list',
-      );
-      this.lDragger.on('drop', (el, wrapper, target, siblings) => {
-        const targetList = {
-          id: el.dataset.listId * 1,
-          pos: 65535,
-        };
-        const { prev, next } = dragger.siblings({
-          el,
-          wrapper,
-          candidates: Array.from(wrapper.querySelectorAll('.list')),
-          type: 'list',
-        });
-
-        if (!prev && next) targetList.pos = next.pos / 2;
-        else if (!next && prev) targetList.pos = prev.pos * 2;
-        else if (prev && next) targetList.pos = (prev.pos + next.pos) / 2;
-
-        this.UPDATE_LIST(targetList);
-      });
     },
   },
 };
