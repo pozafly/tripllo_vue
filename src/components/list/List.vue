@@ -1,5 +1,5 @@
 <template>
-  <div class="list" :data-list-id="list.id">
+  <div class="list" :data-list-id="list.id" :data-list-pos="list.pos">
     <div class="list-header">
       <input
         v-if="isEditTitle"
@@ -11,7 +11,7 @@
         @blur="onSubmitTitle"
       />
       <div v-else class="list-header-title" @click.prevent="onClickTitle">
-        {{ list.title }} <i class="fas fa-edit"></i>
+        {{ list.title }}
       </div>
       <a class="delete-list-btn" href="" @click.prevent="onDeleteList">
         &times;
@@ -102,7 +102,12 @@ export default {
     height: 30px;
     padding: 10px 8px 8px;
     position: relative;
+    .input-title {
+      width: 230px;
+    }
     .list-header-title {
+      border: 1px solid black;
+      display: inline;
       font-size: 15px;
       font-weight: 700;
       padding: 0 10px 0 8px;
@@ -111,14 +116,8 @@ export default {
       text-overflow: ellipsis;
       white-space: nowrap;
       cursor: pointer;
-      .fa-edit {
-        display: none;
-      }
       &:hover {
-        .fa-edit {
-          display: inline-block;
-          font-size: 10px;
-        }
+        color: #8c8c8c;
       }
     }
     .delete-list-btn {

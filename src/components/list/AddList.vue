@@ -42,8 +42,10 @@ export default {
 
       const title = this.inputTitle;
       const boardId = this.board.id;
+      const lastList = this.board.lists[this.board.lists.length - 1];
+      const pos = lastList ? lastList.pos * 2 : 65535;
 
-      this.CREATE_LIST({ title, boardId }).finally(() => {
+      this.CREATE_LIST({ title, boardId, pos }).finally(() => {
         this.$nextTick(() => {
           this.inputTitle = '';
           this.$refs.inputTitle.focus();

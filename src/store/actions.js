@@ -50,8 +50,8 @@ const actions = {
   },
 
   //list
-  CREATE_LIST({ dispatch, state }, { title, boardId }) {
-    return listApi.createList({ title, boardId }).then(() => {
+  CREATE_LIST({ dispatch, state }, { title, boardId, pos }) {
+    return listApi.createList({ title, boardId, pos }).then(() => {
       dispatch('READ_BOARD_DETAIL', state.board.id);
     });
   },
