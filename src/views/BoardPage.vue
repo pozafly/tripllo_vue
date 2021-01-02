@@ -87,8 +87,6 @@ export default {
   updated() {
     this.setCardDragger();
     this.setListDragger();
-    console.log(this.cDragger);
-    console.log(this.lDragger);
   },
   methods: {
     ...mapActions([
@@ -152,9 +150,7 @@ export default {
         // 중간 어딘가로 옮겼다면,
         else if (prev && next) targetCard.pos = (prev.pos + next.pos) / 2;
 
-        this.UPDATE_CARD(targetCard).then(() =>
-          this.READ_BOARD_DETAIL(this.board.id),
-        );
+        this.UPDATE_CARD(targetCard);
       });
     },
     setListDragger() {
