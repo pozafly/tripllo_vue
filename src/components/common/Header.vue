@@ -29,7 +29,7 @@
         class="menu-item img"
         v-if="this.user.picture !== null && this.user.picture !== 'null'"
       ></div>
-      <i class="fas fa-user menu-item img" v-else></i>
+      <i class="fas fa-user menu-item icon" v-else></i>
       <div class="menu-profile">
         <div class="profile-item name">{{ user.name }}</div>
         <div class="profile-item email">{{ user.email }}</div>
@@ -80,10 +80,15 @@ export default {
 
       const board = document.querySelector('.board');
       const header = document.querySelector('.header');
-      const menuImg = document.querySelector('.img');
+      const icon = document.querySelectorAll('.icon');
+
       if (board) board.style.backgroundColor = this.bgColor;
       if (header) header.style.backgroundColor = this.bgColor;
-      if (menuImg) menuImg.style.backgroundColor = this.bgColor;
+      if (icon) {
+        Array.from(icon).map(icon => {
+          icon.style.backgroundColor = this.bgColor;
+        });
+      }
     },
   },
   mounted() {
@@ -163,6 +168,15 @@ export default {
             height: 13px;
             width: 14px;
           }
+          &.img {
+            width: 11px;
+            height: 30px;
+            border-radius: 90px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            cursor: pointer;
+          }
         }
       }
     }
@@ -207,7 +221,8 @@ export default {
           font-size: 20px;
         }
       }
-      &.img {
+      &.img,
+      &.icon {
         display: inline-block;
         position: relative;
         padding: 0;

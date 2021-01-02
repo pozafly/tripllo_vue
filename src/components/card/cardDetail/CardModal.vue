@@ -19,42 +19,48 @@
       </div>
     </div>
     <div slot="body" class="modal-card-body">
-      <i class="fas fa-layer-group"></i>
-      <span class="body-card-text">Description</span>
-      <textarea
-        class="form-control card-desc textarea"
-        ref="inputDesc"
-        v-model="description"
-        v-if="isEditDesc"
-        :readonly="!isEditDesc"
-        spellcheck="false"
-        @blur="onSubmitDesc"
-      />
-      <textarea
-        v-else
-        class="form-control card-desc"
-        @click="onEditDesc"
-        :value="card.description"
-        spellcheck="false"
-        placeholder="Add a more detailed description..."
-      >
-      </textarea>
-      <template v-if="isEditDesc">
-        <button class="card-desc-btn" @click="onSubmitDesc">Save</button>
-        <a href="" class="desc-cancel" @click.prevent="isEditDesc = false">
-          &times;
-        </a>
-      </template>
-
-      <div>
-        <i class="fas fa-map-marker-alt"></i>
-        <span class="body-card-text">Loction</span>
-      </div>
-
-      <div>
-        <i class="fas fa-comments"></i>
-        <span class="body-card-text">Comments</span>
-      </div>
+      <ul class="body-items">
+        <li class="body-item">
+          <i class="fas fa-layer-group"></i>
+          <span class="body-card-text">Description</span>
+          <textarea
+            class="form-control card-desc textarea"
+            ref="inputDesc"
+            v-model="description"
+            v-if="isEditDesc"
+            :readonly="!isEditDesc"
+            spellcheck="false"
+            @blur="onSubmitDesc"
+          />
+          <textarea
+            v-else
+            class="form-control card-desc"
+            @click="onEditDesc"
+            :value="card.description"
+            spellcheck="false"
+            placeholder="Add a more detailed description..."
+          >
+          </textarea>
+          <template v-if="isEditDesc">
+            <button class="card-desc-btn" @click="onSubmitDesc">Save</button>
+            <a href="" class="desc-cancel" @click.prevent="isEditDesc = false">
+              &times;
+            </a>
+          </template>
+        </li>
+        <li class="body-item">
+          <div>
+            <i class="fas fa-map-marker-alt"></i>
+            <span class="body-card-text">Loction</span>
+          </div>
+        </li>
+        <li class="body-item">
+          <div>
+            <i class="fas fa-comments"></i>
+            <span class="body-card-text">Comments</span>
+          </div>
+        </li>
+      </ul>
     </div>
     <div slot="footer"></div>
     <div slot="side" class="side-slot">
@@ -141,9 +147,9 @@ export default {
 .modal-card {
   .modal-container {
     min-width: 300px;
-    max-width: 800px;
-    width: 80%;
-    height: 80%;
+    max-width: 700px;
+    width: 70%;
+    height: 90%;
     font-size: 20px;
   }
   .modal-card-header {
@@ -153,7 +159,7 @@ export default {
       min-height: 30px;
       a {
         color: black;
-        font-size: 23px;
+        font-size: 20px;
         margin-left: 15px;
         .fa-edit {
           display: none;
@@ -167,6 +173,7 @@ export default {
         }
       }
       .card-title-input {
+        position: absolute;
         margin: 0 0 0 15px;
         padding: 3px 6px;
         width: 90%;
@@ -174,10 +181,11 @@ export default {
         overflow: hidden;
         overflow-wrap: break-word;
         height: 28px;
-        font-size: 21px;
+        font-size: 17px;
       }
       .card-list-title {
-        margin: 12px 0 40px 34px;
+        position: absolute;
+        padding: 7px 0 40px 39px;
         display: block;
         font-size: 13px;
         font-weight: 400;
@@ -190,49 +198,54 @@ export default {
   }
   .modal-card-body {
     margin-bottom: 10px;
-    .fa-layer-group {
-      font-size: 18px;
-    }
-    .body-card-text {
-      display: inline;
-      margin-left: 6px;
-      padding: 3px 6px;
-      width: 90%;
-      overflow: hidden;
-      overflow-wrap: break-word;
-      height: 28px;
-      font-size: 21px;
-    }
-    .card-desc {
-      display: block;
-      margin: 13px 0 7px 27px;
-      width: 92%;
-      overflow-wrap: break-word;
-      resize: none;
-      height: 54px;
-      border: none;
-      font-family: Arial;
-      font-size: 14px;
-      background: rgba(9, 30, 66, 0.04);
-      height: 5rem;
-      &:hover {
-        background-color: rgba(9, 30, 66, 0.1);
+    .body-items {
+      /* padding-top: 40px; */
+      .body-item {
+        padding-top: 40px;
+        .fas,
+        .fa {
+          font-size: 16px;
+        }
+        .body-card-text {
+          display: inline;
+          margin-left: 14px;
+          padding: 3px 6px;
+          width: 90%;
+          overflow: hidden;
+          overflow-wrap: break-word;
+          height: 28px;
+          font-size: 18px;
+        }
+        .card-desc {
+          display: block;
+          margin: 13px 0 7px 35px;
+          width: 92%;
+          overflow-wrap: break-word;
+          resize: none;
+          height: 54px;
+          border: none;
+          font-family: Arial;
+          font-size: 14px;
+          background: none;
+          cursor: pointer;
+          height: 5rem;
+          &.textarea {
+            height: 7rem;
+            background: #fff;
+          }
+        }
+        .card-desc-btn {
+          display: inline;
+          margin: 0 0 40px 27px;
+          width: 55px;
+          height: 33px;
+        }
+        .desc-cancel {
+          margin-left: 10px;
+          font-size: 25px;
+          color: black;
+        }
       }
-      &.textarea {
-        height: 7rem;
-        background: #fff;
-      }
-    }
-    .card-desc-btn {
-      display: inline;
-      margin: 0 0 40px 27px;
-      width: 55px;
-      height: 33px;
-    }
-    .desc-cancel {
-      margin-left: 10px;
-      font-size: 25px;
-      color: black;
     }
   }
   .side-slot {

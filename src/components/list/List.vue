@@ -106,7 +106,7 @@ export default {
       width: 230px;
     }
     .list-header-title {
-      display: inline;
+      display: block;
       font-size: 15px;
       font-weight: 700;
       padding: 0 10px 0 8px;

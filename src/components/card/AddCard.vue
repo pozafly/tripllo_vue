@@ -76,7 +76,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .add-card {
   padding: 10px;
   display: block;

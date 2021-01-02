@@ -42,7 +42,7 @@
           </div>
         </div>
       </div>
-      <BoardSettings
+      <BoardMenu
         v-if="isShowBoardSettings"
         @close="isShowBoardSettings = false"
       />
@@ -55,7 +55,7 @@
 import Header from '@/components/common/Header';
 import List from '@/components/list/List';
 import AddList from '@/components/list/AddList';
-import BoardSettings from '@/components/board/BoardSettings';
+import BoardMenu from '@/components/board/BoardMenu';
 import dragger from '@/utils/dragger';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
@@ -63,7 +63,7 @@ export default {
   components: {
     Header,
     List,
-    BoardSettings,
+    BoardMenu,
     AddList,
   },
   data() {

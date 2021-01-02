@@ -9,25 +9,20 @@
     </a>
     <div class="side-items">
       <ul>
-        <li>
-          <div>
-            1
-          </div>
+        <li class="side-item">
+          <a href="">Labels</a>
         </li>
-        <li>
-          <div>
-            1
-          </div>
+        <li class="side-item">
+          <a href="">Checklist</a>
         </li>
-        <li>
-          <div>
-            1
-          </div>
+        <li class="side-item">
+          <a href="">Due Date</a>
         </li>
-        <li>
-          <div>
-            1
-          </div>
+        <li class="side-item">
+          <a href="">Attachment</a>
+        </li>
+        <li class="side-item">
+          <a href="">Location</a>
         </li>
       </ul>
     </div>
@@ -51,9 +46,8 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .side {
-  border: 1px solid black;
   position: relative;
   box-sizing: border-box;
   height: 100%;
@@ -65,7 +59,24 @@ export default {
     color: black;
   }
   .side-items {
-    padding-top: 30px;
+    padding-top: 80px;
+    .side-item {
+      position: relative;
+      margin: 12px 8px;
+      padding: 8px;
+      font-size: 15px;
+      background: rgba(9, 30, 66, 0.04);
+      border-radius: 3px;
+      text-align: left;
+      box-sizing: border-box;
+      cursor: pointer;
+      &:hover {
+        background-color: rgba(9, 30, 66, 0.1);
+      }
+      a {
+        color: black;
+      }
+    }
   }
 }
 </style>

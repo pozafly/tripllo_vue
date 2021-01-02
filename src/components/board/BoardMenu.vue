@@ -8,7 +8,22 @@
         </a>
       </div>
       <ul class="menu-list">
-        <li><i class="fas fa-exchange-alt"></i>Change Background</li>
+        <li class="menu-item">
+          <div><i class="fas fa-user"></i>Made by</div>
+          <div
+            class="img"
+            v-if="user.picture !== null && user.picture !== 'null'"
+          ></div>
+          <i class="fas fa-user icon" v-else></i>
+          <div class="menu-profile">
+            <div class="profile-item name">{{ board.title }}</div>
+            <div class="profile-item name">{{ board.createdBy }}</div>
+            <div class="profile-item email">{{ board.createdAt }} 생성됨</div>
+          </div>
+        </li>
+        <li class="menu-item">
+          <i class="fas fa-exchange-alt"></i>Change Background
+        </li>
         <div class="color-picker">
           <a href="" :data-value="red" @click.prevent="onChangeTheme"></a>
           <a href="" :data-value="orange" @click.prevent="onChangeTheme"></a>
@@ -19,9 +34,11 @@
           <a href="" :data-value="violet" @click.prevent="onChangeTheme"></a>
           <a href="" :data-value="black" @click.prevent="onChangeTheme"></a>
         </div>
-        <li>
+        <li class="menu-item delete-board" @click.prevent="onDeleteBoard">
           <i class="fas fa-trash-alt"></i>
-          <a href="" @click.prevent="onDeleteBoard">Delete Board</a>
+          <a href="">
+            Delete Board
+          </a>
         </li>
       </ul>
     </div>
@@ -45,11 +62,18 @@ export default {
     };
   },
   computed: {
-    ...mapState(['board']),
+    ...mapState(['board', 'user']),
   },
   mounted() {
+    console.log(this.user);
     Array.from(this.$el.querySelectorAll('.color-picker a')).forEach(el => {
       el.style.backgroundColor = el.dataset.value;
+    });
+
+    const imgList = this.$el.querySelectorAll('.img');
+    console.log(imgList);
+    Array.from(imgList).forEach(e => {
+      e.style.backgroundImage = `url(${this.user.picture})`;
     });
   },
   methods: {
@@ -73,7 +97,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .board-menu {
   position: absolute;
   right: 0;
@@ -109,7 +133,6 @@ export default {
       }
     }
     .menu-list {
-      list-style: none;
       .fas {
         margin-right: 5px;
       }
@@ -118,34 +141,77 @@ export default {
         & a {
           display: inline-block;
           width: 48%;
-          height: 100px;
+          height: 80px;
           border-radius: 8px;
           margin-right: 5.2px;
           cursor: pointer;
         }
       }
+      .fa-user:nth-child(2) {
+        font-size: 20px;
+        &.icon {
+          /* border: 1px solid black; */
+          display: inline-block;
+          padding: 14px;
+          margin-top: 15px;
+          color: white;
+          border-radius: 90px;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          cursor: auto;
+        }
+      }
+      .menu-profile {
+        display: inline-block;
+        position: relative;
+        margin-left: 13px;
+        top: 17px;
+      }
     }
     & li {
       height: 18px;
       line-height: 18px;
-      padding: 10px;
+      padding: 19px;
       margin: 5px;
       border-radius: 3px;
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 16px;
+      font-weight: 400;
       color: #111;
       margin-bottom: 5px;
-      cursor: pointer;
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.1);
+    }
+    .menu-item {
+      display: inline-block;
+      margin-top: 13px;
+      &:nth-child(2) {
+        margin-top: 50px;
+      }
+      &.delete-board {
+        display: block;
+        margin-top: 50px;
+        padding: 13px 19px;
+        cursor: pointer;
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.1);
+        }
+      }
+      .img {
+        display: inline;
+        padding: 15px 24px;
+        width: 30px;
+        margin-top: 15px;
+        border-radius: 90px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        cursor: auto;
       }
     }
+
     & li a {
       text-decoration: none;
       color: inherit;
     }
   }
 }
-
-/* .color-picker */
 </style>

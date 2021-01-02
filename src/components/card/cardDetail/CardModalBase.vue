@@ -86,11 +86,11 @@
   transform: scale(1.1);
 }
 .modal-main {
-  min-width: 470px;
-  width: 80%;
+  min-width: 450px;
+  width: 75%;
 }
 .modal-side {
-  width: 20%;
+  width: 25%;
   text-align: center;
 }
 </style>
