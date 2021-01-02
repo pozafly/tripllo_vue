@@ -16,8 +16,8 @@
           ></div>
           <i class="fas fa-user icon" v-else></i>
           <div class="menu-profile">
-            <div class="profile-item name">{{ board.title }}</div>
-            <div class="profile-item name">{{ board.createdBy }}</div>
+            <div class="profile-item title">{{ board.title }}</div>
+            <div class="profile-item name">@{{ board.createdBy }}</div>
             <div class="profile-item email">{{ board.createdAt }} 생성됨</div>
           </div>
         </li>
@@ -25,14 +25,48 @@
           <i class="fas fa-exchange-alt"></i>Change Background
         </li>
         <div class="color-picker">
-          <a href="" :data-value="red" @click.prevent="onChangeTheme"></a>
-          <a href="" :data-value="orange" @click.prevent="onChangeTheme"></a>
-          <a href="" :data-value="yellow" @click.prevent="onChangeTheme"></a>
-          <a href="" :data-value="green" @click.prevent="onChangeTheme"></a>
-          <a href="" :data-value="blue" @click.prevent="onChangeTheme"></a>
-          <a href="" :data-value="indigo" @click.prevent="onChangeTheme"></a>
-          <a href="" :data-value="violet" @click.prevent="onChangeTheme"></a>
-          <a href="" :data-value="black" @click.prevent="onChangeTheme"></a>
+          <a class="color" :data-value="red" @click.prevent="onChangeTheme"></a>
+          <a
+            class="color"
+            :data-value="orange"
+            @click.prevent="onChangeTheme"
+          ></a>
+          <a
+            class="color"
+            :data-value="yellow"
+            @click.prevent="onChangeTheme"
+          ></a>
+          <a
+            class="color"
+            :data-value="green"
+            @click.prevent="onChangeTheme"
+          ></a>
+          <a
+            class="color"
+            :data-value="blue"
+            @click.prevent="onChangeTheme"
+          ></a>
+          <a
+            class="color"
+            :data-value="indigo"
+            @click.prevent="onChangeTheme"
+          ></a>
+          <a
+            class="color"
+            :data-value="violet"
+            @click.prevent="onChangeTheme"
+          ></a>
+          <a
+            class="color"
+            :data-value="black"
+            @click.prevent="onChangeTheme"
+          ></a>
+          <a class="new-pick" @click.prevent="onChangeTheme">
+            <div class="color new-pick-text" @click="isPicker = true">
+              색상선택기
+            </div>
+          </a>
+          <Photoshop v-if="isPicker" @cancle="isPicker = false" />
         </div>
         <li class="menu-item delete-board" @click.prevent="onDeleteBoard">
           <i class="fas fa-trash-alt"></i>
@@ -47,8 +81,12 @@
 
 <script>
 import { mapMutations, mapActions, mapState } from 'vuex';
+import Photoshop from '@/components/board/boardMenu/Photoshop';
 
 export default {
+  components: {
+    Photoshop,
+  },
   data() {
     return {
       red: '#fa5252',
@@ -59,6 +97,7 @@ export default {
       indigo: '#5c7cfa',
       violet: '#7950f2',
       black: '#3a4142',
+      isPicker: false,
     };
   },
   computed: {
@@ -137,14 +176,34 @@ export default {
         margin-right: 5px;
       }
       .color-picker {
-        margin: 0 15px;
+        margin: -5px 15px;
         & a {
           display: inline-block;
           width: 48%;
-          height: 80px;
+          height: 60px;
           border-radius: 8px;
           margin-right: 5.2px;
           cursor: pointer;
+          &:hover {
+            filter: brightness(90%) !important;
+          }
+        }
+        .new-pick {
+          width: 98%;
+          background: #40e0d0;
+          background: -webkit-linear-gradient(
+            to right,
+            #ff0080,
+            #ff8c00,
+            #40e0d0
+          );
+          background: linear-gradient(to right, #ff0080, #ff8c00, #40e0d0);
+          text-align: center;
+          color: white;
+          .new-pick-text {
+            font-size: 14px;
+            padding-top: 21px;
+          }
         }
       }
       .fa-user:nth-child(2) {
@@ -167,6 +226,9 @@ export default {
         position: relative;
         margin-left: 13px;
         top: 17px;
+        .profile-item {
+          font-size: 13px;
+        }
       }
     }
     & li {
@@ -182,9 +244,9 @@ export default {
     }
     .menu-item {
       display: inline-block;
-      margin-top: 13px;
+      margin-top: 23px;
       &:nth-child(2) {
-        margin-top: 50px;
+        margin-top: 90px;
       }
       &.delete-board {
         display: block;
@@ -207,7 +269,6 @@ export default {
         cursor: auto;
       }
     }
-
     & li a {
       text-decoration: none;
       color: inherit;

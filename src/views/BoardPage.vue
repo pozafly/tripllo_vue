@@ -55,7 +55,7 @@
 import Header from '@/components/common/Header';
 import List from '@/components/list/List';
 import AddList from '@/components/list/AddList';
-import BoardMenu from '@/components/board/BoardMenu';
+import BoardMenu from '@/components/board/boardMenu/BoardMenu';
 import dragger from '@/utils/dragger';
 import { mapActions, mapMutations, mapState } from 'vuex';
 

@@ -17,6 +17,7 @@
     "sass-loader": "^10.1.0",
     "vee-validate": "^3.4.5",
     "vue": "^2.6.11",
+    "vue-color": "^2.8.1",
     "vue-google-login": "^2.0.5",
     "vue-router": "^3.4.9",
     "vuex": "^3.6.0",
