@@ -8,7 +8,16 @@
       &times;
     </a>
     <div class="side-items">
-      cardmodalside
+      <ul>
+        <li>
+          <div>
+            1
+          </div>
+        </li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+      </ul>
     </div>
   </div>
 </template>
