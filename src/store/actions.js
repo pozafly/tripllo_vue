@@ -2,6 +2,7 @@ import authApi from '@/api/auth';
 import boardApi from '@/api/board';
 import listApi from '@/api/list';
 import cardApi from '@/api/card';
+import route from '@/routes';
 
 const actions = {
   // 로그인
@@ -72,10 +73,9 @@ const actions = {
       dispatch('READ_BOARD_DETAIL', state.board.id);
     });
   },
-  READ_CARD({ commit }, { id }) {
-    return cardApi.readCard(id).then(({ data }) => {
-      commit('setCard', data.data);
-    });
+  async READ_CARD({ dispatch, commit }, { id }) {
+    const { data } = await cardApi.readCard(id);
+    await commit('setCard', data.data);
   },
   async UPDATE_CARD(
     { dispatch, state },

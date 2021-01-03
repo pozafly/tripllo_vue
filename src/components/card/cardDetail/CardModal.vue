@@ -20,6 +20,7 @@
     </div>
     <div slot="body" class="modal-card-body">
       <ul class="body-items">
+        <DetailLabels />
         <li class="body-item">
           <i class="fas fa-layer-group"></i>
           <span class="body-card-text">Description</span>
@@ -72,12 +73,14 @@
 <script>
 import CardModalBase from '@/components/card/cardDetail/CardModalBase';
 import CardModalSide from '@/components/card/cardDetail/CardModalSide';
+import DetailLabels from './detailItems/DetailLabels';
 import { mapActions, mapState } from 'vuex';
 
 export default {
   components: {
     CardModalBase,
     CardModalSide,
+    DetailLabels,
   },
   data() {
     return {
@@ -88,7 +91,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['card', 'board']),
+    ...mapState(['board', 'card']),
   },
   watch: {
     // UPDATE_CARD 후 card가 들어오면 실행되도록.
@@ -141,9 +144,6 @@ export default {
 </script>
 
 <style lang="scss">
-/* * {
-  border: 1px solid black;
-} */
 .modal-card {
   .modal-container {
     min-width: 300px;
@@ -202,6 +202,7 @@ export default {
       /* padding-top: 40px; */
       .body-item {
         padding-top: 40px;
+
         .fas,
         .fa {
           font-size: 16px;
@@ -229,6 +230,10 @@ export default {
           background: none;
           cursor: pointer;
           height: 5rem;
+          background: rgba(9, 30, 66, 0.04);
+          &:hover {
+            background: rgba(9, 30, 66, 0.1);
+          }
           &.textarea {
             height: 7rem;
             background: #fff;

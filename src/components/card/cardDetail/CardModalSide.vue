@@ -9,39 +9,66 @@
     </a>
     <div class="side-items">
       <ul>
-        <li class="side-item">
-          <a href="">Labels</a>
-        </li>
-        <li class="side-item">
-          <a href="">Checklist</a>
-        </li>
-        <li class="side-item">
-          <a href="">Due Date</a>
-        </li>
-        <li class="side-item">
-          <a href="">Attachment</a>
-        </li>
-        <li class="side-item">
-          <a href="">Location</a>
+        <li
+          v-for="item in sideItems"
+          :key="item"
+          :data-name="item"
+          class="side-item"
+          @click.prevent="onCheckPosition"
+        >
+          <span>{{ item }}</span>
         </li>
       </ul>
+      <Labels @close="toggle = ''" v-if="toggle === 'isLabels'" :xy="xy" />
+      <Checklist
+        @close="toggle = ''"
+        v-if="toggle === 'isChecklist'"
+        :xy="xy"
+      />
+      <DueDate @close="toggle = ''" v-if="toggle === 'isDueDate'" :xy="xy" />
+      <Attachment
+        @close="toggle = ''"
+        v-if="toggle === 'isAttachment'"
+        :xy="xy"
+      />
+      <Location @close="toggle = ''" v-if="toggle === 'isLocation'" :xy="xy" />
     </div>
   </div>
 </template>
 
 <script>
+import Labels from '@/components/card/cardDetail/side/Labels';
+import Checklist from '@/components/card/cardDetail/side/Checklist';
+import DueDate from '@/components/card/cardDetail/side/DueDate';
+import Attachment from '@/components/card/cardDetail/side/Attachment';
+import Location from '@/components/card/cardDetail/side/Location';
 import { mapActions, mapState } from 'vuex';
 
 export default {
+  components: { Labels, Checklist, DueDate, Attachment, Location },
+  data() {
+    return {
+      toggle: '',
+      xy: {},
+      sideItems: ['Labels', 'Checklist', 'DueDate', 'Attachment', 'Location'],
+    };
+  },
   computed: {
     ...mapState(['board']),
   },
-  beforeDestroy() {
-    // 모달 창을 닫을 때, board detail 화면을 갱신하기 위함.
-    this.READ_BOARD_DETAIL(this.board.id);
-  },
   methods: {
-    ...mapActions(['READ_BOARD_DETAIL']),
+    onCheckPosition(e) {
+      //
+      const target = e.target.getBoundingClientRect();
+      this.xy = {
+        x: target.x,
+        y: target.y,
+      };
+
+      const name = `is${e.target.dataset.name}`;
+      // text로는 this.data에 접근 불가능하므로 문자를 넣는 것으로 대체. watch 사용.
+      this.toggle = name;
+    },
   },
 };
 </script>
@@ -73,8 +100,9 @@ export default {
       &:hover {
         background-color: rgba(9, 30, 66, 0.1);
       }
-      a {
+      span {
         color: black;
+        pointer-events: none;
       }
     }
   }
