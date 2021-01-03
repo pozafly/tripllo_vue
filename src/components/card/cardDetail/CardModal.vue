@@ -239,6 +239,11 @@ export default {
           margin: 0 0 40px 27px;
           width: 55px;
           height: 33px;
+          position: relative;
+          left: 8px;
+          &:hover {
+            filter: brightness(90%);
+          }
         }
         .desc-cancel {
           margin-left: 10px;

@@ -27,10 +27,10 @@
         <div class="color-picker">
           <a
             class="color"
-            :data-value="item"
+            :data-value="color"
             @click.prevent="onChangeTheme"
-            v-for="item in colors"
-            :key="item"
+            v-for="color in colors"
+            :key="color"
           ></a>
           <a class="new-pick" @click.prevent="onChangeTheme">
             <div class="color new-pick-text" @click="isPicker = true">
@@ -77,10 +77,15 @@ export default {
     ...mapState(['board', 'user']),
   },
   mounted() {
+    // 색상 선택기에 데이터 넣기
     Array.from(this.$el.querySelectorAll('.color-picker a')).forEach(el => {
       el.style.backgroundColor = el.dataset.value;
     });
 
+    const icon = this.$el.querySelectorAll('.icon');
+    Array.from(icon)[0].style.backgroundColor = this.board.bgColor;
+
+    if (!this.user.picture) return;
     const imgList = this.$el.querySelectorAll('.img');
     Array.from(imgList).forEach(e => {
       e.style.backgroundImage = `url(${this.user.picture})`;
