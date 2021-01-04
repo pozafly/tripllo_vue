@@ -65,9 +65,9 @@ export default {
         y: target.y,
       };
 
+      // toggle에 name을 넣어서 보일지 말지 판단함.
       const name = `is${e.target.dataset.name}`;
-      // text로는 this.data에 접근 불가능하므로 문자를 넣는 것으로 대체. watch 사용.
-      this.toggle = name;
+      this.toggle === name ? (this.toggle = '') : (this.toggle = name);
     },
   },
 };

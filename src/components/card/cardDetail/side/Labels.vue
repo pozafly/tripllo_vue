@@ -10,6 +10,7 @@
           v-for="label in labels"
           :key="label"
           class="label-item"
+          :style="{ backgroundColor: label }"
         >
           <!-- colorArray에 담았으니 거기서 label값을 포함하고 있으면 표시해라. -->
           <span v-if="colorArray.includes(label)">&or;</span>
@@ -42,11 +43,8 @@ export default {
     };
   },
   mounted() {
-    Array.from(this.$el.querySelectorAll('.label-item')).forEach(el => {
-      el.style.backgroundColor = el.dataset.value;
-    });
-
     // 밑에서 join으로 만든 문자열을 받아와서 split으로 다시 array로 만든다.
+    if (!this.card.labelColor) return;
     const array = this.card.labelColor.split(',');
     this.colorArray = array;
   },

@@ -1,25 +1,27 @@
 <template>
-  <li class="body-item" v-if="card.labelColor">
-    <div>
-      <span class="detail-labels">LABELS</span>
-      <div
-        class="detail-label-item"
-        v-for="label in labelArray"
-        :key="label"
-        :data-value="label"
-        v-show="labelArray.includes(label)"
-        :style="{ backgroundColor: label }"
-      ></div>
-      <div
-        class="detail-label-item plus"
-        v-if="labelArray"
-        @click="onLabelShow"
-      >
-        <span>&plus;</span>
+  <div>
+    <li class="body-item" v-if="card.labelColor">
+      <div>
+        <span class="detail-labels">LABELS</span>
+        <div
+          class="detail-label-item"
+          v-for="label in labelArray"
+          :key="label"
+          :data-value="label"
+          v-show="labelArray.includes(label)"
+          :style="{ backgroundColor: label }"
+        ></div>
+        <div
+          class="detail-label-item plus"
+          v-if="labelArray"
+          @click="onLabelShow"
+        >
+          <span>&plus;</span>
+        </div>
       </div>
-    </div>
+    </li>
     <Labels @close="isLabelShow = false" v-if="isLabelShow" :xy="xy" />
-  </li>
+  </div>
 </template>
 
 <script>
@@ -39,8 +41,8 @@ export default {
   },
   watch: {
     card() {
+      if (!this.card.labelColor) return;
       const array = this.card.labelColor.split(',');
-      if (array.includes('')) this.isLabelShow = false;
       this.labelArray = array;
     },
   },
