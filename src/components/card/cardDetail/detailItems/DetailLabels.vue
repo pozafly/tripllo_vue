@@ -2,36 +2,61 @@
   <li class="body-item" v-if="card.labelColor">
     <div>
       <span class="detail-labels">LABELS</span>
-      <div class="detail-label-item" v-for="label in labels" :key="label"></div>
-      <div class="detail-label-item plus" v-if="labels">
+      <div
+        class="detail-label-item"
+        v-for="label in labelArray"
+        :key="label"
+        :data-value="label"
+        v-show="labelArray.includes(label)"
+        :style="{ backgroundColor: label }"
+      ></div>
+      <div
+        class="detail-label-item plus"
+        v-if="labelArray"
+        @click="onLabelShow"
+      >
         <span>&plus;</span>
       </div>
     </div>
+    <Labels @close="isLabelShow = false" v-if="isLabelShow" :xy="xy" />
   </li>
 </template>
 
 <script>
+import Labels from '@/components/card/cardDetail/side/Labels';
 import { mapState } from 'vuex';
 
 export default {
+  components: {
+    Labels,
+  },
   data() {
     return {
-      labels: [],
+      labelArray: [],
+      isLabelShow: false,
+      xy: {},
     };
   },
   watch: {
     card() {
       const array = this.card.labelColor.split(',');
-      this.labels = array;
+      this.labelArray = array;
     },
   },
   computed: {
     ...mapState(['card']),
   },
-  // updated() {
-  //   const array = this.card.labelColor.split(',');
-  //   this.labels = array;
-  // },
+  methods: {
+    onLabelShow(e) {
+      this.isLabelShow = !this.isLabelShow;
+      const target = e.target.getBoundingClientRect();
+      this.xy = {
+        x: target.x + 1000,
+        y: target.y + 65,
+      };
+      console.log(this.xy);
+    },
+  },
 };
 </script>
 
@@ -47,7 +72,6 @@ export default {
   text-align: center;
   display: inline-block;
   position: relative;
-  border: 1px solid black;
   left: 39px;
   top: 20px;
   margin-right: 10px;
@@ -56,11 +80,17 @@ export default {
   border-radius: 4px;
   &.plus {
     top: 7px;
-  }
-  span {
-    display: inline-block;
-    position: relative;
-    top: 2px;
+    background: rgba(9, 30, 66, 0.04);
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(9, 30, 66, 0.1);
+    }
+    span {
+      display: inline-block;
+      position: relative;
+      top: 2px;
+      pointer-events: none;
+    }
   }
 }
 </style>

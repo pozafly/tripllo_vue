@@ -14,7 +14,10 @@
 export default {
   props: ['xy'],
   mounted() {
+    const x = this.xy.x - 1000;
+    console.log(x);
     const y = this.xy.y - 30;
+    this.$refs.sideWrap.style.left = `${x}px`;
     this.$refs.sideWrap.style.top = `${y}px`;
   },
 };
@@ -37,7 +40,7 @@ export default {
   font-weight: 400;
   color: #5e6c84;
   left: 8px;
-  /* top: 158px; */
+  z-index: 99;
   .header {
     height: 40px;
     position: relative;

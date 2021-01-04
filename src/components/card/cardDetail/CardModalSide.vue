@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     onCheckPosition(e) {
-      //
+      // x, y 좌표값 계산
       const target = e.target.getBoundingClientRect();
       this.xy = {
         x: target.x,

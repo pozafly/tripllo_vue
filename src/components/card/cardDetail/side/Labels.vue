@@ -58,20 +58,21 @@ export default {
     onSelectLabels(el) {
       const colorValue = el.target.dataset.value;
 
+      // 없다면 push해라
       if (!this.colorArray.includes(colorValue)) {
-        // 없다면 push해라
+        if (this.colorArray.includes('')) {
+          this.colorArray.pop();
+        }
         this.colorArray.push(colorValue);
       } else {
         // 있다면 빼라
-        this.colorArray.pop(colorValue);
+        const idx = this.colorArray.indexOf(colorValue);
+        if (idx > -1) this.colorArray.splice(idx, 1);
       }
       // join을 사용하여 문자열로 만든다.
       const labelColor = this.colorArray.join(',');
       this.UPDATE_CARD({ id: this.card.id, labelColor });
     },
-  },
-  created() {
-    console.log(this.card.labelColor);
   },
 };
 </script>
