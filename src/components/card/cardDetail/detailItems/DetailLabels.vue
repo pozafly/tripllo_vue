@@ -40,6 +40,7 @@ export default {
   watch: {
     card() {
       const array = this.card.labelColor.split(',');
+      if (array.includes('')) this.isLabelShow = false;
       this.labelArray = array;
     },
   },
@@ -54,7 +55,6 @@ export default {
         x: target.x + 1000,
         y: target.y + 65,
       };
-      console.log(this.xy);
     },
   },
 };
