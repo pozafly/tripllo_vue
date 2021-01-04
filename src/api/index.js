@@ -23,3 +23,4 @@ export const instance = createInstance();
 export const board = createInstanceWithAuth('board');
 export const list = createInstanceWithAuth('list');
 export const card = createInstanceWithAuth('card');
+export const checklist = createInstanceWithAuth('checklist');

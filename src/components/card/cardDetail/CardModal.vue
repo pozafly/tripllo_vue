@@ -49,6 +49,7 @@
             </a>
           </template>
         </li>
+        <DetailChecklist />
         <li class="body-item">
           <div>
             <i class="fas fa-map-marker-alt"></i>
@@ -74,6 +75,7 @@
 import CardModalBase from '@/components/card/cardDetail/CardModalBase';
 import CardModalSide from '@/components/card/cardDetail/CardModalSide';
 import DetailLabels from './detailItems/DetailLabels';
+import DetailChecklist from './detailItems/DetailChecklist';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -81,6 +83,7 @@ export default {
     CardModalBase,
     CardModalSide,
     DetailLabels,
+    DetailChecklist,
   },
   data() {
     return {
@@ -128,9 +131,7 @@ export default {
       if (relatedTarget) {
         if (relatedTarget.className === 'desc-cancel') return; // x버튼을 눌렀을 때는 return
       }
-
       if (this.description === this.card.description) return;
-
       this.UPDATE_CARD({ id: this.card.id, description: this.description });
     },
     onKeyupEnter() {

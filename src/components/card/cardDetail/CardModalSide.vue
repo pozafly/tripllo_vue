@@ -16,7 +16,8 @@
           class="side-item"
           @click.prevent="onCheckPosition"
         >
-          <span>{{ item }}</span>
+          <i :class="modalSideIcon(item)" />
+          <span class="side-item-text">{{ item }}</span>
         </li>
       </ul>
       <Labels @close="toggle = ''" v-if="toggle === 'isLabels'" :xy="xy" />
@@ -69,6 +70,21 @@ export default {
       const name = `is${e.target.dataset.name}`;
       this.toggle === name ? (this.toggle = '') : (this.toggle = name);
     },
+    modalSideIcon(item) {
+      switch (item) {
+        case 'Labels':
+          return 'modal-side-icon fas fa-tag';
+        case 'Checklist':
+          return 'modal-side-icon far fa-check-square';
+        case 'DueDate':
+          return 'modal-side-icon far fa-clock';
+        case 'Attachment':
+          return 'modal-side-icon fas fa-paperclip';
+        case 'Location':
+          return 'modal-side-icon fas fa-map-marker-alt';
+      }
+      return null;
+    },
   },
 };
 </script>
@@ -103,6 +119,15 @@ export default {
       span {
         color: black;
         pointer-events: none;
+      }
+      .modal-side-icon {
+        margin-right: 5px;
+        width: 15px;
+        pointer-events: none;
+      }
+      .side-item-text {
+        font-size: 14px;
+        font-weight: 450;
       }
     }
   }

@@ -11,6 +11,7 @@ const state = {
   boardList: [],
   board: {},
   card: {},
+  checklists: [],
   bgColor: '',
 };
 

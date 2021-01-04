@@ -29,6 +29,11 @@ const mutations = {
   setCard(state, card) {
     state.card = card;
   },
+
+  // checklist
+  setChecklists(state, checklists) {
+    state.checklists = checklists;
+  },
 };
 
 export default mutations;

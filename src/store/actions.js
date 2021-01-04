@@ -2,7 +2,7 @@ import authApi from '@/api/auth';
 import boardApi from '@/api/board';
 import listApi from '@/api/list';
 import cardApi from '@/api/card';
-import route from '@/routes';
+import checklistApi from '@/api/checklist';
 
 const actions = {
   // 로그인
@@ -27,7 +27,7 @@ const actions = {
     return await authApi.signup(userData);
   },
 
-  //board
+  // board
   READ_BOARD_LIST({ commit }, userId) {
     return boardApi.readBoardList(userId).then(({ data }) => {
       commit('setBoardList', data.data);
@@ -50,7 +50,7 @@ const actions = {
     return boardApi.deleteBoard(id);
   },
 
-  //list
+  // list
   CREATE_LIST({ dispatch, state }, { title, boardId, pos }) {
     return listApi.createList({ title, boardId, pos }).then(() => {
       dispatch('READ_BOARD_DETAIL', state.board.id);
@@ -67,7 +67,7 @@ const actions = {
     });
   },
 
-  //card
+  // card
   CREATE_CARD({ dispatch, state }, { title, listId, pos }) {
     return cardApi.createCard({ title, listId, pos }).then(() => {
       dispatch('READ_BOARD_DETAIL', state.board.id);
@@ -96,6 +96,27 @@ const actions = {
   DELETE_CARD({ dispatch, state }, { id }) {
     return cardApi.deleteCard(id).then(() => {
       dispatch('READ_BOARD_DETAIL', state.board.id);
+    });
+  },
+
+  // checklist
+  CREATE_CHECKLIST({ dispatch, state }, { title, cardId }) {
+    return checklistApi.createChecklist({ title, cardId }).then(() => {
+      dispatch('READ_CARD', { id: state.card.id });
+    });
+  },
+  async READ_CHECKLIST({ dispatch, commit }, { id }) {
+    const { data } = await checklistApi.readChecklist(id);
+    console.log(data.data);
+    await commit('setChecklists', data.data);
+  },
+  async UPDATE_CHECKLIST({ dispatch, state }, { id, title, item, isChecked }) {
+    await checklistApi.updateChecklist(id, { title, item, isChecked });
+    await dispatch('READ_CARD', { id: state.card.id });
+  },
+  DELETE_CHECKLIST({ dispatch, state }, { id }) {
+    return checklistApi.deleteChecklist(id).then(() => {
+      dispatch('READ_CARD', { id: state.card.id });
     });
   },
 };
