@@ -146,7 +146,10 @@ export default {
 
 <style lang="scss">
 .modal-card {
+  overflow-x: visible !important;
   .modal-container {
+    overflow-x: visible !important;
+    overflow-y: auto;
     min-width: 300px;
     max-width: 700px;
     width: 70%;

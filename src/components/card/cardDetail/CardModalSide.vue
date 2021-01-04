@@ -91,9 +91,11 @@ export default {
 
 <style scoped lang="scss">
 .side {
-  position: relative;
+  position: absolute;
   box-sizing: border-box;
-  height: 100%;
+  height: 20%;
+  width: 10%;
+  right: 480px;
   .modal-close-btn {
     position: absolute;
     top: -10px;

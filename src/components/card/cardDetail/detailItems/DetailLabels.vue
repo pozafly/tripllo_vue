@@ -54,7 +54,7 @@ export default {
       this.isLabelShow = !this.isLabelShow;
       const target = e.target.getBoundingClientRect();
       this.xy = {
-        x: target.x + 1000,
+        x: target.x + 1005,
         y: target.y + 65,
       };
     },
@@ -64,9 +64,9 @@ export default {
 
 <style lang="scss">
 .detail-labels {
-  position: absolute;
+  position: relative;
   margin: -15px 0;
-  padding: 7px 0 40px 39px;
+  padding: 7px 0 3px 39px;
   display: block;
   font-size: 13px;
 }

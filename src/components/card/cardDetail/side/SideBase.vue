@@ -14,7 +14,7 @@
 export default {
   props: ['xy'],
   mounted() {
-    const x = this.xy.x - 1000;
+    const x = this.xy.x - 1005;
     const y = this.xy.y - 30;
     this.$refs.sideWrap.style.left = `${x}px`;
     this.$refs.sideWrap.style.top = `${y}px`;
