@@ -9,6 +9,7 @@
         v-model="inputTitle"
         ref="inputTitle"
         spellcheck="false"
+        @keypress.enter="addChecklist"
       />
       <button class="checklist-btn" @click="addChecklist">Add</button>
     </div>

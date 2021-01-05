@@ -11,7 +11,7 @@
         @blur="onSubmitTitle"
       />
       <div v-else class="list-header-title" @click.prevent="onClickTitle">
-        {{ list.title }}
+        {{ list.title }} <i class="fas fa-edit"></i>
       </div>
       <a class="delete-list-btn" href="" @click.prevent="onDeleteList">
         &times;
@@ -106,7 +106,7 @@ export default {
       width: 230px;
     }
     .list-header-title {
-      display: block;
+      display: inline-block;
       font-size: 15px;
       font-weight: 700;
       padding: 0 10px 0 8px;
@@ -117,6 +117,13 @@ export default {
       cursor: pointer;
       &:hover {
         color: #8c8c8c;
+        .fa-edit {
+          display: inline-block;
+        }
+      }
+      .fa-edit {
+        font-size: 10px;
+        display: none;
       }
     }
     .delete-list-btn {

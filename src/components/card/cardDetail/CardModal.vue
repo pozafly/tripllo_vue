@@ -168,12 +168,12 @@ export default {
         margin-left: 15px;
         .fa-edit {
           display: none;
+          font-size: 10px;
         }
         &:hover {
           color: rgba(0, 0, 0, 0.3);
           .fa-edit {
             display: inline-block;
-            font-size: 10px;
           }
         }
       }

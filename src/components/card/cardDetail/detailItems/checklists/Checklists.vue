@@ -2,9 +2,9 @@
   <div>
     <i class="far fa-check-square"></i>
     <span v-if="!isTitle">
-      <span class="checklist-body-card-text" @click="editTitle">
-        {{ checklist.title }}
-      </span>
+      <a href="" class="checklist-body-card-text" @click.prevent="editTitle">
+        {{ checklist.title }} <i class="fas fa-edit"></i>
+      </a>
       <button class="checklist-title-delete-btn" @click="deleteChecklist">
         Delete
       </button>
@@ -25,7 +25,12 @@
         &times;
       </a>
     </span>
-    <KProgress :percent="30" class="progress" status="error" :line-height="7" />
+    <KProgress
+      :percent="percent"
+      class="progress"
+      :line-height="7"
+      :status="status"
+    />
 
     <ChecklistItem
       v-for="items in checklist.items"
@@ -69,12 +74,28 @@ export default {
   data() {
     return {
       isTitle: false,
-      inputTitle: '',
       isItem: false,
+      inputTitle: '',
       inputItem: '',
+      percent: 0,
+      status: '',
     };
   },
   props: ['checklist'],
+  watch: {
+    checklist() {
+      let count = 0;
+      this.checklist.items.forEach(element => {
+        if (element.isChecked === 'Y') {
+          count += 1;
+        }
+      });
+      let percent = (count / this.checklist.items.length) * 100;
+      this.percent = Math.round(percent, -1);
+
+      percent === 100 ? (this.status = 'success') : (this.status = 'error');
+    },
+  },
   methods: {
     ...mapActions([
       'DELETE_CHECKLIST',
@@ -101,6 +122,7 @@ export default {
         if (relatedTarget.className === 'checkbox-input-cancle') return;
       }
       if (this.inputTitle.trim() === this.checklist.title) return;
+
       this.UPDATE_CHECKLIST({
         id: this.checklist.id,
         title: this.inputTitle,
@@ -121,12 +143,14 @@ export default {
         )
           return;
       }
+      if (this.inputItem === '') return;
 
       this.CREATE_CHECKLIST_ITEM({
         checklistId: this.checklist.id,
         item: this.inputItem,
       });
       this.inputItem = '';
+      this.isAddItem();
     },
     onKeyupEnter() {
       event.target.blur();
@@ -190,9 +214,17 @@ export default {
   top: -2.5px;
   left: 11px;
   font-size: 16px !important;
+  color: black;
   cursor: pointer;
   &:hover {
     color: rgba(9, 30, 66, 0.6);
+    .fa-edit {
+      display: inline-block;
+      font-size: 10px !important;
+    }
+  }
+  .fa-edit {
+    display: none;
   }
 }
 .checkbox-add-btn {
