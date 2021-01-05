@@ -82,18 +82,23 @@ export default {
       el.style.backgroundColor = el.dataset.value;
     });
 
-    const icon = this.$el.querySelectorAll('.icon');
-    Array.from(icon)[0].style.backgroundColor = this.board.bgColor;
+    this.READ_USER(this.board.createdBy).then(({ data }) => {
+      const picture = data.data.picture;
 
-    if (!this.user.picture) return;
-    const imgList = this.$el.querySelectorAll('.img');
-    Array.from(imgList).forEach(e => {
-      e.style.backgroundImage = `url(${this.user.picture})`;
+      if (!picture) {
+        const icon = this.$el.querySelectorAll('.icon');
+        Array.from(icon)[0].style.backgroundColor = this.board.bgColor;
+      } else {
+        const imgList = this.$el.querySelectorAll('.img');
+        Array.from(imgList).forEach(e => {
+          e.style.backgroundImage = `url(${picture})`;
+        });
+      }
     });
   },
   methods: {
     ...mapMutations(['setTheme']),
-    ...mapActions(['DELETE_BOARD', 'UPDATE_BOARD']),
+    ...mapActions(['DELETE_BOARD', 'UPDATE_BOARD', 'READ_USER']),
     onClose() {
       this.$emit('close');
     },

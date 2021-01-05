@@ -1,7 +1,7 @@
 <template>
   <div>
     <li class="body-item">
-      <!-- v-for에 key를 사용하여 변경점을 찾았다. -->
+      <!-- v-for에 key를 사용하여 변경점을 찾았다. 배열의 순서대로 작업하기 위해. -->
       <div
         v-for="(checklist, key) in checklists"
         :key="checklist.id"
@@ -9,19 +9,20 @@
       >
         <i class="far fa-check-square"></i>
         <!-- 여기 key를 넣어준다. -->
-        <span
-          class="body-card-text"
-          @click="isEditTitle(key)"
-          v-if="isTitle[key].is === false"
-        >
-          {{ checklist.title }}
+        <span v-if="isTitle[key].is === false">
+          <span class="body-card-text" @click="isEditTitle(key)">
+            {{ checklist.title }}
+          </span>
+          <button class="checklist-title-delete-btn" @click="checkDelete(key)">
+            Delete
+          </button>
         </span>
         <span v-else>
           <input
             type="text"
             :class="`form-control checkbox-input-title input${key}`"
             v-model="inputTitle"
-            @blur="onSubmitTitle"
+            @blur="onSubmitTitle(key)"
             @keypress.enter="onKeyupEnter"
           />
           <button class="checkbox-input-btn" @click="onSubmitTitle(key)">
@@ -61,16 +62,17 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['READ_CHECKLIST', 'UPDATE_CHECKLIST']),
+    ...mapActions(['READ_CHECKLIST', 'UPDATE_CHECKLIST', 'DELETE_CHECKLIST']),
     isChecked(isChecked) {
       return isChecked === 'Y' ? true : false;
     },
     onSubmitTitle(key) {
+      this.isTitle[key].is = false;
+      if (this.inputTitle.trim() === this.checklists[key].title) return;
       this.UPDATE_CHECKLIST({
         id: this.checklists[key].id,
-        title: this.inputTitle[key],
+        title: this.inputTitle,
       });
-      this.isTitle[key].is = false;
     },
     onKeyupEnter() {
       event.target.blur();
@@ -79,10 +81,13 @@ export default {
       this.isTitle[key].is = true;
 
       this.$nextTick(() => {
+        this.inputTitle = this.checklists[key].title;
         this.$el.querySelector(`.input${key}`).focus();
       });
-
-      // this.$refs.inputTitle[key] = this.checklists[key].title;
+    },
+    checkDelete(key) {
+      console.log(this.checklists[key].id);
+      this.DELETE_CHECKLIST({ id: this.checklists[key].id });
     },
   },
 };
@@ -90,6 +95,7 @@ export default {
 
 <style lang="scss">
 .checklist {
+  position: relative;
   &:not(:first-child) {
     margin-top: 20px;
   }
@@ -99,6 +105,19 @@ export default {
     margin-left: 20px;
     &:hover {
       filter: brightness(90%);
+    }
+  }
+  .checklist-title-delete-btn {
+    position: absolute;
+    display: inline-block;
+    right: 0px;
+    width: 66px;
+    height: 30px;
+    top: -6px;
+    color: black;
+    background: rgba(9, 30, 66, 0.04);
+    &:hover {
+      background-color: rgba(9, 30, 66, 0.1);
     }
   }
   .checkbox-input-btn {

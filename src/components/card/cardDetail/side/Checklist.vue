@@ -38,6 +38,7 @@ export default {
   methods: {
     ...mapActions(['CREATE_CHECKLIST']),
     addChecklist() {
+      this.$emit('close');
       this.CREATE_CHECKLIST({ title: this.inputTitle, cardId: this.card.id });
     },
   },

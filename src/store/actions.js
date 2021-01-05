@@ -26,6 +26,9 @@ const actions = {
   async SIGNUP(_, userData) {
     return await authApi.signup(userData);
   },
+  READ_USER(_, userId) {
+    return authApi.readUser(userId);
+  },
 
   // board
   READ_BOARD_LIST({ commit }, userId) {
@@ -110,13 +113,13 @@ const actions = {
     console.log(data.data);
     await commit('setChecklists', data.data);
   },
-  async UPDATE_CHECKLIST({ dispatch, state }, { id, title, item, isChecked }) {
-    await checklistApi.updateChecklist(id, { title, item, isChecked });
-    await dispatch('READ_CARD', { id: state.card.id });
+  async UPDATE_CHECKLIST({ dispatch, state }, { id, title }) {
+    await checklistApi.updateChecklist(id, { title });
+    await dispatch('READ_CHECKLIST', { id: state.card.id });
   },
   DELETE_CHECKLIST({ dispatch, state }, { id }) {
     return checklistApi.deleteChecklist(id).then(() => {
-      dispatch('READ_CARD', { id: state.card.id });
+      dispatch('READ_CHECKLIST', { id: state.card.id });
     });
   },
 };
