@@ -49,7 +49,7 @@
             </a>
           </template>
         </li>
-        <DetailChecklist />
+        <DetailChecklist v-if="checklists" />
         <li class="body-item">
           <div>
             <i class="fas fa-map-marker-alt"></i>
@@ -94,7 +94,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['board', 'card']),
+    ...mapState(['board', 'card', 'checklists']),
   },
   watch: {
     // UPDATE_CARD 후 card가 들어오면 실행되도록.
@@ -138,9 +138,9 @@ export default {
       event.target.blur();
     },
   },
-  created() {
-    this.READ_CARD({ id: this.$route.params.cardId });
-    this.READ_CHECKLIST({ id: this.card.id });
+  async created() {
+    await this.READ_CARD({ id: this.$route.params.cardId });
+    await this.READ_CHECKLIST({ id: this.card.id });
   },
 };
 </script>
@@ -204,10 +204,8 @@ export default {
   .modal-card-body {
     margin-bottom: 10px;
     .body-items {
-      /* padding-top: 40px; */
       .body-item {
         padding-top: 40px;
-
         .fas,
         .fa {
           font-size: 16px;
@@ -256,9 +254,12 @@ export default {
           }
         }
         .desc-cancel {
-          margin-left: 10px;
-          font-size: 25px;
+          margin-left: 20px;
+          font-size: 20px;
           color: black;
+          &:hover {
+            font-weight: 700;
+          }
         }
       }
     }

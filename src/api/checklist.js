@@ -13,8 +13,8 @@ const checklistApi = {
     return checklist.put(`/${id}`, payload);
   },
 
-  deleteChecklist(id) {
-    return checklist.delete(`/${id}`);
+  deleteChecklist({ checklistId }) {
+    return checklist.delete(`/${checklistId}`);
   },
 };
 

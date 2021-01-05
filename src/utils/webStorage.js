@@ -26,10 +26,17 @@ function getSessionStorage(key) {
   return JSON.parse(sessionStorage.getItem(key));
 }
 
+function deleteSessionStorage(key) {
+  console.log('key');
+  console.log(key);
+  sessionStorage.removeItem(key);
+}
+
 export {
   saveUserToLocalStorage,
   getUserFromLocalStorage,
   deleteUserLocalStorage,
   saveSessionStorage,
   getSessionStorage,
+  deleteSessionStorage,
 };

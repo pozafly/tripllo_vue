@@ -1,10 +1,6 @@
 <template>
   <div class="side">
-    <a
-      class="modal-close-btn"
-      href=""
-      @click.prevent="$router.push(`/board/${board.id}`)"
-    >
+    <a class="modal-close-btn" href="" @click.prevent="onClose">
       &times;
     </a>
     <div class="side-items">
@@ -43,6 +39,7 @@ import Checklist from '@/components/card/cardDetail/side/Checklist';
 import DueDate from '@/components/card/cardDetail/side/DueDate';
 import Attachment from '@/components/card/cardDetail/side/Attachment';
 import Location from '@/components/card/cardDetail/side/Location';
+import { deleteSessionStorage } from '@/utils/webStorage';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -84,6 +81,9 @@ export default {
           return 'modal-side-icon fas fa-map-marker-alt';
       }
       return null;
+    },
+    onClose() {
+      this.$router.push(`/board/${this.board.id}`);
     },
   },
 };

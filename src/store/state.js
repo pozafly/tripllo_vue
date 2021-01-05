@@ -12,7 +12,7 @@ const state = {
   board: getSessionStorage('board') || {},
   card: getSessionStorage('card') || {},
   checklists: getSessionStorage('checklists') || [],
-  bgColor: '',
+  bgColor: getSessionStorage('bgColor') || '',
 };
 
 export default state;

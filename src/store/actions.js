@@ -3,6 +3,7 @@ import boardApi from '@/api/board';
 import listApi from '@/api/list';
 import cardApi from '@/api/card';
 import checklistApi from '@/api/checklist';
+import checklistItemApi from '@/api/checklistItem';
 
 const actions = {
   // 로그인
@@ -104,23 +105,52 @@ const actions = {
   },
 
   // checklist
-  CREATE_CHECKLIST({ dispatch, state }, { title, cardId }) {
-    return checklistApi.createChecklist({ title, cardId }).then(() => {
-      dispatch('READ_CARD', { id: state.card.id });
-    });
+  async CREATE_CHECKLIST({ dispatch, state }, { title, cardId }) {
+    await checklistApi.createChecklist({ title, cardId });
+    await dispatch('READ_CHECKLIST', { id: state.card.id });
   },
-  async READ_CHECKLIST({ dispatch, commit }, { id }) {
+  async READ_CHECKLIST({ commit }, { id }) {
     const { data } = await checklistApi.readChecklist(id);
+    if (data.status === 'NOT_FOUND') {
+      commit('deleteChecklists');
+      return;
+    }
     await commit('setChecklists', data.data);
   },
   async UPDATE_CHECKLIST({ dispatch, state }, { id, title }) {
     await checklistApi.updateChecklist(id, { title });
     await dispatch('READ_CHECKLIST', { id: state.card.id });
   },
-  DELETE_CHECKLIST({ dispatch, state }, { id }) {
-    return checklistApi.deleteChecklist(id).then(() => {
+  DELETE_CHECKLIST({ dispatch, state }, { checklistId }) {
+    return checklistApi.deleteChecklist({ checklistId }).then(() => {
       dispatch('READ_CHECKLIST', { id: state.card.id });
     });
+  },
+
+  // checklist item
+  CREATE_CHECKLIST_ITEM({ dispatch, state }, { checklistId, item }) {
+    return checklistItemApi
+      .createChecklistItem({ checklistId, item })
+      .then(() => {
+        dispatch('READ_CHECKLIST', { id: state.card.id });
+      });
+  },
+  UPDATE_CHECKLIST_ITEM(
+    { dispatch, state },
+    { checklistItemId, isChecked, item },
+  ) {
+    return checklistItemApi
+      .updateChecklistItem(checklistItemId, { isChecked, item })
+      .then(() => {
+        dispatch('READ_CHECKLIST', { id: state.card.id });
+      });
+  },
+  DELETE_CHECKLIST_ITEM({ dispatch, state }, { checklistItemId }) {
+    return checklistItemApi
+      .deleteChecklistItem({ checklistItemId })
+      .then(() => {
+        dispatch('READ_CHECKLIST', { id: state.card.id });
+      });
   },
 };
 
