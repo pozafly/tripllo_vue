@@ -18,8 +18,18 @@ function deleteUserLocalStorage(key) {
   localStorage.removeItem('user_picture');
 }
 
+function saveSessionStorage(key, value) {
+  sessionStorage.setItem(key, JSON.stringify(value));
+}
+
+function getSessionStorage(key) {
+  return JSON.parse(sessionStorage.getItem(key));
+}
+
 export {
   saveUserToLocalStorage,
   getUserFromLocalStorage,
   deleteUserLocalStorage,
+  saveSessionStorage,
+  getSessionStorage,
 };

@@ -1,4 +1,4 @@
-import { getUserFromLocalStorage } from '@/utils/webStorage';
+import { getUserFromLocalStorage, getSessionStorage } from '@/utils/webStorage';
 
 const state = {
   user: {
@@ -9,9 +9,9 @@ const state = {
     picture: getUserFromLocalStorage('user_picture') || '',
   },
   boardList: [],
-  board: {},
-  card: {},
-  checklists: [],
+  board: getSessionStorage('board') || {},
+  card: getSessionStorage('card') || {},
+  checklists: getSessionStorage('checklists') || [],
   bgColor: '',
 };
 

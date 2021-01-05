@@ -13,9 +13,18 @@
           <span class="body-card-text" @click="isEditTitle(key)">
             {{ checklist.title }}
           </span>
-          <button class="checklist-title-delete-btn" @click="checkDelete(key)">
+          <button
+            class="checklist-title-delete-btn"
+            @click="deleteChecklist(key)"
+          >
             Delete
           </button>
+          <KProgress
+            :percent="30"
+            class="progress"
+            status="error"
+            :line-height="7"
+          />
         </span>
         <span v-else>
           <input
@@ -30,10 +39,33 @@
           </button>
           <span class="checkbox-input-cancle">&times;</span>
         </span>
-        <div v-for="items in checklist.items" :key="items.id">
+        <div
+          v-for="items in checklist.items"
+          :key="items.id"
+          class="checkbox-item"
+        >
           <input type="checkbox" :checked="isChecked(items.isChecked)" />
-          <span>{{ items.item }}</span>
+          <span class="checkbox-item-text">{{ items.item }}</span>
         </div>
+
+        <button
+          class="checkbox-add-btn"
+          @click="isAddItem(key)"
+          v-if="isItem[key].is === false"
+        >
+          Add an item
+        </button>
+        <span v-else>
+          <input
+            type="text"
+            :class="`form-control checkbox-input-title inputItem${key}`"
+            v-model="inputItem"
+          />
+          <button class="checkbox-input-btn" @click="onSubmitTitle(key)">
+            Save
+          </button>
+          <span class="checkbox-input-cancle">&times;</span>
+        </span>
       </div>
     </li>
   </div>
@@ -41,25 +73,22 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
+
 export default {
   data() {
     return {
       inputTitle: '',
+      inputItem: '',
       isTitle: [],
+      isItem: [],
     };
   },
   computed: {
     ...mapState(['card', 'checklists']),
   },
   watch: {
-    card() {
-      this.READ_CHECKLIST({ id: this.card.id });
-    },
-    checklists() {
-      this.checklists.forEach(() => {
-        this.isTitle.push({ is: false });
-      });
-    },
+    card() {},
+    checklists() {},
   },
   methods: {
     ...mapActions(['READ_CHECKLIST', 'UPDATE_CHECKLIST', 'DELETE_CHECKLIST']),
@@ -85,10 +114,18 @@ export default {
         this.$el.querySelector(`.input${key}`).focus();
       });
     },
-    checkDelete(key) {
-      console.log(this.checklists[key].id);
+    deleteChecklist(key) {
       this.DELETE_CHECKLIST({ id: this.checklists[key].id });
     },
+    isAddItem(key) {
+      console.log(key);
+    },
+  },
+  created() {
+    this.checklists.forEach(() => {
+      this.isTitle.push({ is: false });
+      this.isItem.push({ is: false });
+    });
   },
 };
 </script>
@@ -96,6 +133,7 @@ export default {
 <style lang="scss">
 .checklist {
   position: relative;
+  height: auto;
   &:not(:first-child) {
     margin-top: 20px;
   }
@@ -120,6 +158,9 @@ export default {
       background-color: rgba(9, 30, 66, 0.1);
     }
   }
+  .progress {
+    margin: 15px 0 15px 3px;
+  }
   .checkbox-input-btn {
     display: inline;
     position: relative;
@@ -141,7 +182,33 @@ export default {
   .body-card-text {
     position: relative;
     top: -2.5px;
+    left: -10px;
+    font-size: 16px !important;
     cursor: pointer;
+    &:hover {
+      color: rgba(9, 30, 66, 0.6);
+    }
+  }
+  .checkbox-item {
+    margin: 5px 0;
+    .checkbox-item-text {
+      position: relative;
+      font-size: 14px;
+      margin-left: 3px;
+      top: -2px;
+    }
+  }
+  .checkbox-add-btn {
+    position: relative;
+    height: 30px;
+    color: black;
+    background: rgba(9, 30, 66, 0.04);
+    left: 23px;
+    top: 5px;
+    margin-bottom: 10px;
+    &:hover {
+      background-color: rgba(9, 30, 66, 0.1);
+    }
   }
 }
 </style>

@@ -106,7 +106,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['READ_CARD', 'UPDATE_CARD']),
+    ...mapActions(['READ_CARD', 'UPDATE_CARD', 'READ_CHECKLIST']),
     onEditTitle() {
       this.isEditTitle = true;
       this.$nextTick(() => this.$refs.inputTitle.focus());
@@ -140,6 +140,7 @@ export default {
   },
   created() {
     this.READ_CARD({ id: this.$route.params.cardId });
+    this.READ_CHECKLIST({ id: this.card.id });
   },
 };
 </script>

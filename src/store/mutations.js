@@ -1,6 +1,7 @@
 import {
   saveUserToLocalStorage,
   deleteUserLocalStorage,
+  saveSessionStorage,
 } from '@/utils/webStorage';
 
 const mutations = {
@@ -19,6 +20,7 @@ const mutations = {
     state.boardList = boardList;
   },
   setBoardDetail(state, board) {
+    saveSessionStorage('board', board);
     state.board = board;
   },
   setTheme(state, bgColor) {
@@ -27,11 +29,13 @@ const mutations = {
 
   // card
   setCard(state, card) {
+    saveSessionStorage('card', card);
     state.card = card;
   },
 
   // checklist
   setChecklists(state, checklists) {
+    saveSessionStorage('checklists', checklists);
     state.checklists = checklists;
   },
 };

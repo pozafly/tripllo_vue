@@ -79,6 +79,7 @@ const actions = {
   async READ_CARD({ dispatch, commit }, { id }) {
     const { data } = await cardApi.readCard(id);
     await commit('setCard', data.data);
+    return data.data;
   },
   async UPDATE_CARD(
     { dispatch, state },
@@ -110,7 +111,6 @@ const actions = {
   },
   async READ_CHECKLIST({ dispatch, commit }, { id }) {
     const { data } = await checklistApi.readChecklist(id);
-    console.log(data.data);
     await commit('setChecklists', data.data);
   },
   async UPDATE_CHECKLIST({ dispatch, state }, { id, title }) {
