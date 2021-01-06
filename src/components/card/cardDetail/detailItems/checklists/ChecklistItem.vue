@@ -11,7 +11,7 @@
         {{ items.item }}
       </span>
       <span class="checkbox-item-text line-through" v-else>
-        {{ items.item }}aaa
+        {{ items.item }}
       </span>
       <i class="fas fa-edit" @click="onEditItem"></i>
       <span class="checkbox-item-cancel" @click="onDeleteItem">&times;</span>
@@ -49,7 +49,10 @@ export default {
   },
   methods: {
     ...mapActions(['DELETE_CHECKLIST_ITEM', 'UPDATE_CHECKLIST_ITEM']),
-    onCheckChange() {
+    onCheckChange({ target }) {
+      if (target.className === 'fas fa-edit' || target.localName === 'input')
+        return;
+
       let isChecked = '';
       if (this.items.isChecked === 'Y') {
         isChecked = 'N';
