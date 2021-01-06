@@ -7,8 +7,11 @@
       @click="isCheckChange"
     />
     <template v-if="!isItem">
-      <span class="checkbox-item-text">
+      <span class="checkbox-item-text" v-if="!isChecked">
         {{ items.item }}
+      </span>
+      <span class="checkbox-item-text line-through" v-else>
+        {{ items.item }}aaa
       </span>
       <i class="fas fa-edit" @click="onEditItem"></i>
       <span class="checkbox-item-cancel" @click="onDeleteItem">&times;</span>
@@ -125,6 +128,9 @@ export default {
     font-size: 14px;
     margin-left: 3px;
     top: -2px;
+    &.line-through {
+      text-decoration: line-through;
+    }
   }
   .checkbox-item-cancel {
     position: absolute;

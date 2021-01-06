@@ -1,6 +1,7 @@
 <template>
   <div class="card-item" :data-card-id="card.id" :data-card-pos="card.pos">
-    <router-link :to="`/board/${boardId}/card/${card.id}`">
+    <router-link :to="`/board/${board.id}/card/${card.id}`">
+      <!-- 라벨링 -->
       <div
         class="inside-card-label"
         v-for="label in labelArray"
@@ -10,8 +11,20 @@
         :style="{ backgroundColor: label }"
       ></div>
       <div>{{ card.title }}</div>
-      <!-- 햄버거 -->
-      <div class="card-item-meta" v-if="card.description">&equiv;</div>
+      <div class="board-inside-icons">
+        <!-- 햄버거 -->
+        <div class="board-inside-icon" v-if="card.description">
+          <i class="fas fa-layer-group board-inside-desc"></i>
+        </div>
+        <div class="board-inside-icon">
+          <!-- 체크리스트 -->
+          <i
+            class="far fa-check-square board-inside-checklist"
+            v-if="card.isChecklist === 'Y'"
+          ></i>
+          <!-- <span class="board-inside-checklist-text">1/1</span> -->
+        </div>
+      </div>
     </router-link>
     <a class="delete-card-btn" href="" @click.prevent="onDelete">&times;</a>
   </div>
@@ -28,9 +41,7 @@ export default {
   },
   props: ['card'],
   computed: {
-    ...mapState({
-      boardId: state => state.board.id,
-    }),
+    ...mapState(['board']),
   },
   watch: {
     'card.labelColor'() {
@@ -66,6 +77,28 @@ export default {
   padding: 6px 20px 2px 8px;
   box-shadow: 0 1px 0 #ccc;
   position: relative;
+  .board-inside-icons {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 4px;
+    font-size: 13px;
+    color: #5e6c84;
+    .board-inside-icon {
+      display: inline;
+      .board-inside-desc {
+        /* padding-left: 3px; */
+        padding-right: 10px;
+      }
+      .board-inside-checklist {
+        /* padding-left: 3px; */
+        padding-right: 10px;
+      }
+      .board-inside-checklist-text {
+        margin-left: -5px;
+      }
+    }
+  }
+
   a {
     text-decoration: none;
     color: #444;
@@ -82,11 +115,6 @@ export default {
       width: 35px;
       height: 11px;
       border-radius: 5px;
-    }
-    .card-item-meta {
-      font-size: 26px;
-      padding: 5px 5px 0 3px;
-      color: #8c8c8c;
     }
   }
   &:hover {

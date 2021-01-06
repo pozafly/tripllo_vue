@@ -10,7 +10,7 @@ function getUserFromLocalStorage(key) {
   return localStorage.getItem(key);
 }
 
-function deleteUserLocalStorage(key) {
+function deleteUserLocalStorage() {
   localStorage.removeItem('user_token');
   localStorage.removeItem('user_id');
   localStorage.removeItem('user_email');
@@ -27,8 +27,6 @@ function getSessionStorage(key) {
 }
 
 function deleteSessionStorage(key) {
-  console.log('key');
-  console.log(key);
   sessionStorage.removeItem(key);
 }
 

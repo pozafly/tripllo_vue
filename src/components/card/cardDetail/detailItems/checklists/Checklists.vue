@@ -12,7 +12,7 @@
     <span v-else>
       <input
         type="text"
-        :class="`form-control checkbox-input-title`"
+        class="form-control checkbox-input-title"
         ref="inputTitle"
         v-model="inputTitle"
         @blur="onSubmitTitle"
@@ -78,22 +78,13 @@ export default {
       inputTitle: '',
       inputItem: '',
       percent: 0,
-      status: '',
+      status: 'error',
     };
   },
   props: ['checklist'],
   watch: {
     checklist() {
-      let count = 0;
-      this.checklist.items.forEach(element => {
-        if (element.isChecked === 'Y') {
-          count += 1;
-        }
-      });
-      let percent = (count / this.checklist.items.length) * 100;
-      this.percent = Math.round(percent, -1);
-
-      percent === 100 ? (this.status = 'success') : (this.status = 'error');
+      this.onProgress();
     },
   },
   methods: {
@@ -152,9 +143,28 @@ export default {
       this.inputItem = '';
       this.isAddItem();
     },
+    onProgress() {
+      console.log('실행');
+      let count = 0;
+      if (this.checklist.items.length === 0) return;
+      this.checklist.items.forEach(element => {
+        if (element.isChecked === 'Y') {
+          count += 1;
+        }
+      });
+      let computePercent = (count / this.checklist.items.length) * 100;
+      this.percent = Math.round(computePercent, -1);
+
+      computePercent === 100
+        ? (this.status = 'success')
+        : (this.status = 'error');
+    },
     onKeyupEnter() {
       event.target.blur();
     },
+  },
+  mounted() {
+    this.onProgress();
   },
 };
 </script>
