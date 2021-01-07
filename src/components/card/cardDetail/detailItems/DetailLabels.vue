@@ -1,6 +1,6 @@
 <template>
   <li class="body-item" v-if="card.labelColor">
-    <span class="detail-labels">LABELS</span>
+    <span class="detail-title">LABELS</span>
     <div
       class="detail-label-item"
       v-for="label in labelArray"
@@ -37,7 +37,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.detail-labels {
+.detail-title {
   position: relative;
   display: block;
   margin: -15px 0;

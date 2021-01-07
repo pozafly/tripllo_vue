@@ -18,7 +18,9 @@
           <div class="menu-profile">
             <div class="profile-item title">{{ board.title }}</div>
             <div class="profile-item name">@{{ board.createdBy }}</div>
-            <div class="profile-item email">{{ board.createdAt }} 생성됨</div>
+            <div class="profile-item email">
+              {{ board.createdAt | formatDate }} 생성됨
+            </div>
           </div>
         </li>
         <li class="menu-item">

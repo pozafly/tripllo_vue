@@ -42,7 +42,18 @@ export default {
     ...mapActions(['UPDATE_CARD']),
     onSave() {
       this.$emit('close');
-      this.UPDATE_CARD({ id: this.card.id, dueDate: this.date });
+
+      const year = this.date.getFullYear();
+      const month = this.plusZero(this.date.getMonth() + 1);
+      const date = this.plusZero(this.date.getDate());
+      const hours = this.plusZero(this.date.getHours());
+      const minutes = this.plusZero(this.date.getMinutes());
+      const dueDate = `${year}${month}${date}${hours}${minutes}`;
+
+      this.UPDATE_CARD({ id: this.card.id, dueDate });
+    },
+    plusZero(value) {
+      return (value = value > 9 ? value : `0${value}`);
     },
     onRemove() {
       this.$emit('close');

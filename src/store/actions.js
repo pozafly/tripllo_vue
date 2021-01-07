@@ -106,10 +106,11 @@ const actions = {
   },
 
   // checklist
-  async CREATE_CHECKLIST({ dispatch, state }, { title, cardId }) {
-    await checklistApi.createChecklist({ title, cardId });
-    await dispatch('READ_CHECKLIST', { id: state.card.id });
-    await dispatch('READ_BOARD_DETAIL', state.board.id);
+  CREATE_CHECKLIST({ dispatch, state }, { title, cardId }) {
+    checklistApi.createChecklist({ title, cardId }).then(() => {
+      dispatch('READ_CHECKLIST', { id: state.card.id });
+      dispatch('READ_BOARD_DETAIL', state.board.id);
+    });
   },
   async READ_CHECKLIST({ commit }, { id }) {
     const { data } = await checklistApi.readChecklist(id);

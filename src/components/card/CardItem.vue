@@ -11,7 +11,7 @@
         :style="{ backgroundColor: label }"
       ></div>
       <div>{{ card.title }}</div>
-      <div class="board-inside-icons">
+      <div class="board-inside-icons" v-if="isItem">
         <!-- 햄버거 -->
         <div class="board-inside-icon" v-if="card.description">
           <i class="fas fa-layer-group board-inside-desc"></i>
@@ -23,6 +23,10 @@
             v-if="card.isChecklist === 'Y'"
           ></i>
           <!-- <span class="board-inside-checklist-text">1/1</span> -->
+        </div>
+        <!-- 시간표시 -->
+        <div class="board-inside-icon" v-if="card.dueDate">
+          <i class="far fa-clock board-inside-desc"></i>
         </div>
       </div>
     </router-link>
@@ -37,6 +41,7 @@ export default {
   data() {
     return {
       labelArray: [],
+      isItem: false,
     };
   },
   props: ['card'],
@@ -46,6 +51,19 @@ export default {
   watch: {
     'card.labelColor'() {
       this.labelSetting();
+    },
+    card() {
+      if (this.card.description) {
+        this.isItem = true;
+      } else if (this.card.isChecklist === 'Y') {
+        this.isItem = true;
+      } else if (this.card.dueDate) {
+        this.isItem = true;
+      } else if (this.card.location) {
+        this.isItem = true;
+      } else {
+        this.isItem = false;
+      }
     },
   },
   methods: {
