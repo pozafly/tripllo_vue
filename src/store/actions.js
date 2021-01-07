@@ -77,14 +77,14 @@ const actions = {
       dispatch('READ_BOARD_DETAIL', state.board.id);
     });
   },
-  async READ_CARD({ dispatch, commit }, { id }) {
+  async READ_CARD({ commit }, { id }) {
     const { data } = await cardApi.readCard(id);
     await commit('setCard', data.data);
     return data.data;
   },
   async UPDATE_CARD(
     { dispatch, state },
-    { id, title, pos, description, labelColor, location, listId },
+    { id, title, pos, description, labelColor, location, dueDate, listId },
   ) {
     await cardApi.updateCard(id, {
       title,
@@ -92,6 +92,7 @@ const actions = {
       description,
       labelColor,
       location,
+      dueDate,
       listId,
     });
     // CardModal의 listTitle을 불러오기위해 동기 형식 택함.

@@ -1,19 +1,15 @@
 <template>
-  <div>
-    <li class="body-item" v-if="card.labelColor">
-      <div>
-        <span class="detail-labels">LABELS</span>
-        <div
-          class="detail-label-item"
-          v-for="label in labelArray"
-          :key="label"
-          :data-value="label"
-          v-show="labelArray.includes(label)"
-          :style="{ backgroundColor: label }"
-        ></div>
-      </div>
-    </li>
-  </div>
+  <li class="body-item" v-if="card.labelColor">
+    <span class="detail-labels">LABELS</span>
+    <div
+      class="detail-label-item"
+      v-for="label in labelArray"
+      :key="label"
+      :data-value="label"
+      v-show="labelArray.includes(label)"
+      :style="{ backgroundColor: label }"
+    ></div>
+  </li>
 </template>
 
 <script>
@@ -40,37 +36,26 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .detail-labels {
   position: relative;
+  display: block;
   margin: -15px 0;
   padding: 7px 0 3px 39px;
-  display: block;
+  height: 37px;
+
   font-size: 13px;
 }
 .detail-label-item {
   text-align: center;
   display: inline-block;
   position: relative;
-  left: 39px;
-  top: 20px;
-  margin-right: 10px;
+  margin: 7px 0 3px 3px;
   width: 38px;
   height: 30px;
   border-radius: 4px;
-  &.plus {
-    top: 7px;
-    background: rgba(9, 30, 66, 0.04);
-    cursor: pointer;
-    &:hover {
-      background-color: rgba(9, 30, 66, 0.1);
-    }
-    span {
-      display: inline-block;
-      position: relative;
-      top: 2px;
-      pointer-events: none;
-    }
-  }
+}
+.detail-label-item:nth-child(2) {
+  margin-left: 39px;
 }
 </style>

@@ -21,6 +21,7 @@
     <div slot="body" class="modal-card-body">
       <ul class="body-items">
         <DetailLabels />
+        <DetailDueDate />
         <li class="body-item">
           <i class="fas fa-layer-group"></i>
           <span class="body-card-text">Description</span>
@@ -73,9 +74,10 @@
 
 <script>
 import CardModalBase from '@/components/card/cardDetail/CardModalBase';
-import CardModalSide from '@/components/card/cardDetail/CardModalSide';
+import CardModalSide from '@/components/card/cardDetail/side/CardModalSide';
 import DetailLabels from './detailItems/DetailLabels';
 import DetailChecklist from './detailItems/DetailChecklist';
+import DetailDueDate from './detailItems/DetailDueDate';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -84,6 +86,7 @@ export default {
     CardModalSide,
     DetailLabels,
     DetailChecklist,
+    DetailDueDate,
   },
   data() {
     return {

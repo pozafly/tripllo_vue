@@ -16,6 +16,7 @@
     "lodash": "^4.17.20",
     "node-sass": "^5.0.0",
     "sass-loader": "^10.1.0",
+    "v-calendar": "^2.1.6",
     "vee-validate": "^3.4.5",
     "vue": "^2.6.11",
     "vue-color": "^2.8.1",
