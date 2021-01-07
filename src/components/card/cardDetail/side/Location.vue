@@ -1,5 +1,5 @@
 <template>
-  <SideBase @close="$emit('close')" :xy="xy">
+  <SideBase @close="$emit('close')">
     <div slot="header" class="header-text">Location</div>
     <div slot="content">f</div>
   </SideBase>
@@ -12,7 +12,6 @@ export default {
   components: {
     SideBase,
   },
-  props: ['xy'],
 };
 </script>
 

@@ -1,6 +1,6 @@
 <template>
-  <SideBase @close="$emit('close')" :xy="xy">
-    <div slot="header" class="header-text">Checklist</div>
+  <SideBase @close="$emit('close')">
+    <div slot="header" class="header-text">Add Checklist</div>
     <div slot="content">
       <div class="content-text">Title</div>
       <input
@@ -24,7 +24,6 @@ export default {
   components: {
     SideBase,
   },
-  props: ['xy'],
   data() {
     return {
       inputTitle: 'Checklist',

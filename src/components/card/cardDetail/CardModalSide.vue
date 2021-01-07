@@ -1,8 +1,5 @@
 <template>
   <div class="side">
-    <a class="modal-close-btn" href="" @click.prevent="onClose">
-      &times;
-    </a>
     <div class="side-items">
       <ul>
         <li
@@ -16,19 +13,31 @@
           <span class="side-item-text">{{ item }}</span>
         </li>
       </ul>
-      <Labels @close="toggle = ''" v-if="toggle === 'isLabels'" :xy="xy" />
+      <Labels
+        @close="onClose"
+        v-if="toggle === 'isLabels'"
+        class="side-item-label"
+      />
       <Checklist
-        @close="toggle = ''"
+        @close="onClose"
         v-if="toggle === 'isChecklist'"
-        :xy="xy"
+        class="side-item-checklist"
       />
-      <DueDate @close="toggle = ''" v-if="toggle === 'isDueDate'" :xy="xy" />
+      <DueDate
+        @close="onClose"
+        v-if="toggle === 'isDueDate'"
+        class="side-item-duedate"
+      />
       <Attachment
-        @close="toggle = ''"
+        @close="onClose"
         v-if="toggle === 'isAttachment'"
-        :xy="xy"
+        class="side-item-attachment"
       />
-      <Location @close="toggle = ''" v-if="toggle === 'isLocation'" :xy="xy" />
+      <Location
+        @close="onClose"
+        v-if="toggle === 'isLocation'"
+        class="side-item-location"
+      />
     </div>
   </div>
 </template>
@@ -47,7 +56,6 @@ export default {
   data() {
     return {
       toggle: '',
-      xy: {},
       sideItems: ['Labels', 'Checklist', 'DueDate', 'Attachment', 'Location'],
     };
   },
@@ -56,13 +64,6 @@ export default {
   },
   methods: {
     onCheckPosition(e) {
-      // x, y 좌표값 계산
-      const target = e.target.getBoundingClientRect();
-      this.xy = {
-        x: target.x,
-        y: target.y,
-      };
-
       // toggle에 name을 넣어서 보일지 말지 판단함.
       const name = `is${e.target.dataset.name}`;
       this.toggle === name ? (this.toggle = '') : (this.toggle = name);
@@ -83,7 +84,7 @@ export default {
       return null;
     },
     onClose() {
-      this.$router.push(`/board/${this.board.id}`);
+      this.toggle = '';
     },
   },
 };
@@ -91,20 +92,15 @@ export default {
 
 <style scoped lang="scss">
 .side {
-  position: absolute;
+  position: relative;
   box-sizing: border-box;
-  height: 20%;
-  width: 10%;
-  right: 480px;
-  .modal-close-btn {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    font-size: 24px;
-    color: black;
-  }
+  height: 100%;
+  width: 100%;
+  right: 0;
   .side-items {
+    position: fixed;
     padding-top: 80px;
+    width: 180px;
     .side-item {
       position: relative;
       margin: 12px 8px;
@@ -132,6 +128,21 @@ export default {
         font-weight: 450;
       }
     }
+  }
+  .side-item-label {
+    top: 130px;
+  }
+  .side-item-checklist {
+    top: 175px;
+  }
+  .side-item-duedate {
+    top: 220px;
+  }
+  .side-item-attachment {
+    top: 265px;
+  }
+  .side-item-location {
+    top: 310px;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="base-wrap" ref="sideWrap">
+  <div class="base-wrap">
     <div class="header">
       <slot name="header" class="header-text">header</slot>
       <a @click="$emit('close')" class="header-cancle">&times;</a>
@@ -11,18 +11,10 @@
 </template>
 
 <script>
-export default {
-  props: ['xy'],
-  mounted() {
-    const x = this.xy.x - 1005;
-    const y = this.xy.y - 30;
-    this.$refs.sideWrap.style.left = `${x}px`;
-    this.$refs.sideWrap.style.top = `${y}px`;
-  },
-};
+export default {};
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .base-wrap {
   display: block;
   position: absolute;
@@ -31,7 +23,6 @@ export default {
   box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25),
     0 0 0 1px rgba(9, 30, 66, 0.08);
   box-sizing: border-box;
-  overflow: hidden;
   width: 300px;
   height: auto;
   font-size: 14px;
@@ -39,7 +30,7 @@ export default {
   font-weight: 400;
   color: #5e6c84;
   left: 8px;
-  z-index: 99;
+  z-index: 9999;
   .header {
     height: 40px;
     position: relative;
@@ -84,8 +75,6 @@ export default {
     font-size: 12px;
     text-align: left;
     max-height: 808px;
-    overflow-x: hidden;
-    overflow-y: auto;
     padding: 0 12px 12px;
     padding: 0 12px 12px;
   }

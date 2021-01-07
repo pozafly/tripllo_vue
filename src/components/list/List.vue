@@ -89,7 +89,7 @@ export default {
 
 <style lang="scss">
 .list {
-  background-color: #e2e4e6;
+  background-color: #ebecf0;
   border-radius: 3px;
   margin-right: 10px;
   display: flex;
@@ -138,7 +138,22 @@ export default {
   .card-list {
     flex: 1 1 auto;
     overflow-y: auto;
-    overflow-x: hidden;
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 8px;
+      background: #ffffff;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      background-color: #bfc4ce;
+
+      &:hover {
+        background-color: #adb5bd;
+      }
+    }
+    &::-webkit-scrollbar-track {
+      background: #d9dce2;
+    }
   }
   .add-card-btn {
     flex: 0 0 auto;

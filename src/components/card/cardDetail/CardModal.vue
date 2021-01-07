@@ -1,6 +1,6 @@
 <template>
-  <CardModalBase class="modal-card">
-    <div slot="header" class="modal-card-header">
+  <CardModalBase>
+    <div slot="header">
       <div class="modal-card-header-title">
         <i class="far fa-clipboard"></i>
         <input
@@ -146,126 +146,112 @@ export default {
 </script>
 
 <style lang="scss">
-.modal-card {
-  overflow-x: visible !important;
-  .modal-container {
-    overflow-x: visible !important;
-    overflow-y: auto;
-    min-width: 300px;
-    max-width: 700px;
-    width: 70%;
-    height: 90%;
+.modal-card-header-title {
+  padding-right: 30px;
+  min-height: 30px;
+  a {
+    color: black;
+    font-size: 20px;
+    margin-left: 15px;
+    .fa-edit {
+      display: none;
+      font-size: 10px;
+    }
+    &:hover {
+      color: rgba(0, 0, 0, 0.3);
+      .fa-edit {
+        display: inline-block;
+      }
+    }
+  }
+  .card-title-input {
+    position: absolute;
+    margin: 0 0 0 15px;
+    padding: 3px 6px;
+    width: 90%;
+    display: inline;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    height: 28px;
+    font-size: 17px;
+  }
+  .card-list-title {
+    position: absolute;
+    padding: 7px 0 40px 39px;
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+  }
+  .fa-clipboard {
+    padding: 1px;
     font-size: 20px;
   }
-  .modal-card-header {
-    position: relative;
-    .modal-card-header-title {
-      padding-right: 30px;
-      min-height: 30px;
-      a {
-        color: black;
-        font-size: 20px;
-        margin-left: 15px;
-        .fa-edit {
-          display: none;
-          font-size: 10px;
-        }
-        &:hover {
-          color: rgba(0, 0, 0, 0.3);
-          .fa-edit {
-            display: inline-block;
-          }
-        }
+}
+
+.modal-card-body {
+  margin-bottom: 10px;
+  .body-items {
+    .body-item {
+      padding-top: 40px;
+      .fas,
+      .fa {
+        font-size: 16px;
       }
-      .card-title-input {
-        position: absolute;
-        margin: 0 0 0 15px;
+      .body-card-text {
+        display: inline;
+        margin-left: 14px;
         padding: 3px 6px;
         width: 90%;
-        display: inline;
         overflow: hidden;
         overflow-wrap: break-word;
         height: 28px;
-        font-size: 17px;
+        font-size: 18px;
       }
-      .card-list-title {
-        position: absolute;
-        padding: 7px 0 40px 39px;
+      .card-desc {
         display: block;
-        font-size: 13px;
-        font-weight: 400;
+        margin: 13px 0 7px 35px;
+        width: 92%;
+        overflow-wrap: break-word;
+        resize: none;
+        height: 54px;
+        border: none;
+        font-family: Arial;
+        font-size: 14px;
+        background: none;
+        cursor: pointer;
+        height: 5rem;
+        background: rgba(9, 30, 66, 0.04);
+        &:hover {
+          background: rgba(9, 30, 66, 0.1);
+        }
+        &.textarea {
+          height: 7rem;
+          background: #fff;
+        }
       }
-      .fa-clipboard {
-        padding: 1px;
+      .card-desc-btn {
+        display: inline;
+        margin: 0 0 40px 27px;
+        width: 55px;
+        height: 33px;
+        position: relative;
+        left: 8px;
+        &:hover {
+          filter: brightness(90%);
+        }
+      }
+      .desc-cancel {
+        margin-left: 20px;
         font-size: 20px;
-      }
-    }
-  }
-  .modal-card-body {
-    margin-bottom: 10px;
-    .body-items {
-      .body-item {
-        padding-top: 40px;
-        .fas,
-        .fa {
-          font-size: 16px;
-        }
-        .body-card-text {
-          display: inline;
-          margin-left: 14px;
-          padding: 3px 6px;
-          width: 90%;
-          overflow: hidden;
-          overflow-wrap: break-word;
-          height: 28px;
-          font-size: 18px;
-        }
-        .card-desc {
-          display: block;
-          margin: 13px 0 7px 35px;
-          width: 92%;
-          overflow-wrap: break-word;
-          resize: none;
-          height: 54px;
-          border: none;
-          font-family: Arial;
-          font-size: 14px;
-          background: none;
-          cursor: pointer;
-          height: 5rem;
-          background: rgba(9, 30, 66, 0.04);
-          &:hover {
-            background: rgba(9, 30, 66, 0.1);
-          }
-          &.textarea {
-            height: 7rem;
-            background: #fff;
-          }
-        }
-        .card-desc-btn {
-          display: inline;
-          margin: 0 0 40px 27px;
-          width: 55px;
-          height: 33px;
-          position: relative;
-          left: 8px;
-          &:hover {
-            filter: brightness(90%);
-          }
-        }
-        .desc-cancel {
-          margin-left: 20px;
-          font-size: 20px;
-          color: black;
-          &:hover {
-            font-weight: 700;
-          }
+        color: black;
+        &:hover {
+          font-weight: 700;
         }
       }
     }
   }
-  .side-slot {
-    height: 100%;
-  }
+}
+.side-slot {
+  height: 100%;
 }
 </style>

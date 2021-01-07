@@ -1,5 +1,5 @@
 <template>
-  <SideBase @close="$emit('close')" :xy="xy">
+  <SideBase @close="$emit('close')">
     <div slot="header" class="header-text">Labels</div>
     <div slot="content">
       <div class="content-text">LABELS</div>
@@ -26,7 +26,6 @@ import SideBase from './SideBase';
 
 export default {
   components: { SideBase },
-  props: ['xy'],
   data() {
     return {
       labels: {

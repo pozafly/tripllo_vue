@@ -83,8 +83,11 @@ export default {
   },
   props: ['checklist'],
   watch: {
-    checklist() {
-      this.onProgress();
+    checklist: {
+      immediate: true,
+      handler(movie) {
+        this.onProgress();
+      },
     },
   },
   methods: {
@@ -162,9 +165,6 @@ export default {
     onKeyupEnter() {
       event.target.blur();
     },
-  },
-  mounted() {
-    this.onProgress();
   },
 };
 </script>

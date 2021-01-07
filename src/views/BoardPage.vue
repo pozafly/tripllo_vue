@@ -208,9 +208,21 @@ export default {
             overflow-y: hidden;
             white-space: nowrap;
             padding: 0 10px;
+            &::-webkit-scrollbar {
+              width: 10px;
+              height: 13px;
+              background: #ffffff;
+            }
+            &::-webkit-scrollbar-thumb {
+              border-radius: 3.5px;
+              background-color: #bfc4ce;
+              &:hover {
+                background-color: #adb5bd;
+              }
+            }
             .list-wrapper {
               display: inline-block;
-              height: auto;
+              height: 100%;
               width: 272px;
               vertical-align: top;
               margin-right: 5px;

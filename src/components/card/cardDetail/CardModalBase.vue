@@ -4,6 +4,9 @@
       <div class="modal-wrapper">
         <div class="modal-container">
           <div class="modal-main">
+            <a class="modal-close-btn" href="" @click.prevent="onClose">
+              &times;
+            </a>
             <div class="modal-header">
               <slot name="header">
                 default header
@@ -36,10 +39,25 @@
   </transition>
 </template>
 
-<style>
+<script>
+import { mapState } from 'vuex';
+
+export default {
+  computed: {
+    ...mapState(['board']),
+  },
+  methods: {
+    onClose() {
+      this.$router.push(`/board/${this.board.id}`);
+    },
+  },
+};
+</script>
+
+<style lang="scss">
 .modal-mask {
   position: fixed;
-  z-index: 9998;
+  z-index: 99;
   top: 0;
   left: 0;
   width: 100%;
@@ -51,22 +69,65 @@
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
+  height: 100%;
+  /* overflow-y: auto; */
 }
 .modal-container {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
-  width: 300px;
+
+  overflow-y: auto;
+
+  min-width: 300px;
+  max-width: 700px;
+  max-height: 800px;
+
+  width: 70%;
+  height: 90%;
+  font-size: 20px;
+
   margin: 0px auto;
   padding: 20px 30px;
   background-color: #f4f5f7;
-  border-radius: 2px;
+  border-radius: 7px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
+  z-index: 100;
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 8px;
+    background: #ffffff;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #bfc4ce;
+
+    &:hover {
+      background-color: #adb5bd;
+    }
+  }
+  &::-webkit-scrollbar-track {
+    background: #d9dce2;
+  }
 }
-.modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
+.modal-close-btn {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 15px;
+  right: 25px;
+  font-size: 24px;
+  color: black;
+  z-index: 999;
+  border-radius: 100px;
+  width: 40px;
+  height: 40px;
+  &:hover {
+    background: rgba(0, 0, 0, 0.15);
+  }
 }
 .modal-body {
   margin: 20px 0;
@@ -79,11 +140,6 @@
 }
 .modal-leave-active {
   opacity: 0;
-}
-.modal-enter .modal-container,
-.modal-leave-active .modal-container {
-  -webkit-transform: scale(1.1);
-  transform: scale(1.1);
 }
 .modal-main {
   min-width: 450px;

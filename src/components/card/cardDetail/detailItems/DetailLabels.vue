@@ -11,32 +11,19 @@
           v-show="labelArray.includes(label)"
           :style="{ backgroundColor: label }"
         ></div>
-        <div
-          class="detail-label-item plus"
-          v-if="labelArray"
-          @click="onLabelShow"
-        >
-          <span>&plus;</span>
-        </div>
       </div>
     </li>
-    <Labels @close="isLabelShow = false" v-if="isLabelShow" :xy="xy" />
   </div>
 </template>
 
 <script>
-import Labels from '@/components/card/cardDetail/side/Labels';
 import { mapState } from 'vuex';
 
 export default {
-  components: {
-    Labels,
-  },
   data() {
     return {
       labelArray: [],
       isLabelShow: false,
-      xy: {},
     };
   },
   watch: {
@@ -49,16 +36,7 @@ export default {
   computed: {
     ...mapState(['card']),
   },
-  methods: {
-    onLabelShow(e) {
-      this.isLabelShow = !this.isLabelShow;
-      const target = e.target.getBoundingClientRect();
-      this.xy = {
-        x: target.x + 1005,
-        y: target.y + 65,
-      };
-    },
-  },
+  methods: {},
 };
 </script>
 
