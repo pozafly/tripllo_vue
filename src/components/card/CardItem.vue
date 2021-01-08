@@ -28,6 +28,9 @@
         <div class="board-inside-icon" v-if="card.dueDate">
           <i class="far fa-clock board-inside-desc"></i>
         </div>
+        <div class="board-inside-icon" v-if="card.location">
+          <i class="fas fa-map-marker-alt"></i>
+        </div>
       </div>
     </router-link>
     <a class="delete-card-btn" href="" @click.prevent="onDelete">&times;</a>

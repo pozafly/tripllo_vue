@@ -33,22 +33,11 @@ export default {
     this.$nextTick(() => {
       this.$refs.searchMap.focus();
     });
+
+    // loadScript는 컴포넌트 단위로 외부 script 태그를 삽입해줌.
     this.$loadScript(
       `https://maps.googleapis.com/maps/api/js?key=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}&libraries=places`,
     ).then(() => {
-      console.log('google map init');
-      // let map = new google.maps.Map(
-      //   this.$el.querySelector('google-map-display'),
-      //   {
-      //     zoom: 12.5,
-      //     center: {
-      //       lat: -34.397,
-      //       lng: -150.644,
-      //     },
-      //   },
-      // );
-
-      // this.geocoder = new google.maps.Geocoder();
       this.autocomplete = new google.maps.places.Autocomplete(
         this.$refs.searchMap,
         {
@@ -63,10 +52,14 @@ export default {
     ...mapActions(['UPDATE_CARD']),
     fillInAddress() {
       const place = this.autocomplete.getPlace();
+      console.log(place);
       const geometry = {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng(),
+        address: place.formatted_address,
+        name: place.name,
       };
+      // 객체를 문자열로 저장name
       const location = JSON.stringify(geometry);
       this.UPDATE_CARD({ id: this.card.id, location });
       this.$emit('close');

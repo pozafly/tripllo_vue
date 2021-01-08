@@ -19,8 +19,5 @@ export function formatDate(value) {
   let minutes = date.getMinutes();
   minutes = minutes > 9 ? minutes : `0${minutes}`;
 
-  console.log(`${year}-${month}-${day} ${hours}:${minutes}`);
-  console.log(ampm);
-
   return `${year}-${month}-${day} ${hours}:${minutes} ${ampm}`;
 }
