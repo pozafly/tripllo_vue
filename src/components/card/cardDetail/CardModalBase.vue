@@ -80,7 +80,7 @@ export default {
   overflow-y: auto;
 
   min-width: 300px;
-  max-width: 700px;
+  max-width: 768px;
   max-height: 800px;
 
   width: 70%;
@@ -117,8 +117,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  top: 15px;
-  right: 25px;
+  top: 5px;
+  right: 5px;
   font-size: 24px;
   color: black;
   z-index: 999;
@@ -143,10 +143,10 @@ export default {
 }
 .modal-main {
   min-width: 450px;
-  width: 75%;
+  width: 80%;
 }
 .modal-side {
-  width: 25%;
+  width: 20%;
   text-align: center;
 }
 </style>

@@ -5,17 +5,31 @@
       <div class="detail-duedate-item">
         {{ card.dueDate | formatDate }}
       </div>
-      <button class="duedate-cancle" @click="deleteDueDate">&times;</button>
+      <button class="duedate-cancle" @click="isDelete = true">···</button>
+      <div class="duedate-delete" v-if="isDelete">
+        <SideBase @close="isDelete = false">
+          <div slot="header" class="header-text">Delete DueDate</div>
+          <div slot="content">
+            <button class="duedate-delete-btn" @click="deleteDueDate">
+              Delete this DueDate?
+            </button>
+          </div>
+        </SideBase>
+      </div>
     </div>
   </li>
 </template>
 
 <script>
+import SideBase from '@/components/card/cardDetail/side/SideBase';
 import { mapActions, mapState } from 'vuex';
 
 export default {
+  components: { SideBase },
   data() {
-    return {};
+    return {
+      isDelete: false,
+    };
   },
   computed: {
     ...mapState(['card']),
@@ -23,6 +37,7 @@ export default {
   methods: {
     ...mapActions(['UPDATE_CARD']),
     deleteDueDate() {
+      this.isDelete = false;
       this.UPDATE_CARD({ id: this.card.id, dueDate: '' });
     },
   },
@@ -63,6 +78,21 @@ export default {
   cursor: pointer;
   &:hover {
     background: rgba(0, 0, 0, 0.18);
+  }
+}
+.duedate-delete {
+  position: absolute;
+  top: 155px;
+  left: 80px;
+  overflow-x: visible;
+  z-index: 9999;
+  .duedate-delete-btn {
+    width: 100%;
+    height: 37px;
+    background: #cf513d;
+    &:hover {
+      background: #eb5a46;
+    }
   }
 }
 </style>

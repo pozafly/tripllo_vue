@@ -100,7 +100,7 @@ export default {
   .side-items {
     position: fixed;
     padding-top: 80px;
-    width: 180px;
+    width: 160px;
     .side-item {
       position: relative;
       margin: 12px 8px;
