@@ -51,12 +51,7 @@
           </template>
         </li>
         <DetailChecklist v-if="checklists" />
-        <li class="body-item">
-          <div>
-            <i class="fas fa-map-marker-alt"></i>
-            <span class="body-card-text">Loction</span>
-          </div>
-        </li>
+        <DetailLocation />
         <li class="body-item">
           <div>
             <i class="fas fa-comments"></i>
@@ -78,6 +73,7 @@ import CardModalSide from '@/components/card/cardDetail/side/CardModalSide';
 import DetailLabels from './detailItems/DetailLabels';
 import DetailChecklist from './detailItems/DetailChecklist';
 import DetailDueDate from './detailItems/DetailDueDate';
+import DetailLocation from './detailItems/DetailLocation';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -87,6 +83,7 @@ export default {
     DetailLabels,
     DetailChecklist,
     DetailDueDate,
+    DetailLocation,
   },
   data() {
     return {
