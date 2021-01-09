@@ -1,6 +1,6 @@
 <template>
   <SideBase @close="$emit('close')">
-    <div slot="header" class="header-text">Add Location</div>
+    <div slot="header" class="header-text">Location</div>
     <div slot="content">
       <input
         type="text"

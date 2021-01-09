@@ -31,18 +31,21 @@
         </div>
       </div>
     </div>
+    <LocationMap v-if="isLocationMap" @close="isLocationMap = false" />
   </li>
 </template>
 
 <script>
 import SideBase from '@/components/card/cardDetail/side/SideBase';
+import LocationMap from './LocationMap';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: { SideBase },
+  components: { SideBase, LocationMap },
   data() {
     return {
       isDelete: false,
+      isLocationMap: false,
       imgUrl: '',
       location: {},
     };
@@ -59,20 +62,6 @@ export default {
   mounted() {
     this.location = JSON.parse(this.card.location);
     this.setImg();
-    // this.$loadScript(
-    //   `https://maps.googleapis.com/maps/api/js?key=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}`,
-    // ).then(() => {
-    //   this.map = new google.maps.Map(
-    //     this.$el.querySelector('.google-map-display'),
-    //     {
-    //       zoom: 14,
-    //       center: {
-    //         lat: this.location.lat,
-    //         lng: this.location.lng,
-    //       },
-    //     },
-    //   );
-    // });
   },
   methods: {
     ...mapActions(['UPDATE_CARD']),
@@ -84,8 +73,9 @@ export default {
         &zoom=15&size=560x190&markers=color:red|${location.lat},${location.lng}
         &key=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}&region=kr`;
     },
-    openMap() {
-      console.log('aaa');
+    openMap(e) {
+      if (e.target.className === 'location-control') return;
+      this.isLocationMap = true;
     },
     gotoGoogle() {
       const url = `https://www.google.com/maps/search/?api=1&query=${this.location.lat}%2C${this.location.lng}`;
@@ -107,6 +97,7 @@ export default {
   width: 560px;
   height: auto;
   border-radius: 3px;
+  cursor: pointer;
   background-color: rgba(9, 30, 66, 0.04);
   &:hover {
     background-color: rgba(9, 30, 66, 0.08);
@@ -141,6 +132,8 @@ export default {
       font-size: 15px;
       right: 20px;
       top: 210px;
+      z-index: 40;
+      cursor: pointer;
       .location-control {
         margin-left: 12px;
         padding: 4px;

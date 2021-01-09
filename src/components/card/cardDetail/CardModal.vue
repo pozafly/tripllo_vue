@@ -73,7 +73,7 @@ import CardModalSide from '@/components/card/cardDetail/side/CardModalSide';
 import DetailLabels from './detailItems/DetailLabels';
 import DetailChecklist from './detailItems/detailChecklists/DetailChecklist';
 import DetailDueDate from './detailItems/DetailDueDate';
-import DetailLocation from './detailItems/DetailLocation';
+import DetailLocation from './detailItems/detailLocation/DetailLocation';
 import { mapActions, mapState } from 'vuex';
 
 export default {
