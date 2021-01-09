@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Checklists from './checklists/Checklists';
+import Checklists from './Checklists';
 import { mapState } from 'vuex';
 
 export default {
