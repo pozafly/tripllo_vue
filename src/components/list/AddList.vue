@@ -66,6 +66,8 @@ export default {
   color: #ddd;
   transition: all 0.3s;
   cursor: pointer;
+  z-index: 100;
+  pointer-events: visible;
   a {
     color: #ddd;
   }

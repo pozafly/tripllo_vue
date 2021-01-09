@@ -33,7 +33,6 @@
         </div>
       </div>
     </router-link>
-    <a class="delete-card-btn" href="" @click.prevent="onDelete">&times;</a>
   </div>
 </template>
 
@@ -71,10 +70,7 @@ export default {
   },
   methods: {
     ...mapActions(['DELETE_CARD']),
-    onDelete() {
-      // if (!window.confirm('카드를 삭제하시겠습니까?')) return;
-      this.DELETE_CARD({ id: this.card.id });
-    },
+
     labelSetting() {
       if (!this.card.labelColor) {
         this.labelArray = null;
@@ -143,12 +139,12 @@ export default {
     cursor: pointer;
   }
 }
-.delete-card-btn {
+/* .delete-card-btn {
   position: absolute;
   right: 10px;
   top: 4px;
   text-decoration: none;
   font-size: 18px;
   color: #aaa;
-}
+} */
 </style>

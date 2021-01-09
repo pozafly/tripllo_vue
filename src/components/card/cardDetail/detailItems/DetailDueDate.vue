@@ -82,7 +82,7 @@ export default {
 }
 .duedate-delete {
   position: absolute;
-  top: 155px;
+  top: 255px;
   left: 80px;
   overflow-x: visible;
   z-index: 9999;

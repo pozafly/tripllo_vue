@@ -38,6 +38,11 @@
         v-if="toggle === 'isLocation'"
         class="side-item-location"
       />
+      <Delete
+        @close="onClose"
+        v-if="toggle === 'isDelete'"
+        class="side-item-delete"
+      />
     </div>
   </div>
 </template>
@@ -48,15 +53,23 @@ import Checklist from '@/components/card/cardDetail/side/Checklist';
 import DueDate from '@/components/card/cardDetail/side/DueDate';
 import Attachment from '@/components/card/cardDetail/side/Attachment';
 import Location from '@/components/card/cardDetail/side/Location';
+import Delete from '@/components/card/cardDetail/side/Delete';
 import { deleteSessionStorage } from '@/utils/webStorage';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: { Labels, Checklist, DueDate, Attachment, Location },
+  components: { Labels, Checklist, DueDate, Attachment, Location, Delete },
   data() {
     return {
       toggle: '',
-      sideItems: ['Labels', 'Checklist', 'DueDate', 'Attachment', 'Location'],
+      sideItems: [
+        'Labels',
+        'Checklist',
+        'DueDate',
+        'Attachment',
+        'Location',
+        'Delete',
+      ],
     };
   },
   computed: {
@@ -80,6 +93,8 @@ export default {
           return 'modal-side-icon fas fa-paperclip';
         case 'Location':
           return 'modal-side-icon fas fa-map-marker-alt';
+        case 'Delete':
+          return 'modal-side-icon fas fa-trash-alt';
       }
       return null;
     },
@@ -143,6 +158,9 @@ export default {
   }
   .side-item-location {
     top: 310px;
+  }
+  .side-item-delete {
+    top: 355px;
   }
 }
 </style>

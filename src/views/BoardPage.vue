@@ -233,6 +233,7 @@ export default {
               width: 272px;
               vertical-align: top;
               margin-right: 5px;
+              pointer-events: none;
             }
           }
         }

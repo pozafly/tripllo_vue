@@ -17,18 +17,18 @@
             <div class="location-control" @click="isDelete = true">
               ···
             </div>
-            <div class="location-delete" v-if="isDelete">
-              <SideBase @close="isDelete = false">
-                <div slot="header" class="header-text">Delete Location</div>
-                <div slot="content">
-                  <button class="location-delete-btn" @click="deleteLocation">
-                    Delete this Location?
-                  </button>
-                </div>
-              </SideBase>
-            </div>
           </div>
         </div>
+      </div>
+      <div class="location-delete" v-if="isDelete">
+        <SideBase @close="isDelete = false">
+          <div slot="header" class="header-text">Delete Location</div>
+          <div slot="content">
+            <button class="location-delete-btn" @click="deleteLocation">
+              Delete this Location?
+            </button>
+          </div>
+        </SideBase>
       </div>
     </div>
     <LocationMap v-if="isLocationMap" @close="isLocationMap = false" />
@@ -55,11 +55,13 @@ export default {
   },
   watch: {
     card() {
+      if (!this.card.location) return;
       this.location = JSON.parse(this.card.location);
       this.setImg();
     },
   },
   mounted() {
+    if (!this.card.location) return;
     this.location = JSON.parse(this.card.location);
     this.setImg();
   },
@@ -144,21 +146,24 @@ export default {
           background: #d1d5dd;
         }
       }
-      .location-delete {
-        position: absolute;
-        top: 40px;
-        left: -100px;
-        overflow-x: visible;
-        z-index: 9999;
-        .location-delete-btn {
-          width: 100%;
-          height: 37px;
-          background: #cf513d;
-          &:hover {
-            background: #eb5a46;
-          }
-        }
-      }
+    }
+  }
+}
+.location-delete {
+  position: relative;
+  display: inline;
+  top: 0px;
+  left: 400px;
+  width: 310px;
+  height: 98px;
+  overflow-x: hidden;
+  z-index: 9999;
+  .location-delete-btn {
+    width: 100%;
+    height: 37px;
+    background: #cf513d;
+    &:hover {
+      background: #eb5a46;
     }
   }
 }
