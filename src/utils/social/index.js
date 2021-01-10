@@ -19,7 +19,7 @@ async function socialLogin(req, isSignup) {
       const confirmYn = confirm(
         '아직 가입되지 않은 회원입니다. \n회원가입 화면으로 이동하시겠습니까?',
       );
-      if (confirmYn) router.push('/user/signup');
+      if (confirmYn) router.push('/auth/signup');
     }
   }
 }
@@ -40,7 +40,7 @@ async function socialSignup(req) {
       const confirmYn = confirm(
         '이미 가입된 소셜 회원입니다. \n로그인 화면으로 이동하시겠습니까?',
       );
-      if (confirmYn) router.push('/user/login');
+      if (confirmYn) router.push('/auth/login');
     }
   }
 }

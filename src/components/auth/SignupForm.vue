@@ -67,7 +67,7 @@
         </div>
       </template>
       <div class="login">
-        <router-link to="/user/login">
+        <router-link to="/auth/login">
           Already have an account? Log In
         </router-link>
       </div>

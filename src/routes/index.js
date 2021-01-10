@@ -5,7 +5,7 @@ import store from '@/store';
 Vue.use(VueRouter);
 
 const requireAuth = (to, from, next) => {
-  const loginPath = `/user`;
+  const loginPath = `/auth`;
   if (store.getters.isAuth) {
     next();
   } else {
@@ -25,17 +25,17 @@ const router = new VueRouter({
     },
     {
       // 중첩된 라우트 : 한 페이지에 url에 따라서 다른 컴포넌트를 보여야 할 때 사용.
-      path: '/user',
-      redirect: '/user/login',
-      component: () => import('@/views/UserPage'),
+      path: '/auth',
+      redirect: '/auth/login',
+      component: () => import('@/views/AuthPage'),
       children: [
         {
           path: 'login',
-          component: () => import('@/components/user/LoginForm'),
+          component: () => import('@/components/auth/LoginForm'),
         },
         {
           path: 'signup',
-          component: () => import('@/components/user/SignupForm'),
+          component: () => import('@/components/auth/SignupForm'),
         },
       ],
     },

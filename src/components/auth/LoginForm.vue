@@ -47,7 +47,7 @@
       </div>
     </template>
     <div class="sign_up">
-      <router-link to="/user/signup" class="go_to_signup">
+      <router-link to="/auth/signup" class="go_to_signup">
         Do you want to Sign up?
       </router-link>
     </div>

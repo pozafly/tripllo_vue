@@ -35,7 +35,7 @@
         <div class="profile-item email">{{ user.email }}</div>
       </div>
       <a class="menu-close" @click.prevent="menuShow">&times;</a>
-      <a class="menu-item" @click="$router.push('/user')">
+      <a class="menu-item" @click="$router.push('/auth')">
         <span>Edit profile</span>
       </a>
       <a class="menu-item" href="" v-if="isAuth" @click.prevent="logoutUser">
@@ -70,7 +70,7 @@ export default {
     ...mapActions(['LOGOUT']),
     logoutUser() {
       this.LOGOUT();
-      this.$router.push('/user/login');
+      this.$router.push('/auth/login');
     },
     menuShow() {
       this.isMenuShow = !this.isMenuShow;
