@@ -11,7 +11,7 @@
         :style="{ backgroundColor: label }"
       ></div>
       <div>{{ card.title }}</div>
-      <div class="board-inside-icons" v-if="isItem">
+      <div class="board-inside-icons">
         <!-- 햄버거 -->
         <div class="board-inside-icon" v-if="card.description">
           <awesome
@@ -19,14 +19,12 @@
             class="fas fa-layer-group board-inside-desc"
           ></awesome>
         </div>
-        <div class="board-inside-icon">
-          <!-- 체크리스트 -->
+        <!-- 체크리스트 -->
+        <div class="board-inside-icon" v-if="card.isChecklist === 'Y'">
           <awesome
             icon="check-square"
             class="far fa-check-square board-inside-checklist"
-            v-if="card.isChecklist === 'Y'"
           ></awesome>
-          <!-- <span class="board-inside-checklist-text">1/1</span> -->
         </div>
         <!-- 시간표시 -->
         <div class="board-inside-icon" v-if="card.dueDate">
@@ -47,13 +45,12 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   data() {
     return {
       labelArray: [],
-      isItem: false,
     };
   },
   props: ['card'],
@@ -64,23 +61,8 @@ export default {
     'card.labelColor'() {
       this.labelSetting();
     },
-    card() {
-      if (this.card.description) {
-        this.isItem = true;
-      } else if (this.card.isChecklist === 'Y') {
-        this.isItem = true;
-      } else if (this.card.dueDate) {
-        this.isItem = true;
-      } else if (this.card.location) {
-        this.isItem = true;
-      } else {
-        this.isItem = false;
-      }
-    },
   },
   methods: {
-    ...mapActions(['DELETE_CARD']),
-
     labelSetting() {
       if (!this.card.labelColor) {
         this.labelArray = null;
@@ -105,19 +87,15 @@ export default {
   box-shadow: 0 1px 0 #ccc;
   position: relative;
   .board-inside-icons {
-    display: inline-block;
-    vertical-align: middle;
-    margin: 4px;
-    font-size: 13px;
-    color: #5e6c84;
     .board-inside-icon {
+      margin: 4px;
+      font-size: 13px;
+      color: #5e6c84;
       display: inline;
       .board-inside-desc {
-        /* padding-left: 3px; */
         padding-right: 10px;
       }
       .board-inside-checklist {
-        /* padding-left: 3px; */
         padding-right: 10px;
       }
       .board-inside-checklist-text {
@@ -125,7 +103,6 @@ export default {
       }
     }
   }
-
   a {
     text-decoration: none;
     color: #444;
@@ -149,12 +126,4 @@ export default {
     cursor: pointer;
   }
 }
-/* .delete-card-btn {
-  position: absolute;
-  right: 10px;
-  top: 4px;
-  text-decoration: none;
-  font-size: 18px;
-  color: #aaa;
-} */
 </style>

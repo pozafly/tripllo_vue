@@ -86,16 +86,11 @@ export default {
     });
   },
   updated() {
-    dragger.cardDragger();
     dragger.listDragger();
+    dragger.cardDragger();
   },
   methods: {
-    ...mapActions([
-      'READ_BOARD_DETAIL',
-      'UPDATE_BOARD',
-      'UPDATE_CARD',
-      'UPDATE_LIST',
-    ]),
+    ...mapActions(['READ_BOARD_DETAIL', 'UPDATE_BOARD']),
     ...mapMutations(['setTheme']),
     onClickTitle() {
       this.isEditTitle = true;
@@ -129,9 +124,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-/* * {
-  border: 1px solid black;
-} */
 .page {
   position: relative;
   height: 100%;
