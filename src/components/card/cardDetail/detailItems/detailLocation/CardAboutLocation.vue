@@ -1,5 +1,5 @@
 <template>
-  <div class="card-about" ref="cardAbout" @click="goCard">
+  <div class="card-about" ref="cardAbout">
     <div class="card-about-item">From Card</div>
     <div class="card-about-item">{{ cardInfo.title }}</div>
   </div>
@@ -21,9 +21,6 @@ export default {
     onPosition() {
       this.$refs.cardAbout.style.left = `${this.cardInfo.x - 130}px`;
       this.$refs.cardAbout.style.top = `${this.cardInfo.y - 150}px`;
-    },
-    goCard() {
-      this.$router.push(`/board/${this.board.id}/card/${this.card.id}`);
     },
   },
   mounted() {

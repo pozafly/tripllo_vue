@@ -1,5 +1,5 @@
 <template>
-  <Modal>
+  <AddBoardModalBase>
     <div slot="header">
       <h2>
         Create new board
@@ -31,15 +31,15 @@
       </button>
     </div>
     <div slot="side"></div>
-  </Modal>
+  </AddBoardModalBase>
 </template>
 
 <script>
-import Modal from '@/components/common/Modal';
+import AddBoardModalBase from '@/components/board/AddBoardModalBase';
 import { mapActions } from 'vuex';
 
 export default {
-  components: { Modal },
+  components: { AddBoardModalBase },
   data() {
     return {
       input: '',
@@ -69,9 +69,17 @@ export default {
 </script>
 
 <style scoped lang="scss">
+h2 {
+  margin-top: 2px;
+}
 .form-control {
   width: 100%;
   height: 30px;
+}
+.modal-default-button {
+  color: black;
+  font-size: 20px;
+  float: right;
 }
 .btn-wrap {
   text-align: center;

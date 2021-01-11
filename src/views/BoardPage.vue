@@ -78,9 +78,10 @@ export default {
     };
   },
   computed: {
-    ...mapState(['board']),
+    ...mapState(['board', 'user']),
   },
   created() {
+    this.makeRecent();
     this.READ_BOARD_DETAIL(this.$route.params.boardId).then(() => {
       this.setTheme(this.board.bgColor);
     });
@@ -90,7 +91,7 @@ export default {
     dragger.cardDragger();
   },
   methods: {
-    ...mapActions(['READ_BOARD_DETAIL', 'UPDATE_BOARD']),
+    ...mapActions(['READ_BOARD_DETAIL', 'UPDATE_BOARD', 'UPDATE_USER']),
     ...mapMutations(['setTheme']),
     onClickTitle() {
       this.isEditTitle = true;
@@ -118,6 +119,22 @@ export default {
     },
     onShowSettings() {
       this.isShowBoardSettings = true;
+    },
+    makeRecent() {
+      let recentArray = [];
+      recentArray = JSON.parse(this.user.recent);
+
+      if (recentArray === null) recentArray = [];
+      // 자 여기서 다시 짜야된다. recent가 4개 이하일 경우에만 갱신되도록.
+      if (recentArray.length !== 0) {
+        recentArray.forEach((el, idx) => {
+          if (el[idx] === this.$route.params.boardId) return;
+        });
+      }
+      recentArray.unshift(this.$route.params.boardId);
+
+      const recent = JSON.stringify(recentArray);
+      this.UPDATE_USER({ recent });
     },
   },
 };

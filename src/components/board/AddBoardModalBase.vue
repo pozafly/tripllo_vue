@@ -30,7 +30,7 @@
   </transition>
 </template>
 
-<style>
+<style scoped lang="scss">
 .modal-mask-addBoard {
   position: fixed;
   z-index: 9998;
@@ -49,7 +49,7 @@
 .modal-container-addBoard {
   width: 300px;
   margin: 0px auto;
-  padding: 20px 30px;
+  padding: 17px 30px;
   background-color: #f4f5f7;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
@@ -61,19 +61,8 @@
   color: #42b983;
 }
 .modal-body-addBoard {
-  margin: 20px 0;
+  margin: 20px 30px;
 }
-.modal-default-button {
-  float: right;
-}
-/*
- * The following styles are auto-applied to elements with
- * transition="modal" when their visibility is toggled
- * by Vue.js.
- *
- * You can easily play with the modal transition by editing
- * these styles.
- */
 .modal-enter {
   opacity: 0;
 }

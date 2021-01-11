@@ -1,10 +1,15 @@
 function saveUserToLocalStorage(user) {
-  localStorage.setItem('user_token', user.token);
   localStorage.setItem('user_id', user.id);
   localStorage.setItem('user_email', user.email);
   localStorage.setItem('user_name', user.name);
   localStorage.setItem('user_bio', user.bio);
   localStorage.setItem('user_picture', user.picture);
+  localStorage.setItem('user_recent', user.recent);
+  localStorage.setItem('user_favorite', user.favorite);
+}
+
+function saveUserToken(token) {
+  localStorage.setItem('user_token', token);
 }
 
 function getUserFromLocalStorage(key) {
@@ -18,6 +23,8 @@ function deleteUserLocalStorage() {
   localStorage.removeItem('user_name');
   localStorage.removeItem('user_bio');
   localStorage.removeItem('user_picture');
+  localStorage.removeItem('user_recent');
+  localStorage.removeItem('user_favorite');
 }
 
 function saveSessionStorage(key, value) {
@@ -34,6 +41,7 @@ function deleteSessionStorage(key) {
 
 export {
   saveUserToLocalStorage,
+  saveUserToken,
   getUserFromLocalStorage,
   deleteUserLocalStorage,
   saveSessionStorage,

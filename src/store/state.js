@@ -1,13 +1,15 @@
 import { getUserFromLocalStorage, getSessionStorage } from '@/utils/webStorage';
 
 const state = {
+  token: getUserFromLocalStorage('user_token') || '',
   user: {
-    token: getUserFromLocalStorage('user_token') || '',
     id: getUserFromLocalStorage('user_id') || '',
     email: getUserFromLocalStorage('user_email') || '',
     name: getUserFromLocalStorage('user_name') || '',
     bio: getUserFromLocalStorage('user_bio') || '',
     picture: getUserFromLocalStorage('user_picture') || '',
+    recent: getUserFromLocalStorage('user_recent') || '',
+    favorite: getUserFromLocalStorage('user_favorite') || '',
   },
   boardList: [],
   board: getSessionStorage('board') || {},

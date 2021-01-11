@@ -9,6 +9,7 @@ const actions = {
   // 로그인
   async LOGIN({ commit }, userData) {
     const { data } = await authApi.loginUser(userData);
+    commit('setUserToken', data.data.token);
     commit('setUser', data.data);
   },
   SOCIAL_LOGIN(_, userId) {
@@ -27,12 +28,18 @@ const actions = {
   async SIGNUP(_, userData) {
     return await authApi.signup(userData);
   },
-  READ_USER(_, userId) {
-    return authApi.readUser(userId);
+  READ_USER({ commit }, userId) {
+    return authApi.readUser(userId).then(({ data }) => {
+      console.log(data.data);
+      commit('setUser', data.data);
+    });
   },
-  async UPDATE_USER({ commit }, userData) {
-    const { data } = await authApi.updateUser(userData);
-    await commit('setUser', data.data);
+  async UPDATE_USER(
+    { dispatch, state },
+    { email, name, bio, picture, recent, favorite },
+  ) {
+    await authApi.updateUser({ email, name, bio, picture, recent, favorite });
+    await dispatch('READ_USER', state.user.id);
   },
 
   // board

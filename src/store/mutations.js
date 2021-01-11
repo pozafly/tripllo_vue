@@ -1,5 +1,6 @@
 import {
   saveUserToLocalStorage,
+  saveUserToken,
   deleteUserLocalStorage,
   saveSessionStorage,
   deleteSessionStorage,
@@ -10,6 +11,10 @@ const mutations = {
   setUser(state, user) {
     saveUserToLocalStorage(user);
     state.user = user;
+  },
+  setUserToken(state, token) {
+    saveUserToken(token);
+    state.token = token;
   },
   logout(state) {
     state.user = {};

@@ -4,6 +4,7 @@ import router from '@/routes';
 async function socialLogin(req, isSignup) {
   try {
     const { data } = await store.dispatch('SOCIAL_LOGIN', req.id);
+    store.commit('setUserToken', data.data.token);
     store.commit('setUser', data.data);
 
     if (isSignup === 'afterSignup') {

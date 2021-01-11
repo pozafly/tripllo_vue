@@ -59,16 +59,15 @@ export default {
         email: '',
         bio: '',
         picture: '',
-        token: '',
       },
     };
   },
   mounted() {
-    this.userData.name = this.user.name;
-    this.userData.email = this.user.email;
-    this.userData.bio = this.user.bio;
+    console.log(this.user);
+    this.userData.name = this.user.name !== 'null' ? this.user.name : '';
+    this.userData.email = this.user.email !== 'null' ? this.user.email : '';
+    this.userData.bio = this.user.bio !== 'null' ? this.user.bio : '';
     this.userData.picture = this.user.picture;
-    this.userData.token = this.user.token;
   },
   methods: {
     ...mapActions(['UPDATE_USER']),

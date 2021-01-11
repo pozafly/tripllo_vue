@@ -122,7 +122,7 @@ export default {
         list.cards.map(card => {
           if (card.location) {
             let pushItem = JSON.parse(card.location);
-            const cardInfo = { title: card.title };
+            const cardInfo = { title: card.title, cardId: this.card.id };
             pushItem.cardInfo = JSON.stringify(cardInfo);
             this.locationArray.push(pushItem);
           }

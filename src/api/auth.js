@@ -24,16 +24,20 @@ const authApi = {
   readUser(userId) {
     return instance.get(`user/${userId}`, {
       headers: {
-        Authorization: store.state.user.token,
+        Authorization: store.state.token,
       },
     });
   },
-  updateUser(userData) {
-    return instance.put('user', userData, {
-      headers: {
-        Authorization: store.state.user.token,
+  updateUser({ email, name, bio, picture, recent, favorite }) {
+    return instance.put(
+      'user',
+      { email, name, bio, picture, recent, favorite },
+      {
+        headers: {
+          Authorization: store.state.token,
+        },
       },
-    });
+    );
   },
 };
 
