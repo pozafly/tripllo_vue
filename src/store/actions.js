@@ -30,6 +30,10 @@ const actions = {
   READ_USER(_, userId) {
     return authApi.readUser(userId);
   },
+  async UPDATE_USER({ commit }, userData) {
+    const { data } = await authApi.updateUser(userData);
+    await commit('setUser', data.data);
+  },
 
   // board
   READ_BOARD_LIST({ commit }, userId) {

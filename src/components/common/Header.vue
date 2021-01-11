@@ -35,7 +35,7 @@
         <div class="profile-item email">{{ user.email }}</div>
       </div>
       <a class="menu-close" @click.prevent="menuShow">&times;</a>
-      <a class="menu-item" @click="$router.push('/auth')">
+      <a class="menu-item" @click="$router.push('/user')">
         <span>Edit profile</span>
       </a>
       <a class="menu-item" href="" v-if="isAuth" @click.prevent="logoutUser">
@@ -77,6 +77,7 @@ export default {
     },
     updateTheme() {
       if (this.$route.path.includes('main')) return;
+      if (this.$route.path.includes('user')) return;
 
       const board = document.querySelector('.board');
       const header = document.querySelector('.header');

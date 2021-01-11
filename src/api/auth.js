@@ -28,6 +28,13 @@ const authApi = {
       },
     });
   },
+  updateUser(userData) {
+    return instance.put('user', userData, {
+      headers: {
+        Authorization: store.state.user.token,
+      },
+    });
+  },
 };
 
 export default authApi;

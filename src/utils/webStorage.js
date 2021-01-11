@@ -3,6 +3,7 @@ function saveUserToLocalStorage(user) {
   localStorage.setItem('user_id', user.id);
   localStorage.setItem('user_email', user.email);
   localStorage.setItem('user_name', user.name);
+  localStorage.setItem('user_bio', user.bio);
   localStorage.setItem('user_picture', user.picture);
 }
 
@@ -15,6 +16,7 @@ function deleteUserLocalStorage() {
   localStorage.removeItem('user_id');
   localStorage.removeItem('user_email');
   localStorage.removeItem('user_name');
+  localStorage.removeItem('user_bio');
   localStorage.removeItem('user_picture');
 }
 

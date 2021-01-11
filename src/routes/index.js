@@ -51,6 +51,10 @@ const router = new VueRouter({
         },
       ],
     },
+    {
+      path: '/user',
+      component: () => import('@/views/UserPage'),
+    },
   ],
 });
 
