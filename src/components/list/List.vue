@@ -11,7 +11,7 @@
         @blur="onSubmitTitle"
       />
       <div v-else class="list-header-title" @click.prevent="onClickTitle">
-        {{ list.title }} <i class="fas fa-edit"></i>
+        {{ list.title }} <awesome icon="edit" class="fas fa-edit"></awesome>
       </div>
       <a class="delete-list-btn" href="" @click.prevent="onDeleteList">
         &times;
@@ -107,6 +107,7 @@ export default {
     }
     .list-header-title {
       display: inline-block;
+      max-width: 220px;
       font-size: 15px;
       font-weight: 700;
       padding: 0 10px 0 8px;

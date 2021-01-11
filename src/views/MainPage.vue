@@ -3,7 +3,7 @@
     <Header />
     <section class="wrap">
       <div class="page-title">
-        <i class="far fa-user"></i>
+        <awesome :icon="['far', 'user']" class="far fa-user"></awesome>
         Personal Boards
       </div>
       <div class="list-wrap">

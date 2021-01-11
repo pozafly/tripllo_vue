@@ -1,7 +1,7 @@
 <template>
   <li class="body-item" v-if="card.location">
     <div>
-      <i class="fas fa-map-marker-alt"></i>
+      <awesome icon="map-marker-alt" class="fas fa-map-marker-alt"></awesome>
       <span class="body-card-text">Loction</span>
       <div class="google-map-static-display" @click="openMap">
         <div class="location-wrapper">

@@ -4,7 +4,7 @@
       <ul class="home-wrap">
         <li class="home-items">
           <a href="" class="home-item" @click.prevent="$router.push('/main')">
-            <i class="fas fa-home"></i>
+            <awesome icon="home" class="fas fa-home"></awesome>
           </a>
         </li>
       </ul>
@@ -12,7 +12,7 @@
 
     <div class="header-logo">
       <router-link to="/main">
-        <i class="fas fa-suitcase"></i>&nbsp;
+        <awesome icon="suitcase" class="fas fa-suitcase"></awesome>&nbsp;
         <span>Tripllo</span>
       </router-link>
     </div>
@@ -20,7 +20,9 @@
     <div class="header-auth">
       <ul class="auth-wrap">
         <li class="auth-items">
-          <a href="" class="auth-item"><i class="fas fa-info-circle"></i></a>
+          <a href="" class="auth-item">
+            <awesome icon="info-circle" class="fas fa-info-circle"></awesome>
+          </a>
         </li>
         <li class="auth-items">
           <a
@@ -29,7 +31,12 @@
             @click.prevent="menuShow"
             v-if="this.user.picture !== null && this.user.picture !== 'null'"
           ></a>
-          <i class="fas fa-user auth-item" @click.prevent="menuShow" v-else></i>
+          <awesome
+            icon="user"
+            class="fas fa-user auth-item"
+            @click.prevent="menuShow"
+            v-else
+          ></awesome>
         </li>
       </ul>
     </div>
@@ -46,11 +53,11 @@
       </div>
       <a class="menu-close" @click.prevent="menuShow">&times;</a>
       <a class="menu-item" @click="$router.push('/user')">
-        <i class="fas fa-user-edit"></i>
+        <awesome icon="user-edit" class="fas fa-user-edit"></awesome>
         <span>Edit profile</span>
       </a>
       <a class="menu-item" href="" v-if="isAuth" @click.prevent="logoutUser">
-        <i class="fas fa-running"></i>
+        <awesome icon="running" class="fas fa-running"></awesome>
         <span>Logout</span>
       </a>
       <router-link class="menu-item" v-else to="/user/login">
@@ -278,10 +285,11 @@ export default {
         background-repeat: no-repeat;
         cursor: auto;
       }
-      i {
+      .fa-user-edit {
         margin-right: 9px;
       }
       .fa-running {
+        margin-right: 13px;
         font-size: 19px;
       }
     }

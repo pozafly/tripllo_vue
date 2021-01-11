@@ -15,7 +15,8 @@
               @blur="onSubmitTitle"
             />
             <span v-else class="board-title" @click="onClickTitle">
-              {{ board.title }} <i class="fas fa-edit"></i>
+              {{ board.title }}
+              <awesome icon="edit" class="fas fa-edit"></awesome>
             </span>
             <a
               class="board-header-btn show-menu"

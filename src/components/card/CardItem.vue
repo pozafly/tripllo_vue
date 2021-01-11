@@ -14,22 +14,32 @@
       <div class="board-inside-icons" v-if="isItem">
         <!-- 햄버거 -->
         <div class="board-inside-icon" v-if="card.description">
-          <i class="fas fa-layer-group board-inside-desc"></i>
+          <awesome
+            icon="layer-group"
+            class="fas fa-layer-group board-inside-desc"
+          ></awesome>
         </div>
         <div class="board-inside-icon">
           <!-- 체크리스트 -->
-          <i
+          <awesome
+            icon="check-square"
             class="far fa-check-square board-inside-checklist"
             v-if="card.isChecklist === 'Y'"
-          ></i>
+          ></awesome>
           <!-- <span class="board-inside-checklist-text">1/1</span> -->
         </div>
         <!-- 시간표시 -->
         <div class="board-inside-icon" v-if="card.dueDate">
-          <i class="far fa-clock board-inside-desc"></i>
+          <awesome
+            :icon="['far', 'clock']"
+            class="far fa-clock board-inside-desc"
+          ></awesome>
         </div>
         <div class="board-inside-icon" v-if="card.location">
-          <i class="fas fa-map-marker-alt"></i>
+          <awesome
+            icon="map-marker-alt"
+            class="fas fa-map-marker-alt"
+          ></awesome>
         </div>
       </div>
     </router-link>

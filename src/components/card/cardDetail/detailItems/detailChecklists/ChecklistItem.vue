@@ -13,7 +13,7 @@
       <span class="checkbox-item-text line-through" v-else>
         {{ items.item }}
       </span>
-      <i class="fas fa-edit" @click="onEditItem"></i>
+      <awesome icon="edit" class="fas fa-edit" @click="onEditItem"></awesome>
       <span class="checkbox-item-cancel" @click="onDeleteItem">&times;</span>
     </template>
     <template v-else>
@@ -50,7 +50,11 @@ export default {
   methods: {
     ...mapActions(['DELETE_CHECKLIST_ITEM', 'UPDATE_CHECKLIST_ITEM']),
     onCheckChange({ target }) {
-      if (target.className === 'fas fa-edit' || target.localName === 'input')
+      if (
+        target.localName === 'path' ||
+        target.localName === 'svg' ||
+        target.localName === 'input'
+      )
         return;
 
       let isChecked = '';

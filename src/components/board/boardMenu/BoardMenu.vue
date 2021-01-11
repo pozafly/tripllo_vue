@@ -9,12 +9,12 @@
       </div>
       <ul class="menu-list">
         <li class="menu-item">
-          <div><i class="fas fa-user"></i>Made by</div>
+          <div><awesome icon="user" class="fas fa-user"></awesome>Made by</div>
           <div
             class="img"
             v-if="user.picture !== null && user.picture !== 'null'"
           ></div>
-          <i class="fas fa-user icon" v-else></i>
+          <awesome icon="user" class="fas fa-user icon" v-else></awesome>
           <div class="menu-profile">
             <div class="profile-item title">{{ board.title }}</div>
             <div class="profile-item name">@{{ board.createdBy }}</div>
@@ -24,7 +24,8 @@
           </div>
         </li>
         <li class="menu-item">
-          <i class="fas fa-exchange-alt"></i>Change Background
+          <awesome icon="exchange-alt" class="fas fa-exchange-alt"></awesome>
+          Change Background
         </li>
         <div class="color-picker">
           <a
@@ -42,7 +43,7 @@
           <Photoshop v-if="isPicker" @cancle="isPicker = false" />
         </div>
         <li class="menu-item delete-board" @click.prevent="onDeleteBoard">
-          <i class="fas fa-trash-alt"></i>
+          <awesome icon="trash-alt" class="fas fa-trash-alt"></awesome>
           <a href="">
             Delete Board
           </a>
@@ -193,7 +194,10 @@ export default {
         font-size: 20px;
         &.icon {
           display: inline-block;
+          position: relative;
+          top: 13px;
           padding: 14px;
+          margin-top: 17px;
           color: white;
           border-radius: 90px;
           background-size: cover;

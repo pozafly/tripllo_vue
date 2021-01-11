@@ -2,7 +2,10 @@
   <CardModalBase>
     <div slot="header">
       <div class="modal-card-header-title">
-        <i class="far fa-clipboard"></i>
+        <awesome
+          :icon="['far', 'clipboard']"
+          class="far fa-clipboard"
+        ></awesome>
         <input
           class="form-control card-title-input"
           type="text"
@@ -13,7 +16,7 @@
           @keypress.enter="onKeyupEnter"
         />
         <a v-else href="" @click.prevent="onEditTitle">
-          {{ card.title }} <i class="fas fa-edit"></i>
+          {{ card.title }} <awesome icon="edit" class="fas fa-edit"></awesome>
         </a>
         <span class="card-list-title">in list {{ listTitle }}</span>
       </div>
@@ -23,7 +26,7 @@
         <DetailLabels />
         <DetailDueDate />
         <li class="body-item">
-          <i class="fas fa-layer-group"></i>
+          <awesome icon="layer-group" class="fas fa-layer-group"></awesome>
           <span class="body-card-text">Description</span>
           <textarea
             class="form-control card-desc textarea"
@@ -54,7 +57,7 @@
         <DetailLocation />
         <li class="body-item">
           <div>
-            <i class="fas fa-comments"></i>
+            <awesome icon="comments" class="fas fa-comments"></awesome>
             <span class="body-card-text">Comments</span>
           </div>
         </li>

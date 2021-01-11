@@ -1,9 +1,13 @@
 <template>
   <div>
-    <i class="far fa-check-square"></i>
+    <awesome
+      :icon="['far', 'check-square']"
+      class="far fa-check-square"
+    ></awesome>
     <span v-if="!isTitle">
       <a href="" class="checklist-body-card-text" @click.prevent="editTitle">
-        {{ checklist.title }} <i class="fas fa-edit"></i>
+        {{ checklist.title }}
+        <awesome icon="edit" class="fas fa-edit"></awesome>
       </a>
       <button class="checklist-title-delete-btn" @click="deleteChecklist">
         Delete
@@ -85,7 +89,7 @@ export default {
   watch: {
     checklist: {
       immediate: true,
-      handler(movie) {
+      handler() {
         this.onProgress();
       },
     },
@@ -147,7 +151,6 @@ export default {
       this.isAddItem();
     },
     onProgress() {
-      console.log('실행');
       let count = 0;
       if (this.checklist.items.length === 0) return;
       this.checklist.items.forEach(element => {

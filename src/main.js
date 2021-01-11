@@ -5,6 +5,7 @@ import store from '@/store/index';
 import { install } from '@/plugin/plugin';
 import { formatDate } from '@/utils/dateFilter';
 import LoadScript from 'vue-plugin-load-script';
+import '@/utils/fontAwesomeIcon.js';
 
 Vue.config.productionTip = false;
 Vue.use(install);

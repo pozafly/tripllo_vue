@@ -2,7 +2,7 @@
   <div class="page">
     <header>
       <ul class="header-wrap" @click="goMain">
-        <li><i class="fas fa-suitcase"></i></li>
+        <li><awesome icon="suitcase" class="fas fa-suitcase"></awesome></li>
         <li><span class="title">Tripllo</span></li>
       </ul>
     </header>
@@ -15,7 +15,7 @@
       </aside>
     </div>
     <footer>
-      <i class="fas fa-suitcase footer-item"></i>
+      <awesome icon="suitcase" class="fas fa-suitcase footer-item"></awesome>
       <span class="footer-item">
         Tripllo Coded and maintained with ❤️ by
         <a href="https://github.com/pozafly" target="_sub" class="footer-item">
