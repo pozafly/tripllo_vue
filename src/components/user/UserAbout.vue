@@ -175,6 +175,9 @@ export default {
         box-shadow: inset 0 0 0 2px #dfe1e6;
         background-color: #fafbfc;
         margin-bottom: 10px;
+        &:hover {
+          background: rgba(0, 0, 0, 0.1);
+        }
       }
       .textarea {
         border-radius: 3px;
@@ -187,6 +190,9 @@ export default {
         font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
           Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
         margin-bottom: 10px;
+        &:hover {
+          background: rgba(0, 0, 0, 0.1);
+        }
       }
     }
     .form-save {

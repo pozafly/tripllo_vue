@@ -1,5 +1,15 @@
 <template>
   <nav class="header">
+    <div class="header-home">
+      <ul class="home-wrap">
+        <li class="home-items">
+          <a href="" class="home-item" @click.prevent="$router.push('/main')">
+            <i class="fas fa-home"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
     <div class="header-logo">
       <router-link to="/main">
         <i class="fas fa-suitcase"></i>&nbsp;
@@ -36,9 +46,11 @@
       </div>
       <a class="menu-close" @click.prevent="menuShow">&times;</a>
       <a class="menu-item" @click="$router.push('/user')">
+        <i class="fas fa-user-edit"></i>
         <span>Edit profile</span>
       </a>
       <a class="menu-item" href="" v-if="isAuth" @click.prevent="logoutUser">
+        <i class="fas fa-running"></i>
         <span>Logout</span>
       </a>
       <router-link class="menu-item" v-else to="/user/login">
@@ -127,6 +139,33 @@ export default {
     text-decoration: none;
     color: rgba(255, 255, 255, 0.8);
   }
+  .header-home {
+    position: absolute;
+    left: 2px;
+    top: 5px;
+    line-height: 33px;
+    display: flex;
+    .home-wrap {
+      display: flex;
+      margin: 0;
+      padding: 0;
+      .home-items {
+        margin-left: 5px;
+        .home-item {
+          cursor: pointer;
+          border-radius: 2px;
+          padding: 0 10px;
+          background-color: rgba(255, 255, 255, 0.5);
+          color: white;
+          transition: all 0.3s;
+          &:hover,
+          &:focus {
+            background-color: rgba(255, 255, 255, 0.3);
+          }
+        }
+      }
+    }
+  }
   .header-logo {
     font-family: 'Pacifico', cursive;
     position: absolute;
@@ -208,6 +247,9 @@ export default {
       width: 100%;
       transition: none;
       cursor: pointer;
+      &:hover {
+        background: rgba(0, 0, 0, 0.1);
+      }
       &.fa-user {
         background: #339af0;
         color: #fff;
@@ -235,6 +277,12 @@ export default {
         background-position: center;
         background-repeat: no-repeat;
         cursor: auto;
+      }
+      i {
+        margin-right: 9px;
+      }
+      .fa-running {
+        font-size: 19px;
       }
     }
     .menu-profile {
@@ -270,6 +318,9 @@ export default {
       margin-top: 4px;
       max-width: 230px;
       cursor: pointer;
+      &:hover {
+        font-weight: 700;
+      }
     }
   }
 }

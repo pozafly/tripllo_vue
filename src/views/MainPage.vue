@@ -2,7 +2,10 @@
   <div class="page">
     <Header />
     <section class="wrap">
-      <div class="page-title">Personal Boards</div>
+      <div class="page-title">
+        <i class="far fa-user"></i>
+        Personal Boards
+      </div>
       <div class="list-wrap">
         <div
           class="board-list"
