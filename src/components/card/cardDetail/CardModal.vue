@@ -73,7 +73,7 @@ import DetailChecklist from './detailItems/detailChecklists/DetailChecklist';
 import DetailDueDate from './detailItems/DetailDueDate';
 import DetailLocation from './detailItems/detailLocation/DetailLocation';
 import DetailComment from './detailItems/detailComment/DetailComment';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
   components: {
@@ -112,6 +112,7 @@ export default {
       'READ_CHECKLIST',
       'READ_COMMENT',
     ]),
+    ...mapMutations(['deleteComment']),
     onEditTitle() {
       this.isEditTitle = true;
       this.$nextTick(() => this.$refs.inputTitle.focus());
@@ -146,7 +147,9 @@ export default {
   async created() {
     await this.READ_CARD({ id: this.$route.params.cardId });
     await this.READ_CHECKLIST({ id: this.card.id });
-    await this.READ_COMMENT(this.card.id);
+    await this.READ_COMMENT(this.card.id).catch(({ response }) => {
+      if (response.data.status === 'NOT_FOUND') this.deleteComment();
+    });
   },
 };
 </script>

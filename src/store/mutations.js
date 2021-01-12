@@ -57,6 +57,9 @@ const mutations = {
   setComment(state, comment) {
     state.comment = comment;
   },
+  deleteComment(state) {
+    state.comment = {};
+  },
 };
 
 export default mutations;
