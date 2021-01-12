@@ -10,7 +10,9 @@
             @click.prevent="menuShow"
             v-if="this.user.picture !== null && this.user.picture !== 'null'"
           ></span>
-          <i class="fas fa-user auth-item" v-else></i>
+          <div v-else class="icon-wrap">
+            <awesome icon="user" class="fas fa-user auth-item"></awesome>
+          </div>
           <span class="auth-item name">{{ user.name }}</span>
           <span class="auth-item id">@{{ user.id }}</span>
         </div>
@@ -71,6 +73,22 @@ export default {
         align-items: flex-end;
         justify-content: center;
         padding: 20px 0;
+        .icon-wrap {
+          position: relative;
+          background: #339af0;
+          height: 60px;
+          width: 60px;
+          color: #fff;
+          margin-right: 16px;
+          border-radius: 50%;
+          .fa-user {
+            position: relative;
+            height: 30px;
+            width: 30px;
+            left: 7px;
+            top: 5px;
+          }
+        }
         .auth-item {
           background-color: transparent;
           display: inline-block;
@@ -78,17 +96,6 @@ export default {
           text-align: center;
           text-decoration: none;
           border-radius: 100px;
-          &.fa-user {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #339af0;
-            color: #fff;
-            height: 40px;
-            width: 40px;
-            font-size: 28px;
-            margin-right: 16px;
-          }
           &.img {
             width: 40px;
             height: 40px;

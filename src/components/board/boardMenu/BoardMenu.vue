@@ -88,7 +88,7 @@ export default {
     this.READ_CREATED_USER(this.board.createdBy).then(({ data }) => {
       const picture = data.data.picture;
 
-      if (!picture) {
+      if (picture !== null) {
         const icon = this.$el.querySelectorAll('.icon');
         Array.from(icon)[0].style.backgroundColor = this.board.bgColor;
       } else {

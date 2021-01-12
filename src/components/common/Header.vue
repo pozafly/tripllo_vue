@@ -46,7 +46,7 @@
         class="menu-item img"
         v-if="this.user.picture !== null && this.user.picture !== 'null'"
       ></div>
-      <i class="fas fa-user menu-item icon" v-else></i>
+      <awesome icon="user" class="fas fa-user menu-item icon" v-else></awesome>
       <div class="menu-profile">
         <div class="profile-item name">{{ user.name }}</div>
         <div class="profile-item email">{{ user.email }}</div>
@@ -260,30 +260,23 @@ export default {
       &.fa-user {
         background: #339af0;
         color: #fff;
+        border-radius: 50%;
         display: inline-block;
         margin: 0.6rem;
-        min-height: 40px;
-        max-width: 40px;
-        &::before {
-          position: absolute;
-          left: 11.5px;
-          top: 9px;
-          font-size: 20px;
-        }
+        height: 25px;
+        width: 20px;
       }
-      &.img,
-      &.icon {
+      &.img {
         display: inline-block;
         position: relative;
         padding: 0;
         margin: 0.6rem;
         min-height: 40px;
         max-width: 40px;
-        border-radius: 90px;
+        border-radius: 50%;
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
-        cursor: auto;
       }
       .fa-user-edit {
         margin-right: 9px;

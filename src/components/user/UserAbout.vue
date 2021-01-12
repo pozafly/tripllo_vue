@@ -10,7 +10,7 @@
             class="img"
             v-if="this.user.picture !== null && this.user.picture !== 'null'"
           ></div>
-          <i class="fas fa-user" v-else></i>
+          <awesome icon="user" class="fas fa-user" v-else></awesome>
           <span class="change">Change</span>
         </div>
       </div>
@@ -123,21 +123,19 @@ export default {
         position: relative;
       }
       .fa-user {
-        display: flex;
-        justify-content: center;
-        align-items: center;
         background: #339af0;
+        position: relative;
+        top: 22px;
+        left: 25px;
         color: #fff;
-        height: 110px;
-        width: 110px;
-        font-size: 60px;
-        margin-right: 16px;
+        height: 60px;
+        width: 60px;
       }
       .change {
-        position: relative;
+        position: absolute;
         display: none;
         padding: 6px 30px 30px 30px;
-        bottom: 25%;
+        bottom: 0%;
         left: 0;
         color: white;
         background: rgba(0, 0, 0, 0.5);

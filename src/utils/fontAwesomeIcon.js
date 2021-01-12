@@ -17,6 +17,9 @@ import {
   faInfoCircle,
   faUserEdit,
   faRunning,
+  faTag,
+  faPaperclip,
+  faClock,
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   faUser,
@@ -32,14 +35,17 @@ library.add(
   faInfoCircle,
   faUserEdit,
   faRunning,
+  faTag,
+  faPaperclip,
+  faClock,
 );
 
 import {
-  faClock,
+  faClock as farClock,
   faClipboard,
   faCheckSquare as farCheckSquare,
   faUser as farUser,
 } from '@fortawesome/free-regular-svg-icons';
-library.add(faClock, faClipboard, farCheckSquare, farUser);
+library.add(farClock, faClipboard, farCheckSquare, farUser);
 
 Vue.component('awesome', FontAwesomeIcon);

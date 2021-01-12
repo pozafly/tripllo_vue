@@ -9,7 +9,7 @@
           class="side-item"
           @click.prevent="onCheckPosition"
         >
-          <i :class="modalSideIcon(item)" />
+          <awesome :icon="modalSideIcon(item)" class="modal-side-icon" />
           <span class="side-item-text">{{ item }}</span>
         </li>
       </ul>
@@ -84,17 +84,17 @@ export default {
     modalSideIcon(item) {
       switch (item) {
         case 'Labels':
-          return 'modal-side-icon fas fa-tag';
+          return 'tag';
         case 'Checklist':
-          return 'modal-side-icon far fa-check-square';
+          return 'check-square';
         case 'DueDate':
-          return 'modal-side-icon far fa-clock';
+          return 'clock';
         case 'Attachment':
-          return 'modal-side-icon fas fa-paperclip';
+          return 'paperclip';
         case 'Location':
-          return 'modal-side-icon fas fa-map-marker-alt';
+          return 'map-marker-alt';
         case 'Delete':
-          return 'modal-side-icon fas fa-trash-alt';
+          return 'trash-alt';
       }
       return null;
     },
