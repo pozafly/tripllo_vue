@@ -85,7 +85,7 @@ export default {
       el.style.backgroundColor = el.dataset.value;
     });
 
-    this.READ_USER(this.board.createdBy).then(({ data }) => {
+    this.READ_CREATED_USER(this.board.createdBy).then(({ data }) => {
       const picture = data.data.picture;
 
       if (!picture) {
@@ -101,7 +101,7 @@ export default {
   },
   methods: {
     ...mapMutations(['setTheme']),
-    ...mapActions(['DELETE_BOARD', 'UPDATE_BOARD', 'READ_USER']),
+    ...mapActions(['DELETE_BOARD', 'UPDATE_BOARD', 'READ_CREATED_USER']),
     onClose() {
       this.$emit('close');
     },

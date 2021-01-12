@@ -30,9 +30,11 @@ const actions = {
   },
   READ_USER({ commit }, userId) {
     return authApi.readUser(userId).then(({ data }) => {
-      console.log(data.data);
       commit('setUser', data.data);
     });
+  },
+  READ_CREATED_USER(_, createdUser) {
+    return authApi.readUser(createdUser);
   },
   async UPDATE_USER(
     { dispatch, state },
@@ -45,7 +47,6 @@ const actions = {
   // board
   READ_BOARD_LIST({ commit }, { userId, lists }) {
     return boardApi.readBoardList({ userId, lists }).then(({ data }) => {
-      console.log(data.data);
       commit('setBoardList', data.data.boardList);
       commit('setRecentBoard', data.data.recentBoard);
     });
