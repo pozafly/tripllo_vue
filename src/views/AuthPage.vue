@@ -39,17 +39,18 @@ export default {
     },
   },
   created() {
-    if (!window.Kakao.isInitialized()) {
-      this.$Kakao.init();
-    }
+    this.$loadScript(`https://developers.kakao.com/sdk/js/kakao.js`).then(
+      () => {
+        if (!window.Kakao.isInitialized()) {
+          this.$Kakao.init();
+        }
+      },
+    );
   },
 };
 </script>
 
 <style scoped lang="scss">
-/* * {
-  border: 1px solid black;
-} */
 .page {
   display: flex;
   flex-direction: column;
