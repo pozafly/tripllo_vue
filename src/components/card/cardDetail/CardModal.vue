@@ -55,12 +55,7 @@
         </li>
         <DetailChecklist v-if="checklists" />
         <DetailLocation />
-        <li class="body-item">
-          <div>
-            <awesome icon="comments" class="fas fa-comments"></awesome>
-            <span class="body-card-text">Comments</span>
-          </div>
-        </li>
+        <DetailComment />
       </ul>
     </div>
     <div slot="footer"></div>
@@ -77,6 +72,7 @@ import DetailLabels from './detailItems/DetailLabels';
 import DetailChecklist from './detailItems/detailChecklists/DetailChecklist';
 import DetailDueDate from './detailItems/DetailDueDate';
 import DetailLocation from './detailItems/detailLocation/DetailLocation';
+import DetailComment from './detailItems/detailComment/DetailComment';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -87,6 +83,7 @@ export default {
     DetailChecklist,
     DetailDueDate,
     DetailLocation,
+    DetailComment,
   },
   data() {
     return {
@@ -109,7 +106,12 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['READ_CARD', 'UPDATE_CARD', 'READ_CHECKLIST']),
+    ...mapActions([
+      'READ_CARD',
+      'UPDATE_CARD',
+      'READ_CHECKLIST',
+      'READ_COMMENT',
+    ]),
     onEditTitle() {
       this.isEditTitle = true;
       this.$nextTick(() => this.$refs.inputTitle.focus());
@@ -144,6 +146,7 @@ export default {
   async created() {
     await this.READ_CARD({ id: this.$route.params.cardId });
     await this.READ_CHECKLIST({ id: this.card.id });
+    await this.READ_COMMENT(this.card.id);
   },
 };
 </script>
@@ -216,7 +219,6 @@ export default {
         width: 92%;
         overflow-wrap: break-word;
         resize: none;
-        height: 54px;
         border: none;
         font-family: Arial;
         font-size: 14px;

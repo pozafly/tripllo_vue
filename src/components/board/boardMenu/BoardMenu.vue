@@ -12,9 +12,14 @@
           <div><awesome icon="user" class="fas fa-user"></awesome>Made by</div>
           <div
             class="img"
-            v-if="user.picture !== null && user.picture !== 'null'"
+            v-if="
+              createdUser.picture !== null && createdUser.picture !== 'null'
+            "
           ></div>
-          <awesome icon="user" class="fas fa-user icon" v-else></awesome>
+          <div v-else class="icon">
+            <awesome icon="user" class="fas fa-user svg"></awesome>
+          </div>
+
           <div class="menu-profile">
             <div class="profile-item title">{{ board.title }}</div>
             <div class="profile-item name">@{{ board.createdBy }}</div>
@@ -74,30 +79,21 @@ export default {
         black: '#3a4142',
       },
       isPicker: false,
+      createdUser: {},
     };
   },
   computed: {
     ...mapState(['board', 'user']),
   },
-  mounted() {
+  async mounted() {
     // 색상 선택기에 데이터 넣기
     Array.from(this.$el.querySelectorAll('.color-picker a')).forEach(el => {
       el.style.backgroundColor = el.dataset.value;
     });
 
-    this.READ_CREATED_USER(this.board.createdBy).then(({ data }) => {
-      const picture = data.data.picture;
-
-      if (picture !== null) {
-        const icon = this.$el.querySelectorAll('.icon');
-        Array.from(icon)[0].style.backgroundColor = this.board.bgColor;
-      } else {
-        const imgList = this.$el.querySelectorAll('.img');
-        Array.from(imgList).forEach(e => {
-          e.style.backgroundImage = `url(${picture})`;
-        });
-      }
-    });
+    const { data } = await this.READ_CREATED_USER(this.board.createdBy);
+    this.createdUser = await data.data;
+    await this.insertStyle();
   },
   methods: {
     ...mapMutations(['setTheme']),
@@ -115,6 +111,19 @@ export default {
       const id = this.board.id;
       const bgColor = el.target.dataset.value;
       this.UPDATE_BOARD({ id, bgColor }).then(() => this.setTheme(bgColor));
+    },
+    insertStyle() {
+      this.$nextTick(() => {
+        if (this.createdUser.picture !== null) {
+          const icon = this.$el.querySelectorAll('.icon');
+          Array.from(icon)[0].style.backgroundColor = this.board.bgColor;
+        } else {
+          const imgList = this.$el.querySelectorAll('.img');
+          Array.from(imgList).forEach(e => {
+            e.style.backgroundImage = `url(${picture})`;
+          });
+        }
+      });
     },
   },
 };
@@ -190,22 +199,6 @@ export default {
           }
         }
       }
-      .fa-user:nth-child(2) {
-        font-size: 20px;
-        &.icon {
-          display: inline-block;
-          position: relative;
-          top: 13px;
-          padding: 14px;
-          margin-top: 17px;
-          color: white;
-          border-radius: 90px;
-          background-size: cover;
-          background-position: center;
-          background-repeat: no-repeat;
-          cursor: auto;
-        }
-      }
       .menu-profile {
         display: inline-block;
         position: relative;
@@ -253,6 +246,19 @@ export default {
         background-position: center;
         background-repeat: no-repeat;
         cursor: auto;
+      }
+      .icon {
+        font-size: 20px;
+        display: inline-block;
+        position: relative;
+        padding: 14px 12px;
+        color: white;
+        border-radius: 50%;
+        .svg {
+          position: relative;
+          top: -1px;
+          left: 2px;
+        }
       }
     }
     & li a {

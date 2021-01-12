@@ -4,6 +4,7 @@ import listApi from '@/api/list';
 import cardApi from '@/api/card';
 import checklistApi from '@/api/checklist';
 import checklistItemApi from '@/api/checklistItem';
+import commentApi from '@/api/comment';
 
 const actions = {
   // 로그인
@@ -169,6 +170,28 @@ const actions = {
       .then(() => {
         dispatch('READ_CHECKLIST', { id: state.card.id });
       });
+  },
+
+  // comment
+  CREATE_COMMENT({ dispatch, state }, { cardId, userId, comment }) {
+    return commentApi.createComment({ cardId, userId, comment }).then(() => {
+      dispatch('READ_COMMENT', state.card.id);
+    });
+  },
+  READ_COMMENT({ commit }, cardId) {
+    return commentApi.readComment(cardId).then(({ data }) => {
+      commit('setComment', data.data);
+    });
+  },
+  UPDATE_COMMENT({ dispatch, state }, { id, userId, comment }) {
+    return commentApi.updateComment({ id, userId, comment }).then(() => {
+      dispatch('READ_COMMENT', state.card.id);
+    });
+  },
+  DELETE_COMMENT({ dispatch, state }, id) {
+    return commentApi.deleteComment(id).then(() => {
+      dispatch('READ_COMMENT', state.card.id);
+    });
   },
 };
 

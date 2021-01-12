@@ -49,7 +49,7 @@
       <awesome icon="user" class="fas fa-user menu-item icon" v-else></awesome>
       <div class="menu-profile">
         <div class="profile-item name">{{ user.name }}</div>
-        <div class="profile-item email">{{ user.email }}</div>
+        <div class="profile-item id">@{{ user.id }}</div>
       </div>
       <a class="menu-close" @click.prevent="menuShow">&times;</a>
       <a class="menu-item" @click="$router.push('/user')">
@@ -277,6 +277,7 @@ export default {
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
+        cursor: auto;
       }
       .fa-user-edit {
         margin-right: 9px;
@@ -299,15 +300,16 @@ export default {
         font-size: 14px;
         line-height: 20px;
         font-weight: 400;
-        margin-top: 3px;
+        margin-top: 6px;
       }
-      &.email {
+      &.id {
         font-size: 9pt;
         color: #b3bac5;
         display: block;
         text-overflow: ellipsis;
         overflow: hidden;
         max-width: 230px;
+        margin-top: -6px;
       }
     }
     .menu-close {

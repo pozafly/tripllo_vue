@@ -1,7 +1,7 @@
 <template>
   <transition name="modal">
     <div class="modal-mask">
-      <div class="modal-wrapper">
+      <div class="modal-wrapper" @click="exit">
         <div class="modal-container">
           <div class="modal-main">
             <a class="modal-close-btn" href="" @click.prevent="onClose">
@@ -49,6 +49,9 @@ export default {
   methods: {
     onClose() {
       this.$router.push(`/board/${this.board.id}`);
+    },
+    exit(e) {
+      if (e.target.className === 'modal-wrapper') this.onClose();
     },
   },
 };

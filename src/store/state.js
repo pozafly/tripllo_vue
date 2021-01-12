@@ -17,6 +17,7 @@ const state = {
   card: getSessionStorage('card') || {},
   checklists: getSessionStorage('checklists') || [],
   bgColor: getSessionStorage('bgColor') || '',
+  comment: [],
 };
 
 export default state;

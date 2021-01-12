@@ -52,6 +52,11 @@ const mutations = {
     deleteSessionStorage('checklists');
     state.checklists = {};
   },
+
+  // comment
+  setComment(state, comment) {
+    state.comment = comment;
+  },
 };
 
 export default mutations;
