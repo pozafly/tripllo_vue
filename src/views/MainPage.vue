@@ -2,23 +2,36 @@
   <div class="page">
     <Header />
     <section class="wrap">
-      <div class="page-title">
-        <awesome :icon="['far', 'user']" class="far fa-user"></awesome>
-        Personal Boards
-      </div>
-      <div class="list-wrap">
-        <div
-          class="board-list"
-          ref="boardList"
-          v-for="board in boardList"
-          :key="board.id"
-        >
-          <BoardItem :board="board" />
+      <div class="recent-board" v-if="this.recentBoard">
+        <div class="page-title">
+          <awesome :icon="['far', 'clock']"></awesome>
+          Recently Viewed
         </div>
-        <a class="add-board" href="" @click.prevent="showAddBoard">
-          <span class="add-board-title">Create new board...</span>
-        </a>
-        <AddBoardModal v-if="isShowAddBoard" @close="showAddBoard" />
+        <div class="list-wrap">
+          <div
+            class="board-list"
+            v-for="recent in recentBoard"
+            :key="recent.id"
+          >
+            <BoardItem :board="recent" />
+          </div>
+        </div>
+      </div>
+
+      <div class="personal-board">
+        <div class="page-title">
+          <awesome :icon="['far', 'user']" class="far fa-user"></awesome>
+          Personal Boards
+        </div>
+        <div class="list-wrap">
+          <div class="board-list" v-for="board in boardList" :key="board.id">
+            <BoardItem :board="board" />
+          </div>
+          <a class="add-board" href="" @click.prevent="showAddBoard">
+            <span class="add-board-title">Create new board...</span>
+          </a>
+          <AddBoardModal v-if="isShowAddBoard" @close="showAddBoard" />
+        </div>
       </div>
     </section>
   </div>
@@ -42,16 +55,20 @@ export default {
     AddBoardModal,
   },
   computed: {
-    ...mapState(['boardList', 'user']),
+    ...mapState(['boardList', 'recentBoard', 'user']),
   },
   methods: {
-    ...mapActions(['READ_BOARD_LIST']),
+    ...mapActions(['READ_BOARD_LIST', 'READ_BOARDS']),
     showAddBoard() {
       this.isShowAddBoard = !this.isShowAddBoard;
     },
   },
   created() {
-    this.READ_BOARD_LIST(this.user.id);
+    let lists = null;
+    if (this.user.recent) {
+      lists = JSON.parse(this.user.recent);
+    }
+    this.READ_BOARD_LIST({ userId: this.user.id, lists });
   },
 };
 </script>
@@ -60,7 +77,8 @@ export default {
 .page {
   height: 100%;
   .wrap {
-    max-width: 1000px;
+    /* background: lightgray; */
+    max-width: 800px;
     margin: 0 auto;
     min-height: 80%;
     .page-title {
@@ -74,12 +92,12 @@ export default {
       flex-wrap: wrap;
       .board-list {
         display: table-cell;
-        min-width: 200px;
-        padding: 10px;
+        min-width: 180px;
+        padding: 5px;
       }
       .add-board {
-        margin: 10px;
-        width: 225px;
+        margin: 5px;
+        width: 180px;
         height: 100px;
         border-radius: 3px;
         background: rgba(9, 30, 66, 0.04);

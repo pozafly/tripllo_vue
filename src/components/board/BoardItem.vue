@@ -29,7 +29,7 @@ export default {
 
 <style scoped lang="scss">
 .board-item {
-  width: 225px;
+  width: 180px;
   height: 100px;
   border-radius: 3px;
   /* background-color: #026aa7; */

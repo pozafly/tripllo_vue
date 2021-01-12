@@ -1,16 +1,16 @@
 import { board } from '@/api';
 
 const boardApi = {
-  readBoardList(userId) {
-    return board.get(userId);
-  },
-
-  addBoard(title) {
-    return board.post('/', { title });
+  readBoardList({ userId, lists }) {
+    return board.get(`${userId}/${lists}`);
   },
 
   readBoardDetail(boardId) {
     return board.get(`detail/${boardId}`);
+  },
+
+  addBoard(title) {
+    return board.post('/', { title });
   },
 
   updateBoard(id, payload) {

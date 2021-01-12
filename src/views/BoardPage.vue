@@ -120,19 +120,18 @@ export default {
     onShowSettings() {
       this.isShowBoardSettings = true;
     },
+    // 4개의 recent board만 허락함.
     makeRecent() {
       let recentArray = [];
-      recentArray = JSON.parse(this.user.recent);
-
-      if (recentArray === null) recentArray = [];
-      // 자 여기서 다시 짜야된다. recent가 4개 이하일 경우에만 갱신되도록.
-      if (recentArray.length !== 0) {
+      if (this.user.recent !== 'null')
+        recentArray = JSON.parse(this.user.recent);
+      if (recentArray !== null) {
         recentArray.forEach((el, idx) => {
-          if (el[idx] === this.$route.params.boardId) return;
+          if (el === this.$route.params.boardId) recentArray.splice(idx, 1);
         });
+        if (recentArray.length >= 4) recentArray.pop();
       }
       recentArray.unshift(this.$route.params.boardId);
-
       const recent = JSON.stringify(recentArray);
       this.UPDATE_USER({ recent });
     },
