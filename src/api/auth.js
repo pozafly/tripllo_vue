@@ -21,6 +21,9 @@ const authApi = {
   signup(userData) {
     return instance.post('user', userData);
   },
+  // signout(userData) {
+  //   return instance.delete('user', userData);
+  // },
   readUser(userId) {
     return instance.get(`user/${userId}`, {
       headers: {

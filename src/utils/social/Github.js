@@ -9,8 +9,6 @@ const Github = {
 
   async signup(code) {
     const req = await this.getData(code);
-    console.log('req');
-    console.log(req);
     socialSignup(req);
   },
 
@@ -35,7 +33,6 @@ const Github = {
       name: response.data.name,
       email: response.data.blog,
       profileImg: response.data.avatar_url,
-      accessToken: token,
       source: 'Github',
     };
 

@@ -52,7 +52,6 @@ function setUserData(req) {
     name: req.name,
     email: req.email,
     picture: req.profileImg,
-    accessToken: req.accessToken,
     social: req.source,
   };
   return userData;

@@ -17,7 +17,6 @@ const Kakao = {
           id: res.id,
           name: kakao_account.profile.nickname,
           email: kakao_account.email,
-          accessToken: authObj.access_token,
           profileImg: kakao_account.profile.profile_image_url,
           source: 'Kakao',
         };
@@ -40,7 +39,6 @@ const Kakao = {
           id: res.id,
           name: kakao_account.profile.nickname,
           email: kakao_account.email,
-          accessToken: authObj.access_token,
           profileImg: kakao_account.profile.profile_image_url,
           source: 'Kakao',
         };

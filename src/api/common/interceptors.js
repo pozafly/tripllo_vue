@@ -9,6 +9,9 @@ export function setInterceptors(instance) {
       return config;
     },
     function(error) {
+      if (error.response.data.status === 403) {
+        alert('권한이 없습니다.');
+      }
       return Promise.reject(error);
     },
   );
@@ -19,6 +22,9 @@ export function setInterceptors(instance) {
       return response;
     },
     function(error) {
+      if (error.response.data.status === 403) {
+        alert('권한이 없습니다.');
+      }
       return Promise.reject(error);
     },
   );
