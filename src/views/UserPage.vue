@@ -21,6 +21,7 @@
         <div class="info-wrap">
           <div class="info-inside">
             <UserAbout />
+            <UserSignout />
           </div>
         </div>
       </div>
@@ -31,10 +32,11 @@
 <script>
 import Header from '@/components/common/Header';
 import UserAbout from '@/components/user/UserAbout';
+import UserSignout from '@/components/user/UserSignout';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: { Header, UserAbout },
+  components: { Header, UserAbout, UserSignout },
   computed: {
     ...mapState(['user']),
   },

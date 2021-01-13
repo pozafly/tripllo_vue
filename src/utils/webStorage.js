@@ -16,15 +16,9 @@ function getUserFromLocalStorage(key) {
   return localStorage.getItem(key);
 }
 
-function deleteUserLocalStorage() {
-  localStorage.removeItem('user_token');
-  localStorage.removeItem('user_id');
-  localStorage.removeItem('user_email');
-  localStorage.removeItem('user_name');
-  localStorage.removeItem('user_bio');
-  localStorage.removeItem('user_picture');
-  localStorage.removeItem('user_recent');
-  localStorage.removeItem('user_favorite');
+function clearStorage() {
+  localStorage.clear();
+  sessionStorage.clear();
 }
 
 function saveSessionStorage(key, value) {
@@ -43,7 +37,7 @@ export {
   saveUserToLocalStorage,
   saveUserToken,
   getUserFromLocalStorage,
-  deleteUserLocalStorage,
+  clearStorage,
   saveSessionStorage,
   getSessionStorage,
   deleteSessionStorage,

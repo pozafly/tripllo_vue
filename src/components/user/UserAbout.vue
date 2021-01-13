@@ -63,7 +63,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.user);
     this.userData.name = this.user.name !== 'null' ? this.user.name : '';
     this.userData.email = this.user.email !== 'null' ? this.user.email : '';
     this.userData.bio = this.user.bio !== 'null' ? this.user.bio : '';
@@ -194,6 +193,9 @@ export default {
     }
     .form-save {
       height: 30px;
+      &:hover {
+        background: #60bd4e;
+      }
     }
   }
 }

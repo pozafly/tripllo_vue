@@ -29,6 +29,11 @@ const actions = {
   async SIGNUP(_, userData) {
     return await authApi.signup(userData);
   },
+  SIGNOUT({ commit }, password) {
+    return authApi.signout(password).then(() => {
+      commit('logout');
+    });
+  },
   READ_USER({ commit }, userId) {
     return authApi.readUser(userId).then(({ data }) => {
       commit('setUser', data.data);

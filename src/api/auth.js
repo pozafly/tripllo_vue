@@ -21,9 +21,13 @@ const authApi = {
   signup(userData) {
     return instance.post('user', userData);
   },
-  // signout(userData) {
-  //   return instance.delete('user', userData);
-  // },
+  signout(password) {
+    return instance.delete(`user/${password}`, {
+      headers: {
+        Authorization: store.state.token,
+      },
+    });
+  },
   readUser(userId) {
     return instance.get(`user/${userId}`, {
       headers: {

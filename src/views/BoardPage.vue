@@ -123,14 +123,14 @@ export default {
     // 4개의 recent board만 허락함.
     makeRecent() {
       let recentArray = [];
-      if (this.user.recent !== 'null')
+      if (this.user.recent !== 'null' && this.user.recent !== null) {
         recentArray = JSON.parse(this.user.recent);
-      if (recentArray !== null) {
-        recentArray.forEach((el, idx) => {
-          if (el === this.$route.params.boardId) recentArray.splice(idx, 1);
-        });
-        if (recentArray.length >= 4) recentArray.pop();
       }
+      recentArray.forEach((el, idx) => {
+        if (el === this.$route.params.boardId) recentArray.splice(idx, 1);
+      });
+      if (recentArray.length >= 4) recentArray.pop();
+
       recentArray.unshift(this.$route.params.boardId);
       const recent = JSON.stringify(recentArray);
       this.UPDATE_USER({ recent });

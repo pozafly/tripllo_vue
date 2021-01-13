@@ -1,7 +1,7 @@
 import {
   saveUserToLocalStorage,
   saveUserToken,
-  deleteUserLocalStorage,
+  clearStorage,
   saveSessionStorage,
   deleteSessionStorage,
 } from '@/utils/webStorage';
@@ -18,7 +18,7 @@ const mutations = {
   },
   logout(state) {
     state.user = {};
-    deleteUserLocalStorage();
+    clearStorage();
   },
 
   // board
