@@ -4,9 +4,6 @@
       <div class="modal-wrapper" @click="exit">
         <div class="modal-container">
           <div class="modal-main">
-            <a class="modal-close-btn" href="" @click.prevent="onClose">
-              &times;
-            </a>
             <div class="modal-header">
               <slot name="header">
                 default header
@@ -47,11 +44,9 @@ export default {
     ...mapState(['board']),
   },
   methods: {
-    onClose() {
-      this.$router.push(`/board/${this.board.id}`);
-    },
     exit(e) {
-      if (e.target.className === 'modal-wrapper') this.onClose();
+      if (e.target.className === 'modal-wrapper')
+        this.$router.push(`/board/${this.board.id}`);
     },
   },
 };
@@ -113,23 +108,6 @@ export default {
   }
   &::-webkit-scrollbar-track {
     background: #d9dce2;
-  }
-}
-.modal-close-btn {
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 5px;
-  right: 5px;
-  font-size: 24px;
-  color: black;
-  z-index: 999;
-  border-radius: 100px;
-  width: 40px;
-  height: 40px;
-  &:hover {
-    background: rgba(0, 0, 0, 0.15);
   }
 }
 .modal-body {

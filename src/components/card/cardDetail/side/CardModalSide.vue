@@ -1,6 +1,9 @@
 <template>
   <div class="side">
     <div class="side-items">
+      <a class="modal-close-btn" href="" @click.prevent="onCloseModal">
+        &times;
+      </a>
       <ul>
         <li
           v-for="item in sideItems"
@@ -101,6 +104,9 @@ export default {
     onClose() {
       this.toggle = '';
     },
+    onCloseModal() {
+      this.$router.push(`/board/${this.board.id}`);
+    },
   },
 };
 </script>
@@ -116,6 +122,23 @@ export default {
     position: fixed;
     padding-top: 80px;
     width: 160px;
+    .modal-close-btn {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 0px;
+      right: 0px;
+      font-size: 24px;
+      color: black;
+      z-index: 999;
+      border-radius: 100px;
+      width: 40px;
+      height: 40px;
+      &:hover {
+        background: rgba(0, 0, 0, 0.15);
+      }
+    }
     .side-item {
       position: relative;
       margin: 12px 8px;
