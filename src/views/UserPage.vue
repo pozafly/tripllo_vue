@@ -16,6 +16,9 @@
           <span class="auth-item name">{{ user.name }}</span>
           <span class="auth-item id">@{{ user.id }}</span>
         </div>
+        <span class="createdAt">
+          {{ user.createdAt | formatDate }} 생성됨
+        </span>
       </div>
       <div class="user-info">
         <div class="info-wrap">
@@ -119,6 +122,12 @@ export default {
             color: #5e6c84;
           }
         }
+      }
+      .createdAt {
+        display: block;
+        text-align: center;
+        font-size: 11.5px;
+        color: #5e6c84;
       }
     }
     .user-info {

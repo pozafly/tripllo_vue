@@ -6,6 +6,7 @@ function saveUserToLocalStorage(user) {
   localStorage.setItem('user_picture', user.picture);
   localStorage.setItem('user_recent', user.recent);
   localStorage.setItem('user_favorite', user.favorite);
+  localStorage.setItem('user_created_at', user.createdAt);
 }
 
 function saveUserToken(token) {

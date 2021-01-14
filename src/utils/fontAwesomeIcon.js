@@ -20,6 +20,7 @@ import {
   faTag,
   faPaperclip,
   faClock,
+  faSkull,
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   faUser,
@@ -38,6 +39,7 @@ library.add(
   faTag,
   faPaperclip,
   faClock,
+  faSkull,
 );
 
 import {

@@ -55,6 +55,7 @@ export default {
   data() {
     return {
       userData: {
+        id: '',
         name: '',
         email: '',
         bio: '',
@@ -63,6 +64,7 @@ export default {
     };
   },
   mounted() {
+    this.userData.id = this.user.id !== 'null' ? this.user.id : '';
     this.userData.name = this.user.name !== 'null' ? this.user.name : '';
     this.userData.email = this.user.email !== 'null' ? this.user.email : '';
     this.userData.bio = this.user.bio !== 'null' ? this.user.bio : '';

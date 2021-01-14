@@ -35,10 +35,10 @@ const authApi = {
       },
     });
   },
-  updateUser({ email, name, bio, picture, recent, favorite }) {
+  updateUser({ id, email, name, bio, picture, recent, favorite }) {
     return instance.put(
       'user',
-      { email, name, bio, picture, recent, favorite },
+      { id, email, name, bio, picture, recent, favorite },
       {
         headers: {
           Authorization: store.state.token,

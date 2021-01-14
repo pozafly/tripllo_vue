@@ -17,6 +17,7 @@ const requireAuth = (to, from, next) => {
 const router = new VueRouter({
   mode: 'history',
   routes: [
+    { path: '*', component: () => import('@/components/common/NotFound') },
     { path: '/', redirect: '/main' },
     {
       path: '/main',

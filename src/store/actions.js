@@ -44,9 +44,17 @@ const actions = {
   },
   async UPDATE_USER(
     { dispatch, state },
-    { email, name, bio, picture, recent, favorite },
+    { id, email, name, bio, picture, recent, favorite },
   ) {
-    await authApi.updateUser({ email, name, bio, picture, recent, favorite });
+    await authApi.updateUser({
+      id,
+      email,
+      name,
+      bio,
+      picture,
+      recent,
+      favorite,
+    });
     await dispatch('READ_USER', state.user.id);
   },
 

@@ -10,6 +10,7 @@ const state = {
     picture: getUserFromLocalStorage('user_picture') || '',
     recent: getUserFromLocalStorage('user_recent') || '',
     favorite: getUserFromLocalStorage('user_favorite') || '',
+    createdAt: getUserFromLocalStorage('user_created_at') || '',
   },
   boardList: [],
   recentBoard: [],
