@@ -17,7 +17,6 @@
         v-else
         class="form-control comment-input"
         @click="onEditComment"
-        :value="card.description"
         spellcheck="false"
         placeholder="Write a comment..."
       >

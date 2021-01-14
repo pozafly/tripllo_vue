@@ -133,7 +133,7 @@ export default {
 
       recentArray.unshift(this.$route.params.boardId);
       const recent = JSON.stringify(recentArray);
-      this.UPDATE_USER({ recent });
+      this.UPDATE_USER({ id: this.user.id, recent });
     },
   },
 };
