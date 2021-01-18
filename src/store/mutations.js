@@ -71,6 +71,9 @@ const mutations = {
     saveSessionStorage('pushMessage', pushMessage);
     state.pushMessage = pushMessage;
   },
+  deletePushMessage(state) {
+    state.pushMessage = '';
+  },
 };
 
 export default mutations;

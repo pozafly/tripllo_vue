@@ -6,6 +6,7 @@ import checklistApi from '@/api/checklist';
 import checklistItemApi from '@/api/checklistItem';
 import commentApi from '@/api/comment';
 import pushMessageApi from '@/api/pushMessage';
+import { pushMessage } from '../api';
 
 const actions = {
   // 로그인
@@ -213,8 +214,23 @@ const actions = {
 
   // pushMessage
   READ_PUSH_MESSAGE({ commit }, targetId) {
-    return pushMessageApi.readPushMessage(targetId).then(({ data }) => {
-      commit('setPushMessage', data.data);
+    return pushMessageApi
+      .readPushMessage(targetId)
+      .then(({ data }) => {
+        commit('setPushMessage', data.data);
+      })
+      .catch(() => {
+        commit('deletePushMessage');
+      });
+  },
+  UPDATE_PUSH_MESSAGE({ dispatch, state }, { id, isRead }) {
+    return pushMessageApi.updatePushMessage({ id, isRead }).then(() => {
+      dispatch('READ_PUSH_MESSAGE', state.user.id);
+    });
+  },
+  DELETE_PUSH_MESSAGE({ dispatch, state }, { id }) {
+    return pushMessageApi.deletePushMessage(id).then(() => {
+      dispatch('READ_PUSH_MESSAGE', state.user.id);
     });
   },
 };

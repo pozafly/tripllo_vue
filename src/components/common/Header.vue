@@ -20,15 +20,30 @@
     <div class="header-auth">
       <ul class="auth-wrap">
         <li class="auth-items">
-          <a href="" class="auth-item red" v-if="noReadCount !== 0">
+          <a
+            href=""
+            class="auth-item red"
+            v-if="noReadCount !== 0"
+            @click.prevent="isMessageModal = true"
+          >
             <awesome icon="bell"></awesome>
             <div class="push-message-wrap">
               <span class="push-message-length">{{ noReadCount }}</span>
             </div>
           </a>
-          <a href="" class="auth-item" v-else>
+          <a
+            href=""
+            class="auth-item"
+            v-else
+            @click.prevent="isMessageModal = true"
+          >
             <awesome icon="bell"></awesome>
           </a>
+          <MessageModal
+            class="message-modal"
+            v-if="isMessageModal"
+            @close="isMessageModal = false"
+          />
         </li>
         <li class="auth-items">
           <a href="" class="auth-item">
@@ -82,14 +97,16 @@
 
 <script>
 import Sock from '@/components/common/Sock';
+import MessageModal from '@/components/common/MessageModal';
 import { mapActions, mapGetters, mapState } from 'vuex';
 
 export default {
-  components: { Sock },
+  components: { Sock, MessageModal },
   data() {
     return {
       isMenuShow: false,
       noReadCount: 0,
+      isMessageModal: false,
     };
   },
   computed: {
@@ -101,6 +118,8 @@ export default {
       this.updateTheme();
     },
     pushMessage() {
+      this.noReadCount = 0;
+      if (this.pushMessage.length === 0) return;
       this.pushMessage.forEach(el => {
         if (el.isRead === 'N') this.noReadCount += 1;
       });
@@ -279,6 +298,11 @@ export default {
               }
             }
           }
+        }
+        .message-modal {
+          position: absolute;
+          left: -200px;
+          top: 40px;
         }
       }
     }

@@ -6,7 +6,7 @@ const pushMessageApi = {
   },
 
   updatePushMessage({ id, isRead }) {
-    return pushMessage.put({ id, isRead });
+    return pushMessage.put('/', { id, isRead });
   },
 
   deletePushMessage(id) {
