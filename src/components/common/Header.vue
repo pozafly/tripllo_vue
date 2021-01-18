@@ -21,6 +21,11 @@
       <ul class="auth-wrap">
         <li class="auth-items">
           <a href="" class="auth-item">
+            <awesome icon="bell"></awesome>
+          </a>
+        </li>
+        <li class="auth-items">
+          <a href="" class="auth-item">
             <awesome icon="info-circle" class="fas fa-info-circle"></awesome>
           </a>
         </li>
@@ -60,7 +65,7 @@
         <awesome icon="running" class="fas fa-running"></awesome>
         <span>Logout</span>
       </a>
-      <router-link class="menu-item" v-else to="/user/login">
+      <router-link class="menu-item" v-else to="/auth/login">
         <span>Login</span>
       </router-link>
     </div>

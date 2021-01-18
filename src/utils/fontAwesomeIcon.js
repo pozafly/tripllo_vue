@@ -21,6 +21,7 @@ import {
   faPaperclip,
   faClock,
   faSkull,
+  faBell,
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   faUser,
@@ -40,6 +41,7 @@ library.add(
   faPaperclip,
   faClock,
   faSkull,
+  faBell,
 );
 
 import {
