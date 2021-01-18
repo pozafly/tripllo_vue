@@ -12,7 +12,7 @@ const state = {
     favorite: getUserFromLocalStorage('user_favorite') || '',
     createdAt: getUserFromLocalStorage('user_created_at') || '',
   },
-  boardList: [],
+  boardList: getUserFromLocalStorage('boardList') || '',
   recentBoard: [],
   board: getSessionStorage('board') || {},
   card: getSessionStorage('card') || {},

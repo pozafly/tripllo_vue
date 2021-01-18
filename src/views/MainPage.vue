@@ -67,11 +67,11 @@ export default {
   async created() {
     await clearSessionStorage();
 
-    let lists = null;
+    let recentLists = null;
     if (this.user.recent) {
-      lists = JSON.parse(this.user.recent);
+      recentLists = JSON.parse(this.user.recent);
     }
-    await this.READ_BOARD_LIST({ userId: this.user.id, lists });
+    await this.READ_BOARD_LIST({ userId: this.user.id, recentLists });
   },
 };
 </script>

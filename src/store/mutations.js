@@ -17,12 +17,13 @@ const mutations = {
     state.token = token;
   },
   logout(state) {
-    state = {};
+    state.user = {};
     clearStorage();
   },
 
   // board
   setBoardList(state, boardList) {
+    saveSessionStorage('boardList', boardList);
     state.boardList = boardList;
   },
   setRecentBoard(state, recentBoard) {

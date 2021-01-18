@@ -1,8 +1,8 @@
 <template>
   <li class="message-wrap">
     <span class="message-content">{{ message.content }}</span>
-    <button class="message-btn save-btn">수락</button>
-    <button class="message-btn remove-btn" @click="deleteMessage">거절</button>
+    <button class="message-btn save-btn" @click="acceptMessage">수락</button>
+    <button class="message-btn remove-btn" @click="rejectMessage">거절</button>
   </li>
 </template>
 
@@ -11,9 +11,35 @@ import { mapActions, mapState } from 'vuex';
 
 export default {
   props: ['message'],
+  computed: {
+    ...mapState(['user']),
+  },
   methods: {
-    ...mapActions(['UPDATE_PUSH_MESSAGE', 'DELETE_PUSH_MESSAGE']),
-    deleteMessage() {
+    ...mapActions([
+      'UPDATE_PUSH_MESSAGE',
+      'DELETE_PUSH_MESSAGE',
+      'UPDATE_BOARD',
+      'READ_BOARD_ONE',
+    ]),
+    async acceptMessage() {
+      const { data } = await this.READ_BOARD_ONE({
+        boardId: this.message.boardId,
+      });
+      const preInviteUser = data.data.invitedUser;
+
+      let invitedUser = [];
+      if (preInviteUser !== 'null' && preInviteUser !== null) {
+        invitedUser = JSON.parse(preInviteUser);
+      }
+      invitedUser.unshift(this.user.id);
+      const pushInviteUser = JSON.stringify(invitedUser);
+
+      this.UPDATE_BOARD({
+        id: this.message.boardId,
+        invitedUser: pushInviteUser,
+      });
+    },
+    rejectMessage() {
       let confirm = window.confirm('해당 메세지를 삭제하시겠습니까?');
       if (confirm) this.DELETE_PUSH_MESSAGE({ id: this.message.id });
     },

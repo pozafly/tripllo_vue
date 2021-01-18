@@ -1,8 +1,12 @@
 import { board } from '@/api';
 
 const boardApi = {
-  readBoardList({ userId, lists }) {
-    return board.get(`${userId}/${lists}`);
+  readBoardOne({ boardId }) {
+    return board.get(`/${boardId}`);
+  },
+
+  readBoardList({ userId, recentLists }) {
+    return board.get(`${userId}/${recentLists}`);
   },
 
   readBoardDetail(boardId) {
@@ -13,8 +17,8 @@ const boardApi = {
     return board.post('/', { title });
   },
 
-  updateBoard(id, payload) {
-    return board.put(`/${id}`, payload);
+  updateBoard(id, { title, bgColor, invitedUser }) {
+    return board.put(`/${id}`, { title, bgColor, invitedUser });
   },
 
   deleteBoard(id) {

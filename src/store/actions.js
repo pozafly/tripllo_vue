@@ -64,8 +64,11 @@ const actions = {
   },
 
   // board
-  READ_BOARD_LIST({ commit }, { userId, lists }) {
-    return boardApi.readBoardList({ userId, lists }).then(({ data }) => {
+  READ_BOARD_ONE(_, { boardId }) {
+    return boardApi.readBoardOne({ boardId });
+  },
+  READ_BOARD_LIST({ commit }, { userId, recentLists }) {
+    return boardApi.readBoardList({ userId, recentLists }).then(({ data }) => {
       commit('setBoardList', data.data.boardList);
       commit('setRecentBoard', data.data.recentBoard);
     });
@@ -78,10 +81,12 @@ const actions = {
   ADD_BOARD(_, title) {
     return boardApi.addBoard(title);
   },
-  UPDATE_BOARD({ dispatch, state }, { id, title, bgColor }) {
-    return boardApi.updateBoard(id, { title, bgColor }).then(() => {
-      dispatch('READ_BOARD_DETAIL', state.board.id);
-    });
+  UPDATE_BOARD({ dispatch, state }, { id, title, bgColor, invitedUser }) {
+    return boardApi
+      .updateBoard(id, { title, bgColor, invitedUser })
+      .then(() => {
+        dispatch('READ_BOARD_DETAIL', state.board.id);
+      });
   },
   DELETE_BOARD(_, { id }) {
     return boardApi.deleteBoard(id);
