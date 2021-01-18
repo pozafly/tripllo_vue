@@ -56,10 +56,6 @@ const router = new VueRouter({
       path: '/user',
       component: () => import('@/views/UserPage'),
     },
-    {
-      path: '/sock',
-      component: () => import('@/views/Sock'),
-    },
   ],
 });
 

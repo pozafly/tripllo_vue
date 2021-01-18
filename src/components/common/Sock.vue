@@ -1,40 +1,33 @@
 <template>
-  <div>
-    <Header />
-    <hr />
-    타겟이름: <input v-model="target" type="text" /> 내용:
-    <input v-model="content" type="text" @keypress.enter="onSend" />
-  </div>
+  <div></div>
 </template>
 
 <script>
-import Header from '@/components/common/Header';
 import SockJS from 'sockjs-client';
-import { mapState } from 'vuex';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
-  components: { Header },
   data() {
     return {
-      socket: null,
       target: '',
       content: '',
       isConnect: false,
     };
   },
   created() {
-    // App.vue가 생성되면 소켓 연결을 시도합니다.
     this.connect();
   },
   computed: {
-    ...mapState(['user']),
+    ...mapState(['user', 'socket']),
   },
   methods: {
+    ...mapMutations(['setSocket']),
     connect() {
-      const serverURL = `http://localhost:3000?m_id=${this.user.id}`;
+      const serverURL = `http://localhost:3000/websocket?m_id=${this.user.id}`;
       console.log(`서버 연결 시도 --- ${serverURL}`);
-      this.socket = new SockJS(serverURL);
+      let newSocket = new SockJS(serverURL);
 
+      this.setSocket(newSocket);
       this.socket.onopen = () => {
         this.isConnect = true;
         console.log('연결 완료');
@@ -43,6 +36,7 @@ export default {
         this.socket.onmessage = ({ data }) => {
           console.log('메세지 수신');
           console.log(data);
+          this.$emit('receive', data);
         };
       };
     },

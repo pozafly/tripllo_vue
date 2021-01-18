@@ -60,6 +60,11 @@ const mutations = {
   deleteComment(state) {
     state.comment = {};
   },
+
+  // socket
+  setSocket(state, socket) {
+    state.socket = socket;
+  },
 };
 
 export default mutations;

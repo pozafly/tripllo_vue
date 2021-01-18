@@ -26,6 +26,9 @@ const actions = {
     console.log(userId);
     return await authApi.validId(userId);
   },
+  READ_INVITE_USER(_, userId) {
+    return authApi.readInviteUser(userId);
+  },
   async SIGNUP(_, userData) {
     return await authApi.signup(userData);
   },

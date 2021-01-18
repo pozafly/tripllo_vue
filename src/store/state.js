@@ -19,6 +19,7 @@ const state = {
   checklists: getSessionStorage('checklists') || [],
   bgColor: getSessionStorage('bgColor') || '',
   comment: [],
+  socket: null,
 };
 
 export default state;

@@ -69,13 +69,16 @@
         <span>Login</span>
       </router-link>
     </div>
+    <Sock @receive="receive" />
   </nav>
 </template>
 
 <script>
+import Sock from '@/components/common/Sock';
 import { mapActions, mapGetters, mapState } from 'vuex';
 
 export default {
+  components: { Sock },
   data() {
     return {
       isMenuShow: false,
@@ -114,6 +117,9 @@ export default {
           icon.style.backgroundColor = this.bgColor;
         });
       }
+    },
+    receive(data) {
+      console.log(data);
     },
   },
   mounted() {

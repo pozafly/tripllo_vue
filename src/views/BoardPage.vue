@@ -14,10 +14,18 @@
               @keypress.enter="onKeyupEnter"
               @blur="onSubmitTitle"
             />
-            <span v-else class="board-title" @click="onClickTitle">
+            <span v-else class="board-item" @click="onClickTitle">
               {{ board.title }}
-              <awesome icon="edit" class="fas fa-edit"></awesome>
             </span>
+            <span class="board-item" @click="openModal">
+              Invite
+              <Invite
+                v-if="isInvite"
+                class="invite-modal"
+                @close="isInvite = false"
+              />
+            </span>
+
             <a
               class="board-header-btn show-menu"
               href=""
@@ -26,6 +34,7 @@
               ... Show Menu
             </a>
           </div>
+
           <div class="list-section-wrapper">
             <div class="list-section">
               <div
@@ -58,6 +67,7 @@ import List from '@/components/list/List';
 import AddList from '@/components/list/AddList';
 import BoardMenu from '@/components/board/boardMenu/BoardMenu';
 import dragger from '@/utils/dragger';
+import Invite from '@/components/board/Invite';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
@@ -66,6 +76,7 @@ export default {
     List,
     BoardMenu,
     AddList,
+    Invite,
   },
   data() {
     return {
@@ -75,6 +86,7 @@ export default {
       isShowBoardSettings: '',
       cDragger: '',
       lDragger: '',
+      isInvite: false,
     };
   },
   computed: {
@@ -135,6 +147,10 @@ export default {
       const recent = JSON.stringify(recentArray);
       this.UPDATE_USER({ id: this.user.id, recent });
     },
+
+    openModal(e) {
+      if (e.target.nodeName === 'SPAN') this.isInvite = true;
+    },
   },
 };
 </script>
@@ -171,19 +187,25 @@ export default {
           .form-control {
             width: 17rem;
           }
-          .board-title {
+          .board-item {
+            position: relative;
             color: #fff;
-            font-weight: 700;
-            font-size: 18px;
+            font-weight: 500;
+            font-size: 15px;
             cursor: pointer;
-            .fa-edit {
-              display: none;
+            border-radius: 2px;
+            padding: 5px 10px;
+            background-color: rgba(255, 255, 255, 0.5);
+            transition: all 0.3s;
+            &:hover,
+            &:focus {
+              background-color: rgba(255, 255, 255, 0.3);
             }
-            &:hover {
-              .fa-edit {
-                display: inline-block;
-                font-size: 10px;
-              }
+            &:nth-child(2) {
+              margin-left: 10px;
+            }
+            .invite-modal {
+              left: 0px;
             }
           }
           .board-header-btn {
@@ -201,6 +223,7 @@ export default {
               font-size: 14px;
               position: absolute;
               right: 15px;
+              top: 8px;
             }
           }
         }
