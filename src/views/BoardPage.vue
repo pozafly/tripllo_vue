@@ -22,7 +22,11 @@
               <Invite
                 v-if="isInvite"
                 class="invite-modal"
-                @close="isInvite = false"
+                @close="
+                  ({ memberId, boardTitle }) =>
+                    modalClose({ memberId, boardTitle })
+                "
+                @noInviteClose="isInvite = false"
               />
             </span>
 
@@ -34,7 +38,6 @@
               ... Show Menu
             </a>
           </div>
-
           <div class="list-section-wrapper">
             <div class="list-section">
               <div
@@ -58,6 +61,7 @@
       />
       <router-view></router-view>
     </div>
+    <notifications group="notifyApp" position="top right" />
   </div>
 </template>
 
@@ -147,9 +151,18 @@ export default {
       const recent = JSON.stringify(recentArray);
       this.UPDATE_USER({ id: this.user.id, recent });
     },
-
     openModal(e) {
       if (e.target.nodeName === 'SPAN') this.isInvite = true;
+    },
+    modalClose({ memberId, boardTitle }) {
+      this.isInvite = false;
+      this.$notify({
+        group: 'notifyApp',
+        type: 'warn',
+        duration: 5000,
+        title: '초대 완료!',
+        text: `${memberId}님에게 ${boardTitle} 보드를 초대했습니다.`,
+      });
     },
   },
 };

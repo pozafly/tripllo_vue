@@ -1,5 +1,5 @@
 <template>
-  <SideBase @close="$emit('close')">
+  <SideBase @close="$emit('noInviteClose')">
     <div slot="header" class="header-text">Invite</div>
     <div slot="content">
       <div class="content-text">Search Member</div>
@@ -10,11 +10,17 @@
         ref="inputId"
         spellcheck="false"
         placeholder="Write you want Member Id..."
-        @keypress.enter="inviteMember"
       />
       <div v-for="member in memberList" :key="member.id">
         <ul>
-          <InviteDetail :member="member" />
+          <InviteDetail
+            :member="member"
+            @close="
+              ({ memberId, boardTitle }) =>
+                $emit('close', { memberId, boardTitle })
+            "
+            v-if="member.id !== user.id"
+          />
         </ul>
       </div>
     </div>
@@ -51,17 +57,13 @@ export default {
     }, 750),
   },
   computed: {
-    ...mapState(['card']),
+    ...mapState(['card', 'user']),
   },
   mounted() {
     this.$refs.inputId.focus();
   },
   methods: {
     ...mapActions(['READ_INVITE_USER']),
-    inviteMember() {
-      this.$emit('close');
-      // this.CREATE_CHECKLIST({ title: this.inputTitle, cardId: this.card.id });
-    },
   },
 };
 </script>

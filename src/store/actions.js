@@ -5,6 +5,7 @@ import cardApi from '@/api/card';
 import checklistApi from '@/api/checklist';
 import checklistItemApi from '@/api/checklistItem';
 import commentApi from '@/api/comment';
+import pushMessageApi from '@/api/pushMessage';
 
 const actions = {
   // 로그인
@@ -207,6 +208,13 @@ const actions = {
   DELETE_COMMENT({ dispatch, state }, id) {
     return commentApi.deleteComment(id).then(() => {
       dispatch('READ_COMMENT', state.card.id);
+    });
+  },
+
+  // pushMessage
+  READ_PUSH_MESSAGE({ commit }, targetId) {
+    return pushMessageApi.readPushMessage(targetId).then(({ data }) => {
+      commit('setPushMessage', data.data);
     });
   },
 };

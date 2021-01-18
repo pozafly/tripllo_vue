@@ -41,6 +41,7 @@
 import Header from '@/components/common/Header';
 import BoardItem from '@/components/board/BoardItem';
 import AddBoardModal from '@/components/board/AddBoardModal';
+import { clearSessionStorage } from '@/utils/webStorage';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -63,12 +64,14 @@ export default {
       this.isShowAddBoard = !this.isShowAddBoard;
     },
   },
-  created() {
+  async created() {
+    await clearSessionStorage();
+
     let lists = null;
     if (this.user.recent) {
       lists = JSON.parse(this.user.recent);
     }
-    this.READ_BOARD_LIST({ userId: this.user.id, lists });
+    await this.READ_BOARD_LIST({ userId: this.user.id, lists });
   },
 };
 </script>

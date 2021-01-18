@@ -17,7 +17,7 @@ const mutations = {
     state.token = token;
   },
   logout(state) {
-    state.user = {};
+    state = {};
     clearStorage();
   },
 
@@ -64,6 +64,12 @@ const mutations = {
   // socket
   setSocket(state, socket) {
     state.socket = socket;
+  },
+
+  // pushMessage
+  setPushMessage(state, pushMessage) {
+    saveSessionStorage('pushMessage', pushMessage);
+    state.pushMessage = pushMessage;
   },
 };
 

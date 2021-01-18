@@ -20,7 +20,13 @@
     <div class="header-auth">
       <ul class="auth-wrap">
         <li class="auth-items">
-          <a href="" class="auth-item">
+          <a href="" class="auth-item red" v-if="noReadCount !== 0">
+            <awesome icon="bell"></awesome>
+            <div class="push-message-wrap">
+              <span class="push-message-length">{{ noReadCount }}</span>
+            </div>
+          </a>
+          <a href="" class="auth-item" v-else>
             <awesome icon="bell"></awesome>
           </a>
         </li>
@@ -70,6 +76,7 @@
       </router-link>
     </div>
     <Sock @receive="receive" />
+    <notifications group="notifyApp" position="top right" />
   </nav>
 </template>
 
@@ -82,19 +89,25 @@ export default {
   data() {
     return {
       isMenuShow: false,
+      noReadCount: 0,
     };
   },
   computed: {
     ...mapGetters(['isAuth']),
-    ...mapState(['user', 'bgColor']),
+    ...mapState(['user', 'bgColor', 'pushMessage']),
   },
   watch: {
     bgColor() {
       this.updateTheme();
     },
+    pushMessage() {
+      this.pushMessage.forEach(el => {
+        if (el.isRead === 'N') this.noReadCount += 1;
+      });
+    },
   },
   methods: {
-    ...mapActions(['LOGOUT']),
+    ...mapActions(['LOGOUT', 'READ_PUSH_MESSAGE']),
     logoutUser() {
       this.LOGOUT();
       this.$router.push('/auth/login');
@@ -119,7 +132,15 @@ export default {
       }
     },
     receive(data) {
-      console.log(data);
+      const message = JSON.parse(data);
+      this.$notify({
+        group: 'notifyApp',
+        type: 'warn',
+        duration: 5000,
+        title: '초대장이 도착했습니다',
+        text: `${message.content}`,
+      });
+      this.READ_PUSH_MESSAGE(this.user.id);
     },
   },
   mounted() {
@@ -129,6 +150,9 @@ export default {
     Array.from(imgList).forEach(e => {
       e.style.backgroundImage = `url(${this.user.picture})`;
     });
+  },
+  created() {
+    this.READ_PUSH_MESSAGE(this.user.id);
   },
 };
 </script>
@@ -234,6 +258,26 @@ export default {
             background-position: center;
             background-repeat: no-repeat;
             cursor: pointer;
+          }
+          &.red {
+            position: relative;
+            .push-message-wrap {
+              position: absolute;
+              display: block;
+              font-size: 10px;
+              top: -3px;
+              right: -1px;
+              border-radius: 50%;
+              background: red;
+              padding: 2px;
+              height: 11px;
+              width: 11px;
+              text-align: center;
+              .push-message-length {
+                position: relative;
+                top: -11px;
+              }
+            }
           }
         }
       }

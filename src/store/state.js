@@ -20,6 +20,7 @@ const state = {
   bgColor: getSessionStorage('bgColor') || '',
   comment: [],
   socket: null,
+  pushMessage: getSessionStorage('pushMessage') || [],
 };
 
 export default state;

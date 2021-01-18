@@ -28,6 +28,7 @@
     "vue": "^2.6.11",
     "vue-color": "^2.8.1",
     "vue-google-login": "^2.0.5",
+    "vue-notification": "^1.3.20",
     "vue-plugin-load-script": "^1.3.2",
     "vue-router": "^3.4.9",
     "vuex": "^3.6.0",

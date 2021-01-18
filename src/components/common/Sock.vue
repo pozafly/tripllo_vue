@@ -35,7 +35,6 @@ export default {
 
         this.socket.onmessage = ({ data }) => {
           console.log('메세지 수신');
-          console.log(data);
           this.$emit('receive', data);
         };
       };

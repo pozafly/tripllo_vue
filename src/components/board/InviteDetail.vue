@@ -1,5 +1,5 @@
 <template>
-  <div class="invite-wrap">
+  <div class="invite-wrap" @click="inviteMember">
     <div class="profile-wrap">
       <img
         v-if="member.picture !== null && member.picture !== 'null'"
@@ -15,9 +15,35 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
   props: ['member'],
-  methods: {},
+  computed: {
+    ...mapState(['socket', 'board', 'user']),
+  },
+  methods: {
+    inviteMember() {
+      let push = confirm(
+        `@${this.member.id} 님에게 ${this.board.title} 보드로 초대하시겠습니까?`,
+      );
+      if (push) {
+        // 소켓으로 초대 메세지 보내기.
+        console.log(this.member.id + '초대완료');
+        this.socket.send(
+          JSON.stringify({
+            target: this.member.id,
+            content: `@${this.user.id}님이 '${this.board.title}' 보드에 초대합니다.`,
+            boardId: this.board.id,
+          }),
+        );
+        this.$emit('close', {
+          memberId: this.member.id,
+          boardTitle: this.board.title,
+        });
+      }
+    },
+  },
   mounted() {
     this.$nextTick(() => {
       if (this.$refs.img) this.$refs.img.src = this.member.picture;

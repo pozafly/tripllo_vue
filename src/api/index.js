@@ -26,3 +26,4 @@ export const card = createInstanceWithAuth('card');
 export const checklist = createInstanceWithAuth('checklist');
 export const checklistItem = createInstanceWithAuth('checklistItem');
 export const comments = createInstanceWithAuth('comment');
+export const pushMessage = createInstanceWithAuth('pushMessage');
