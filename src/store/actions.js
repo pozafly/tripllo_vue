@@ -68,7 +68,6 @@ const actions = {
   },
   READ_BOARD_LIST({ commit }, { userId, recentLists }) {
     return boardApi.readBoardList({ userId, recentLists }).then(({ data }) => {
-      console.log(data.data);
       commit('setBoardList', data.data.boardList);
       commit('setRecentBoard', data.data.recentBoard);
       commit('setInvitedBoard', data.data.invitedBoard);
@@ -223,6 +222,7 @@ const actions = {
     return pushMessageApi
       .readPushMessage(targetId)
       .then(({ data }) => {
+        console.log(data.data);
         commit('setPushMessage', data.data);
       })
       .catch(() => {

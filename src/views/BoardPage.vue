@@ -97,8 +97,8 @@ export default {
     ...mapState(['board', 'user']),
   },
   created() {
-    this.makeRecent();
     this.READ_BOARD_DETAIL(this.$route.params.boardId).then(() => {
+      this.makeRecent();
       this.setTheme(this.board.bgColor);
     });
   },

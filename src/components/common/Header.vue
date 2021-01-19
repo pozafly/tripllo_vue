@@ -119,7 +119,7 @@ export default {
     },
     pushMessage() {
       this.noReadCount = 0;
-      if (this.pushMessage.length === 0) return;
+      if (this.pushMessage === null) return;
       this.pushMessage.forEach(el => {
         if (el.isRead === 'N') this.noReadCount += 1;
       });

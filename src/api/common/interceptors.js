@@ -20,12 +20,12 @@ export function setInterceptors(instance) {
       return response;
     },
     function(error) {
-      console.log(error);
       if (
         error.response.data.status === 403 ||
         error.response.data.status === 'UNAUTHORIZED'
       ) {
         alert('권한이 없습니다.');
+        router.push('/main');
       }
       return Promise.reject(error);
     },

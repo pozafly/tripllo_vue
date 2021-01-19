@@ -2,7 +2,7 @@
   <div class="page">
     <Header />
     <section class="wrap">
-      <div class="recent-board" v-if="this.recentBoard">
+      <div class="recent-board" v-if="recentBoard.length !== 0">
         <div class="page-title">
           <awesome :icon="['far', 'clock']"></awesome>
           Recently Viewed
@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <div class="personal-board">
+      <div class="invited-board" v-if="invitedBoard.length !== 0">
         <div class="page-title">
           <awesome icon="user-friends" class="far fa-user"></awesome>
           Invited Boards
