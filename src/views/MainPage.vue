@@ -33,6 +33,18 @@
           <AddBoardModal v-if="isShowAddBoard" @close="showAddBoard" />
         </div>
       </div>
+
+      <div class="personal-board">
+        <div class="page-title">
+          <awesome icon="user-friends" class="far fa-user"></awesome>
+          Invited Boards
+        </div>
+        <div class="list-wrap">
+          <div class="board-list" v-for="board in invitedBoard" :key="board.id">
+            <BoardItem :board="board" />
+          </div>
+        </div>
+      </div>
     </section>
   </div>
 </template>
@@ -56,7 +68,7 @@ export default {
     AddBoardModal,
   },
   computed: {
-    ...mapState(['boardList', 'recentBoard', 'user']),
+    ...mapState(['boardList', 'recentBoard', 'invitedBoard', 'user']),
   },
   methods: {
     ...mapActions(['READ_BOARD_LIST', 'READ_BOARDS']),

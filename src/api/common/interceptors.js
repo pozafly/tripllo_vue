@@ -26,7 +26,6 @@ export function setInterceptors(instance) {
         error.response.data.status === 'UNAUTHORIZED'
       ) {
         alert('권한이 없습니다.');
-        router.push('/main');
       }
       return Promise.reject(error);
     },

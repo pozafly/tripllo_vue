@@ -6,7 +6,7 @@
       <div v-if="pushMessage">
         <div v-for="message in pushMessage" :key="message.id">
           <ul>
-            <MessageDetail :message="message" />
+            <MessageDetail :message="message" @close="$emit('close')" />
           </ul>
         </div>
       </div>

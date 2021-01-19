@@ -29,6 +29,9 @@ const mutations = {
   setRecentBoard(state, recentBoard) {
     state.recentBoard = recentBoard;
   },
+  setInvitedBoard(state, invitedBoard) {
+    state.invitedBoard = invitedBoard;
+  },
   setBoardDetail(state, board) {
     saveSessionStorage('board', board);
     state.board = board;

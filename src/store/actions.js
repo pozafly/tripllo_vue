@@ -6,7 +6,6 @@ import checklistApi from '@/api/checklist';
 import checklistItemApi from '@/api/checklistItem';
 import commentApi from '@/api/comment';
 import pushMessageApi from '@/api/pushMessage';
-import { pushMessage } from '../api';
 
 const actions = {
   // 로그인
@@ -69,8 +68,10 @@ const actions = {
   },
   READ_BOARD_LIST({ commit }, { userId, recentLists }) {
     return boardApi.readBoardList({ userId, recentLists }).then(({ data }) => {
+      console.log(data.data);
       commit('setBoardList', data.data.boardList);
       commit('setRecentBoard', data.data.recentBoard);
+      commit('setInvitedBoard', data.data.invitedBoard);
     });
   },
   READ_BOARD_DETAIL({ commit }, boardId) {

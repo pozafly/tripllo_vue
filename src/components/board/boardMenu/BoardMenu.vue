@@ -210,8 +210,13 @@ export default {
         position: relative;
         margin-left: 13px;
         top: 17px;
+        display: inline-block;
         .profile-item {
           font-size: 13px;
+          width: 200px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
     }

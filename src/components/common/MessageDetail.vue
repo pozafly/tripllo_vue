@@ -31,13 +31,20 @@ export default {
       if (preInviteUser !== 'null' && preInviteUser !== null) {
         invitedUser = JSON.parse(preInviteUser);
       }
-      invitedUser.unshift(this.user.id);
-      const pushInviteUser = JSON.stringify(invitedUser);
+      if (!invitedUser.includes(this.user.id)) {
+        invitedUser.push(this.user.id);
+        const pushInviteUser = JSON.stringify(invitedUser);
+        console.log(pushInviteUser);
 
-      this.UPDATE_BOARD({
-        id: this.message.boardId,
-        invitedUser: pushInviteUser,
-      });
+        this.UPDATE_BOARD({
+          id: this.message.boardId,
+          invitedUser: pushInviteUser,
+        }).then(() => {
+          this.DELETE_PUSH_MESSAGE({ id: this.message.id });
+          this.$emit('close');
+          this.$router.push(`/board/${this.message.boardId}`);
+        });
+      }
     },
     rejectMessage() {
       let confirm = window.confirm('해당 메세지를 삭제하시겠습니까?');
