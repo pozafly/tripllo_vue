@@ -3,6 +3,20 @@
     <div>
       <awesome icon="comments" class="fas fa-comments"></awesome>
       <span class="body-card-text">Comments</span>
+      <div class="comments-display">
+        <div v-for="item in comment" :key="item.id">
+          <div>
+            <span class="comment-createdBy">@{{ item.createdBy }}</span>
+            <span class="comment-createdAt" v-if="!item.updatedAt">
+              {{ item.createdAt | formatDate }}
+            </span>
+            <span class="comment-createdAt" v-else>
+              {{ item.updatedAt | formatDate }} (수정됨)
+            </span>
+          </div>
+          <SideComment :item="item" />
+        </div>
+      </div>
       <textarea
         class="form-control comment-input textarea"
         ref="input"
@@ -27,20 +41,6 @@
           &times;
         </a>
       </template>
-      <div class="comments-display">
-        <div v-for="item in comment" :key="item.id">
-          <div>
-            <span class="comment-createdBy">@{{ item.createdBy }}</span>
-            <span class="comment-createdAt" v-if="!item.updatedAt">
-              {{ item.createdAt | formatDate }}
-            </span>
-            <span class="comment-createdAt" v-else>
-              {{ item.updatedAt | formatDate }} (수정됨)
-            </span>
-          </div>
-          <SideComment :item="item" />
-        </div>
-      </div>
     </div>
   </li>
 </template>

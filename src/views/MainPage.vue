@@ -2,7 +2,7 @@
   <div class="page">
     <Header />
     <section class="wrap">
-      <div class="recent-board" v-if="recentBoard.length !== 0">
+      <div class="recent-board" v-if="recentBoard">
         <div class="page-title">
           <awesome :icon="['far', 'clock']"></awesome>
           Recently Viewed

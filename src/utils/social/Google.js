@@ -1,28 +1,26 @@
 import { socialLogin, socialSignup } from '@/utils/social';
 
 const Google = {
-  login(googleUser) {
-    console.log('googel');
-    console.log(googleUser);
-    const req = {
-      name: googleUser.xt.Ad,
-      id: googleUser.xt.du,
-      email: googleUser.xt.du,
-      profileImg: googleUser.xt.iK,
+  async login(googleUser) {
+    const req = await {
+      name: googleUser.Nt.Ed,
+      id: googleUser.Nt.uu,
+      email: googleUser.Nt.uu,
+      profileImg: googleUser.Nt.fL,
       source: 'Google',
     };
-    socialLogin(req);
+    await socialLogin(req);
   },
 
-  signup(googleUser) {
-    const req = {
-      name: googleUser.xt.Ad,
-      id: googleUser.xt.du,
-      email: googleUser.xt.du,
-      profileImg: googleUser.xt.iK,
+  async signup(googleUser) {
+    const req = await {
+      name: googleUser.Nt.Ed,
+      id: googleUser.Nt.uu,
+      email: googleUser.Nt.uu,
+      profileImg: googleUser.Nt.fL,
       source: 'Google',
     };
-    socialSignup(req);
+    await socialSignup(req);
   },
 };
 
