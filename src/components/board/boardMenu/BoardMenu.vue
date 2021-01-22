@@ -114,16 +114,13 @@ export default {
     },
     insertStyle() {
       this.$nextTick(() => {
-        console.log(this.createdUser);
         if (
           this.createdUser.picture === null ||
           this.createdUser.picture === 'null'
         ) {
-          console.log(1);
           const icon = this.$el.querySelectorAll('.icon');
           Array.from(icon)[0].style.backgroundColor = this.board.bgColor;
         } else {
-          console.log(2);
           const imgList = this.$el.querySelectorAll('.img');
           Array.from(imgList).forEach(e => {
             e.style.backgroundImage = `url(${this.createdUser.picture})`;

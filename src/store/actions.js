@@ -6,6 +6,7 @@ import checklistApi from '@/api/checklist';
 import checklistItemApi from '@/api/checklistItem';
 import commentApi from '@/api/comment';
 import pushMessageApi from '@/api/pushMessage';
+import router from '@/routes';
 
 const actions = {
   // 로그인
@@ -74,9 +75,17 @@ const actions = {
     });
   },
   READ_BOARD_DETAIL({ commit }, boardId) {
-    return boardApi.readBoardDetail(boardId).then(({ data }) => {
-      commit('setBoardDetail', data.data);
-    });
+    return boardApi
+      .readBoardDetail(boardId)
+      .then(({ data }) => {
+        commit('setBoardDetail', data.data);
+      })
+      .catch(({ response }) => {
+        if (response.data.status === 'BAD_REQUEST') {
+          alert('해당 보드가 없습니다.');
+          router.push('/main');
+        }
+      });
   },
   ADD_BOARD(_, title) {
     return boardApi.addBoard(title);
@@ -84,7 +93,8 @@ const actions = {
   UPDATE_BOARD({ dispatch, state }, { id, title, bgColor, invitedUser }) {
     return boardApi
       .updateBoard(id, { title, bgColor, invitedUser })
-      .then(() => {
+      .then(({ data }) => {
+        if (data.data.invitedUser) return;
         dispatch('READ_BOARD_DETAIL', state.board.id);
       });
   },
@@ -222,7 +232,6 @@ const actions = {
     return pushMessageApi
       .readPushMessage(targetId)
       .then(({ data }) => {
-        console.log(data.data);
         commit('setPushMessage', data.data);
       })
       .catch(() => {

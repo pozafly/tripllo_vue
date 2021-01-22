@@ -34,7 +34,6 @@ export default {
       if (!invitedUser.includes(this.user.id)) {
         invitedUser.push(this.user.id);
         const pushInviteUser = JSON.stringify(invitedUser);
-        console.log(pushInviteUser);
 
         this.UPDATE_BOARD({
           id: this.message.boardId,
@@ -44,7 +43,7 @@ export default {
           this.$emit('close');
           this.$router.push(`/board/${this.message.boardId}`);
         });
-      }
+      } else alert('이미 초대되어 있습니다.');
     },
     rejectMessage() {
       let confirm = window.confirm('해당 메세지를 삭제하시겠습니까?');
