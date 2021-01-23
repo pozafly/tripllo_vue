@@ -36,7 +36,7 @@
 import Header from '@/components/common/Header';
 import UserAbout from '@/components/user/UserAbout';
 import UserSignout from '@/components/user/UserSignout';
-import { mapActions, mapState } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   components: { Header, UserAbout, UserSignout },
@@ -44,10 +44,20 @@ export default {
     ...mapState(['user']),
   },
   mounted() {
-    const imgList = this.$el.querySelectorAll('.img');
-    Array.from(imgList).forEach(e => {
-      e.style.backgroundImage = `url(${this.user.picture})`;
-    });
+    this.insertImg();
+  },
+  watch: {
+    user() {
+      this.insertImg();
+    },
+  },
+  methods: {
+    insertImg() {
+      const imgList = this.$el.querySelectorAll('.img');
+      Array.from(imgList).forEach(e => {
+        e.style.backgroundImage = `url(${this.user.picture})`;
+      });
+    },
   },
 };
 </script>

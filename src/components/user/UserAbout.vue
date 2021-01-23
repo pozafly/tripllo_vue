@@ -5,13 +5,20 @@
     <div class="about-wrap">
       <div class="profile-avatar">
         <h3>Avatar</h3>
-        <div class="avatar-wrap">
+        <div class="avatar-wrap" @click="$refs.file.click()">
           <div
             class="img"
-            v-if="this.user.picture !== null && this.user.picture !== 'null'"
+            v-if="user.picture !== null && user.picture !== 'null'"
           ></div>
           <awesome icon="user" class="fas fa-user" v-else></awesome>
           <span class="change">Change</span>
+          <input
+            type="file"
+            ref="file"
+            class="file"
+            accept="image/*"
+            @change="uploadFile"
+          />
         </div>
       </div>
       <form class="form">
@@ -71,11 +78,18 @@ export default {
     this.userData.picture = this.user.picture;
   },
   methods: {
-    ...mapActions(['UPDATE_USER']),
+    ...mapActions(['UPDATE_USER', 'UPLOAD_IMAGE']),
     updateUser() {
       this.UPDATE_USER(this.userData).then(() => {
         alert('회원정보 수정 완료');
       });
+    },
+    uploadFile() {
+      const file = this.$refs.file.files[0];
+      const imageData = new FormData();
+      imageData.append('data', file);
+
+      this.UPLOAD_IMAGE(imageData);
     },
   },
 };
@@ -122,6 +136,9 @@ export default {
         width: 110px;
         height: 110px;
         position: relative;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
       }
       .fa-user {
         background: #339af0;
@@ -131,6 +148,9 @@ export default {
         color: #fff;
         height: 60px;
         width: 60px;
+      }
+      .file {
+        visibility: hidden;
       }
       .change {
         position: absolute;

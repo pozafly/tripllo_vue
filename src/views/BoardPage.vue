@@ -84,7 +84,6 @@ export default {
   },
   data() {
     return {
-      loading: false,
       isEditTitle: false,
       inputTitle: '',
       isShowBoardSettings: '',

@@ -6,6 +6,7 @@ import checklistApi from '@/api/checklist';
 import checklistItemApi from '@/api/checklistItem';
 import commentApi from '@/api/comment';
 import pushMessageApi from '@/api/pushMessage';
+import uploadApi from '@/api/upload';
 import router from '@/routes';
 
 const actions = {
@@ -41,6 +42,8 @@ const actions = {
   },
   READ_USER({ commit }, userId) {
     return authApi.readUser(userId).then(({ data }) => {
+      console.log('야 유저 읽어와라');
+      console.log(data.data.picture);
       commit('setUser', data.data);
     });
   },
@@ -246,6 +249,22 @@ const actions = {
   DELETE_PUSH_MESSAGE({ dispatch, state }, { id }) {
     return pushMessageApi.deletePushMessage(id).then(() => {
       dispatch('READ_PUSH_MESSAGE', state.user.id);
+    });
+  },
+
+  // upload
+  UPLOAD(_, formData) {
+    return uploadApi.upload(formData);
+  },
+  UPLOAD_IMAGE({ dispatch, state }, imageData) {
+    return uploadApi.uploadImage(imageData).then(({ data }) => {
+      if (data !== 'FAIL') {
+        setTimeout(() => {
+          dispatch('READ_USER', state.user.id);
+        }, 1500);
+      } else {
+        alert('사진 업로드가 실패했습니다.');
+      }
     });
   },
 };
