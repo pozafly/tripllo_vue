@@ -3,7 +3,6 @@ import router from '@/routes';
 
 async function socialLogin(req, isSignup) {
   try {
-    console.log('오긴오냐?');
     const { data } = await store.dispatch('SOCIAL_LOGIN', req.id);
     store.commit('setUserToken', data.data.token);
     store.commit('setUser', data.data);

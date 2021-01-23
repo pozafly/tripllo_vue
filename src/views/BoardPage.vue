@@ -70,7 +70,7 @@ import Header from '@/components/common/Header';
 import List from '@/components/list/List';
 import AddList from '@/components/list/AddList';
 import BoardMenu from '@/components/board/boardMenu/BoardMenu';
-import dragger from '@/utils/dragger';
+import dragger from '@/utils/dragger/dragger';
 import Invite from '@/components/board/Invite';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
@@ -95,11 +95,13 @@ export default {
   computed: {
     ...mapState(['board', 'user']),
   },
-  created() {
+  mounted() {
     this.READ_BOARD_DETAIL(this.$route.params.boardId).then(() => {
-      this.makeRecent();
       this.setTheme(this.board.bgColor);
     });
+  },
+  beforeDestroy() {
+    this.makeRecent();
   },
   updated() {
     dragger.listDragger();
@@ -138,16 +140,27 @@ export default {
     // 4개의 recent board만 허락함.
     makeRecent() {
       let recentArray = [];
+      console.log(1);
+      console.log(this.user.recent);
       if (this.user.recent !== 'null' && this.user.recent !== null) {
         recentArray = JSON.parse(this.user.recent);
+        console.log(2);
+        console.log(recentArray);
       }
       recentArray.forEach((el, idx) => {
-        if (el === this.$route.params.boardId) recentArray.splice(idx, 1);
+        console.log(3);
+        if (el === this.board.id) recentArray.splice(idx, 1);
+        console.log(recentArray);
       });
       if (recentArray.length >= 4) recentArray.pop();
-
-      recentArray.unshift(this.$route.params.boardId);
+      console.log(4);
+      console.log(recentArray);
+      recentArray.unshift(this.board.id);
+      console.log(5);
+      console.log(recentArray);
       const recent = JSON.stringify(recentArray);
+      console.log(6);
+      console.log(recent);
       this.UPDATE_USER({ id: this.user.id, recent });
     },
     openModal(e) {

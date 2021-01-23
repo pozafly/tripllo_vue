@@ -18,7 +18,7 @@
 <script>
 import SideBase from '@/components/card/cardDetail/side/SideBase';
 import MessageDetail from './MessageDetail';
-import { mapActions, mapState } from 'vuex';
+import { mapState } from 'vuex';
 
 export default {
   components: {

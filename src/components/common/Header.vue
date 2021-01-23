@@ -90,18 +90,19 @@
         <span>Login</span>
       </router-link>
     </div>
-    <Sock @receive="receive" />
+    <!-- <Sock @receive="receive" /> -->
     <notifications group="notifyApp" position="top right" />
   </nav>
 </template>
 
 <script>
-import Sock from '@/components/common/Sock';
+import { socketConnect } from '@/utils/socket';
+import bus from '@/utils/bus';
 import MessageModal from '@/components/common/MessageModal';
 import { mapActions, mapGetters, mapState } from 'vuex';
 
 export default {
-  components: { Sock, MessageModal },
+  components: { MessageModal },
   data() {
     return {
       isMenuShow: false,
@@ -111,7 +112,7 @@ export default {
   },
   computed: {
     ...mapGetters(['isAuth']),
-    ...mapState(['user', 'bgColor', 'pushMessage']),
+    ...mapState(['user', 'bgColor', 'pushMessage', 'socket']),
   },
   watch: {
     bgColor() {
@@ -176,7 +177,17 @@ export default {
     });
   },
   created() {
+    if (this.socket === null) {
+      socketConnect();
+    }
+    bus.$on('receive-message', data => {
+      this.receive(data);
+    });
+
     this.READ_PUSH_MESSAGE(this.user.id);
+  },
+  beforeDestroy() {
+    bus.$off('receive-message');
   },
 };
 </script>

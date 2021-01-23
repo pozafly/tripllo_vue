@@ -70,20 +70,30 @@ export default {
   computed: {
     ...mapState(['boardList', 'recentBoard', 'invitedBoard', 'user']),
   },
+  watch: {
+    user() {
+      this.displayRecent();
+    },
+  },
   methods: {
     ...mapActions(['READ_BOARD_LIST', 'READ_BOARDS']),
     showAddBoard() {
       this.isShowAddBoard = !this.isShowAddBoard;
     },
+    async displayRecent() {
+      let recentLists = null;
+      console.log(this.user.recent);
+      if (this.user.recent) {
+        recentLists = JSON.parse(this.user.recent);
+      }
+      await this.READ_BOARD_LIST({ userId: this.user.id, recentLists });
+    },
   },
-  async created() {
-    await clearSessionStorage();
-
-    let recentLists = null;
-    if (this.user.recent) {
-      recentLists = JSON.parse(this.user.recent);
-    }
-    await this.READ_BOARD_LIST({ userId: this.user.id, recentLists });
+  created() {
+    clearSessionStorage();
+  },
+  mounted() {
+    this.displayRecent();
   },
 };
 </script>
@@ -92,7 +102,6 @@ export default {
 .page {
   height: 100%;
   .wrap {
-    /* background: lightgray; */
     max-width: 800px;
     margin: 0 auto;
     min-height: 80%;

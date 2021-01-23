@@ -9,7 +9,7 @@ const requireAuth = (to, from, next) => {
   if (store.getters.isAuth) {
     next();
   } else {
-    alert('로그인 되어있지 않습니다.');
+    // alert('로그인 되어있지 않습니다.');
     next(loginPath);
   }
 };
