@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import bus from '@/utils/bus.js';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -89,6 +90,7 @@ export default {
       const imageData = new FormData();
       imageData.append('data', file);
 
+      bus.$emit('start:spinner');
       this.UPLOAD_IMAGE(imageData);
     },
   },

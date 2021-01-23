@@ -8,6 +8,7 @@ import commentApi from '@/api/comment';
 import pushMessageApi from '@/api/pushMessage';
 import uploadApi from '@/api/upload';
 import router from '@/routes';
+import bus from '@/utils/bus';
 
 const actions = {
   // 로그인
@@ -42,8 +43,6 @@ const actions = {
   },
   READ_USER({ commit }, userId) {
     return authApi.readUser(userId).then(({ data }) => {
-      console.log('야 유저 읽어와라');
-      console.log(data.data.picture);
       commit('setUser', data.data);
     });
   },
@@ -260,9 +259,11 @@ const actions = {
     return uploadApi.uploadImage(imageData).then(({ data }) => {
       if (data !== 'FAIL') {
         setTimeout(() => {
+          bus.$emit('end:spinner');
           dispatch('READ_USER', state.user.id);
         }, 1500);
       } else {
+        bus.$emit('end:spinner');
         alert('사진 업로드가 실패했습니다.');
       }
     });
