@@ -30,8 +30,11 @@ const actions = {
     console.log(userId);
     return await authApi.validId(userId);
   },
-  READ_INVITE_USER(_, userId) {
-    return authApi.readInviteUser(userId);
+  READ_IS_INVITE_USER(_, userId) {
+    return authApi.readIsInviteUser(userId);
+  },
+  READ_INVITED_USER(_, userList) {
+    return authApi.readInvitedUser(userList);
   },
   async SIGNUP(_, userData) {
     return await authApi.signup(userData);

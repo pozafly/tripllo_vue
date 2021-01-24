@@ -19,8 +19,11 @@
               ({ memberId, boardTitle }) =>
                 $emit('close', { memberId, boardTitle })
             "
-            v-if="member.id !== user.id"
+            v-if="
+              member.id !== user.id && !board.invitedUser.includes(member.id)
+            "
           />
+          <!-- 위의 v-if는 자신의 id, 또 이미 이 보드에 초대 된 사람의 id가 조회되지 못하게 막은 것임 -->
         </ul>
       </div>
     </div>
@@ -47,7 +50,7 @@ export default {
   watch: {
     inputId: _.debounce(function(id) {
       if (id === '') this.memberList = [];
-      this.READ_INVITE_USER(id)
+      this.READ_IS_INVITE_USER(id)
         .then(({ data }) => {
           this.memberList = data.data;
         })
@@ -57,13 +60,13 @@ export default {
     }, 750),
   },
   computed: {
-    ...mapState(['card', 'user']),
+    ...mapState(['card', 'user', 'board']),
   },
   mounted() {
     this.$refs.inputId.focus();
   },
   methods: {
-    ...mapActions(['READ_INVITE_USER']),
+    ...mapActions(['READ_IS_INVITE_USER']),
   },
 };
 </script>

@@ -206,7 +206,7 @@ export default {
         display: inline-block;
         position: relative;
         margin-left: 13px;
-        top: 17px;
+        top: 25px;
         display: inline-block;
         .profile-item {
           font-size: 13px;

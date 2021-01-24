@@ -18,8 +18,15 @@ const authApi = {
   validId(userId) {
     return instance.get(`user/valid/${userId}`);
   },
-  readInviteUser(userId) {
-    return instance.get(`user/invite/${userId}`, {
+  readIsInviteUser(userId) {
+    return instance.get(`user/isInvite/${userId}`, {
+      headers: {
+        Authorization: store.state.token,
+      },
+    });
+  },
+  readInvitedUser(userList) {
+    return instance.get(`user/invited/${userList}`, {
       headers: {
         Authorization: store.state.token,
       },

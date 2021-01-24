@@ -76,9 +76,6 @@ export default {
       height: 40px;
       display: inline;
       border-radius: 50%;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
       cursor: auto;
     }
   }

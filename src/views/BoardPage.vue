@@ -30,6 +30,36 @@
               />
             </span>
 
+            <span class="board-item owner-user">
+              <span
+                href=""
+                class="invited-picture img"
+                v-if="user.picture !== null && user.picture !== 'null'"
+                :style="{ backgroundImage: `url(${user.picture})` }"
+              ></span>
+              <awesome
+                icon="user"
+                class="invited-picture fas fa-user"
+                v-else
+              ></awesome>
+            </span>
+
+            <span class="board-item invited-user">
+              <span v-for="item in invitedUser" :key="item.id">
+                <span
+                  href=""
+                  class="invited-picture img"
+                  v-if="item.picture !== null && item.picture !== 'null'"
+                  :style="{ backgroundImage: `url(${item.picture})` }"
+                ></span>
+                <awesome
+                  icon="user"
+                  class="invited-picture fas fa-user"
+                  v-else
+                ></awesome>
+              </span>
+            </span>
+
             <a
               class="board-header-btn show-menu"
               href=""
@@ -90,6 +120,7 @@ export default {
       cDragger: '',
       lDragger: '',
       isInvite: false,
+      invitedUser: [],
     };
   },
   computed: {
@@ -99,6 +130,7 @@ export default {
     this.READ_BOARD_DETAIL(this.$route.params.boardId).then(() => {
       this.setTheme(this.board.bgColor);
     });
+    this.setInvitedUser();
   },
   beforeDestroy() {
     this.makeRecent();
@@ -108,7 +140,12 @@ export default {
     dragger.cardDragger();
   },
   methods: {
-    ...mapActions(['READ_BOARD_DETAIL', 'UPDATE_BOARD', 'UPDATE_USER']),
+    ...mapActions([
+      'READ_BOARD_DETAIL',
+      'UPDATE_BOARD',
+      'UPDATE_USER',
+      'READ_INVITED_USER',
+    ]),
     ...mapMutations(['setTheme']),
     onClickTitle() {
       this.isEditTitle = true;
@@ -140,28 +177,26 @@ export default {
     // 4개의 recent board만 허락함.
     makeRecent() {
       let recentArray = [];
-      console.log(1);
-      console.log(this.user.recent);
       if (this.user.recent !== 'null' && this.user.recent !== null) {
         recentArray = JSON.parse(this.user.recent);
-        console.log(2);
-        console.log(recentArray);
       }
       recentArray.forEach((el, idx) => {
-        console.log(3);
         if (el === this.board.id) recentArray.splice(idx, 1);
-        console.log(recentArray);
       });
+
       if (recentArray.length >= 4) recentArray.pop();
-      console.log(4);
-      console.log(recentArray);
       recentArray.unshift(this.board.id);
-      console.log(5);
-      console.log(recentArray);
+
       const recent = JSON.stringify(recentArray);
-      console.log(6);
-      console.log(recent);
       this.UPDATE_USER({ id: this.user.id, recent });
+    },
+    setInvitedUser() {
+      this.READ_INVITED_USER(JSON.parse(this.board.invitedUser)).then(
+        ({ data }) => {
+          console.log(data.data);
+          this.invitedUser = data.data;
+        },
+      );
     },
     openModal(e) {
       if (e.target.nodeName === 'SPAN') this.isInvite = true;
@@ -202,7 +237,7 @@ export default {
         height: 100%;
         .board-header {
           flex: none;
-          padding: 8px 4px 8px 8px;
+          padding: 0px 4px 8px 8px;
           margin: 0;
           height: 36px;
           line-height: 32px;
@@ -222,15 +257,40 @@ export default {
             padding: 5px 10px;
             background-color: rgba(255, 255, 255, 0.5);
             transition: all 0.3s;
+            margin-left: 10px;
             &:hover,
             &:focus {
               background-color: rgba(255, 255, 255, 0.3);
             }
-            &:nth-child(2) {
-              margin-left: 10px;
+            &:nth-child(1) {
+              margin-left: 3px;
             }
             .invite-modal {
               left: 0px;
+            }
+            &.invited-user,
+            &.owner-user {
+              background: none;
+              margin-right: -7px;
+              cursor: auto;
+            }
+            .invited-picture {
+              padding: 5px 14px;
+              background-color: rgba(255, 255, 255, 0.5);
+              color: white;
+              transition: all 0.3s;
+              &.fa-user {
+                position: relative;
+                top: 7px;
+                padding: 7px 8px;
+                border-radius: 50%;
+              }
+              &.img {
+                border-radius: 50%;
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+              }
             }
           }
           .board-header-btn {
