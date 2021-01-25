@@ -25,34 +25,8 @@
       <ul class="body-items">
         <DetailLabels />
         <DetailDueDate />
-        <li class="body-item">
-          <awesome icon="layer-group" class="fas fa-layer-group"></awesome>
-          <span class="body-card-text">Description</span>
-          <textarea
-            class="form-control card-desc textarea"
-            ref="inputDesc"
-            v-model="description"
-            v-if="isEditDesc"
-            :readonly="!isEditDesc"
-            spellcheck="false"
-            @blur="onSubmitDesc"
-          />
-          <textarea
-            v-else
-            class="form-control card-desc"
-            @click="onEditDesc"
-            :value="card.description"
-            spellcheck="false"
-            placeholder="Add a more detailed description..."
-          >
-          </textarea>
-          <template v-if="isEditDesc">
-            <button class="card-desc-btn" @click="onSubmitDesc">Save</button>
-            <a href="" class="desc-cancel" @click.prevent="isEditDesc = false">
-              &times;
-            </a>
-          </template>
-        </li>
+        <DetailDescription :card="card" />
+        <DetailAttachment />
         <DetailChecklist v-if="checklists" />
         <DetailLocation />
         <DetailComment />
@@ -72,7 +46,9 @@ import DetailLabels from './detailItems/DetailLabels';
 import DetailChecklist from './detailItems/detailChecklists/DetailChecklist';
 import DetailDueDate from './detailItems/DetailDueDate';
 import DetailLocation from './detailItems/detailLocation/DetailLocation';
+import DetailDescription from './detailItems/DetailDescription';
 import DetailComment from './detailItems/detailComment/DetailComment';
+import DetailAttachment from './detailItems/detailAttachment/DetailAttachment';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
@@ -82,14 +58,14 @@ export default {
     DetailLabels,
     DetailChecklist,
     DetailDueDate,
+    DetailDescription,
     DetailLocation,
     DetailComment,
+    DetailAttachment,
   },
   data() {
     return {
       isEditTitle: false,
-      isEditDesc: false,
-      description: '',
       listTitle: '',
     };
   },
@@ -111,6 +87,7 @@ export default {
       'UPDATE_CARD',
       'READ_CHECKLIST',
       'READ_COMMENT',
+      'READ_FILE',
     ]),
     ...mapMutations(['deleteComment']),
     onEditTitle() {
@@ -124,23 +101,7 @@ export default {
       if (inputTitle === this.card.title) return;
       this.UPDATE_CARD({ id: this.card.id, title: inputTitle });
     },
-    onEditDesc() {
-      this.isEditDesc = true;
-      this.description = this.card.description;
-      this.$nextTick(() => this.$refs.inputDesc.focus());
-    },
-    // relatedTarget: 이벤트 발생 타겟을 의미함.
-    onSubmitDesc({ relatedTarget }) {
-      this.isEditDesc = false;
-
-      // body를 눌렀을 때, 이벤트 타겟이 null로 나오므로 그냥 통과(저장된단 말임.)
-      if (relatedTarget) {
-        if (relatedTarget.className === 'desc-cancel') return; // x버튼을 눌렀을 때는 return
-      }
-      if (this.description === this.card.description) return;
-      this.UPDATE_CARD({ id: this.card.id, description: this.description });
-    },
-    onKeyupEnter() {
+    onKeyupEnter(event) {
       event.target.blur();
     },
   },
@@ -150,6 +111,7 @@ export default {
     await this.READ_COMMENT(this.card.id).catch(({ response }) => {
       if (response.data.status === 'NOT_FOUND') this.deleteComment();
     });
+    await this.READ_FILE(this.card.id);
   },
 };
 </script>
@@ -215,46 +177,6 @@ export default {
         overflow-wrap: break-word;
         height: 28px;
         font-size: 18px;
-      }
-      .card-desc {
-        display: block;
-        margin: 13px 0 7px 35px;
-        width: 92%;
-        overflow-wrap: break-word;
-        resize: none;
-        border: none;
-        font-family: Arial;
-        font-size: 14px;
-        background: none;
-        cursor: pointer;
-        height: 5rem;
-        background: rgba(9, 30, 66, 0.04);
-        &:hover {
-          background: rgba(9, 30, 66, 0.1);
-        }
-        &.textarea {
-          height: 7rem;
-          background: #fff;
-        }
-      }
-      .card-desc-btn {
-        display: inline;
-        margin: 0 0 40px 27px;
-        width: 55px;
-        height: 33px;
-        position: relative;
-        left: 8px;
-        &:hover {
-          filter: brightness(90%);
-        }
-      }
-      .desc-cancel {
-        margin-left: 20px;
-        font-size: 20px;
-        color: black;
-        &:hover {
-          font-weight: 700;
-        }
       }
     }
   }

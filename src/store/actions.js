@@ -252,8 +252,24 @@ const actions = {
   },
 
   // upload
-  UPLOAD(_, formData) {
-    return uploadApi.upload(formData);
+  READ_FILE({ commit }, cardId) {
+    return uploadApi.readFile(cardId).then(({ data }) => {
+      commit('setFile', data.data);
+    });
+  },
+  UPLOAD({ dispatch, state }, formData) {
+    return uploadApi.upload(formData).then(({ data }) => {
+      console.log(data);
+      if (data !== 'FAIL') {
+        setTimeout(() => {
+          bus.$emit('end:spinner');
+          dispatch('READ_FILE', state.card.id);
+        }, 1500);
+      } else {
+        bus.$emit('end:spinner');
+        alert('파일 업로드가 실패했습니다.');
+      }
+    });
   },
   UPLOAD_IMAGE({ dispatch, state }, imageData) {
     return uploadApi.uploadImage(imageData).then(({ data }) => {
@@ -266,6 +282,11 @@ const actions = {
         bus.$emit('end:spinner');
         alert('사진 업로드가 실패했습니다.');
       }
+    });
+  },
+  DELETE_FILE({ dispatch, state }, fileId) {
+    return uploadApi.deleteFile(fileId).then(() => {
+      dispatch('READ_FILE', state.card.id);
     });
   },
 };

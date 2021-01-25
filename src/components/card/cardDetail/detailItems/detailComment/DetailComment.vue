@@ -6,6 +6,15 @@
       <div class="comments-display">
         <div v-for="item in comment" :key="item.id">
           <div>
+            <span class="profile-wrap" v-if="!item.picture">
+              <awesome icon="user" class="fas fa-user"></awesome>
+            </span>
+            <span
+              :style="{ backgroundImage: `url(${item.picture})` }"
+              class="user-picture"
+              v-else
+            ></span>
+
             <span class="comment-createdBy">@{{ item.createdBy }}</span>
             <span class="comment-createdAt" v-if="!item.updatedAt">
               {{ item.createdAt | formatDate }}
@@ -14,7 +23,9 @@
               {{ item.updatedAt | formatDate }} (수정됨)
             </span>
           </div>
-          <SideComment :item="item" />
+          <div class="side-comment">
+            <SideComment :item="item" />
+          </div>
         </div>
       </div>
       <textarea
@@ -136,10 +147,32 @@ export default {
   margin: 13px 0 7px 35px;
   width: 92%;
   overflow-wrap: break-word;
+  .side-comment {
+    margin-top: 5px;
+    margin-left: 42px;
+  }
+  .profile-wrap {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: white;
+    border-radius: 50%;
+    padding: 4px 9px;
+  }
+  .user-picture {
+    padding: 3px 14px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
   .comment-createdBy {
+    position: relative;
+    top: 3px;
     font-size: 14px;
+    margin-left: 8px;
   }
   .comment-createdAt {
+    position: relative;
+    top: 3px;
     font-size: 12px;
     margin-left: 13px;
   }

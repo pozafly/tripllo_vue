@@ -17,6 +17,24 @@
             <span v-else class="board-item" @click="onClickTitle">
               {{ board.title }}
             </span>
+
+            <span class="board-item owner-user">
+              <span
+                href=""
+                class="invited-picture img"
+                v-if="
+                  board.createdByPicture !== null &&
+                    board.createdByPicture !== 'null'
+                "
+                :style="{ backgroundImage: `url(${board.createdByPicture})` }"
+              ></span>
+              <awesome
+                icon="user"
+                class="invited-picture fas fa-user"
+                v-else
+              ></awesome>
+            </span>
+
             <span class="board-item" @click="openModal">
               Invite
               <Invite
@@ -31,23 +49,6 @@
             </span>
 
             <span v-if="board.invitedUser">
-              <span class="board-item owner-user">
-                <span
-                  href=""
-                  class="invited-picture img"
-                  v-if="
-                    board.createdByPicture !== null &&
-                      board.createdByPicture !== 'null'
-                  "
-                  :style="{ backgroundImage: `url(${board.createdByPicture})` }"
-                ></span>
-                <awesome
-                  icon="user"
-                  class="invited-picture fas fa-user"
-                  v-else
-                ></awesome>
-              </span>
-
               <span class="board-item invited-user">
                 <span v-for="item in invitedUser" :key="item.id">
                   <span
@@ -132,7 +133,6 @@ export default {
     ...mapState(['board', 'user']),
   },
   created() {
-    console.log(this.board.invitedUser);
     this.READ_BOARD_DETAIL(this.$route.params.boardId).then(() => {
       this.setTheme(this.board.bgColor);
       this.setInvitedUser();
@@ -200,7 +200,6 @@ export default {
       if (!this.board.invitedUser) return;
       this.READ_INVITED_USER(JSON.parse(this.board.invitedUser)).then(
         ({ data }) => {
-          console.log(data.data);
           this.invitedUser = data.data;
         },
       );

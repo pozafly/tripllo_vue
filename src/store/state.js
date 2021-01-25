@@ -22,6 +22,7 @@ const state = {
   comment: [],
   socket: null,
   pushMessage: '',
+  file: [],
 };
 
 export default state;

@@ -78,6 +78,11 @@ const mutations = {
   deletePushMessage(state) {
     state.pushMessage = '';
   },
+
+  // file upload
+  setFile(state, file) {
+    state.file = file;
+  },
 };
 
 export default mutations;
