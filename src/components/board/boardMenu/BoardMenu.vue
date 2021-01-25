@@ -13,7 +13,8 @@
           <div
             class="img"
             v-if="
-              createdUser.picture !== null && createdUser.picture !== 'null'
+              board.createdByPicture !== null &&
+                board.createdByPicture !== 'null'
             "
           ></div>
           <div v-else class="icon">
@@ -79,7 +80,7 @@ export default {
         black: '#3a4142',
       },
       isPicker: false,
-      createdUser: {},
+      // createdUser: {},
     };
   },
   computed: {
@@ -91,13 +92,11 @@ export default {
       el.style.backgroundColor = el.dataset.value;
     });
 
-    const { data } = await this.READ_CREATED_USER(this.board.createdBy);
-    this.createdUser = await data.data;
     await this.insertStyle();
   },
   methods: {
     ...mapMutations(['setTheme']),
-    ...mapActions(['DELETE_BOARD', 'UPDATE_BOARD', 'READ_CREATED_USER']),
+    ...mapActions(['DELETE_BOARD', 'UPDATE_BOARD']),
     onClose() {
       this.$emit('close');
     },
@@ -115,15 +114,15 @@ export default {
     insertStyle() {
       this.$nextTick(() => {
         if (
-          this.createdUser.picture === null ||
-          this.createdUser.picture === 'null'
+          this.board.createdByPicture === null ||
+          this.board.createdByPicture === 'null'
         ) {
           const icon = this.$el.querySelectorAll('.icon');
           Array.from(icon)[0].style.backgroundColor = this.board.bgColor;
         } else {
           const imgList = this.$el.querySelectorAll('.img');
           Array.from(imgList).forEach(e => {
-            e.style.backgroundImage = `url(${this.createdUser.picture})`;
+            e.style.backgroundImage = `url(${this.board.createdByPicture})`;
           });
         }
       });

@@ -19,9 +19,7 @@
               ({ memberId, boardTitle }) =>
                 $emit('close', { memberId, boardTitle })
             "
-            v-if="
-              member.id !== user.id && !board.invitedUser.includes(member.id)
-            "
+            v-if="invitedUserFiler(member)"
           />
           <!-- 위의 v-if는 자신의 id, 또 이미 이 보드에 초대 된 사람의 id가 조회되지 못하게 막은 것임 -->
         </ul>
@@ -67,6 +65,20 @@ export default {
   },
   methods: {
     ...mapActions(['READ_IS_INVITE_USER']),
+    invitedUserFiler(member) {
+      if (this.board.invitedUser) {
+        return (
+          !this.board.invitedUser.includes(member.id) &&
+          this.user.id !== member.id &&
+          this.board.createdBy !== member.id
+        );
+      } else {
+        return (
+          !this.board.invitedUser.includes(member.id) &&
+          this.board.createdBy !== member.id
+        );
+      }
+    },
   },
 };
 </script>

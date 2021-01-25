@@ -30,33 +30,38 @@
               />
             </span>
 
-            <span class="board-item owner-user">
-              <span
-                href=""
-                class="invited-picture img"
-                v-if="user.picture !== null && user.picture !== 'null'"
-                :style="{ backgroundImage: `url(${user.picture})` }"
-              ></span>
-              <awesome
-                icon="user"
-                class="invited-picture fas fa-user"
-                v-else
-              ></awesome>
-            </span>
-
-            <span class="board-item invited-user">
-              <span v-for="item in invitedUser" :key="item.id">
+            <span v-if="board.invitedUser">
+              <span class="board-item owner-user">
                 <span
                   href=""
                   class="invited-picture img"
-                  v-if="item.picture !== null && item.picture !== 'null'"
-                  :style="{ backgroundImage: `url(${item.picture})` }"
+                  v-if="
+                    board.createdByPicture !== null &&
+                      board.createdByPicture !== 'null'
+                  "
+                  :style="{ backgroundImage: `url(${board.createdByPicture})` }"
                 ></span>
                 <awesome
                   icon="user"
                   class="invited-picture fas fa-user"
                   v-else
                 ></awesome>
+              </span>
+
+              <span class="board-item invited-user">
+                <span v-for="item in invitedUser" :key="item.id">
+                  <span
+                    href=""
+                    class="invited-picture img"
+                    v-if="item.picture !== null && item.picture !== 'null'"
+                    :style="{ backgroundImage: `url(${item.picture})` }"
+                  ></span>
+                  <awesome
+                    icon="user"
+                    class="invited-picture fas fa-user"
+                    v-else
+                  ></awesome>
+                </span>
               </span>
             </span>
 
@@ -126,11 +131,12 @@ export default {
   computed: {
     ...mapState(['board', 'user']),
   },
-  mounted() {
+  created() {
+    console.log(this.board.invitedUser);
     this.READ_BOARD_DETAIL(this.$route.params.boardId).then(() => {
       this.setTheme(this.board.bgColor);
+      this.setInvitedUser();
     });
-    this.setInvitedUser();
   },
   beforeDestroy() {
     this.makeRecent();
@@ -191,6 +197,7 @@ export default {
       this.UPDATE_USER({ id: this.user.id, recent });
     },
     setInvitedUser() {
+      if (!this.board.invitedUser) return;
       this.READ_INVITED_USER(JSON.parse(this.board.invitedUser)).then(
         ({ data }) => {
           console.log(data.data);
@@ -237,9 +244,8 @@ export default {
         height: 100%;
         .board-header {
           flex: none;
-          padding: 0px 4px 8px 8px;
+          padding: 8px 4px 8px 8px;
           margin: 0;
-          height: 36px;
           line-height: 32px;
           &input[type='text'] {
             width: 200px;

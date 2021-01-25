@@ -49,9 +49,6 @@ const actions = {
       commit('setUser', data.data);
     });
   },
-  READ_CREATED_USER(_, createdUser) {
-    return authApi.readUser(createdUser);
-  },
   async UPDATE_USER(
     { dispatch, state },
     { id, email, name, bio, picture, recent, favorite },

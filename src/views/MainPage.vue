@@ -82,7 +82,6 @@ export default {
     },
     async displayRecent() {
       let recentLists = null;
-      console.log(this.user.recent);
       if (this.user.recent) {
         recentLists = JSON.parse(this.user.recent);
       }
