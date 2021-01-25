@@ -7,6 +7,7 @@ import checklistItemApi from '@/api/checklistItem';
 import commentApi from '@/api/comment';
 import pushMessageApi from '@/api/pushMessage';
 import uploadApi from '@/api/upload';
+import emailApi from '@/api/email';
 import router from '@/routes';
 import bus from '@/utils/bus';
 
@@ -288,6 +289,19 @@ const actions = {
     return uploadApi.deleteFile(fileId).then(() => {
       dispatch('READ_FILE', state.card.id);
     });
+  },
+
+  // email
+  SEND_EMAIL(_, { userId, userEmail }) {
+    return emailApi
+      .sendEmail({ userId, userEmail })
+      .then(data => {
+        console.log(data);
+        alert(data.data.message);
+      })
+      .catch(({ response }) => {
+        alert(response.data.message);
+      });
   },
 };
 

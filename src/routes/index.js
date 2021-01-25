@@ -38,6 +38,10 @@ const router = new VueRouter({
           path: 'signup',
           component: () => import('@/components/auth/SignupForm'),
         },
+        {
+          path: 'findPassword',
+          component: () => import('@/components/auth/FindPassword'),
+        },
       ],
     },
     {

@@ -28,3 +28,4 @@ export const checklistItem = createInstanceWithAuth('checklistItem');
 export const comments = createInstanceWithAuth('comment');
 export const pushMessage = createInstanceWithAuth('pushMessage');
 export const upload = createInstanceWithAuth('upload');
+export const email = createInstanceWithAuth('email');

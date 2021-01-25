@@ -50,6 +50,10 @@
       <router-link to="/auth/signup" class="go_to_signup">
         Do you want to Sign up?
       </router-link>
+      <span class="middle-text"> | </span>
+      <router-link to="/auth/findPassword" class="go_to_signup">
+        Lost your password?
+      </router-link>
     </div>
   </div>
 </template>
@@ -223,6 +227,10 @@ export default {
     display: flex;
     justify-content: center;
     font-size: 0.92rem;
+    .middle-text {
+      margin: 0 13px;
+      color: #5e6c84;
+    }
   }
 }
 </style>

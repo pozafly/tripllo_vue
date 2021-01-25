@@ -78,7 +78,7 @@
 <script>
 import _ from 'lodash';
 import { validateId, validatePw, validateEmail } from '@/utils/validation';
-import { mapActions, mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   data() {
