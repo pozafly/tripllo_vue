@@ -25,7 +25,7 @@
       <button class="checkbox-input-btn" @click="onSubmitTitle">
         Save
       </button>
-      <a href="" class="checkbox-input-cancle" @click.prevent="isTitle = false">
+      <a href="" class="checkbox-input-cancel" @click.prevent="isTitle = false">
         &times;
       </a>
     </span>
@@ -60,7 +60,7 @@
       >
         Save
       </button>
-      <a href="" class="checkbox-input-cancle checkbox-item-cancle">
+      <a href="" class="checkbox-input-cancel checkbox-item-cancel">
         &times;
       </a>
     </span>
@@ -117,7 +117,7 @@ export default {
     onSubmitTitle({ relatedTarget }) {
       this.isTitle = false;
       if (relatedTarget) {
-        if (relatedTarget.className === 'checkbox-input-cancle') return;
+        if (relatedTarget.className === 'checkbox-input-cancel') return;
       }
       if (this.inputTitle.trim() === this.checklist.title) return;
 
@@ -137,7 +137,7 @@ export default {
       if (relatedTarget) {
         if (
           relatedTarget.className ===
-          'checkbox-input-cancle checkbox-item-cancle'
+          'checkbox-input-cancel checkbox-item-cancel'
         )
           return;
       }
@@ -216,7 +216,7 @@ export default {
     margin-left: 34px;
   }
 }
-.checkbox-input-cancle {
+.checkbox-input-cancel {
   color: black;
   display: inline;
   margin-left: 20px;

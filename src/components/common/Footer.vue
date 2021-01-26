@@ -6,7 +6,7 @@
       <a href="https://github.com/pozafly" target="_sub" class="footer-item">
         pozafly
       </a>
-      © 2020
+      © 2021
     </span>
   </footer>
 </template>

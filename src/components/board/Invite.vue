@@ -73,10 +73,7 @@ export default {
           this.board.createdBy !== member.id
         );
       } else {
-        return (
-          !this.board.invitedUser.includes(member.id) &&
-          this.board.createdBy !== member.id
-        );
+        return this.user.id !== member.id;
       }
     },
   },

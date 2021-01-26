@@ -5,7 +5,7 @@
       <div class="detail-duedate-item">
         {{ card.dueDate | formatDate }}
       </div>
-      <button class="duedate-cancle" @click="isDelete = true">···</button>
+      <button class="duedate-cancel" @click="isDelete = true">···</button>
       <div class="duedate-delete" v-if="isDelete">
         <SideBase @close="isDelete = false">
           <div slot="header" class="header-text">Delete DueDate</div>
@@ -67,7 +67,7 @@ export default {
 .detail-duedate-item:nth-child(2) {
   margin-left: 39px;
 }
-.duedate-cancle {
+.duedate-cancel {
   color: black;
   display: inline;
   margin: 19px 0 3px 3px;

@@ -15,7 +15,7 @@
         <!-- 햄버거 -->
         <div class="board-inside-icon" v-if="card.description">
           <awesome
-            icon="layer-group"
+            icon="align-left"
             class="fas fa-layer-group board-inside-desc"
           ></awesome>
         </div>
@@ -79,7 +79,6 @@ export default {
   },
   mounted() {
     this.labelSetting();
-    console.log(this.card.isAttachment);
   },
 };
 </script>

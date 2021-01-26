@@ -38,15 +38,17 @@ export default {
         return;
       }
 
-      let sameName = true;
-      this.file.filter(el => {
-        if (el.fileName === file.name) {
-          alert('같은 이름의 파일은 업로드할 수 없습니다.');
-          sameName = false;
-          return;
-        }
-      });
-      if (!sameName) return;
+      if (this.file) {
+        let sameName = true;
+        this.file.forEach(el => {
+          if (el.fileName === file.name) {
+            alert('같은 이름의 파일은 업로드할 수 없습니다.');
+            sameName = false;
+            return;
+          }
+        });
+        if (!sameName) return;
+      }
 
       fileData.append('data', file);
       fileData.append('cardId', this.card.id);

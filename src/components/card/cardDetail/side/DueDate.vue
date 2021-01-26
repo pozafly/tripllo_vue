@@ -14,7 +14,7 @@
       </div>
       <div>
         <button class="duedate-btn save-btn" @click="onSave">Save</button>
-        <button class="duedate-btn remove-btn" @click="onRemove">Remove</button>
+        <button class="duedate-btn remove-btn" @click="onRemove">Cancel</button>
       </div>
     </div>
   </SideBase>

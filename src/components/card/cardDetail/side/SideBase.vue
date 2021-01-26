@@ -2,7 +2,7 @@
   <div class="base-wrap">
     <div class="header">
       <slot name="header" class="header-text">header</slot>
-      <a @click="$emit('close')" class="header-cancle">&times;</a>
+      <a @click="$emit('close')" class="header-cancel">&times;</a>
     </div>
     <div class="content">
       <slot name="content">content</slot>
@@ -50,7 +50,7 @@ export default {};
       white-space: nowrap;
       z-index: 1;
     }
-    .header-cancle {
+    .header-cancel {
       display: inline-block;
       font-weight: 400;
       text-align: center;

@@ -93,7 +93,8 @@ export default {
       background-color: #fff;
       border-radius: 3px;
       font-family: Arial;
-      font-size: 14px;
+      font-size: 16px;
+      color: #5c5c5d;
     }
   }
   .cancel-add-btn {

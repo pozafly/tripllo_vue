@@ -1,21 +1,101 @@
 <template>
   <div class="intro-wrap">
-    <header>
-      <ul class="header-wrap">
-        <li><awesome icon="suitcase" class="fas fa-suitcase"></awesome></li>
-        <li><span class="title">Tripllo</span></li>
-      </ul>
-    </header>
-    <main>
-      <p class="main-text">
-        Tripllo는 이슈트래커인 웹기반 Trello 어플리케이션을 Clone한
-        어플리케이션입니다. Trello는 팀이보다 협력 적으로 작업하고 더 많은
-        작업을 수행 할 수 있도록 지원합니다. Trello의 보드, 목록 및 카드를
-        사용하면 팀이 재미 있고 유연하며 보람있는 방식으로 프로젝트를 구성하고
-        우선 순위를 지정할 수 있습니다.
-      </p>
-    </main>
-    <Footer />
+    <div class="header-wrap">
+      <div class="fixed" ref="header">
+        <header>
+          <ul class="title-wrap">
+            <li><awesome icon="suitcase" class="fas fa-suitcase"></awesome></li>
+            <li><span class="title">Tripllo</span></li>
+          </ul>
+        </header>
+        <div class="button-wrap">
+          <button class="move-btn" @click="$router.push('/auth/login')">
+            Login
+          </button>
+          <button class="move-btn" @click="$router.push('/auth/signUp')">
+            Sign Up
+          </button>
+        </div>
+      </div>
+      <main>
+        <div class="main-wrap">
+          <div class="main-text">
+            <p class="main-text-item text1">
+              Tripllo는 이슈트래커인 웹기반 Trello 어플리케이션을 Clone한
+              <br />웹 어플리케이션 입니다.
+            </p>
+            <p class="main-text-item text2">
+              가볍게 계획을 세워야 할 때, 세운 계획을 Team과 공유하고 싶을 때
+              사용할 수 있습니다.
+            </p>
+          </div>
+          <img
+            src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/main2.jpg"
+            class="img img2"
+          />
+        </div>
+        <div class="space"></div>
+        <div class="main-wrap main2">
+          <div class="main-text">
+            <p class="main-text-item text3">
+              카드 속 다양한 기능
+            </p>
+            <p class="main-text-item text4">
+              계획을 세우기 유용하도록 <br />
+              몇 가지 기능이 포함되어 있습니다.
+            </p>
+            <ul class="list">
+              <li class="list">라벨링</li>
+              <li class="list">체크리스트</li>
+              <li class="list">마감시간</li>
+              <li class="list">파일업로드</li>
+              <li class="list">위치지정</li>
+            </ul>
+          </div>
+          <img
+            src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/main3.jpg"
+            class="img img3"
+          />
+        </div>
+        <div class="space"></div>
+        <div class="main-wrap">
+          <div class="main-text">
+            <p class="main-text-item text5">
+              사용한 기술
+            </p>
+          </div>
+        </div>
+        <div class="skill">
+          <img
+            src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/vue.png"
+            class="img4"
+          />
+          <img
+            src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/springboot.png"
+            class="img4"
+          />
+          <img
+            src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/aws.jpg"
+            class="img4"
+          />
+        </div>
+        <div class="skill-text">
+          <span>VUE</span>
+          <span>SpringBoot</span>
+          <span>AWS</span>
+          말고 front vue, vuex, 등등 back springboot, mybais, mysql 배포 aws
+          codedeploy travis 요정도로 적는 작업을 합시다.
+        </div>
+
+        <div class="side-btn">
+          <button class="side-btn-item">Tripllo 사용설명서</button>
+          <button class="side-btn-item">Tripllo GITHUB</button>
+        </div>
+        <div class="footer">
+          <Footer />
+        </div>
+      </main>
+    </div>
   </div>
 </template>
 
@@ -24,43 +104,186 @@ import Footer from '@/components/common/Footer';
 
 export default {
   components: { Footer },
+  created: function() {
+    // 핸들러 등록하기
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  beforeDestroy: function() {
+    // 핸들러 제거하기(컴포넌트 또는 SPA의 경우 절대 잊지 말아 주세요!)
+    window.removeEventListener('scroll', this.handleScroll);
+  },
+  methods: {
+    handleScroll() {
+      if (window.scrollY === 0) {
+        this.$refs.header.style.background = 'none';
+      } else this.$refs.header.style.background = 'rgba(0,0,0,0.4)';
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .intro-wrap {
   height: 100%;
-  background: #06beb6; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #0979bf,
-    #4f68c5
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #0979bf,
-    #4f68c5
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  header {
-    font-family: 'Pacifico', cursive;
-    color: #fff;
+  .header-wrap {
+    position: relative;
+    background: #06beb6; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to right,
+      #0979bf,
+      #4f68c5
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to right,
+      #0979bf,
+      #4f68c5
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     display: flex;
-    justify-content: center;
-    font-size: 2rem;
+    flex-direction: column;
     align-items: center;
-    .header-wrap {
-      margin: 32px 0;
-      padding: 0.1rem;
-      display: flex;
-      position: relative;
-      .fas.fa-suitcase {
-        font-size: 3rem;
-        padding-right: 0.3rem;
+    .fixed {
+      transition: all 0.8s ease;
+      height: 130px;
+      width: 100%;
+      position: fixed;
+      background: linear-gradient(to right, #0979bf, #4f68c5);
+      header {
+        font-family: 'Pacifico', cursive;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        font-size: 2rem;
+        align-items: center;
+        .title-wrap {
+          margin: 32px 0;
+          padding: 0.1rem;
+          display: flex;
+          position: relative;
+          .fas.fa-suitcase {
+            font-size: 3rem;
+            padding-right: 0.3rem;
+          }
+        }
+      }
+      .button-wrap {
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        width: 180px;
+        top: 40px;
+        right: 20px;
+        .move-btn {
+          width: 85px;
+          height: 40px;
+          box-shadow: rgba(0, 0, 0, 0.2) 0 0 19px;
+          background-color: #43ab5f;
+          &:hover {
+            filter: brightness(90%);
+          }
+        }
       }
     }
-  }
-  .main-text {
-    color: #fff;
+
+    main {
+      margin-top: 170px;
+      width: 1100px;
+      height: 630px;
+      .main-wrap {
+        display: flex;
+        justify-content: space-between;
+        &.main2 {
+          flex-direction: row-reverse;
+        }
+        .main-text {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          .main-text-item {
+            color: #fff;
+            width: 500px;
+            word-break: keep-all;
+            &.text1 {
+              font-weight: 680;
+              font-size: 35px;
+            }
+            &.text2 {
+              font-size: 25px;
+              font-weight: 300;
+            }
+            &.text3 {
+              font-weight: 680;
+              font-size: 35px;
+              color: #364865;
+            }
+            &.text4 {
+              color: #364865;
+              font-size: 25px;
+              font-weight: 300;
+            }
+            &.text5 {
+              width: auto;
+              color: #364865;
+              font-size: 35px;
+              font-weight: 680;
+            }
+          }
+          .list {
+            margin-left: 15px;
+            list-style: disc !important;
+            color: #364865;
+          }
+        }
+        .img {
+          border-radius: 10px;
+          box-shadow: rgba(0, 0, 0, 0.5) 0 0 19px;
+          &.img2 {
+            width: 500px;
+          }
+          &.img3 {
+            width: 500px;
+          }
+        }
+      }
+      .skill {
+        display: flex;
+        justify-content: space-evenly;
+        .img4 {
+          width: 200px;
+          border-radius: 10px;
+          box-shadow: rgba(0, 0, 0, 0.2) 0 0 19px;
+        }
+      }
+      .skill-text {
+        display: flex;
+        justify-content: space-evenly;
+        margin: 30px 0 50px;
+        font-size: 35px;
+        color: #364865;
+        font-size: 35px;
+        font-weight: 680;
+      }
+      .space {
+        height: 110px;
+        .footer {
+          position: relative;
+          bottom: 1px;
+        }
+      }
+      .side-btn {
+        border: 1px solid black;
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 150px;
+        .side-btn-item {
+          width: 250px;
+          height: 100px;
+          font-size: 20px;
+          &:hover {
+            filter: brightness(90%);
+          }
+        }
+      }
+    }
   }
 }
 </style>

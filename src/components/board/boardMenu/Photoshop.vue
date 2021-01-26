@@ -6,7 +6,7 @@
       class="chrome-picker"
     ></chrome-color-picker>
     <button class="btn chrome-choice" @click="onSelect">선택</button>
-    <button class="btn chrome-cancle" @click="onCancle">취소</button>
+    <button class="btn chrome-cancel" @click="onCancel">취소</button>
   </div>
 </template>
 
@@ -39,8 +39,8 @@ export default {
       const bgColor = this.selectColor;
       this.UPDATE_BOARD({ id, bgColor }).then(() => this.setTheme(bgColor));
     },
-    onCancle() {
-      this.$emit('cancle');
+    onCancel() {
+      this.$emit('cancel');
     },
   },
 };
@@ -63,7 +63,7 @@ export default {
     width: 70px;
     height: 40px;
     margin: 15px 5px 0;
-    &.chrome-cancle {
+    &.chrome-cancel {
       background: #eb5a46;
     }
     &:hover {

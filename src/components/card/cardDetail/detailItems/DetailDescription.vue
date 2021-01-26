@@ -1,6 +1,6 @@
 <template>
   <li class="body-item">
-    <awesome icon="layer-group" class="fas fa-layer-group"></awesome>
+    <awesome icon="align-left" class="fas fa-layer-group"></awesome>
     <span class="body-card-text">Description</span>
     <textarea
       class="form-control card-desc textarea"

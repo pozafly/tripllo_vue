@@ -46,7 +46,7 @@
               색상선택기
             </div>
           </a>
-          <Photoshop v-if="isPicker" @cancle="isPicker = false" />
+          <Photoshop v-if="isPicker" @cancel="isPicker = false" />
         </div>
         <li class="menu-item delete-board" @click.prevent="onDeleteBoard">
           <awesome icon="trash-alt" class="fas fa-trash-alt"></awesome>

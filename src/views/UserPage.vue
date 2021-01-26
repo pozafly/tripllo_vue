@@ -86,8 +86,9 @@ export default {
 
 <style scoped lang="scss">
 .wrap {
-  height: 100%;
+  min-height: 100%;
   background-color: #fff;
+
   .content {
     height: 100%;
     min-height: 100%;
