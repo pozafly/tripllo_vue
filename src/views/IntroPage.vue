@@ -1,13 +1,19 @@
 <template>
   <div class="intro-wrap">
     <header>
-      <ul class="header-wrap" @click="goMain">
+      <ul class="header-wrap">
         <li><awesome icon="suitcase" class="fas fa-suitcase"></awesome></li>
         <li><span class="title">Tripllo</span></li>
       </ul>
     </header>
     <main>
-      <p>Tripllo는</p>
+      <p class="main-text">
+        Tripllo는 이슈트래커인 웹기반 Trello 어플리케이션을 Clone한
+        어플리케이션입니다. Trello는 팀이보다 협력 적으로 작업하고 더 많은
+        작업을 수행 할 수 있도록 지원합니다. Trello의 보드, 목록 및 카드를
+        사용하면 팀이 재미 있고 유연하며 보람있는 방식으로 프로젝트를 구성하고
+        우선 순위를 지정할 수 있습니다.
+      </p>
     </main>
     <Footer />
   </div>
@@ -52,6 +58,9 @@ export default {
         padding-right: 0.3rem;
       }
     }
+  }
+  .main-text {
+    color: #fff;
   }
 }
 </style>

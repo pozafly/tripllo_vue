@@ -243,7 +243,7 @@ export default {
         height: 100%;
         .board-header {
           flex: none;
-          padding: 8px 4px 8px 8px;
+          padding: 2px 4px 8px 8px;
           margin: 0;
           line-height: 32px;
           &input[type='text'] {

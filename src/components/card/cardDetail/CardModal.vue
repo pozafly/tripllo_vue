@@ -139,7 +139,7 @@ export default {
     position: absolute;
     margin: 0 0 0 15px;
     padding: 3px 6px;
-    width: 90%;
+    width: 80%;
     display: inline;
     overflow: hidden;
     overflow-wrap: break-word;
@@ -155,6 +155,7 @@ export default {
   }
   .fa-clipboard {
     padding: 1px;
+    margin-top: 5px;
     font-size: 20px;
     color: #4f5d76;
   }

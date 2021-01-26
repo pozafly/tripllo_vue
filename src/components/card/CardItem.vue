@@ -33,6 +33,11 @@
             class="far fa-clock board-inside-desc"
           ></awesome>
         </div>
+        <!-- 첨부파일 -->
+        <div class="board-inside-icon" v-if="card.isAttachment === 'Y'">
+          <awesome icon="paperclip" class="far fa-paperclip"></awesome>
+        </div>
+        <!-- 장소 -->
         <div class="board-inside-icon" v-if="card.location">
           <awesome
             icon="map-marker-alt"
@@ -74,6 +79,7 @@ export default {
   },
   mounted() {
     this.labelSetting();
+    console.log(this.card.isAttachment);
   },
 };
 </script>
