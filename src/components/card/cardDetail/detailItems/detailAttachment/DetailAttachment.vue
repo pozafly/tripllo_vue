@@ -1,5 +1,5 @@
 <template>
-  <div v-if="file.length !== 0">
+  <div v-if="file">
     <li class="body-item">
       <div>
         <awesome icon="paperclip" class="far fa-paperclip"></awesome>

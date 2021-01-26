@@ -89,7 +89,7 @@ export default {
       'READ_COMMENT',
       'READ_FILE',
     ]),
-    ...mapMutations(['deleteComment']),
+    ...mapMutations(['deleteComment', 'deleteFile']),
     onEditTitle() {
       this.isEditTitle = true;
       this.$nextTick(() => this.$refs.inputTitle.focus());

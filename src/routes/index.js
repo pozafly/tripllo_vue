@@ -20,6 +20,10 @@ const router = new VueRouter({
     { path: '*', component: () => import('@/components/common/NotFound') },
     { path: '/', redirect: '/main' },
     {
+      path: '/intro',
+      component: () => import('@/views/IntroPage'),
+    },
+    {
       path: '/main',
       component: () => import('@/views/MainPage'),
       beforeEnter: requireAuth,

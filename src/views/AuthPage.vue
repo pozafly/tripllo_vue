@@ -14,16 +14,7 @@
         <a href="">Privacy Policy</a>
       </aside>
     </div>
-    <footer>
-      <awesome icon="suitcase" class="fas fa-suitcase footer-item"></awesome>
-      <span class="footer-item">
-        Tripllo Coded and maintained with ❤️ by
-        <a href="https://github.com/pozafly" target="_sub" class="footer-item">
-          pozafly
-        </a>
-        © 2020
-      </span>
-    </footer>
+    <Footer />
     <div class="back">
       <img class="back item1" src="@/assets/user/back/1.png" alt="" />
       <img class="back item2" src="@/assets/user/back/2.png" alt="" />
@@ -32,7 +23,10 @@
 </template>
 
 <script>
+import Footer from '@/components/common/Footer';
+
 export default {
+  components: { Footer },
   methods: {
     goMain() {
       this.$router.push('/main');
@@ -92,18 +86,6 @@ export default {
       text-align: center;
       margin-top: 1.6rem;
       font-size: 0.9rem;
-    }
-  }
-  footer {
-    padding: 0.3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    .fas.fa-suitcase.footer-item {
-      margin-right: 3px;
-    }
-    .footer-item {
-      margin-right: 3px;
     }
   }
   .back {

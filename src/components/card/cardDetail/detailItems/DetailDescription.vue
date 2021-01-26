@@ -10,7 +10,6 @@
       :readonly="!isEditDesc"
       spellcheck="false"
       @blur="onSubmitDesc"
-      @keydown="resize"
     />
     <textarea
       v-else
@@ -62,20 +61,6 @@ export default {
     onKeyupEnter(event) {
       event.target.blur();
     },
-    resize(e) {
-      e.target.style.height = '1px';
-      e.target.style.height = 12 + e.target.scrollHeight + 'px';
-    },
-    firstResize(target) {
-      target.style.height = '1px';
-      target.style.height = 12 + target.scrollHeight + 'px';
-    },
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.firstResize(this.$refs.firstDesc);
-      // this.$refs.firstDesc.style.height = this.$refs.scrollHeight + 'px';
-    });
   },
 };
 </script>
@@ -92,14 +77,14 @@ export default {
   font-size: 14px;
   background: none;
   cursor: pointer;
-  min-height: 5rem;
+  height: 6rem;
   background: rgba(9, 30, 66, 0.04);
-  overflow-y: hidden; /* prevents scroll bar flash */
+
   &:hover {
     background: rgba(9, 30, 66, 0.1);
   }
   &.textarea {
-    min-height: 5rem;
+    height: 7rem;
     background: #fff;
     cursor: text;
   }

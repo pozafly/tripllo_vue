@@ -160,10 +160,12 @@ export default {
         margin-right: 5px;
         width: 15px;
         pointer-events: none;
+        color: #4f5d76;
       }
       .side-item-text {
         font-size: 14px;
         font-weight: 450;
+        color: #212732;
       }
     }
   }

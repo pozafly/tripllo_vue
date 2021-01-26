@@ -83,6 +83,9 @@ const mutations = {
   setFile(state, file) {
     state.file = file;
   },
+  deleteFile(state) {
+    state.file = [];
+  },
 };
 
 export default mutations;

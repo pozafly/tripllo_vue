@@ -239,14 +239,9 @@ const actions = {
 
   // pushMessage
   READ_PUSH_MESSAGE({ commit }, targetId) {
-    return pushMessageApi
-      .readPushMessage(targetId)
-      .then(({ data }) => {
-        commit('setPushMessage', data.data);
-      })
-      .catch(() => {
-        commit('deletePushMessage');
-      });
+    return pushMessageApi.readPushMessage(targetId).then(({ data }) => {
+      commit('setPushMessage', data.data);
+    });
   },
   UPDATE_PUSH_MESSAGE({ dispatch, state }, { id, isRead }) {
     return pushMessageApi.updatePushMessage({ id, isRead }).then(() => {
@@ -267,7 +262,6 @@ const actions = {
   },
   UPLOAD({ dispatch, state }, formData) {
     return uploadApi.upload(formData).then(({ data }) => {
-      console.log(data);
       if (data !== 'FAIL') {
         setTimeout(() => {
           bus.$emit('end:spinner');
