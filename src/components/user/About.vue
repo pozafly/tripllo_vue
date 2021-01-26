@@ -9,6 +9,7 @@
           <div
             class="img"
             v-if="user.picture !== null && user.picture !== 'null'"
+            :style="{ backgroundImage: `url(${user.picture})` }"
           ></div>
           <awesome icon="user" class="fas fa-user" v-else></awesome>
           <span class="change">Change</span>

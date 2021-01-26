@@ -8,7 +8,8 @@
             href=""
             class="auth-item img"
             @click.prevent="menuShow"
-            v-if="this.user.picture !== null && this.user.picture !== 'null'"
+            v-if="user.picture !== null && user.picture !== 'null'"
+            :style="{ backgroundImage: `url(${user.picture})` }"
           ></span>
           <div v-else class="icon-wrap">
             <awesome icon="user" class="fas fa-user auth-item"></awesome>
@@ -20,11 +21,26 @@
           {{ user.createdAt | formatDate }} 생성됨
         </span>
       </div>
+      <div class="tabs">
+        <TabItem
+          v-for="item in tapList"
+          v-bind="item"
+          :key="item.id"
+          v-model="currentId"
+        />
+      </div>
       <div class="user-info">
         <div class="info-wrap">
           <div class="info-inside">
-            <UserAbout />
-            <UserSignout />
+            <section :key="currentId">
+              <template v-if="current.content === 'About'">
+                <About />
+                <Signout />
+              </template>
+              <template v-else>
+                <PasswordChange />
+              </template>
+            </section>
           </div>
         </div>
       </div>
@@ -34,25 +50,31 @@
 
 <script>
 import Header from '@/components/common/Header';
-import UserAbout from '@/components/user/UserAbout';
-import UserSignout from '@/components/user/UserSignout';
+import About from '@/components/user/About';
+import Signout from '@/components/user/Signout';
+import TabItem from '@/components/user/TapItem';
+import PasswordChange from '@/components/user/PasswordChange';
 import { mapState } from 'vuex';
 
 export default {
-  components: { Header, UserAbout, UserSignout },
+  components: { Header, About, Signout, TabItem, PasswordChange },
+  data() {
+    return {
+      currentId: 1,
+      tapList: [
+        { id: 1, label: 'About', content: 'About' },
+        { id: 2, label: 'Change Password', content: 'ChangePassword' },
+      ],
+    };
+  },
   computed: {
     ...mapState(['user']),
-  },
-  mounted() {
-    this.insertImg();
+    current() {
+      return this.tapList.find(el => el.id === this.currentId) || {};
+    },
   },
   watch: {
     user() {
-      this.insertImg();
-    },
-  },
-  methods: {
-    insertImg() {
       const imgList = this.$el.querySelectorAll('.img');
       Array.from(imgList).forEach(e => {
         e.style.backgroundImage = `url(${this.user.picture})`;
@@ -139,6 +161,10 @@ export default {
         font-size: 11.5px;
         color: #5e6c84;
       }
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
     }
     .user-info {
       position: relative;

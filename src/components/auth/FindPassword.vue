@@ -37,6 +37,8 @@
 
 <script>
 import { mapActions } from 'vuex';
+import bus from '@/utils/bus';
+
 export default {
   data() {
     return {
@@ -60,7 +62,7 @@ export default {
   methods: {
     ...mapActions(['SEND_EMAIL']),
     async submitForm() {
-      console.log(this.userData);
+      bus.$emit('start:spinner');
       this.SEND_EMAIL({
         userId: this.userData.id,
         userEmail: this.userData.email,

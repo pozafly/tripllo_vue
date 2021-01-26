@@ -49,10 +49,21 @@ const authApi = {
       },
     });
   },
-  updateUser({ id, email, name, bio, picture, recent, favorite }) {
+  updateUser({ id, email, name, password, bio, picture, recent, favorite }) {
     return instance.put(
       'user',
-      { id, email, name, bio, picture, recent, favorite },
+      { id, email, name, password, bio, picture, recent, favorite },
+      {
+        headers: {
+          Authorization: store.state.token,
+        },
+      },
+    );
+  },
+  changePassword({ currentPw, newPw }) {
+    return instance.post(
+      'user/changePw',
+      { currentPw, newPw },
       {
         headers: {
           Authorization: store.state.token,

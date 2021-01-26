@@ -52,18 +52,25 @@ const actions = {
   },
   async UPDATE_USER(
     { dispatch, state },
-    { id, email, name, bio, picture, recent, favorite },
+    { id, email, name, password, bio, picture, recent, favorite },
   ) {
     await authApi.updateUser({
       id,
       email,
       name,
+      password,
       bio,
       picture,
       recent,
       favorite,
     });
     await dispatch('READ_USER', state.user.id);
+  },
+  CHANGE_PASSWORD({ dispatch, state }, { currentPw, newPw }) {
+    return authApi.changePassword({ currentPw, newPw }).then(() => {
+      dispatch('READ_USER', state.user.id);
+      bus.$emit('end:spinner');
+    });
   },
 
   // board
@@ -296,10 +303,11 @@ const actions = {
     return emailApi
       .sendEmail({ userId, userEmail })
       .then(data => {
-        console.log(data);
+        bus.$emit('end:spinner');
         alert(data.data.message);
       })
       .catch(({ response }) => {
+        bus.$emit('end:spinner');
         alert(response.data.message);
       });
   },
