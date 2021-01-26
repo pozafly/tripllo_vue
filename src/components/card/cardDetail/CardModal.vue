@@ -108,9 +108,7 @@ export default {
   async created() {
     await this.READ_CARD({ id: this.$route.params.cardId });
     await this.READ_CHECKLIST({ id: this.card.id });
-    await this.READ_COMMENT(this.card.id).catch(({ response }) => {
-      if (response.data.status === 'NOT_FOUND') this.deleteComment();
-    });
+    await this.READ_COMMENT(this.card.id);
     await this.READ_FILE(this.card.id);
   },
 };
@@ -121,17 +119,19 @@ export default {
   padding-right: 30px;
   min-height: 30px;
   a {
-    color: black;
+    color: #212732;
     font-size: 20px;
     margin-left: 15px;
     .fa-edit {
       display: none;
       font-size: 10px;
+      color: #4f5d76;
     }
     &:hover {
       color: rgba(0, 0, 0, 0.3);
       .fa-edit {
         display: inline-block;
+        color: #4f5d76;
       }
     }
   }
@@ -156,6 +156,7 @@ export default {
   .fa-clipboard {
     padding: 1px;
     font-size: 20px;
+    color: #4f5d76;
   }
 }
 
@@ -167,6 +168,7 @@ export default {
       .fas,
       .fa {
         font-size: 16px;
+        color: #4f5d76;
       }
       .body-card-text {
         display: inline;

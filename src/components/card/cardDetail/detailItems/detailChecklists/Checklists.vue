@@ -173,6 +173,9 @@ export default {
 </script>
 
 <style lang="scss">
+.fa-check-square {
+  color: #4f5d76;
+}
 .checkbox-input-title {
   display: inline;
   width: 93%;
@@ -227,7 +230,7 @@ export default {
   top: -2.5px;
   left: 11px;
   font-size: 16px !important;
-  color: black;
+  color: #212732;
   cursor: pointer;
   &:hover {
     color: rgba(9, 30, 66, 0.6);

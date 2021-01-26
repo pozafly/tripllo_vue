@@ -108,6 +108,7 @@ export default {
     .fa-edit {
       visibility: visible;
       cursor: pointer;
+      color: #4f5d76;
     }
   }
   .fa-edit {
@@ -117,7 +118,7 @@ export default {
     margin-top: 5px;
     visibility: hidden;
     &:hover {
-      color: rgba(0, 0, 0, 0.3);
+      color: rgba(0, 0, 0, 0.3) !important;
     }
   }
   .checkbox-input {

@@ -24,4 +24,11 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.fa-paperclip {
+  color: #4f5d76;
+}
+.body-card-text {
+  color: #212732;
+}
+</style>
