@@ -30,7 +30,7 @@ export default {};
   font-weight: 400;
   color: #5e6c84;
   left: 8px;
-  z-index: 9999;
+  z-index: 999;
   .header {
     height: 40px;
     position: relative;

@@ -255,9 +255,10 @@ const actions = {
   },
 
   // upload
-  READ_FILE({ commit }, cardId) {
+  READ_FILE({ commit, state, dispatch }, cardId) {
     return uploadApi.readFile(cardId).then(({ data }) => {
       commit('setFile', data.data);
+      dispatch('READ_BOARD_DETAIL', state.board.id);
     });
   },
   UPLOAD({ dispatch, state }, formData) {
@@ -289,6 +290,7 @@ const actions = {
   DELETE_FILE({ dispatch, state }, fileId) {
     return uploadApi.deleteFile(fileId).then(() => {
       dispatch('READ_FILE', state.card.id);
+      dispatch('READ_BOARD_DETAIL', state.board.id);
     });
   },
 
