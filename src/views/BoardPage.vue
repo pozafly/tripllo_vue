@@ -97,7 +97,7 @@
       />
       <router-view></router-view>
     </div>
-    <notifications group="notifyApp" position="top right" />
+    <Noti />
   </div>
 </template>
 
@@ -108,6 +108,7 @@ import AddList from '@/components/list/AddList';
 import BoardMenu from '@/components/board/boardMenu/BoardMenu';
 import dragger from '@/utils/dragger/dragger';
 import Invite from '@/components/board/Invite';
+import Noti from '@/components/common/Noti';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
@@ -117,6 +118,7 @@ export default {
     BoardMenu,
     AddList,
     Invite,
+    Noti,
   },
   data() {
     return {
@@ -210,10 +212,10 @@ export default {
     modalClose({ memberId, boardTitle }) {
       this.isInvite = false;
       this.$notify({
-        group: 'notifyApp',
-        type: 'warn',
+        group: 'custom-template',
         duration: 5000,
         title: '초대 완료!',
+        closeOnClick: true,
         text: `${memberId}님에게 ${boardTitle} 보드를 초대했습니다.`,
       });
     },

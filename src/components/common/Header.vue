@@ -46,7 +46,7 @@
           />
         </li>
         <li class="auth-items">
-          <a href="" class="auth-item">
+          <a href="" class="auth-item" @click.prevent="$router.push('/manual')">
             <awesome icon="info-circle" class="fas fa-info-circle"></awesome>
           </a>
         </li>
@@ -91,7 +91,7 @@
       </router-link>
     </div>
     <!-- <Sock @receive="receive" /> -->
-    <notifications group="notifyApp" position="top right" />
+    <Noti />
   </nav>
 </template>
 
@@ -99,10 +99,11 @@
 import { socketConnect } from '@/utils/socket';
 import bus from '@/utils/bus';
 import MessageModal from '@/components/common/MessageModal';
+import Noti from '@/components/common/Noti';
 import { mapActions, mapGetters, mapState } from 'vuex';
 
 export default {
-  components: { MessageModal },
+  components: { MessageModal, Noti },
   data() {
     return {
       isMenuShow: false,
@@ -159,9 +160,9 @@ export default {
     receive(data) {
       const message = JSON.parse(data);
       this.$notify({
-        group: 'notifyApp',
-        type: 'warn',
+        group: 'custom-template',
         duration: 5000,
+        closeOnClick: true,
         title: '초대장이 도착했습니다',
         text: `${message.content}`,
       });
@@ -227,7 +228,7 @@ export default {
       margin: 0;
       padding: 0;
       .home-items {
-        margin-left: 5px;
+        margin-left: 10px;
         .home-item {
           cursor: pointer;
           border-radius: 2px;

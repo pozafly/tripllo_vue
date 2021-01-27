@@ -30,7 +30,7 @@
             </p>
           </div>
           <img
-            src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/main4.jpg"
+            src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/main2.jpg"
             class="img img2"
           />
         </div>
@@ -133,20 +133,7 @@
           <button class="side-btn-item" @click="$router.push('/manual')">
             Tripllo 사용설명서
           </button>
-          <div class="code">
-            <button
-              class="side-btn-item"
-              @click="goPage('https://github.com/pozafly/tripllo_vue')"
-            >
-              Tripllo_vue GITHUB
-            </button>
-            <button
-              class="side-btn-item"
-              @click="goPage('https://github.com/pozafly/tripllo_springBoot')"
-            >
-              Tripllo_SpringBoot GITHUB
-            </button>
-          </div>
+          <button class="side-btn-item">Tripllo GITHUB</button>
         </div>
         <div class="footer">
           <Footer />
@@ -162,9 +149,11 @@ import Footer from '@/components/common/Footer';
 export default {
   components: { Footer },
   created: function() {
+    // 핸들러 등록하기
     window.addEventListener('scroll', this.handleScroll);
   },
   beforeDestroy: function() {
+    // 핸들러 제거하기(컴포넌트 또는 SPA의 경우 절대 잊지 말아 주세요!)
     window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
@@ -172,9 +161,6 @@ export default {
       if (window.scrollY === 0) {
         this.$refs.header.style.background = 'none';
       } else this.$refs.header.style.background = 'rgba(0,0,0,0.4)';
-    },
-    goPage(url) {
-      window.open(url);
     },
   },
 };
@@ -379,21 +365,8 @@ export default {
           height: 100px;
           font-size: 20px;
           background: #43ab5f;
-          margin-left: 35px;
-          border-radius: 2px;
           &:hover {
             filter: brightness(90%);
-          }
-        }
-        .code {
-          display: flex;
-          width: 600px;
-          .side-btn-item {
-            background: #0979bf;
-            margin-left: 15px;
-            &:hover {
-              filter: brightness(90%);
-            }
           }
         }
       }

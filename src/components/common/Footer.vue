@@ -3,7 +3,11 @@
     <awesome icon="suitcase" class="fas fa-suitcase footer-item"></awesome>
     <span class="footer-item">
       Tripllo Coded and maintained with ❤️ by
-      <a href="https://github.com/pozafly" target="_sub" class="footer-item">
+      <a
+        href="https://github.com/pozafly"
+        target="_sub"
+        class="footer-item-link"
+      >
         pozafly
       </a>
       © 2021
@@ -20,8 +24,11 @@ footer {
   .fas.fa-suitcase.footer-item {
     margin-right: 3px;
   }
-  .footer-item {
+  .footer-item-link {
     margin-right: 3px;
+    &:hover {
+      filter: brightness(70%);
+    }
   }
 }
 </style>

@@ -35,6 +35,10 @@ const router = new VueRouter({
       component: () => import('@/views/IntroPage'),
     },
     {
+      path: '/manual',
+      component: () => import('@/views/Manual'),
+    },
+    {
       path: '/main',
       component: () => import('@/views/MainPage'),
       beforeEnter: requireAuth,

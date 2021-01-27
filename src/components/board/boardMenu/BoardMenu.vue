@@ -71,7 +71,7 @@ export default {
     return {
       colors: {
         red: '#fa5252',
-        orange: '#fd7e14',
+        coral: '#ff7f50',
         yellow: '#ffa500',
         green: '#4AC06A',
         blue: '#339af0',

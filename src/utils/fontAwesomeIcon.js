@@ -48,10 +48,11 @@ library.add(
 
 import {
   faClock as farClock,
-  faClipboard,
+  faClipboard as farClipboard,
   faCheckSquare as farCheckSquare,
   faUser as farUser,
+  faCheckCircle as farCheckCircle,
 } from '@fortawesome/free-regular-svg-icons';
-library.add(farClock, faClipboard, farCheckSquare, farUser);
+library.add(farClock, farClipboard, farCheckSquare, farUser, farCheckCircle);
 
 Vue.component('awesome', FontAwesomeIcon);
