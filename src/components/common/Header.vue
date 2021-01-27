@@ -43,6 +43,7 @@
             class="message-modal"
             v-if="isMessageModal"
             @close="isMessageModal = false"
+            v-click-outside="closeMessageModal"
           />
         </li>
         <li class="auth-items">
@@ -56,6 +57,7 @@
             class="auth-item img"
             @click.prevent="menuShow"
             v-if="this.user.picture !== null && this.user.picture !== 'null'"
+            :style="{ backgroundImage: `url(${user.picture})` }"
           ></a>
           <awesome
             icon="user"
@@ -67,10 +69,11 @@
       </ul>
     </div>
 
-    <div class="menu" v-show="isMenuShow">
+    <div class="menu" v-if="isMenuShow" v-click-outside="closeProfileModal">
       <div
         class="menu-item img"
         v-if="this.user.picture !== null && this.user.picture !== 'null'"
+        :style="{ backgroundImage: `url(${user.picture})` }"
       ></div>
       <awesome icon="user" class="fas fa-user menu-item icon" v-else></awesome>
       <div class="menu-profile">
@@ -90,7 +93,6 @@
         <span>Login</span>
       </router-link>
     </div>
-    <!-- <Sock @receive="receive" /> -->
     <Noti />
   </nav>
 </template>
@@ -168,14 +170,15 @@ export default {
       });
       this.READ_PUSH_MESSAGE(this.user.id);
     },
+    closeMessageModal() {
+      this.isMessageModal = false;
+    },
+    closeProfileModal() {
+      this.isMenuShow = false;
+    },
   },
   mounted() {
     this.updateTheme();
-    // 프로필에 이미지 넣기
-    const imgList = this.$el.querySelectorAll('.img');
-    Array.from(imgList).forEach(e => {
-      e.style.backgroundImage = `url(${this.user.picture})`;
-    });
   },
   created() {
     if (this.socket === null) {

@@ -97,6 +97,7 @@ export default {
   vertical-align: top;
   width: 100%;
   max-height: 100%;
+  pointer-events: visible;
   .list-header {
     flex: 0 0 auto;
     height: 30px;

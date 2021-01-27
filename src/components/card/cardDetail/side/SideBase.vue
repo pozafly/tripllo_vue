@@ -1,5 +1,5 @@
 <template>
-  <div class="base-wrap">
+  <div class="base-wrap" v-click-outside="close">
     <div class="header">
       <slot name="header" class="header-text">header</slot>
       <a @click="$emit('close')" class="header-cancel">&times;</a>
@@ -11,7 +11,13 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    close() {
+      this.$emit('close');
+    },
+  },
+};
 </script>
 
 <style lang="scss">

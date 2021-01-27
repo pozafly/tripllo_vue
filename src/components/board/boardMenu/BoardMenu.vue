@@ -137,6 +137,7 @@ export default {
   right: 0;
   top: 0;
   height: 93.945%;
+  border-radius: 9px;
   background-color: #edeff0;
   width: 350px;
   transition: all 0.3s;
@@ -144,6 +145,7 @@ export default {
   padding: -40px 0;
   box-sizing: border-box;
   z-index: 1;
+  box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px 0;
   .board-menu-wrap {
     margin: 0 15px;
     height: 100%;
@@ -160,10 +162,14 @@ export default {
       .header-close-btn {
         position: absolute;
         top: 10px;
-        right: 10px;
+        right: 15px;
         text-decoration: none;
         font-size: 24px;
         color: #999;
+        &:hover {
+          font-weight: 700;
+          color: black;
+        }
       }
     }
     .menu-list {

@@ -7,11 +7,13 @@ import { formatDate } from '@/utils/dateFilter';
 import LoadScript from 'vue-plugin-load-script';
 import '@/utils/fontAwesomeIcon.js';
 import Notifications from 'vue-notification';
+import vClickOutside from 'v-click-outside';
 
 Vue.config.productionTip = false;
 Vue.use(install);
 Vue.use(LoadScript);
 Vue.use(Notifications);
+Vue.use(vClickOutside);
 Vue.filter('formatDate', formatDate);
 
 new Vue({

@@ -21,7 +21,7 @@
           <div class="custom-template-text" v-html="props.item.text"></div>
         </div>
         <div class="custom-template-close" @click="props.close">
-          <i class="icon ion-android-close"></i>
+          &times;
         </div>
       </div>
     </template>

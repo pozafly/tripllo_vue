@@ -187,7 +187,7 @@ export default {
     align-items: center;
     .fixed {
       transition: all 0.8s ease;
-      height: 130px;
+      height: 90px;
       width: 100%;
       position: fixed;
       background: linear-gradient(to right, #0979bf, #4f68c5);
@@ -198,6 +198,7 @@ export default {
         justify-content: center;
         font-size: 2rem;
         align-items: center;
+        height: 90px;
         .title-wrap {
           margin: 32px 0;
           padding: 0.1rem;
@@ -214,7 +215,7 @@ export default {
         justify-content: space-between;
         position: absolute;
         width: 180px;
-        top: 40px;
+        top: 25px;
         right: 20px;
         .move-btn {
           width: 85px;

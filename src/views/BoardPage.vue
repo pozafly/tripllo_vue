@@ -1,7 +1,7 @@
 <template class="container">
   <div class="page">
     <Header />
-    <div class="wrap">
+    <div class="wrap" @click="menuOutsideClose">
       <div class="board-wrapper">
         <div class="board">
           <div class="board-header">
@@ -19,30 +19,17 @@
             </span>
 
             <span class="board-item owner-user">
-              <span
-                href=""
-                class="invited-picture img"
-                v-if="
-                  board.createdByPicture !== null &&
-                    board.createdByPicture !== 'null'
-                "
-                :style="{ backgroundImage: `url(${board.createdByPicture})` }"
-              ></span>
-              <awesome
-                icon="user"
-                class="invited-picture fas fa-user"
-                v-else
-              ></awesome>
+              <ProfileImage :board="board" />
             </span>
 
-            <span class="board-item" @click="openModal">
+            <span class="board-item" @click="openInviteModal">
               Invite
               <Invite
                 v-if="isInvite"
                 class="invite-modal"
                 @close="
                   ({ memberId, boardTitle }) =>
-                    modalClose({ memberId, boardTitle })
+                    inviteModalClose({ memberId, boardTitle })
                 "
                 @noInviteClose="isInvite = false"
               />
@@ -51,17 +38,7 @@
             <span v-if="board.invitedUser">
               <span class="board-item invited-user">
                 <span v-for="item in invitedUser" :key="item.id">
-                  <span
-                    href=""
-                    class="invited-picture img"
-                    v-if="item.picture !== null && item.picture !== 'null'"
-                    :style="{ backgroundImage: `url(${item.picture})` }"
-                  ></span>
-                  <awesome
-                    icon="user"
-                    class="invited-picture fas fa-user"
-                    v-else
-                  ></awesome>
+                  <ProfileImage :item="item" />
                 </span>
               </span>
             </span>
@@ -92,8 +69,9 @@
         </div>
       </div>
       <BoardMenu
-        v-if="isShowBoardSettings"
-        @close="isShowBoardSettings = false"
+        v-if="isBoardMenu"
+        @close="isBoardMenu = false"
+        ref="boardMenu"
       />
       <router-view></router-view>
     </div>
@@ -108,6 +86,7 @@ import AddList from '@/components/list/AddList';
 import BoardMenu from '@/components/board/boardMenu/BoardMenu';
 import dragger from '@/utils/dragger/dragger';
 import Invite from '@/components/board/Invite';
+import ProfileImage from '@/components/board/ProfileImage';
 import Noti from '@/components/common/Noti';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
@@ -118,13 +97,14 @@ export default {
     BoardMenu,
     AddList,
     Invite,
+    ProfileImage,
     Noti,
   },
   data() {
     return {
       isEditTitle: false,
       inputTitle: '',
-      isShowBoardSettings: '',
+      isBoardMenu: '',
       cDragger: '',
       lDragger: '',
       isInvite: false,
@@ -180,7 +160,7 @@ export default {
       this.UPDATE_BOARD({ id, title });
     },
     onShowSettings() {
-      this.isShowBoardSettings = true;
+      this.isBoardMenu = true;
     },
     // 4개의 recent board만 허락함.
     makeRecent() {
@@ -206,10 +186,10 @@ export default {
         },
       );
     },
-    openModal(e) {
+    openInviteModal(e) {
       if (e.target.nodeName === 'SPAN') this.isInvite = true;
     },
-    modalClose({ memberId, boardTitle }) {
+    inviteModalClose({ memberId, boardTitle }) {
       this.isInvite = false;
       this.$notify({
         group: 'custom-template',
@@ -218,6 +198,13 @@ export default {
         closeOnClick: true,
         text: `${memberId}님에게 ${boardTitle} 보드를 초대했습니다.`,
       });
+    },
+    menuOutsideClose(e) {
+      if (e.target.className === 'board-header-btn show-menu') return;
+      if (!this.$refs.boardMenu) return;
+      if (!this.$refs.boardMenu.$el.contains(e.target)) {
+        this.isBoardMenu = false;
+      }
     },
   },
 };
@@ -253,6 +240,7 @@ export default {
           }
           .form-control {
             width: 17rem;
+            display: inline;
           }
           .board-item {
             position: relative;
@@ -279,25 +267,7 @@ export default {
             &.owner-user {
               background: none;
               margin-right: -7px;
-              cursor: auto;
-            }
-            .invited-picture {
-              padding: 5px 14px;
-              background-color: rgba(255, 255, 255, 0.5);
-              color: white;
-              transition: all 0.3s;
-              &.fa-user {
-                position: relative;
-                top: 7px;
-                padding: 7px 8px;
-                border-radius: 50%;
-              }
-              &.img {
-                border-radius: 50%;
-                background-size: cover;
-                background-position: center;
-                background-repeat: no-repeat;
-              }
+              cursor: pointer;
             }
           }
           .board-header-btn {
@@ -350,6 +320,7 @@ export default {
               width: 272px;
               vertical-align: top;
               margin-right: 5px;
+              pointer-events: none;
             }
             .addList-wrapper {
               display: inline-block;
