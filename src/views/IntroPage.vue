@@ -37,9 +37,7 @@
         <div class="space"></div>
         <div class="main-wrap main2">
           <div class="main-text">
-            <p class="main-text-item text3">
-              카드 속 다양한 기능
-            </p>
+            <p class="main-text-item text3">카드 속 다양한 기능</p>
             <p class="main-text-item text4">
               계획을 세우기 유용하도록 <br />
               몇 가지 기능이 포함되어 있습니다.
@@ -60,32 +58,76 @@
         <div class="space"></div>
         <div class="main-wrap">
           <div class="main-text">
-            <p class="main-text-item text5">
-              사용한 기술
-            </p>
+            <p class="main-text-item text5">사용한 기술</p>
           </div>
         </div>
-        <div class="skill">
-          <img
-            src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/vue.png"
-            class="img4"
-          />
-          <img
-            src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/springboot.png"
-            class="img4"
-          />
-          <img
-            src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/aws.jpg"
-            class="img4"
-          />
-        </div>
-        <div class="skill-text">
-          <span>VUE</span>
-          <span>SpringBoot</span>
-          <span>AWS</span>
-          말고 front vue, vuex, 등등 back springboot, mybais, mysql 배포 aws
-          codedeploy travis 요정도로 적는 작업을 합시다.
-        </div>
+        <ul class="skill">
+          <li class="skill-item">
+            <div class="vue">
+              <img
+                src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/vue.png"
+                class="img4"
+              />
+            </div>
+            <div class="content-wrap">
+              <span class="skill-title">Front-end</span>
+              <ul class="skill-list">
+                <li class="skill-list">Vue 2.6.11 + Vuex + Vue-router</li>
+                <li class="skill-list">scss</li>
+                <li class="skill-list">webpack</li>
+                <li class="skill-list">axios</li>
+                <li class="skill-list">
+                  dragula
+                  <a href="https://bevacqua.github.io/dragula/"
+                    >(https://bevacqua.github.io/dragula/)</a
+                  >
+                </li>
+                <li class="skill-list">sockjs-client</li>
+                <li class="skill-list">Font awesome</li>
+              </ul>
+            </div>
+          </li>
+          <li class="skill-item">
+            <img
+              src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/springboot.png"
+              class="img5"
+            />
+            <div class="content-wrap">
+              <span class="skill-title">Back-end</span>
+              <ul class="skill-list">
+                <li class="skill-list">
+                  SpringBoot 2.1.9
+                  <ul li class="skill-list-inside">
+                    <li li class="skill-list-inside">Swagger2</li>
+                    <li li class="skill-list-inside">Spring Security + JWT</li>
+                    <li li class="skill-list-inside">Websocket</li>
+                    <li li class="skill-list-inside">Spring Mail</li>
+                    <li li class="skill-list-inside">Spring Cloud-AWS</li>
+                  </ul>
+                </li>
+                <li class="skill-list">Mysql 8.0.22</li>
+                <li class="skill-list">MyBatis</li>
+              </ul>
+            </div>
+          </li>
+          <li class="skill-item">
+            <img
+              src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/aws.jpg"
+              class="img5"
+            />
+            <div class="content-wrap">
+              <span class="skill-title">Deploy</span>
+              <ul class="skill-list">
+                <li class="skill-list">AWS-EC2 (Amazon Linux 2)</li>
+                <li class="skill-list">AWS-RDS</li>
+                <li class="skill-list">AWS-S3</li>
+                <li class="skill-list">CodeDeploy</li>
+                <li class="skill-list">Travis</li>
+                <li class="skill-list">Nginx</li>
+              </ul>
+            </div>
+          </li>
+        </ul>
 
         <div class="side-btn">
           <button class="side-btn-item">Tripllo 사용설명서</button>
@@ -229,6 +271,7 @@ export default {
           }
           .list {
             margin-left: 15px;
+            padding: 5px;
             list-style: disc !important;
             color: #364865;
           }
@@ -247,10 +290,52 @@ export default {
       .skill {
         display: flex;
         justify-content: space-evenly;
-        .img4 {
-          width: 200px;
-          border-radius: 10px;
-          box-shadow: rgba(0, 0, 0, 0.2) 0 0 19px;
+        flex-direction: column;
+        .skill-item {
+          display: flex;
+          flex-direction: row;
+          margin: 20px 0;
+          .vue {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 0 19px;
+            .img4 {
+              width: 140px;
+              height: 140px;
+            }
+          }
+          .img5 {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.2) 0 0 19px;
+          }
+          .content-wrap {
+            width: 100%;
+            margin-left: 100px;
+            .skill-title {
+              display: block;
+              margin-left: 15px;
+              font-size: 25px;
+              color: #364865;
+              font-weight: 600;
+            }
+            .skill-list {
+              color: #364865;
+              margin-left: 18px;
+              list-style: disc;
+              padding: 5px;
+              .skill-list-inside {
+                margin-left: 18px;
+                list-style: circle;
+                padding: 5px;
+              }
+            }
+          }
         }
       }
       .skill-text {
@@ -270,14 +355,14 @@ export default {
         }
       }
       .side-btn {
-        border: 1px solid black;
         display: flex;
         justify-content: space-evenly;
-        margin-bottom: 150px;
+        margin: 150px 0;
         .side-btn-item {
           width: 250px;
           height: 100px;
           font-size: 20px;
+          background: #43ab5f;
           &:hover {
             filter: brightness(90%);
           }

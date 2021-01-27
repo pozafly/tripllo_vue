@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '@/store';
+import { getUserFromLocalStorage } from '@/utils/webStorage';
 
 Vue.use(VueRouter);
 
@@ -14,11 +15,21 @@ const requireAuth = (to, from, next) => {
   }
 };
 
+const firstAccess = (to, from, next) => {
+  const mainPath = '/main';
+  const introPath = '/intro';
+  if (getUserFromLocalStorage('user_id')) {
+    next(mainPath);
+  } else {
+    next(introPath);
+  }
+};
+
 const router = new VueRouter({
   mode: 'history',
   routes: [
     { path: '*', component: () => import('@/components/common/NotFound') },
-    { path: '/', redirect: '/main' },
+    { path: '/', beforeEnter: firstAccess },
     {
       path: '/intro',
       component: () => import('@/views/IntroPage'),
