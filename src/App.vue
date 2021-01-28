@@ -27,6 +27,8 @@ export default {
     },
   },
   created() {
+    console.log('API_URL 확인용');
+    console.log(process.env.VUE_APP_API_URL);
     bus.$on('start:spinner', this.startSpinner);
     bus.$on('end:spinner', this.endSpinner);
   },

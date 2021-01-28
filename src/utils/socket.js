@@ -3,7 +3,7 @@ import store from '@/store';
 import bus from '@/utils/bus';
 
 function socketConnect() {
-  const serverURL = `http://localhost:3000/websocket?m_id=${store.state.user.id}`;
+  const serverURL = `${process.env.VUE_APP_API_URL}/websocket?m_id=${store.state.user.id}`;
   console.log(`서버 연결 시도 --- ${serverURL}`);
   let newSocket = new SockJS(serverURL);
 
