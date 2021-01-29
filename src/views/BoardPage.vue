@@ -75,7 +75,6 @@
       />
       <router-view></router-view>
     </div>
-    <Noti />
   </div>
 </template>
 
@@ -87,7 +86,6 @@ import BoardMenu from '@/components/board/boardMenu/BoardMenu';
 import dragger from '@/utils/dragger/dragger';
 import Invite from '@/components/board/Invite';
 import ProfileImage from '@/components/board/ProfileImage';
-import Noti from '@/components/common/Noti';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
@@ -98,7 +96,6 @@ export default {
     AddList,
     Invite,
     ProfileImage,
-    Noti,
   },
   data() {
     return {

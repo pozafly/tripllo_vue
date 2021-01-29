@@ -2,6 +2,7 @@ import { socialLogin, socialSignup } from '@/utils/social';
 
 const Google = {
   async login(googleUser) {
+    console.log(googleUser);
     const req = await {
       name: googleUser.Nt.Ed,
       id: googleUser.Nt.uu,
@@ -13,6 +14,7 @@ const Google = {
   },
 
   async signup(googleUser) {
+    console.log(googleUser);
     const req = await {
       name: googleUser.Nt.Ed,
       id: googleUser.Nt.uu,

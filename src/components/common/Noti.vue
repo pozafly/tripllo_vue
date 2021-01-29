@@ -3,7 +3,7 @@
     group="custom-template"
     :duration="5000"
     :width="500"
-    animation-name="v-fade-left"
+    animation-name="v-fade-right"
     position="top right"
   >
     <template slot="body" slot-scope="props">
@@ -45,6 +45,12 @@ export default {
         },
       },
     };
+  },
+  mounted() {
+    console.log('mounted');
+  },
+  updated() {
+    console.log('updated');
   },
 };
 </script>
@@ -116,14 +122,14 @@ export default {
     }
   }
 }
-.v-fade-left-enter-active,
-.v-fade-left-leave-active,
-.v-fade-left-move {
+.v-fade-right-enter-active,
+.v-fade-right-leave-active,
+.v-fade-right-move {
   transition: all 0.9s;
 }
-.v-fade-left-enter,
-.v-fade-left-leave-to {
+.v-fade-right-enter,
+.v-fade-right-leave-to {
   opacity: 0;
-  transform: translateX(-500px) scale(0.2);
+  transform: translateX(500px) scale(0.2);
 }
 </style>
