@@ -35,6 +35,10 @@ const router = new VueRouter({
       component: () => import('@/views/IntroPage'),
     },
     {
+      path: '/privacy',
+      component: () => import('@/views/Privacy'),
+    },
+    {
       path: '/manual',
       component: () => import('@/views/Manual'),
     },

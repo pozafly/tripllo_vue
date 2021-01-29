@@ -4,10 +4,10 @@ const Google = {
   async login(googleUser) {
     console.log(googleUser);
     const req = await {
-      name: googleUser.Nt.Ed,
-      id: googleUser.Nt.uu,
-      email: googleUser.Nt.uu,
-      profileImg: googleUser.Nt.fL,
+      name: googleUser.Fs.sd,
+      id: googleUser.Fs.lt,
+      email: googleUser.Fs.lt,
+      profileImg: googleUser.Fs.wI,
       source: 'Google',
     };
     await socialLogin(req);
@@ -16,10 +16,10 @@ const Google = {
   async signup(googleUser) {
     console.log(googleUser);
     const req = await {
-      name: googleUser.Nt.Ed,
-      id: googleUser.Nt.uu,
-      email: googleUser.Nt.uu,
-      profileImg: googleUser.Nt.fL,
+      name: googleUser.Fs.sd,
+      id: googleUser.Fs.lt,
+      email: googleUser.Fs.lt,
+      profileImg: googleUser.Fs.wI,
       source: 'Google',
     };
     await socialSignup(req);

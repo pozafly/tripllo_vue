@@ -11,7 +11,7 @@
         <router-view></router-view>
       </main>
       <aside>
-        <a href="">Privacy Policy</a>
+        <a href="" @click.prevent="$router.push('/privacy')">Privacy Policy</a>
       </aside>
     </div>
     <Footer />

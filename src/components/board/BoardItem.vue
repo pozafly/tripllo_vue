@@ -32,7 +32,6 @@ export default {
   width: 180px;
   height: 100px;
   border-radius: 3px;
-  /* background-color: #026aa7; */
   a {
     display: block;
     width: 100%;
@@ -48,6 +47,15 @@ export default {
     font-size: 18px;
     font-weight: 700;
     padding: 10px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* 라인수 */
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    line-height: 1.2em;
+    height: 3em;
   }
 }
 </style>

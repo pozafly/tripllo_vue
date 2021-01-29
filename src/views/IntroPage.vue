@@ -298,9 +298,11 @@ export default {
           box-shadow: rgba(0, 0, 0, 0.5) 0 0 19px;
           &.img2 {
             width: 500px;
+            height: 576.156px;
           }
           &.img3 {
             width: 500px;
+            height: 513.438px;
           }
         }
       }
