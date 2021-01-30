@@ -1,8 +1,8 @@
 import { comments } from '@/api';
 
 const commentApi = {
-  createComment({ cardId, userId, comment }) {
-    return comments.post(`/`, { cardId, userId, comment });
+  createComment({ cardId, userId, comment, dept, groupNum }) {
+    return comments.post(`/`, { cardId, userId, comment, dept, groupNum });
   },
 
   readComment(cardId) {

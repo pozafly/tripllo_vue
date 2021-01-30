@@ -3,8 +3,13 @@
     <div>
       <awesome icon="comments" class="fas fa-comments"></awesome>
       <span class="body-card-text">Comments</span>
-      <div class="comments-display">
-        <div v-for="item in comment" :key="item.id">
+      <div v-for="item in comment" :key="item.id">
+        <div
+          :class="{
+            'comments-display': item.dept === 0,
+            'comments-display active': item.dept === 1,
+          }"
+        >
           <div>
             <span class="profile-wrap" v-if="!item.picture">
               <awesome icon="user" class="fas fa-user"></awesome>
@@ -16,12 +21,21 @@
             ></span>
 
             <span class="comment-createdBy">@{{ item.createdBy }}</span>
-            <span class="comment-createdAt" v-if="!item.updatedAt">
-              {{ item.createdAt | formatDate }}
-            </span>
-            <span class="comment-createdAt" v-else>
-              {{ item.updatedAt | formatDate }} (수정됨)
-            </span>
+
+            <!-- 대댓글이 달린 댓글이 삭제 되었을 때는 update만 친다. 댓글이 삭제 되었습니다. 라고. -->
+            <template v-if="item.deleteYn === 'N'">
+              <span class="comment-createdAt" v-if="!item.updatedAt">
+                {{ item.createdAt | formatDate }}
+              </span>
+              <span class="comment-createdAt" v-else>
+                {{ item.updatedAt | formatDate }} (수정됨)
+              </span>
+            </template>
+            <template v-else>
+              <span class="comment-createdAt">
+                {{ item.updatedAt | formatDate }} (삭제됨)
+              </span>
+            </template>
           </div>
           <div class="side-comment">
             <SideComment :item="item" />
@@ -147,6 +161,22 @@ export default {
   margin: 13px 0 7px 35px;
   width: 92%;
   overflow-wrap: break-word;
+  position: relative;
+  &.active {
+    margin-top: 0;
+    margin-left: 74px;
+    &:before {
+      position: absolute;
+      left: -26px;
+      top: -34px;
+      border-radius: 0 0 0 10px;
+      border-bottom: 1px solid black;
+      border-left: 1px solid black;
+      content: '|||';
+      color: #f4f5f7;
+      padding-top: 23px;
+    }
+  }
   .side-comment {
     margin-top: 5px;
     margin-left: 42px;

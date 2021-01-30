@@ -216,10 +216,15 @@ const actions = {
   },
 
   // comment
-  CREATE_COMMENT({ dispatch, state }, { cardId, userId, comment }) {
-    return commentApi.createComment({ cardId, userId, comment }).then(() => {
-      dispatch('READ_COMMENT', state.card.id);
-    });
+  CREATE_COMMENT(
+    { dispatch, state },
+    { cardId, userId, comment, dept, groupNum },
+  ) {
+    return commentApi
+      .createComment({ cardId, userId, comment, dept, groupNum })
+      .then(() => {
+        dispatch('READ_COMMENT', state.card.id);
+      });
   },
   READ_COMMENT({ commit }, cardId) {
     return commentApi.readComment(cardId).then(({ data }) => {

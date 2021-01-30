@@ -46,12 +46,6 @@ export default {
       },
     };
   },
-  mounted() {
-    console.log('mounted');
-  },
-  updated() {
-    console.log('updated');
-  },
 };
 </script>
 

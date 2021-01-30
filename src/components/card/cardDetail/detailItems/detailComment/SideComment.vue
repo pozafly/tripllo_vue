@@ -10,11 +10,32 @@
       @keypress.enter="onKeyupEnter"
     />
     <span class="comment-comment" v-else>{{ item.comment }}</span>
-    <div class="comment-side" v-if="editPossible && !isEditComment">
-      <span class="comment-side-item" @click="onEditComment">Edit</span>
-      <span class="comment-side-item" @click="isDelete = true">
-        Delete
+    <div class="comment-side" v-if="!isEditComment">
+      <span v-if="user.id === item.createdBy && item.deleteYn === 'N'">
+        <span class="comment-side-item" @click="onEditComment">Edit</span>
+        <span class="comment-side-item" @click="isDelete = true">Delete</span>
       </span>
+
+      <!-- 대댓글(답글)은 삭제된 메세지에는 달수 없고, 대댓글 자체에도 달 수 없다. 일반 댓글에만 달 수 있음. -->
+      <template v-if="item.deleteYn === 'N' && item.dept === 0">
+        <textarea
+          class="form-control comment-input textarea nested"
+          ref="nestedComment"
+          v-model="nestedComment"
+          spellcheck="false"
+          v-if="isEditNestedComment"
+          placeholder="Write a comment..."
+          @blur="onSubmitNestedComment"
+          @keypress.enter="onKeyupEnter"
+        />
+        <span
+          class="comment-side-item nested"
+          @click="onEditNestedComment"
+          v-if="!isEditNestedComment"
+        >
+          답글 달기
+        </span>
+      </template>
     </div>
     <div class="comment-delete" v-if="isDelete">
       <SideBase @close="isDelete = false">
@@ -40,18 +61,18 @@ export default {
     return {
       isDelete: false,
       commentText: '',
+      nestedComment: '',
       isEditComment: false,
+      isEditNestedComment: false,
     };
   },
   computed: {
     ...mapState(['user', 'card']),
-    editPossible() {
-      return this.user.id === this.item.createdBy;
-    },
   },
   methods: {
-    ...mapActions(['UPDATE_COMMENT', 'DELETE_COMMENT']),
+    ...mapActions(['UPDATE_COMMENT', 'DELETE_COMMENT', 'CREATE_COMMENT']),
     deleteComment(item) {
+      this.isDelete = false;
       this.DELETE_COMMENT(item.id);
     },
     onKeyupEnter() {
@@ -69,12 +90,31 @@ export default {
 
       this.UPDATE_COMMENT({ id, userId, comment });
     },
+    onSubmitNestedComment() {
+      this.isEditNestedComment = false;
+
+      if (this.nestedComment === '') return;
+
+      const cardId = this.card.id;
+      const userId = this.user.id;
+      const comment = this.nestedComment;
+      // 대댓글은 무조건 dept가 1임.
+      const dept = '1';
+      const groupNum = this.item.id;
+
+      this.CREATE_COMMENT({ cardId, userId, comment, dept, groupNum });
+      this.nestedComment = '';
+    },
     onEditComment() {
       this.isEditComment = true;
       this.$nextTick(() => {
         this.$refs.input.focus();
         this.commentText = this.item.comment;
       });
+    },
+    onEditNestedComment() {
+      this.isEditNestedComment = true;
+      this.$nextTick(() => this.$refs.nestedComment.focus());
     },
   },
 };
@@ -93,7 +133,7 @@ export default {
     box-shadow: 0 1px 2px -1px rgba(9, 30, 66, 0.25),
       0 0 0 1px rgba(9, 30, 66, 0.08);
     box-sizing: border-box;
-    margin: 4px 2px 12px 0;
+    margin: 4px 2px 4px 0;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100%;
@@ -122,9 +162,15 @@ export default {
       box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px 0;
       outline: none;
     }
+    &.nested {
+      display: block;
+      margin-bottom: 35px;
+    }
   }
   .comment-side {
     display: inline;
+    position: relative;
+    top: 9px;
     .comment-side-item {
       position: relative;
       top: -16px;
