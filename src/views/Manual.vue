@@ -187,6 +187,7 @@ export default {
       padding: 15px;
       background: #fff;
       box-shadow: rgba(0, 0, 0, 0.2) 0 0 19px;
+      border-radius: 6px;
       margin: 13px;
       width: 900px;
       .content-title {
@@ -200,8 +201,8 @@ export default {
           margin: 0 43px;
           width: 450px;
           img {
-            width: 300px;
-            height: 300px;
+            width: 400px;
+            height: 400px;
           }
           p {
             margin-top: 30px;

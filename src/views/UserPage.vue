@@ -98,13 +98,12 @@ export default {
     padding: 40px 0 0 0;
     box-sizing: border-box;
     .user-header {
-      height: 15%;
       background-color: #f4f5f7;
       display: flex;
       flex-direction: column;
       justify-content: center;
       margin: 0 auto;
-      padding: 32px;
+      padding: 32px 0 70px;
       position: relative;
       .auth-items {
         display: flex;
@@ -164,6 +163,8 @@ export default {
       }
     }
     .tabs {
+      position: relative;
+      top: -30px;
       display: flex;
       justify-content: center;
     }
@@ -171,7 +172,7 @@ export default {
       position: relative;
       width: 100%;
       margin: 0px auto;
-      height: 77.7%;
+      top: -23px;
       .info-wrap {
         position: relative;
         margin: 0 auto;
