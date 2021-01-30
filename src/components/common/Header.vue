@@ -93,7 +93,6 @@
         <span>Login</span>
       </router-link>
     </div>
-    <Noti />
   </nav>
 </template>
 
@@ -101,11 +100,10 @@
 import { socketConnect } from '@/utils/socket';
 import bus from '@/utils/bus';
 import MessageModal from '@/components/common/MessageModal';
-import Noti from '@/components/common/Noti';
 import { mapActions, mapGetters, mapState } from 'vuex';
 
 export default {
-  components: { MessageModal, Noti },
+  components: { MessageModal },
   data() {
     return {
       isMenuShow: false,

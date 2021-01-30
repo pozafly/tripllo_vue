@@ -101,6 +101,8 @@ export default {
       // 대댓글은 무조건 dept가 1임.
       const dept = '1';
       const groupNum = this.item.id;
+      console.log('33333333');
+      console.log(this.item.id);
 
       this.CREATE_COMMENT({ cardId, userId, comment, dept, groupNum });
       this.nestedComment = '';

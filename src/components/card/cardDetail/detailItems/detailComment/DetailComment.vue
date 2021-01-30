@@ -158,13 +158,12 @@ export default {
 }
 .comments-display {
   display: block;
-  margin: 13px 0 7px 35px;
+  margin: 13px 0 17px 35px;
   width: 92%;
   overflow-wrap: break-word;
   position: relative;
   &.active {
-    margin-top: 0;
-    margin-left: 74px;
+    margin: 0 0 0 74px;
     &:before {
       position: absolute;
       left: -26px;

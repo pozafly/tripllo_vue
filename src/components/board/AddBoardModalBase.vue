@@ -3,7 +3,7 @@
   <transition name="modal">
     <div class="modal-mask-addBoard">
       <div class="modal-wrapper-addBoard">
-        <div class="modal-container-addBoard">
+        <div class="modal-container-addBoard" v-click-outside="closeModal">
           <div class="modal-header-addBoard">
             <slot name="header">
               default header
@@ -30,6 +30,16 @@
   </transition>
 </template>
 
+<script>
+export default {
+  methods: {
+    closeModal() {
+      this.$emit('close');
+    },
+  },
+};
+</script>
+
 <style scoped lang="scss">
 .modal-mask-addBoard {
   position: fixed;
@@ -47,7 +57,8 @@
   vertical-align: middle;
 }
 .modal-container-addBoard {
-  width: 300px;
+  width: 700px;
+  height: 400px;
   margin: 0px auto;
   padding: 17px 30px;
   background-color: #f4f5f7;
@@ -55,6 +66,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
   font-family: Helvetica, Arial, sans-serif;
+  border-radius: 20px;
 }
 .modal-header-addBoard h3 {
   margin-top: 0;

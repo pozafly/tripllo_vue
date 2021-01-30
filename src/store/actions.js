@@ -97,8 +97,8 @@ const actions = {
         }
       });
   },
-  ADD_BOARD(_, title) {
-    return boardApi.addBoard(title);
+  CREATE_BOARD(_, title) {
+    return boardApi.createBoard(title);
   },
   UPDATE_BOARD({ dispatch, state }, { id, title, bgColor, invitedUser }) {
     return boardApi

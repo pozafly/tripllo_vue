@@ -8,11 +8,8 @@
   >
     <template slot="body" slot-scope="props">
       <div class="custom-template">
-        <div class="custom-template-icon">
-          <awesome
-            :icon="['far', 'check-circle']"
-            class="icon ion-android-checkmark-circle"
-          ></awesome>
+        <div class="custom-template-side">
+          <awesome :icon="['far', 'check-circle']"></awesome>
         </div>
         <div class="custom-template-content">
           <div class="custom-template-title">
@@ -45,6 +42,9 @@ export default {
         },
       },
     };
+  },
+  mounted() {
+    console.log('noti');
   },
 };
 </script>
@@ -89,7 +89,7 @@ export default {
   }
   background: #e8f9f0;
   border: 2px solid #d0f2e1;
-  .custom-template-icon {
+  .custom-template-side {
     flex: 0 1 auto;
     color: #15c371;
     font-size: 32px;

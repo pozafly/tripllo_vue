@@ -80,7 +80,6 @@ export default {
         black: '#3a4142',
       },
       isPicker: false,
-      // createdUser: {},
     };
   },
   computed: {
@@ -102,9 +101,16 @@ export default {
     },
     onDeleteBoard() {
       if (!window.confirm(`Delete ${this.board.title} Board?`)) return;
-      this.DELETE_BOARD({ id: this.board.id }).then(() =>
-        this.$router.push('/main'),
-      );
+      this.DELETE_BOARD({ id: this.board.id }).then(() => {
+        this.$notify({
+          group: 'custom-template',
+          duration: 5000,
+          closeOnClick: true,
+          title: '보드 삭제 완료',
+          text: `'${this.board.title}' 보드가 삭제되었습니다.`,
+        });
+        this.$router.push('/main');
+      });
     },
     onChangeTheme(el) {
       const id = this.board.id;

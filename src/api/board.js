@@ -13,7 +13,7 @@ const boardApi = {
     return board.get(`detail/${boardId}`);
   },
 
-  addBoard(title) {
+  createBoard(title) {
     return board.post('/', { title });
   },
 

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Noti />
     <router-view></router-view>
     <spinner :loading="LoadingStatus"></spinner>
   </div>
@@ -7,12 +8,11 @@
 
 <script>
 import Spinner from '@/components/common/Spinner.vue';
+import Noti from '@/components/common/Noti';
 import bus from '@/utils/bus.js';
 
 export default {
-  components: {
-    Spinner,
-  },
+  components: { Spinner, Noti },
   data() {
     return {
       LoadingStatus: false,
