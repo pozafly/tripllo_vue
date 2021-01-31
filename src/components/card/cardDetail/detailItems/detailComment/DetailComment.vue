@@ -25,15 +25,15 @@
             <!-- 대댓글이 달린 댓글이 삭제 되었을 때는 update만 친다. 댓글이 삭제 되었습니다. 라고. -->
             <template v-if="item.deleteYn === 'N'">
               <span class="comment-createdAt" v-if="!item.updatedAt">
-                {{ item.createdAt | formatDate }}
+                {{ item.createdAt | timeForToday }}
               </span>
               <span class="comment-createdAt" v-else>
-                {{ item.updatedAt | formatDate }} (수정됨)
+                {{ item.updatedAt | timeForToday }} (수정됨)
               </span>
             </template>
             <template v-else>
               <span class="comment-createdAt">
-                {{ item.updatedAt | formatDate }} (삭제됨)
+                {{ item.updatedAt | timeForToday }} (삭제됨)
               </span>
             </template>
           </div>

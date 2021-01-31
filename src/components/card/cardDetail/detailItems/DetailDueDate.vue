@@ -3,7 +3,7 @@
     <div>
       <span class="detail-title">DUE DATE</span>
       <div class="detail-duedate-item">
-        {{ card.dueDate | formatDate }}
+        {{ card.dueDate | normalFormatDate }}
       </div>
       <button class="duedate-cancel" @click="isDelete = true">···</button>
       <div class="duedate-delete" v-if="isDelete">

@@ -6,7 +6,7 @@
     <div class="file-info-wrap">
       <div class="file-name">{{ item.fileName }}</div>
       <div class="file-created-at">
-        {{ item.createdAt | formatDate }}
+        {{ item.createdAt | timeForToday }}
       </div>
       <span class="file-delete-btn" @click="deleteFile">&times;</span>
     </div>

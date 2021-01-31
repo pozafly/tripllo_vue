@@ -1,6 +1,13 @@
 <template>
   <div class="container">
-    <span class="login-text"><b>Find Password</b></span>
+    <div class="icon-wrap">
+      <awesome :icon="['far', 'meh']" class="find-icon"></awesome>
+    </div>
+    <span class="login-text"><b>로그인에 문제가 있나요?</b></span>
+    <span class="sub-text">
+      걱정하지 마세요! 가입한 ID와 Email을 입력하면<br />
+      다시 로그인 할 수 있는 임시 비밀번호를 보내드립니다.
+    </span>
     <form @submit.prevent="submitForm">
       <div class="submit-items">
         <input
@@ -16,12 +23,9 @@
           v-model="userData.email"
         />
         <button class="submit-item btn" type="submit" :disabled="btnDisabled">
-          <b>비밀번호 재설정 이메일 보내기</b>
+          <b>임시 비밀번호 이메일 보내기</b>
         </button>
       </div>
-      <span class="refer-text">
-        입력한 정보가 맞다면 해당 Email로 임시 비밀번호가 발송됩니다.
-      </span>
     </form>
     <div class="sign_up">
       <router-link to="/auth/login">
@@ -82,11 +86,24 @@ export default {
   flex-direction: column;
   width: 23rem;
   padding: 2rem;
+  .icon-wrap {
+    display: flex;
+    justify-content: center;
+    font-size: 90px;
+    color: #5e6c84;
+  }
   .login-text {
     text-align: center;
     font-size: 1.2rem;
-    margin-bottom: 1.2rem;
+    margin: 3rem 0 0.6rem;
     color: #5e6c84;
+  }
+  .sub-text {
+    color: #5e6c84;
+    margin: 0 0 3rem;
+    text-align: center;
+    word-break: keep-all;
+    font-size: 13px;
   }
   .submit-items {
     display: flex;

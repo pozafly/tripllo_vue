@@ -18,7 +18,7 @@
           <span class="auth-item id">@{{ user.id }}</span>
         </div>
         <span class="createdAt">
-          {{ user.createdAt | formatDate }} 생성됨
+          {{ user.createdAt | normalFormatDate }} 생성됨
         </span>
       </div>
       <div class="tabs">

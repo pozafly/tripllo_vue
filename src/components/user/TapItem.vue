@@ -22,8 +22,8 @@ export default {
 <style scoped lang="scss">
 .tab {
   border-radius: 6px 6px 0 0;
-  background: #fff;
-  color: #311d0a;
+  background: #4fa0e3;
+  color: #fff;
   line-height: 24px;
   width: 200px;
   height: 30px;
@@ -31,14 +31,14 @@ export default {
   border: 0;
   outline: 0;
   &:hover {
-    background: #eeeeee;
+    background: #88bce6;
   }
 }
 .active {
-  background: #4fa0e3;
-  color: #fff;
+  background: #fff;
+  color: #311d0a;
   &:hover {
-    background: #88bce6;
+    background: #fff;
   }
 }
 </style>

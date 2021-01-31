@@ -25,7 +25,7 @@
             <div class="profile-item title">{{ board.title }}</div>
             <div class="profile-item name">@{{ board.createdBy }}</div>
             <div class="profile-item email">
-              {{ board.createdAt | formatDate }} 생성됨
+              {{ board.createdAt | normalFormatDate }} 생성됨
             </div>
           </div>
         </li>

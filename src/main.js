@@ -3,7 +3,7 @@ import App from './App.vue';
 import router from '@/routes/index';
 import store from '@/store/index';
 import { install } from '@/plugin/plugin';
-import { formatDate } from '@/utils/dateFilter';
+import { normalFormatDate, timeForToday } from '@/utils/dateFilter';
 import LoadScript from 'vue-plugin-load-script';
 import '@/utils/fontAwesomeIcon.js';
 import Notifications from 'vue-notification';
@@ -14,7 +14,8 @@ Vue.use(install);
 Vue.use(LoadScript);
 Vue.use(Notifications);
 Vue.use(vClickOutside);
-Vue.filter('formatDate', formatDate);
+Vue.filter('normalFormatDate', normalFormatDate);
+Vue.filter('timeForToday', timeForToday);
 
 new Vue({
   render: h => h(App),

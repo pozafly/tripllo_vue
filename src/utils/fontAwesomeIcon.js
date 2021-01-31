@@ -52,7 +52,15 @@ import {
   faCheckSquare as farCheckSquare,
   faUser as farUser,
   faCheckCircle as farCheckCircle,
+  faMeh as farMeh,
 } from '@fortawesome/free-regular-svg-icons';
-library.add(farClock, farClipboard, farCheckSquare, farUser, farCheckCircle);
+library.add(
+  farClock,
+  farClipboard,
+  farCheckSquare,
+  farUser,
+  farCheckCircle,
+  farMeh,
+);
 
 Vue.component('awesome', FontAwesomeIcon);
