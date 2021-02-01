@@ -58,7 +58,7 @@ export default {
 }
 .modal-container-addBoard {
   width: 700px;
-  height: 400px;
+  min-height: 400px;
   margin: 0px auto;
   padding: 17px 30px;
   background-color: #f4f5f7;

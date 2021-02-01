@@ -97,12 +97,15 @@ const actions = {
         }
       });
   },
-  CREATE_BOARD(_, title) {
-    return boardApi.createBoard(title);
+  CREATE_BOARD(_, { title, publicYn, hashtag, bgColor }) {
+    return boardApi.createBoard({ title, publicYn, hashtag, bgColor });
   },
-  UPDATE_BOARD({ dispatch, state }, { id, title, bgColor, invitedUser }) {
+  UPDATE_BOARD(
+    { dispatch, state },
+    { id, title, bgColor, invitedUser, hashtag, publicYn },
+  ) {
     return boardApi
-      .updateBoard(id, { title, bgColor, invitedUser })
+      .updateBoard(id, { title, bgColor, invitedUser, hashtag, publicYn })
       .then(({ data }) => {
         if (data.data.invitedUser) return;
         dispatch('READ_BOARD_DETAIL', state.board.id);

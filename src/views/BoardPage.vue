@@ -22,6 +22,10 @@
               <ProfileImage :board="board" />
             </span>
 
+            <span class="board-item">
+              {{ publicYn }}
+            </span>
+
             <span class="board-item" @click="openInviteModal">
               Invite
               <Invite
@@ -42,6 +46,10 @@
                 </span>
               </span>
             </span>
+
+            <div class="hash-wrap">
+              <HashtagDisplay />
+            </div>
 
             <a
               class="board-header-btn show-menu"
@@ -86,6 +94,7 @@ import BoardMenu from '@/components/board/boardMenu/BoardMenu';
 import dragger from '@/utils/dragger/dragger';
 import Invite from '@/components/board/Invite';
 import ProfileImage from '@/components/board/ProfileImage';
+import HashtagDisplay from '@/components/board/HashtagDisplay';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
@@ -96,6 +105,7 @@ export default {
     AddList,
     Invite,
     ProfileImage,
+    HashtagDisplay,
   },
   data() {
     return {
@@ -116,6 +126,11 @@ export default {
   },
   computed: {
     ...mapState(['board', 'user']),
+    publicYn() {
+      if (this.board.publicYn === 'Y') {
+        return 'Public';
+      } else return 'Private';
+    },
   },
   created() {
     this.READ_BOARD_DETAIL(this.$route.params.boardId).then(() => {
@@ -272,6 +287,12 @@ export default {
               margin-right: -7px;
               cursor: pointer;
             }
+          }
+          .hash-wrap {
+            display: inline-block;
+            position: absolute;
+            top: 13px;
+            right: 150px;
           }
           .board-header-btn {
             border-radius: 4px;

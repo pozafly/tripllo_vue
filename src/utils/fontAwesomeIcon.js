@@ -23,6 +23,11 @@ import {
   faSkull,
   faBell,
   faUserFriends,
+  faClipboardList,
+  faHashtag,
+  faGlobeAmericas,
+  faFillDrip,
+  faPlusCircle,
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   faUser,
@@ -44,6 +49,11 @@ library.add(
   faSkull,
   faBell,
   faUserFriends,
+  faClipboardList,
+  faHashtag,
+  faGlobeAmericas,
+  faFillDrip,
+  faPlusCircle,
 );
 
 import {

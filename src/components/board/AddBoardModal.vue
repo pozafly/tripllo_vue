@@ -10,37 +10,87 @@
     </div>
     <div slot="body">
       <div class="body">
-        <input
-          class="form-control"
-          type="text"
-          v-model="input"
-          ref="input"
-          placeholder="Please write new board title"
-        />
-        <div class="color-picker">
-          <a
-            class="color"
-            :data-value="color"
-            @click.prevent="clickColor(color)"
-            v-for="color in colors"
-            :key="color"
-          >
-            <awesome
-              class="check-icon"
-              v-if="selectColor === color"
-              :icon="['far', 'check-circle']"
-            ></awesome>
-          </a>
+        <div class="first-line">
+          <div class="line-item">
+            <div class="title-wrap">
+              <awesome icon="clipboard-list" class="icon" />
+              <span>Title</span>
+              <span class="require">*</span>
+            </div>
+            <input
+              class="form-control"
+              type="text"
+              v-model="title"
+              ref="title"
+              placeholder="보드 제목을 입력해주세요"
+            />
+          </div>
+
+          <div class="line-item">
+            <div class="title-wrap">
+              <awesome icon="globe-americas" class="icon" />
+              <span>Disclosure status</span>
+              <span class="require">*</span>
+              <div class="subtext">
+                - Board의 공개여부를 결정합니다. 추후 변경 가능.
+              </div>
+            </div>
+            <form class="radio-wrap">
+              <input type="radio" id="public" value="Y" v-model="publicYn" />
+              <label for="public" class="radio-label">Public</label>
+              <input type="radio" id="private" value="N" v-model="publicYn" />
+              <label for="private" class="radio-label">Private</label>
+            </form>
+          </div>
+        </div>
+
+        <div class="title-wrap">
+          <awesome icon="hashtag" class="icon" />
+          <span>Hash Tag</span>
+          <div class="subtext">
+            - Board를 public으로 설정할 시 해시태그로 노출됩니다.<br />
+            - 15자 이내, 3개 까지 입력가능.
+          </div>
         </div>
         <div class="hash-wrap">
           <input
             class="form-control hash-form"
             type="text"
-            v-model="input"
-            placeholder="Please write new board title"
+            v-model="hashItem"
+            placeholder="예시) 국내여행, 고양이 ... 등"
+            @keypress.enter="pushHash"
           />
           <div class="hash-item">
-            dddd
+            <span class="hashtag" v-for="hash in hashList" :key="hash">
+              # {{ hash }}
+              <span class="hashtag-delete" @click="deleteHash(hash)"
+                >&times;</span
+              >
+            </span>
+          </div>
+        </div>
+        <div class="color-wrap">
+          <div class="title-wrap">
+            <awesome icon="fill-drip" class="icon" />
+            <span>Color</span>
+            <div class="subtext">
+              - Board의 색상을 선택합니다. 추후 변경 가능.
+            </div>
+          </div>
+          <div class="color-picker">
+            <a
+              class="color"
+              :data-value="color"
+              @click.prevent="clickColor(color)"
+              v-for="color in colors"
+              :key="color"
+            >
+              <awesome
+                class="check-icon"
+                v-if="selectColor === color"
+                :icon="['far', 'check-circle']"
+              ></awesome>
+            </a>
           </div>
         </div>
       </div>
@@ -68,8 +118,11 @@ export default {
   components: { AddBoardModalBase },
   data() {
     return {
-      input: '',
+      title: '',
       valid: false,
+      hashList: [],
+      hashItem: '',
+      publicYn: 'Y',
       colors: {
         red: '#fa5252',
         coral: '#ff7f50',
@@ -84,12 +137,18 @@ export default {
     };
   },
   watch: {
-    input(value) {
+    title(value) {
       this.valid = value.trim().length > 0;
+    },
+    hashItem() {
+      if (this.hashItem.trim().length > 14) {
+        alert('해시태그는 15자를 넘길 수 없습니다.');
+        return;
+      }
     },
   },
   mounted() {
-    this.$refs.input.focus();
+    this.$refs.title.focus();
     // 색상 선택기에 데이터 넣기
     Array.from(this.$el.querySelectorAll('.color-picker a')).forEach(el => {
       el.style.backgroundColor = el.dataset.value;
@@ -98,15 +157,38 @@ export default {
   methods: {
     ...mapActions(['CREATE_BOARD']),
     async addBoard() {
-      const { data } = await this.CREATE_BOARD(this.input);
+      const title = this.title.trim();
+      const bgColor = this.selectColor;
+      const publicYn = this.publicYn;
+      const hashtag = JSON.stringify(this.hashList);
+
+      const { data } = await this.CREATE_BOARD({
+        title,
+        bgColor,
+        publicYn,
+        hashtag,
+      });
       await this.$notify({
         group: 'custom-template',
         duration: 5000,
         closeOnClick: true,
         title: '보드 생성 성공!',
-        text: `'${this.input}' 보드가 만들어졌습니다.`,
+        text: `'${this.title}' 보드가 만들어졌습니다.`,
       });
       await this.$router.push(`/board/${data.data.id}`);
+    },
+    pushHash() {
+      if (this.hashList.length > 2) {
+        alert('해시태그는 3개까지 입력가능합니다.');
+        this.hashItem = '';
+        return;
+      }
+      this.hashList.push(this.hashItem.replace(/(\s*)/g, '').trim());
+      this.hashItem = '';
+    },
+    deleteHash(hash) {
+      let pos = this.hashList.indexOf(hash);
+      this.hashList.splice(pos, 1);
     },
     clickColor(color) {
       this.selectColor = color;
@@ -137,51 +219,99 @@ h2 {
 .body {
   display: flex;
   flex-direction: column;
-  .form-control {
-    width: 98.8%;
-    height: 30px;
-    margin: 20px auto;
-  }
-  .color-picker {
+  .first-line {
     display: flex;
-    justify-content: center;
-    & a {
-      display: inline-block;
-      width: 15%;
-      height: 60px;
-      border-radius: 8px;
-      margin: 0 5px;
-      cursor: pointer;
-      &:hover {
-        filter: brightness(90%) !important;
-      }
-      .check-icon {
-        position: relative;
-        color: #fff;
+    flex-direction: row;
+    .line-item {
+      width: 50%;
+      .radio-wrap {
         display: flex;
-        top: 33%;
-        left: 35%;
-        font-size: 20px;
+        align-items: center;
+        margin-top: 15px;
+        margin-left: 10px;
+        .radio-label {
+          margin: 5px;
+          position: relative;
+          top: 3px;
+        }
       }
     }
+  }
+  .title-wrap {
+    align-items: center;
+    margin-top: 13px;
+    .require {
+      margin-left: 2px;
+      color: red;
+    }
+    .subtext {
+      margin: 4px 0 0 18px;
+      position: relative;
+      top: 2px;
+      font-size: 13px;
+      color: gray;
+    }
+  }
+  .form-control {
+    width: 90%;
+    height: 30px;
+    margin: 20px 10px;
   }
   .hash-wrap {
     display: flex;
     justify-content: space-between;
-    flex-direction: row;
-    margin-top: 20px;
     .hash-form {
-      width: 50%;
+      width: 45%;
     }
     .hash-item {
+      display: inline-block;
       width: 50%;
+      .hashtag {
+        display: inline-block;
+        margin: 20px 13px -10px 0;
+        padding: 5px 10px;
+        background: rgb(102, 121, 228);
+        border-radius: 30px;
+        color: #fff;
+        line-height: 20px;
+        font-size: 13px;
+        .hashtag-delete {
+          margin-left: 2px;
+          cursor: pointer;
+        }
+      }
     }
-    /* height: 60px; */
-    /* background: pink; */
+  }
+  .color-wrap {
+    .color-picker {
+      display: flex;
+      justify-content: center;
+      margin-top: 13px;
+      & a {
+        display: inline-block;
+        width: 15%;
+        height: 60px;
+        border-radius: 8px;
+        margin: 0 5px;
+        cursor: pointer;
+        &:hover {
+          filter: brightness(90%) !important;
+        }
+        .check-icon {
+          position: relative;
+          color: #fff;
+          display: flex;
+          top: 33%;
+          left: 35%;
+          font-size: 20px;
+        }
+      }
+    }
   }
 }
 .btn-wrap {
   text-align: center;
+  margin: 30px 0 15px;
   .btn {
     cursor: pointer;
     border: 0;
@@ -200,5 +330,8 @@ h2 {
       cursor: default;
     }
   }
+}
+.icon {
+  margin: 0 13px;
 }
 </style>

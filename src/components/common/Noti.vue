@@ -43,9 +43,6 @@ export default {
       },
     };
   },
-  mounted() {
-    console.log('noti');
-  },
 };
 </script>
 

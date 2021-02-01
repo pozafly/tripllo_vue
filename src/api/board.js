@@ -13,12 +13,18 @@ const boardApi = {
     return board.get(`detail/${boardId}`);
   },
 
-  createBoard(title) {
-    return board.post('/', { title });
+  createBoard({ title, publicYn, hashtag, bgColor }) {
+    return board.post('/', { title, publicYn, hashtag, bgColor });
   },
 
-  updateBoard(id, { title, bgColor, invitedUser }) {
-    return board.put(`/${id}`, { title, bgColor, invitedUser });
+  updateBoard(id, { title, bgColor, invitedUser, hashtag, publicYn }) {
+    return board.put(`/${id}`, {
+      title,
+      bgColor,
+      invitedUser,
+      hashtag,
+      publicYn,
+    });
   },
 
   deleteBoard(id) {
