@@ -41,8 +41,8 @@
             v-for="color in colors"
             :key="color"
           ></a>
-          <a class="new-pick" @click.prevent="onChangeTheme">
-            <div class="color new-pick-text" @click="isPicker = true">
+          <a class="new-pick" @click="isPicker = true">
+            <div class="color new-pick-text">
               색상선택기
             </div>
           </a>

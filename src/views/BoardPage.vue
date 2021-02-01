@@ -22,11 +22,15 @@
               <ProfileImage :board="board" />
             </span>
 
-            <span class="board-item">
+            <span class="board-item" @click="changePublic">
               {{ publicYn }}
             </span>
 
-            <span class="board-item" @click="openInviteModal">
+            <span
+              class="board-item"
+              @click="openInviteModal"
+              v-if="board.publicYn === 'Y'"
+            >
               Invite
               <Invite
                 v-if="isInvite"
@@ -96,6 +100,7 @@ import Invite from '@/components/board/Invite';
 import ProfileImage from '@/components/board/ProfileImage';
 import HashtagDisplay from '@/components/board/HashtagDisplay';
 import { mapActions, mapMutations, mapState } from 'vuex';
+import state from '../store/state';
 
 export default {
   components: {
@@ -223,6 +228,23 @@ export default {
       if (!this.$refs.boardMenu.$el.contains(e.target)) {
         this.isBoardMenu = false;
       }
+    },
+    changePublic() {
+      let status;
+      let sentense;
+
+      if (this.board.publicYn === 'Y') {
+        status = 'N';
+        sentense =
+          '공개여부를 Private으로 바꾸시면 초대된 사람은 유지되지만 \n해시태그를 통한 노출이 불가능 합니다. 그래도 바꾸시겠습니까?';
+      } else {
+        status = 'Y';
+        sentense =
+          '공개여부를 Public으로 바꾸시면 해시태그를 통해 노출이 가능합니다.';
+      }
+
+      let change = window.confirm(sentense);
+      if (change) this.UPDATE_BOARD({ id: this.board.id, publicYn: status });
     },
   },
 };
