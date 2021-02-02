@@ -8,6 +8,7 @@ import commentApi from '@/api/comment';
 import pushMessageApi from '@/api/pushMessage';
 import uploadApi from '@/api/upload';
 import emailApi from '@/api/email';
+import boardHasLikeApi from '@/api/boardHasLike';
 import router from '@/routes';
 import bus from '@/utils/bus';
 
@@ -315,6 +316,30 @@ const actions = {
       .catch(({ response }) => {
         bus.$emit('end:spinner');
         alert(response.data.message);
+      });
+  },
+
+  // like
+  CREATE_LIKE({ dispatch, state }, { boardId, likeCount }) {
+    return boardHasLikeApi
+      .createBoardHasLike({ boardId, likeCount })
+      .then(() => {
+        dispatch('READ_BOARD_LIST', {
+          userId: state.user.id,
+          recentLists: JSON.parse(state.user.recentBoard),
+          invitedLists: JSON.parse(state.user.invitedBoard),
+        });
+      });
+  },
+  DELETE_LIKE({ dispatch, state }, { boardId, likeCount }) {
+    return boardHasLikeApi
+      .deleteBoardHasLike({ boardId, likeCount })
+      .then(() => {
+        dispatch('READ_BOARD_LIST', {
+          userId: state.user.id,
+          recentLists: JSON.parse(state.user.recentBoard),
+          invitedLists: JSON.parse(state.user.invitedBoard),
+        });
       });
   },
 };

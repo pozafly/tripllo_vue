@@ -29,6 +29,7 @@ import {
   faFillDrip,
   faPlusCircle,
   faLayerGroup,
+  faHeart,
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   faUser,
@@ -56,6 +57,7 @@ library.add(
   faFillDrip,
   faPlusCircle,
   faLayerGroup,
+  faHeart,
 );
 
 import {

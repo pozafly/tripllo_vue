@@ -60,7 +60,6 @@ export default {
     ...mapState(['board']),
   },
   mounted() {
-    console.log(this.board.hashtag);
     this.setHashList();
   },
   methods: {
@@ -70,7 +69,6 @@ export default {
       else this.hashtag = [];
     },
     pushHash() {
-      console.log(this.hashList);
       if (this.hashList != null && this.hashList != '[]') {
         if (this.hashList.includes(this.hashItem)) {
           alert('같은 이름의 해시태그는 동일한 보드에 입력 불가능합니다.');

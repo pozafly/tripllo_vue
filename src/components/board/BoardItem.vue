@@ -1,25 +1,32 @@
 <template>
   <div>
-    <div class="board-item" ref="boardItem">
-      <router-link :to="`/board/${board.id}`">
-        <div class="board-item-title">{{ board.title }}</div>
-        <div class="side-wrap" v-if="board.publicYn === 'Y'">
-          <span class="heart">
+    <div class="board-item" ref="boardItem" @click="goBoardPage">
+      <div class="board-item-title">{{ board.title }}</div>
+      <div class="side-wrap" v-if="board.publicYn === 'Y'">
+        <span class="heart" @click="countHeart">
+          <template v-if="board.ownLike === 0">
             <awesome :icon="['far', 'heart']" />
-            <span class="heart-num">210</span>
+          </template>
+          <template v-if="board.ownLike === 1">
+            <awesome icon="heart" class="fill-heart" />
+          </template>
+          <span class="heart-num" v-if="board.likeCount != 0">
+            {{ board.likeCount }}
           </span>
-          <div v-if="board.hashtag" class="hash-wrap">
-            <span v-for="hash in hashtag" :key="hash" class="hashtag">
-              {{ hash }}
-            </span>
-          </div>
+        </span>
+        <div v-if="board.hashtag" class="hash-wrap">
+          <span v-for="hash in hashtag" :key="hash" class="hashtag">
+            {{ hash }}
+          </span>
         </div>
-      </router-link>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   props: ['board'],
   watch: {
@@ -36,8 +43,30 @@ export default {
     this.setboardItemTheme();
   },
   methods: {
+    ...mapActions(['CREATE_LIKE', 'DELETE_LIKE']),
     setboardItemTheme() {
       this.$refs.boardItem.style.backgroundColor = this.board.bgColor;
+    },
+    countHeart() {
+      const boardId = this.board.id;
+      const likeCount = this.board.likeCount;
+
+      if (this.board.ownLike === 0) {
+        this.CREATE_LIKE({ boardId, likeCount: likeCount + 1 });
+      } else {
+        this.DELETE_LIKE({ boardId, likeCount: likeCount - 1 });
+      }
+    },
+    goBoardPage(e) {
+      if (
+        e.target.nodeName === 'svg' ||
+        e.target.nodeName === 'path' ||
+        e.target.className === 'heart' ||
+        e.target.className === 'side-wrap' ||
+        e.target.className === 'heart-num'
+      )
+        return;
+      this.$router.push(`/board/${this.board.id}`);
     },
   },
 };
@@ -49,6 +78,7 @@ export default {
   height: 120px;
   border-radius: 3px;
   position: relative;
+  cursor: pointer;
   a {
     display: block;
     width: 100%;
@@ -85,10 +115,11 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      width: 165px;
-      padding: 0 0 10px 4px;
+      width: 170px;
+      padding: 0 0 15px 4px;
       position: relative;
-      bottom: -4.3px;
+      bottom: -4px;
+      color: #fff;
       .hashtag {
         font-size: 6px;
         display: inline-block;
@@ -104,12 +135,16 @@ export default {
     }
     .heart {
       position: absolute;
-      right: 6px;
+      right: 2px;
       /* background: red; */
+      padding: 4px;
       color: #fff;
       .heart-num {
-        font-size: 10px;
+        font-size: 11px;
         margin-left: 3px;
+      }
+      .fill-heart {
+        color: red;
       }
     }
   }
