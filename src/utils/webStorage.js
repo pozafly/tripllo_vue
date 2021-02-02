@@ -4,8 +4,8 @@ function saveUserToLocalStorage(user) {
   localStorage.setItem('user_name', user.name);
   localStorage.setItem('user_bio', user.bio);
   localStorage.setItem('user_picture', user.picture);
-  localStorage.setItem('user_recent', user.recent);
-  localStorage.setItem('user_favorite', user.favorite);
+  localStorage.setItem('user_recentBoard', user.recentBoard);
+  localStorage.setItem('user_invitedBoard', user.invitedBoard);
   localStorage.setItem('user_created_at', user.createdAt);
 }
 

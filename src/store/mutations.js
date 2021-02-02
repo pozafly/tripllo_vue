@@ -27,9 +27,11 @@ const mutations = {
     state.boardList = boardList;
   },
   setRecentBoard(state, recentBoard) {
+    saveSessionStorage('recentBoard', recentBoard);
     state.recentBoard = recentBoard;
   },
   setInvitedBoard(state, invitedBoard) {
+    saveSessionStorage('invitedBoard', invitedBoard);
     state.invitedBoard = invitedBoard;
   },
   setBoardDetail(state, board) {

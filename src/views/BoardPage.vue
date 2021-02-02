@@ -187,9 +187,10 @@ export default {
     },
     // 4개의 recent board만 허락함.
     makeRecent() {
+      console.log();
       let recentArray = [];
-      if (this.user.recent !== 'null' && this.user.recent !== null) {
-        recentArray = JSON.parse(this.user.recent);
+      if (this.user.recentBoard !== 'null' && this.user.recentBoard !== null) {
+        recentArray = JSON.parse(this.user.recentBoard);
       }
       recentArray.forEach((el, idx) => {
         if (el === this.board.id) recentArray.splice(idx, 1);

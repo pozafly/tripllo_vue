@@ -60,7 +60,6 @@
 import Header from '@/components/common/Header';
 import BoardItem from '@/components/board/BoardItem';
 import AddBoardModal from '@/components/board/AddBoardModal';
-import { clearSessionStorage } from '@/utils/webStorage';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -79,7 +78,7 @@ export default {
   },
   watch: {
     user() {
-      this.displayRecent();
+      this.displayBoardLists();
     },
   },
   methods: {
@@ -87,8 +86,9 @@ export default {
     showAddBoard() {
       this.isShowAddBoard = !this.isShowAddBoard;
     },
-    async displayRecent() {
+    async displayBoardLists() {
       let recentLists = null;
+
       if (this.user.recentBoard) {
         recentLists = JSON.parse(this.user.recentBoard);
       }
@@ -103,11 +103,13 @@ export default {
       });
     },
   },
-  created() {
-    clearSessionStorage();
-  },
+  // created() {
+  //   clearSessionStorage();
+  // },
   mounted() {
-    this.displayRecent();
+    this.$nextTick(() => {
+      this.displayBoardLists();
+    });
   },
 };
 </script>

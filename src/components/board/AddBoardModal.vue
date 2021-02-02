@@ -178,6 +178,11 @@ export default {
       await this.$router.push(`/board/${data.data.id}`);
     },
     pushHash() {
+      if (this.hashList.includes(this.hashItem)) {
+        alert('같은 이름의 해시태그는 동일한 보드에 입력 불가능합니다.');
+        this.hashItem = '';
+        return;
+      }
       if (this.hashList.length > 2) {
         alert('해시태그는 3개까지 입력가능합니다.');
         this.hashItem = '';
