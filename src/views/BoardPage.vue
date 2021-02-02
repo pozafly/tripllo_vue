@@ -51,7 +51,7 @@
               </span>
             </span>
 
-            <div class="hash-wrap">
+            <div class="hash-wrap" v-if="board.publicYn === 'Y'">
               <HashtagDisplay />
             </div>
 
@@ -196,7 +196,7 @@ export default {
         if (el === this.board.id) recentArray.splice(idx, 1);
       });
 
-      if (recentArray.length >= 4) recentArray.pop();
+      if (recentArray.length >= 3) recentArray.pop();
       recentArray.unshift(this.board.id);
 
       const recentBoard = JSON.stringify(recentArray);
@@ -314,7 +314,7 @@ export default {
           .hash-wrap {
             display: inline-block;
             position: absolute;
-            top: 13px;
+            top: 8px;
             right: 150px;
           }
           .board-header-btn {
@@ -332,7 +332,7 @@ export default {
               font-size: 14px;
               position: absolute;
               right: 15px;
-              top: 8px;
+              top: 6px;
             }
           }
         }

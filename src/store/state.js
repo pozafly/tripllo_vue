@@ -23,6 +23,7 @@ const state = {
   socket: null,
   pushMessage: '',
   file: [],
+  mainTapId: 0,
 };
 
 export default state;

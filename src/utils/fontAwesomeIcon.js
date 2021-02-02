@@ -28,6 +28,7 @@ import {
   faGlobeAmericas,
   faFillDrip,
   faPlusCircle,
+  faLayerGroup,
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   faUser,
@@ -54,6 +55,7 @@ library.add(
   faGlobeAmericas,
   faFillDrip,
   faPlusCircle,
+  faLayerGroup,
 );
 
 import {
@@ -63,6 +65,7 @@ import {
   faUser as farUser,
   faCheckCircle as farCheckCircle,
   faMeh as farMeh,
+  faHeart as farHeart,
 } from '@fortawesome/free-regular-svg-icons';
 library.add(
   farClock,
@@ -71,6 +74,7 @@ library.add(
   farUser,
   farCheckCircle,
   farMeh,
+  farHeart,
 );
 
 Vue.component('awesome', FontAwesomeIcon);

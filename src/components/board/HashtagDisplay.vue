@@ -53,29 +53,37 @@ export default {
       }
     },
     board() {
-      this.hashList = JSON.parse(this.board.hashtag);
+      this.setHashList();
     },
   },
   computed: {
     ...mapState(['board']),
   },
   mounted() {
-    if (this.board.hashtag) this.hashList = JSON.parse(this.board.hashtag);
-    else this.board.hashtag = null;
+    console.log(this.board.hashtag);
+    this.setHashList();
   },
   methods: {
     ...mapActions(['UPDATE_BOARD']),
+    setHashList() {
+      if (this.board.hashtag) this.hashList = JSON.parse(this.board.hashtag);
+      else this.hashtag = [];
+    },
     pushHash() {
-      if (this.hashList.includes(this.hashItem)) {
-        alert('같은 이름의 해시태그는 동일한 보드에 입력 불가능합니다.');
-        this.hashItem = '';
-        return;
+      console.log(this.hashList);
+      if (this.hashList != null && this.hashList != '[]') {
+        if (this.hashList.includes(this.hashItem)) {
+          alert('같은 이름의 해시태그는 동일한 보드에 입력 불가능합니다.');
+          this.hashItem = '';
+          return;
+        }
+        if (this.hashList.length > 2) {
+          alert('해시태그는 3개까지 입력가능합니다.');
+          this.hashItem = '';
+          return;
+        }
       }
-      if (this.hashList.length > 2) {
-        alert('해시태그는 3개까지 입력가능합니다.');
-        this.hashItem = '';
-        return;
-      }
+
       this.hashList.push(this.hashItem.replace(/(\s*)/g, '').trim());
       this.hashItem = '';
 

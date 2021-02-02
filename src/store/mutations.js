@@ -88,6 +88,11 @@ const mutations = {
   deleteFile(state) {
     state.file = [];
   },
+
+  // main tap
+  setMainTapId(state, value) {
+    state.mainTapId = value;
+  },
 };
 
 export default mutations;
