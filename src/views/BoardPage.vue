@@ -198,8 +198,8 @@ export default {
       if (recentArray.length >= 4) recentArray.pop();
       recentArray.unshift(this.board.id);
 
-      const recent = JSON.stringify(recentArray);
-      this.UPDATE_USER({ id: this.user.id, recent });
+      const recentBoard = JSON.stringify(recentArray);
+      this.UPDATE_USER({ id: this.user.id, recentBoard });
     },
     setInvitedUser() {
       if (!this.board.invitedUser) return;

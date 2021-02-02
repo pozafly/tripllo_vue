@@ -35,7 +35,7 @@
           </div>
         </div>
 
-        <div class="boards" v-if="invitedBoard.length !== 0">
+        <div class="boards" v-if="invitedBoard">
           <div class="page-title">
             <awesome icon="user-friends" class="far fa-user"></awesome>
             Invited Boards
@@ -89,10 +89,18 @@ export default {
     },
     async displayRecent() {
       let recentLists = null;
-      if (this.user.recent) {
-        recentLists = JSON.parse(this.user.recent);
+      if (this.user.recentBoard) {
+        recentLists = JSON.parse(this.user.recentBoard);
       }
-      await this.READ_BOARD_LIST({ userId: this.user.id, recentLists });
+      let invitedLists = null;
+      if (this.user.invitedBoard) {
+        invitedLists = JSON.parse(this.user.invitedBoard);
+      }
+      await this.READ_BOARD_LIST({
+        userId: this.user.id,
+        recentLists,
+        invitedLists,
+      });
     },
   },
   created() {

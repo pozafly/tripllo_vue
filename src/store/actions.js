@@ -52,7 +52,7 @@ const actions = {
   },
   async UPDATE_USER(
     { dispatch, state },
-    { id, email, name, password, bio, picture, recent, favorite },
+    { id, email, name, password, bio, picture, recentBoard, invitedBoard },
   ) {
     await authApi.updateUser({
       id,
@@ -61,8 +61,8 @@ const actions = {
       password,
       bio,
       picture,
-      recent,
-      favorite,
+      recentBoard,
+      invitedBoard,
     });
     await dispatch('READ_USER', state.user.id);
   },
@@ -77,12 +77,14 @@ const actions = {
   READ_BOARD_ONE(_, { boardId }) {
     return boardApi.readBoardOne({ boardId });
   },
-  READ_BOARD_LIST({ commit }, { userId, recentLists }) {
-    return boardApi.readBoardList({ userId, recentLists }).then(({ data }) => {
-      commit('setBoardList', data.data.boardList);
-      commit('setRecentBoard', data.data.recentBoard);
-      commit('setInvitedBoard', data.data.invitedBoard);
-    });
+  READ_BOARD_LIST({ commit }, { userId, recentLists, invitedLists }) {
+    return boardApi
+      .readBoardList({ userId, recentLists, invitedLists })
+      .then(({ data }) => {
+        commit('setBoardList', data.data.boardList);
+        commit('setRecentBoard', data.data.recentBoard);
+        commit('setInvitedBoard', data.data.invitedBoard);
+      });
   },
   READ_BOARD_DETAIL({ commit }, boardId) {
     return boardApi

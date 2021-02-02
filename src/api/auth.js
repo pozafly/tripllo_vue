@@ -49,10 +49,19 @@ const authApi = {
       },
     });
   },
-  updateUser({ id, email, name, password, bio, picture, recent, favorite }) {
+  updateUser({
+    id,
+    email,
+    name,
+    password,
+    bio,
+    picture,
+    recentBoard,
+    invitedBoard,
+  }) {
     return instance.put(
       'user',
-      { id, email, name, password, bio, picture, recent, favorite },
+      { id, email, name, password, bio, picture, recentBoard, invitedBoard },
       {
         headers: {
           Authorization: store.state.token,

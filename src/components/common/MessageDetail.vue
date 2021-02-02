@@ -1,6 +1,7 @@
 <template>
   <li class="message-wrap">
     <span class="message-content">{{ message.content }}</span>
+    <span class="message-time">{{ message.createdAt | timeForToday }}</span>
     <button class="message-btn save-btn" @click="acceptMessage">수락</button>
     <button class="message-btn remove-btn" @click="rejectMessage">거절</button>
   </li>
@@ -19,6 +20,7 @@ export default {
       'UPDATE_PUSH_MESSAGE',
       'DELETE_PUSH_MESSAGE',
       'UPDATE_BOARD',
+      'UPDATE_USER',
       'READ_BOARD_ONE',
     ]),
     async acceptMessage() {
@@ -31,18 +33,32 @@ export default {
       if (preInviteUser !== 'null' && preInviteUser !== null) {
         invitedUser = JSON.parse(preInviteUser);
       }
+
+      let invitedBoard = [];
+      if (
+        this.user.invitedBoard !== 'null' &&
+        this.user.invitedBoard !== null
+      ) {
+        invitedBoard = JSON.parse(this.user.invitedBoard);
+      }
+      invitedBoard.push(this.message.boardId);
+
       if (!invitedUser.includes(this.user.id)) {
         invitedUser.push(this.user.id);
         const pushInviteUser = JSON.stringify(invitedUser);
+        const pushInvitedBoard = JSON.stringify(invitedBoard);
 
-        this.UPDATE_BOARD({
+        await this.UPDATE_BOARD({
           id: this.message.boardId,
           invitedUser: pushInviteUser,
-        }).then(() => {
-          this.DELETE_PUSH_MESSAGE({ id: this.message.id });
-          this.$emit('close');
-          this.$router.push(`/board/${this.message.boardId}`);
         });
+        await this.UPDATE_USER({
+          id: this.user.id,
+          invitedBoard: pushInvitedBoard,
+        });
+        await this.DELETE_PUSH_MESSAGE({ id: this.message.id });
+        await this.$emit('close');
+        await this.$router.push(`/board/${this.message.boardId}`);
       } else alert('이미 초대되어 있습니다.');
     },
     rejectMessage() {
@@ -63,18 +79,24 @@ export default {
   padding: 4px;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.08);
-  margin-bottom: 9px;
+  margin-bottom: 4px;
+  height: 90px;
   .message-content {
     padding: 1px;
     display: block;
+  }
+  .message-time {
+    position: relative;
+    top: -13px;
+    right: -225px;
   }
   .message-btn {
     position: relative;
     width: 65px;
     height: 25px;
     margin: 10px 5px 0 0;
-    right: -126px;
-    top: -4px;
+    right: -100px;
+    top: 30px;
     &.save-btn {
       &:hover {
         background: #60bd4e;

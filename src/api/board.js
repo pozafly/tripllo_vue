@@ -5,8 +5,8 @@ const boardApi = {
     return board.get(`/${boardId}`);
   },
 
-  readBoardList({ userId, recentLists }) {
-    return board.get(`${userId}/${recentLists}`);
+  readBoardList({ userId, recentLists, invitedLists }) {
+    return board.get(`${userId}/${recentLists}/${invitedLists}`);
   },
 
   readBoardDetail(boardId) {
