@@ -200,7 +200,8 @@ export default {
   z-index: 3;
   height: 32px;
   padding: 4px;
-  position: relative;
+  position: sticky;
+  top: 0;
   &:after {
     position: absolute;
     content: '';

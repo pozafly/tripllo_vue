@@ -2,8 +2,9 @@
   <section class="wrap">
     <div class="boards">
       <div class="page-title">
-        <awesome icon="hashtag"></awesome>
-        Search
+        <awesome icon="hashtag" class="icon"></awesome>
+        <span class="title-text">Search</span>
+        <span class="side-text"> - Search you want..</span>
         <input
           type="text"
           class="form-control"
@@ -16,8 +17,9 @@
 
     <div class="boards">
       <div class="page-title">
-        <awesome icon="layer-group" class="far fa-user"></awesome>
-        Public Boards
+        <awesome icon="layer-group" class="icon"></awesome>
+        <span class="title-text">Public Boards</span>
+        <span class="side-text"> - order by like</span>
       </div>
       <div class="list-wrap">
         <div class="board-list" v-for="board in boardList" :key="board.id">
@@ -84,6 +86,17 @@ export default {
       padding-left: 7px;
       font-size: 18px;
       font-weight: bold;
+      .icon {
+        color: #444e61;
+      }
+      .title-text {
+        color: #212732;
+        margin-left: 10px;
+      }
+      .side-text {
+        font-size: 13px;
+        color: gray;
+      }
     }
     .form-control {
       margin-top: 20px;

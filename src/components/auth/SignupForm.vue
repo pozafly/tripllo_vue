@@ -56,9 +56,9 @@
             <img src="@/assets/user/logo/google.png" />
             <b> Continue with Google</b>
           </GoogleLogin>
-          <button class="external-item" @click="githubSignup">
-            <img src="@/assets/user/logo/github.png" />
-            <b> Continue with Github</b>
+          <button class="external-item" @click="facebookSignup">
+            <img src="@/assets/user/logo/facebook.png" />
+            <b> Continue with Facebook</b>
           </button>
           <button class="external-item" @click="kakaoSignup">
             <img src="@/assets/user/logo/kakao.png" />
@@ -96,9 +96,7 @@ export default {
       },
       btnDisabled: true,
       anotherFormYn: true,
-      googleParams: {
-        client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID,
-      },
+      googleParams: { client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID },
     };
   },
   watch: {
@@ -193,12 +191,12 @@ export default {
         this.$Google.signup(googleUser);
       }
     },
-    async githubSignup() {
+    facebookSignup() {
       if (localStorage.getItem('user_token')) {
         alert('이미 로그인 되어 있습니다.');
         this.$router.push('/main');
       } else {
-        window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.VUE_APP_GITHUB_CLIENT_ID}&redirect_uri=http://localhost:8080/auth/login&scope=user`;
+        this.$Facebook.signup();
       }
     },
     kakaoSignup() {

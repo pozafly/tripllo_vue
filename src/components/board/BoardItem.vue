@@ -4,9 +4,11 @@
       <div class="board-item-title">{{ board.title }}</div>
       <div class="side-wrap" v-if="board.publicYn === 'Y'">
         <span class="heart" @click="countHeart">
-          <template v-if="board.ownLike === 0">
-            <awesome :icon="['far', 'heart']" />
-          </template>
+          <transition name="slide-fade">
+            <template v-if="board.ownLike === 0">
+              <awesome :icon="['far', 'heart']" />
+            </template>
+          </transition>
           <template v-if="board.ownLike === 1">
             <awesome icon="heart" class="fill-heart" />
           </template>
@@ -14,6 +16,7 @@
             {{ board.likeCount }}
           </span>
         </span>
+
         <div v-if="board.hashtag" class="hash-wrap">
           <span v-for="hash in hashtag" :key="hash" class="hashtag">
             {{ hash }}
@@ -148,5 +151,18 @@ export default {
       }
     }
   }
+}
+/* 애니메이션 진입 및 진출은 다른 지속 시간 및  */
+/* 타이밍 기능을 사용할 수 있습니다. */
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>

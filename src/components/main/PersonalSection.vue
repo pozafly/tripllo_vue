@@ -2,8 +2,8 @@
   <section class="wrap">
     <div class="boards" v-if="recentBoard">
       <div class="page-title">
-        <awesome :icon="['far', 'clock']"></awesome>
-        Recently Viewed
+        <awesome :icon="['far', 'clock']" class="icon"></awesome>
+        <span class="title-text">Recently Viewed</span>
       </div>
       <div class="list-wrap">
         <div class="board-list" v-for="recent in recentBoard" :key="recent.id">
@@ -14,8 +14,8 @@
 
     <div class="boards">
       <div class="page-title">
-        <awesome icon="layer-group" class="far fa-user"></awesome>
-        My Boards
+        <awesome icon="layer-group" class="icon"></awesome>
+        <span class="title-text">My Boards</span>
       </div>
       <div class="list-wrap">
         <a class="add-board" href="" @click.prevent="showAddBoard">
@@ -30,8 +30,8 @@
 
     <div class="boards" v-if="invitedBoard">
       <div class="page-title">
-        <awesome icon="user-friends" class="far fa-user"></awesome>
-        Invited Boards
+        <awesome icon="user-friends" class="icon"></awesome>
+        <span class="title-text">Invited Boards</span>
       </div>
       <div class="list-wrap">
         <div class="board-list" v-for="board in invitedBoard" :key="board.id">
@@ -107,6 +107,13 @@ export default {
       padding-left: 7px;
       font-size: 18px;
       font-weight: bold;
+      .icon {
+        color: #444e61;
+      }
+      .title-text {
+        color: #212732;
+        margin-left: 10px;
+      }
     }
     .list-wrap {
       display: flex;

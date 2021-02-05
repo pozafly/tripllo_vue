@@ -6,8 +6,7 @@ const Kakao = {
     return true;
   },
 
-  getMe(authObj) {
-    console.log(authObj);
+  getInfo(authObj, division) {
     window.Kakao.API.request({
       url: '/v2/user/me',
       success: async res => {
@@ -17,32 +16,14 @@ const Kakao = {
           id: res.id,
           name: kakao_account.profile.nickname,
           email: kakao_account.email,
-          profileImg: kakao_account.profile.profile_image_url,
-          source: 'Kakao',
+          picture: kakao_account.profile.profile_image_url,
+          social: 'Kakao',
         };
-        socialLogin(req);
-      },
-      fail: error => {
-        console.log(error);
-      },
-    });
-  },
-
-  setMe(authObj) {
-    console.log(authObj);
-    window.Kakao.API.request({
-      url: '/v2/user/me',
-      success: async res => {
-        console.log(res);
-        const kakao_account = res.kakao_account;
-        const req = {
-          id: res.id,
-          name: kakao_account.profile.nickname,
-          email: kakao_account.email,
-          profileImg: kakao_account.profile.profile_image_url,
-          source: 'Kakao',
-        };
-        socialSignup(req);
+        if (division === 'login') {
+          socialLogin(req);
+        } else {
+          socialSignup(req);
+        }
       },
       fail: error => {
         console.log(error);
@@ -53,7 +34,9 @@ const Kakao = {
   login() {
     window.Kakao.Auth.login({
       scope: 'profile, account_email',
-      success: this.getMe,
+      success: authObj => {
+        this.getInfo(authObj, 'login');
+      },
       fail: error => console.log(error),
     });
   },
@@ -61,7 +44,9 @@ const Kakao = {
   signup() {
     window.Kakao.Auth.login({
       scope: 'profile, account_email',
-      success: this.setMe,
+      success: authObj => {
+        this.getInfo(authObj, 'signup');
+      },
       fail: error => console.log(error),
     });
   },

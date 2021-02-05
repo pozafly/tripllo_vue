@@ -35,11 +35,10 @@ export default {
   created() {
     this.$loadScript(`https://developers.kakao.com/sdk/js/kakao.js`).then(
       () => {
-        if (!window.Kakao.isInitialized()) {
-          this.$Kakao.init();
-        }
+        if (!window.Kakao.isInitialized()) this.$Kakao.init();
       },
     );
+    this.$Facebook.init();
   },
 };
 </script>

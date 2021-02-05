@@ -42,7 +42,7 @@ export default {
   width: 200px;
   top: 100px;
   position: sticky;
-  margin-right: 20px;
+  margin-right: 5px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;

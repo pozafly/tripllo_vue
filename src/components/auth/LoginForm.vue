@@ -36,9 +36,9 @@
           <img src="@/assets/user/logo/google.png" />
           <b> Continue with Google</b>
         </GoogleLogin>
-        <button class="external_item" @click="githubLogin">
-          <img src="@/assets/user/logo/github.png" />
-          <b> Continue with Github</b>
+        <button class="external_item" @click="facebookLogin">
+          <img src="@/assets/user/logo/facebook.png" />
+          <b> Continue with Facebook</b>
         </button>
         <button class="external_item" @click="kakaoLogin">
           <img src="@/assets/user/logo/kakao.png" />
@@ -72,9 +72,7 @@ export default {
         message: '',
       },
       btnDisabled: true,
-      googleParams: {
-        client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID,
-      },
+      googleParams: { client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID },
       anotherFormYn: true,
     };
   },
@@ -111,12 +109,12 @@ export default {
         this.$Google.login(googleUser);
       }
     },
-    githubLogin: async function() {
+    facebookLogin: async function() {
       if (localStorage.getItem('user_token')) {
         alert('이미 로그인 되어 있습니다.');
         this.$router.push('/main');
       } else {
-        window.location.href = `https://github.com/login/oauth/authorize?client_id=${process.env.VUE_APP_GITHUB_CLIENT_ID}&redirect_uri=${process.env.VUE_APP_CLIENT_URL}/auth/login&scope=user`;
+        this.$Facebook.login();
       }
     },
     kakaoLogin() {
@@ -129,9 +127,9 @@ export default {
     },
   },
   mounted() {
-    if (this.$route.query.code) {
-      this.$Github.signup(this.$route.query.code);
-    }
+    // if (this.$route.query.code) {
+    //   this.$Github.signup(this.$route.query.code);
+    // }
   },
 };
 </script>

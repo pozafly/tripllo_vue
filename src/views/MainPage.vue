@@ -25,15 +25,12 @@ export default {
   computed: {
     ...mapState(['mainTapId']),
   },
-  mounted() {
-    console.log(this.mainTapId);
-  },
 };
 </script>
 
 <style scoped lang="scss">
 .page {
-  height: 100%;
+  height: auto;
   margin-top: -40px;
   padding-top: 40px;
   box-sizing: border-box;
