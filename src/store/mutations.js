@@ -98,6 +98,9 @@ const mutations = {
   setHashtagBoards(state, boards) {
     state.hashtagBoards = boards;
   },
+  deleteHashtagBoards(state) {
+    state.hashtagBoards = [];
+  },
 };
 
 export default mutations;

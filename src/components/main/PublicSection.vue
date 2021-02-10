@@ -12,6 +12,7 @@
           spellcheck="false"
           placeholder="Write you want Searching Hashtag"
           v-model="searchHashValue"
+          @input="searchHash"
         />
       </div>
     </div>
@@ -25,6 +26,24 @@
       <div class="list-wrap">
         <div class="board-list" v-for="board in hashtagBoards" :key="board.id">
           <BoardItem :board="board" />
+          <div class="created-info">
+            <span class="created-by">Made by @{{ board.createdBy }}</span>
+
+            <span>
+              <a
+                href=""
+                class="created-img"
+                @click.prevent="menuShow"
+                v-if="
+                  board.createdUserPicture !== null &&
+                    board.createdUserPicture !== 'null'
+                "
+                :style="{ backgroundImage: `url(${board.createdUserPicture})` }"
+              ></a>
+              <awesome icon="user" class="created-icon" v-else></awesome>
+              <!-- {{ board.createdUserPicture }} -->
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -35,7 +54,7 @@
 <script>
 import BoardItem from '@/components/board/BoardItem';
 import _ from 'lodash';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
   components: { BoardItem },
@@ -47,14 +66,23 @@ export default {
   computed: {
     ...mapState(['hashtagBoards']),
   },
-  watch: {
-    searchHashValue: _.debounce(function() {
-      console.log('실행?');
-      this.READ_BOARD_BY_HASHTAG(this.searchHashValue);
-    }, 750),
-  },
   methods: {
     ...mapActions(['READ_BOARD_BY_HASHTAG']),
+    ...mapMutations(['deleteHashtagBoards']),
+    searchHash: _.debounce(function({ target }) {
+      this.READ_BOARD_BY_HASHTAG(target.value);
+    }, 750),
+  },
+
+  beforeDestroy() {
+    this.searchHashValue = '';
+    this.deleteHashtagBoards();
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.$refs.input.focus();
+    });
+    this.READ_BOARD_BY_HASHTAG('');
   },
 };
 </script>
@@ -93,6 +121,34 @@ export default {
         display: table-cell;
         min-width: 180px;
         padding: 5px;
+        .created-info {
+          background: rgba(0, 0, 0, 0.1);
+          height: 30px;
+          padding: 0 4px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          .created-by {
+            font-size: 11px;
+          }
+          .created-img {
+            padding: 3px 12px;
+            background-color: rgba(255, 255, 255, 0.5);
+            color: white;
+            width: 11px;
+            height: 30px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+          }
+          .created-icon {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 5px 6px;
+            width: 13px;
+            border-radius: 50%;
+          }
+        }
       }
     }
   }

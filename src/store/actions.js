@@ -347,8 +347,6 @@ const actions = {
   // hashtag
   READ_BOARD_BY_HASHTAG({ commit }, hashtagName) {
     return hashtagApi.readBoardByHashtag(hashtagName).then(({ data }) => {
-      console.log('3323423');
-      console.log(data);
       commit('setHashtagBoards', data.data);
     });
   },
