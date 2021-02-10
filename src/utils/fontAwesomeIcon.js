@@ -30,6 +30,7 @@ import {
   faPlusCircle,
   faLayerGroup,
   faHeart,
+  faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   faUser,
@@ -58,6 +59,7 @@ library.add(
   faPlusCircle,
   faLayerGroup,
   faHeart,
+  faSearch,
 );
 
 import {

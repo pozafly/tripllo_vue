@@ -25,7 +25,7 @@
         </button>
       </div>
     </form>
-    <template v-if="anotherFormYn">
+    <template v-if="isSocialForm">
       <div class="text">OR</div>
       <div class="external-items">
         <GoogleLogin
@@ -73,15 +73,15 @@ export default {
       },
       btnDisabled: true,
       googleParams: { client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID },
-      anotherFormYn: true,
+      isSocialForm: true,
     };
   },
   watch: {
     userData: {
       handler(e) {
         e.id === '' && e.password === ''
-          ? (this.anotherFormYn = true)
-          : (this.anotherFormYn = false);
+          ? (this.isSocialForm = true)
+          : (this.isSocialForm = false);
 
         e.id !== '' && e.password !== ''
           ? (this.btnDisabled = false)

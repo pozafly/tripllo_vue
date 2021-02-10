@@ -24,6 +24,7 @@ const state = {
   pushMessage: '',
   file: [],
   mainTapId: 0,
+  hashtagBoards: [],
 };
 
 export default state;

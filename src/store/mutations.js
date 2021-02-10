@@ -93,6 +93,11 @@ const mutations = {
   setMainTapId(state, value) {
     state.mainTapId = value;
   },
+
+  // hashtagByBoard
+  setHashtagBoards(state, boards) {
+    state.hashtagBoards = boards;
+  },
 };
 
 export default mutations;

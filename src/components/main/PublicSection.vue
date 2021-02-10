@@ -2,7 +2,7 @@
   <section class="wrap">
     <div class="boards">
       <div class="page-title">
-        <awesome icon="hashtag" class="icon"></awesome>
+        <awesome icon="search" class="icon"></awesome>
         <span class="title-text">Search</span>
         <span class="side-text"> - Search you want..</span>
         <input
@@ -11,6 +11,7 @@
           ref="input"
           spellcheck="false"
           placeholder="Write you want Searching Hashtag"
+          v-model="searchHashValue"
         />
       </div>
     </div>
@@ -22,7 +23,7 @@
         <span class="side-text"> - order by like</span>
       </div>
       <div class="list-wrap">
-        <div class="board-list" v-for="board in boardList" :key="board.id">
+        <div class="board-list" v-for="board in hashtagBoards" :key="board.id">
           <BoardItem :board="board" />
         </div>
       </div>
@@ -33,41 +34,27 @@
 
 <script>
 import BoardItem from '@/components/board/BoardItem';
+import _ from 'lodash';
 import { mapActions, mapState } from 'vuex';
 
 export default {
   components: { BoardItem },
   data() {
     return {
-      // isShowAddBoard: false,
+      searchHashValue: '',
     };
   },
   computed: {
-    ...mapState(['boardList']),
+    ...mapState(['hashtagBoards']),
+  },
+  watch: {
+    searchHashValue: _.debounce(function() {
+      console.log('실행?');
+      this.READ_BOARD_BY_HASHTAG(this.searchHashValue);
+    }, 750),
   },
   methods: {
-    ...mapActions(['READ_BOARD_LIST']),
-    async displayBoardLists() {
-      let recentLists = null;
-
-      if (this.user.recentBoard) {
-        recentLists = JSON.parse(this.user.recentBoard);
-      }
-      let invitedLists = null;
-      if (this.user.invitedBoard) {
-        invitedLists = JSON.parse(this.user.invitedBoard);
-      }
-      await this.READ_BOARD_LIST({
-        userId: this.user.id,
-        recentLists,
-        invitedLists,
-      });
-    },
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.displayBoardLists();
-    });
+    ...mapActions(['READ_BOARD_BY_HASHTAG']),
   },
 };
 </script>
@@ -76,11 +63,8 @@ export default {
 .wrap {
   width: 700px;
   .boards {
-    /* background: #fff; */
     margin: 21px 0;
     padding: 20px;
-    /* box-shadow: rgba(0, 0, 0, 0.1) 0 0 19px; */
-    /* border-radius: 16px; */
     .page-title {
       padding-bottom: 13px;
       padding-left: 7px;

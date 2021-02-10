@@ -30,3 +30,4 @@ export const pushMessage = createInstanceWithAuth('pushMessage');
 export const upload = createInstanceWithAuth('upload');
 export const email = createInstanceWithAuth('email');
 export const boardHasLike = createInstanceWithAuth('boardHasLike');
+export const hashtag = createInstanceWithAuth('hashtag');

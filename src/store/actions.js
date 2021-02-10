@@ -11,6 +11,7 @@ import emailApi from '@/api/email';
 import boardHasLikeApi from '@/api/boardHasLike';
 import router from '@/routes';
 import bus from '@/utils/bus';
+import hashtagApi from '../api/hashtag';
 
 const actions = {
   // 로그인
@@ -341,6 +342,15 @@ const actions = {
           invitedLists: JSON.parse(state.user.invitedBoard),
         });
       });
+  },
+
+  // hashtag
+  READ_BOARD_BY_HASHTAG({ commit }, hashtagName) {
+    return hashtagApi.readBoardByHashtag(hashtagName).then(({ data }) => {
+      console.log('3323423');
+      console.log(data);
+      commit('setHashtagBoards', data.data);
+    });
   },
 };
 
