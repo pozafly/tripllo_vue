@@ -12,6 +12,7 @@ import boardHasLikeApi from '@/api/boardHasLike';
 import router from '@/routes';
 import bus from '@/utils/bus';
 import hashtagApi from '../api/hashtag';
+import { board } from '../api';
 
 const actions = {
   // 로그인
@@ -79,15 +80,28 @@ const actions = {
   READ_BOARD_ONE(_, { boardId }) {
     return boardApi.readBoardOne({ boardId });
   },
-  READ_BOARD_LIST({ commit }, { userId, recentLists, invitedLists }) {
+  READ_PERSONAL_BOARD_LIST({ commit }, { lastCreatedAt }) {
     return boardApi
-      .readBoardList({ userId, recentLists, invitedLists })
+      .readPersonalBoardList({ lastCreatedAt })
       .then(({ data }) => {
-        commit('setBoardList', data.data.boardList);
-        commit('setRecentBoard', data.data.recentBoard);
-        commit('setInvitedBoard', data.data.invitedBoard);
+        if (data.data === null) {
+          commit('setIsInfinity', 'N');
+          return;
+        }
+        commit('setPersonalBoardList', data.data);
       });
   },
+  READ_RECENT_BOARD_LIST({ commit }, { recentLists }) {
+    return boardApi.readRecentBoardList({ recentLists }).then(({ data }) => {
+      commit('setRecentBoard', data.data);
+    });
+  },
+  READ_INVITED_BOARD_LIST({ commit }, { invitedLists }) {
+    return boardApi.readInvitedBoardList({ invitedLists }).then(({ data }) => {
+      commit('setInvitedBoard', data.data);
+    });
+  },
+
   READ_BOARD_DETAIL({ commit }, boardId) {
     return boardApi
       .readBoardDetail(boardId)
@@ -325,10 +339,9 @@ const actions = {
     return boardHasLikeApi
       .createBoardHasLike({ boardId, likeCount })
       .then(() => {
-        dispatch('READ_BOARD_LIST', {
-          userId: state.user.id,
-          recentLists: JSON.parse(state.user.recentBoard),
-          invitedLists: JSON.parse(state.user.invitedBoard),
+        dispatch('READ_PERSONAL_BOARD_LIST', {
+          // recentLists: JSON.parse(state.user.recentBoard),
+          // invitedLists: JSON.parse(state.user.invitedBoard),
         });
       });
   },
@@ -336,10 +349,9 @@ const actions = {
     return boardHasLikeApi
       .deleteBoardHasLike({ boardId, likeCount })
       .then(() => {
-        dispatch('READ_BOARD_LIST', {
-          userId: state.user.id,
-          recentLists: JSON.parse(state.user.recentBoard),
-          invitedLists: JSON.parse(state.user.invitedBoard),
+        dispatch('READ_PERSONAL_BOARD_LIST', {
+          // recentLists: JSON.parse(state.user.recentBoard),
+          // invitedLists: JSON.parse(state.user.invitedBoard),
         });
       });
   },

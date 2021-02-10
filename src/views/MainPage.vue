@@ -35,12 +35,6 @@ export default {
   computed: {
     ...mapState(['mainTabId']),
   },
-  mounted() {
-    console.log(this.mainTabId);
-  },
-  updated() {
-    console.log(this.mainTabId);
-  },
 };
 </script>
 

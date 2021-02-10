@@ -17,17 +17,31 @@
         <awesome icon="layer-group" class="icon"></awesome>
         <span class="title-text">My Boards</span>
       </div>
-      <div class="list-wrap">
+      <div class="list-wrap" ref="boardItem">
         <a class="add-board" href="" @click.prevent="showAddBoard">
           <span class="add-board-title">Create new board...</span>
         </a>
         <AddBoardModal v-if="isShowAddBoard" @close="showAddBoard" />
-        <div class="board-list" v-for="board in boardList" :key="board.id">
+        <div
+          class="board-list"
+          v-for="board in personalBoardList"
+          :key="board.id"
+          :data-last-created-at="board.createdAt"
+        >
           <BoardItem :board="board" />
         </div>
       </div>
     </div>
-    <div class="space"></div>
+    <div class="space">
+      <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
+        <div
+          slot="no-more"
+          style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px;"
+        >
+          목록의 끝입니다 :)
+        </div>
+      </infinite-loading>
+    </div>
   </section>
 </template>
 
@@ -41,10 +55,11 @@ export default {
   data() {
     return {
       isShowAddBoard: false,
+      lastCreatedAt: 'firstCall',
     };
   },
   computed: {
-    ...mapState(['boardList', 'recentBoard', 'user']),
+    ...mapState(['personalBoardList', 'recentBoard', 'user', 'isInfinity']),
   },
   watch: {
     user() {
@@ -52,30 +67,39 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['READ_BOARD_LIST']),
+    ...mapActions(['READ_PERSONAL_BOARD_LIST', 'READ_RECENT_BOARD_LIST']),
     showAddBoard() {
       this.isShowAddBoard = !this.isShowAddBoard;
     },
-    async displayBoardLists() {
+    getRecentBoard() {
+      if (this.user.recentBoard === null || this.user.recentBoard === 'null')
+        return;
       let recentLists = null;
-
       if (this.user.recentBoard) {
         recentLists = JSON.parse(this.user.recentBoard);
       }
-      let invitedLists = null;
-      if (this.user.invitedBoard) {
-        invitedLists = JSON.parse(this.user.invitedBoard);
-      }
-      await this.READ_BOARD_LIST({
-        userId: this.user.id,
-        recentLists,
-        invitedLists,
+
+      this.READ_RECENT_BOARD_LIST({ recentLists });
+    },
+    async infiniteHandler($state) {
+      this.READ_PERSONAL_BOARD_LIST({
+        lastCreatedAt: this.lastCreatedAt,
       });
+      await setTimeout(() => {
+        // isInfinity는 state에 올라가 있다. 초기 값은 Y
+        if (this.isInfinity === 'Y') {
+          // 마지막 DOM의 dataset에서 createdAt을 가져와, data에 등록된 lastCreateAt에 집어넣는다.
+          this.lastCreatedAt = this.$refs.boardItem.lastChild.dataset.lastCreatedAt;
+          $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
+        } else {
+          $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
+        }
+      }, 1000);
     },
   },
   mounted() {
     this.$nextTick(() => {
-      this.displayBoardLists();
+      this.getRecentBoard();
     });
   },
 };

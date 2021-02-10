@@ -5,8 +5,16 @@ const boardApi = {
     return board.get(`/${boardId}`);
   },
 
-  readBoardList({ userId, recentLists, invitedLists }) {
-    return board.get(`${userId}/${recentLists}/${invitedLists}`);
+  readPersonalBoardList({ lastCreatedAt }) {
+    return board.get(`/personal/${lastCreatedAt}`);
+  },
+
+  readRecentBoardList({ recentLists }) {
+    return board.get(`/recent/${recentLists}`);
+  },
+
+  readInvitedBoardList({ invitedLists }) {
+    return board.get(`/invited/${invitedLists}`);
   },
 
   readBoardDetail(boardId) {

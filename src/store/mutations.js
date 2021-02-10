@@ -22,9 +22,11 @@ const mutations = {
   },
 
   // board
-  setBoardList(state, boardList) {
-    saveSessionStorage('boardList', boardList);
-    state.boardList = boardList;
+  setIsInfinity(state, value) {
+    state.isInfinity = value;
+  },
+  setPersonalBoardList(state, data) {
+    state.personalBoardList = state.personalBoardList.concat(data);
   },
   setRecentBoard(state, recentBoard) {
     saveSessionStorage('recentBoard', recentBoard);
