@@ -23,7 +23,7 @@ const state = {
   socket: null,
   pushMessage: '',
   file: [],
-  mainTapId: 0,
+  mainTabId: 0,
   hashtagBoards: [],
 };
 

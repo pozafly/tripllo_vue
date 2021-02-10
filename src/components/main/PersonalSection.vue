@@ -27,18 +27,6 @@
         </div>
       </div>
     </div>
-
-    <div class="boards" v-if="invitedBoard">
-      <div class="page-title">
-        <awesome icon="user-friends" class="icon"></awesome>
-        <span class="title-text">Invited Boards</span>
-      </div>
-      <div class="list-wrap">
-        <div class="board-list" v-for="board in invitedBoard" :key="board.id">
-          <BoardItem :board="board" />
-        </div>
-      </div>
-    </div>
     <div class="space"></div>
   </section>
 </template>
@@ -56,7 +44,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['boardList', 'recentBoard', 'invitedBoard', 'user']),
+    ...mapState(['boardList', 'recentBoard', 'user']),
   },
   watch: {
     user() {

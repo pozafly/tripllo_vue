@@ -2,7 +2,7 @@
   <section class="wrap">
     <div class="boards">
       <div class="page-title">
-        <awesome icon="search" class="icon"></awesome>
+        <awesome icon="search" class="icon" />
         <span class="title-text">Search</span>
         <span class="side-text"> - Search you want..</span>
         <input
@@ -19,7 +19,7 @@
 
     <div class="boards">
       <div class="page-title">
-        <awesome icon="layer-group" class="icon"></awesome>
+        <awesome icon="globe-americas" class="icon" />
         <span class="title-text">Public Boards</span>
         <span class="side-text"> - order by like</span>
       </div>
@@ -28,7 +28,6 @@
           <BoardItem :board="board" />
           <div class="created-info">
             <span class="created-by">Made by @{{ board.createdBy }}</span>
-
             <span>
               <a
                 href=""
@@ -41,7 +40,6 @@
                 :style="{ backgroundImage: `url(${board.createdUserPicture})` }"
               ></a>
               <awesome icon="user" class="created-icon" v-else></awesome>
-              <!-- {{ board.createdUserPicture }} -->
             </span>
           </div>
         </div>
@@ -130,6 +128,7 @@ export default {
           justify-content: space-between;
           .created-by {
             font-size: 11px;
+            padding-left: 4px;
           }
           .created-img {
             padding: 3px 12px;

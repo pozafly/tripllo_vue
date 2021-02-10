@@ -90,8 +90,8 @@ const mutations = {
   },
 
   // main tap
-  setMainTapId(state, value) {
-    state.mainTapId = value;
+  setMainTabId(state, value) {
+    state.mainTabId = value;
   },
 
   // hashtagByBoard

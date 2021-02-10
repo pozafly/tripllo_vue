@@ -3,8 +3,11 @@
     <Header />
     <div class="main-wrap">
       <SideNavTap />
-      <template v-if="mainTapId === 0">
+      <template v-if="mainTabId === 0">
         <PersonalSection />
+      </template>
+      <template v-else-if="mainTabId === 1">
+        <InvitedSection />
       </template>
       <template v-else>
         <PublicSection />
@@ -17,13 +20,26 @@
 import Header from '@/components/common/Header';
 import SideNavTap from '@/components/main/SideNavTap';
 import PersonalSection from '@/components/main/PersonalSection';
+import InvitedSection from '@/components/main/InvitedSection';
 import PublicSection from '@/components/main/PublicSection';
 import { mapState } from 'vuex';
 
 export default {
-  components: { Header, SideNavTap, PersonalSection, PublicSection },
+  components: {
+    Header,
+    SideNavTap,
+    PersonalSection,
+    InvitedSection,
+    PublicSection,
+  },
   computed: {
-    ...mapState(['mainTapId']),
+    ...mapState(['mainTabId']),
+  },
+  mounted() {
+    console.log(this.mainTabId);
+  },
+  updated() {
+    console.log(this.mainTabId);
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <ul class="side-wrap">
     <li
-      :class="[{ active: mainTapId === 0 }, 'side-item']"
+      :class="[{ active: mainTabId === 0 }, 'side-item']"
       @click="changeMainTap(0)"
     >
       <div class="item-wrap">
@@ -10,8 +10,17 @@
       </div>
     </li>
     <li
-      :class="[{ active: mainTapId === 1 }, 'side-item']"
+      :class="[{ active: mainTabId === 1 }, 'side-item']"
       @click="changeMainTap(1)"
+    >
+      <div class="item-wrap">
+        <awesome icon="user-friends" class="icon" />
+        <span class="move-text">Invited</span>
+      </div>
+    </li>
+    <li
+      :class="[{ active: mainTabId === 2 }, 'side-item']"
+      @click="changeMainTap(2)"
     >
       <div class="item-wrap">
         <awesome icon="globe-americas" class="icon" />
@@ -25,12 +34,12 @@
 import { mapMutations, mapState } from 'vuex';
 export default {
   computed: {
-    ...mapState(['mainTapId']),
+    ...mapState(['mainTabId']),
   },
   methods: {
-    ...mapMutations(['setMainTapId']),
+    ...mapMutations(['setMainTabId']),
     changeMainTap(value) {
-      this.setMainTapId(value);
+      this.setMainTabId(value);
     },
   },
 };
@@ -67,6 +76,8 @@ export default {
   .item-wrap {
     .icon {
       color: #444e61;
+      width: 12px;
+      height: 12px;
     }
     .move-text {
       color: #212732;

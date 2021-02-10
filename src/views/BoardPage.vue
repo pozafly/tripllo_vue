@@ -1,7 +1,7 @@
 <template class="container">
-  <div class="page">
+  <div class="board-page">
     <Header />
-    <div class="wrap" @click="menuOutsideClose">
+    <div class="board-section" @click="menuOutsideClose">
       <div class="board-wrapper">
         <div class="board">
           <div class="board-header">
@@ -51,7 +51,7 @@
               </span>
             </span>
 
-            <div class="hash-wrap" v-if="board.publicYn === 'Y'">
+            <div class="board-hash-wrap" v-if="board.publicYn === 'Y'">
               <HashtagDisplay />
             </div>
 
@@ -143,8 +143,12 @@ export default {
       this.setInvitedUser();
     });
   },
+  mounted() {
+    window.document.body.style.overflowY = `hidden`;
+  },
   beforeDestroy() {
     this.makeRecent();
+    window.document.body.style.overflowY = `scroll`;
   },
   updated() {
     dragger.listDragger();
@@ -252,10 +256,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.page {
+.board-page {
   position: relative;
   height: 100%;
-  .wrap {
+  .board-section {
     position: relative;
     margin: -40px auto;
     padding-top: 40px;
@@ -311,7 +315,7 @@ export default {
               cursor: pointer;
             }
           }
-          .hash-wrap {
+          .board-hash-wrap {
             display: inline-block;
             position: absolute;
             top: 8px;
