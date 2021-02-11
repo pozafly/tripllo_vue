@@ -24,7 +24,7 @@
         <AddBoardModal v-if="isShowAddBoard" @close="showAddBoard" />
         <div
           class="board-list"
-          v-for="board in personalBoardList"
+          v-for="board in personalBoard"
           :key="board.id"
           :data-last-created-at="board.createdAt"
         >
@@ -48,7 +48,7 @@
 <script>
 import BoardItem from '@/components/board/BoardItem';
 import AddBoardModal from '@/components/board/AddBoardModal';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
   components: { BoardItem, AddBoardModal },
@@ -59,15 +59,16 @@ export default {
     };
   },
   computed: {
-    ...mapState(['personalBoardList', 'recentBoard', 'user', 'isInfinity']),
+    ...mapState(['personalBoard', 'recentBoard', 'user', 'isInfinity']),
   },
   watch: {
     user() {
-      this.displayBoardLists();
+      this.getRecentBoard();
     },
   },
   methods: {
-    ...mapActions(['READ_PERSONAL_BOARD_LIST', 'READ_RECENT_BOARD_LIST']),
+    ...mapActions(['READ_PERSONAL_BOARD', 'READ_RECENT_BOARD']),
+    ...mapMutations(['resetPersonalBoard']),
     showAddBoard() {
       this.isShowAddBoard = !this.isShowAddBoard;
     },
@@ -78,17 +79,17 @@ export default {
       if (this.user.recentBoard) {
         recentLists = JSON.parse(this.user.recentBoard);
       }
-
-      this.READ_RECENT_BOARD_LIST({ recentLists });
+      this.READ_RECENT_BOARD({ recentLists });
     },
     async infiniteHandler($state) {
-      this.READ_PERSONAL_BOARD_LIST({
+      this.READ_PERSONAL_BOARD({
         lastCreatedAt: this.lastCreatedAt,
       });
       await setTimeout(() => {
         // isInfinity는 state에 올라가 있다. 초기 값은 Y
         if (this.isInfinity === 'Y') {
           // 마지막 DOM의 dataset에서 createdAt을 가져와, data에 등록된 lastCreateAt에 집어넣는다.
+          console.log(this.$refs.boardItem.lastChild.dataset.lastCreatedAt);
           this.lastCreatedAt = this.$refs.boardItem.lastChild.dataset.lastCreatedAt;
           $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
         } else {
@@ -101,6 +102,9 @@ export default {
     this.$nextTick(() => {
       this.getRecentBoard();
     });
+  },
+  beforeDestroy() {
+    this.resetPersonalBoard();
   },
 };
 </script>

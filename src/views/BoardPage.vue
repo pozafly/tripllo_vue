@@ -100,7 +100,6 @@ import Invite from '@/components/board/Invite';
 import ProfileImage from '@/components/board/ProfileImage';
 import HashtagDisplay from '@/components/board/HashtagDisplay';
 import { mapActions, mapMutations, mapState } from 'vuex';
-import state from '../store/state';
 
 export default {
   components: {
@@ -189,9 +188,8 @@ export default {
     onShowSettings() {
       this.isBoardMenu = true;
     },
-    // 4개의 recent board만 허락함.
+    // 3개의 recent board만 허락함.
     makeRecent() {
-      console.log();
       let recentArray = [];
       if (this.user.recentBoard !== 'null' && this.user.recentBoard !== null) {
         recentArray = JSON.parse(this.user.recentBoard);

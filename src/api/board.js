@@ -5,15 +5,19 @@ const boardApi = {
     return board.get(`/${boardId}`);
   },
 
-  readPersonalBoardList({ lastCreatedAt }) {
+  readPersonalBoard({ lastCreatedAt }) {
     return board.get(`/personal/${lastCreatedAt}`);
   },
 
-  readRecentBoardList({ recentLists }) {
+  rerenderBoard({ count }) {
+    return board.get(`/rerender/${count}`);
+  },
+
+  readRecentBoard({ recentLists }) {
     return board.get(`/recent/${recentLists}`);
   },
 
-  readInvitedBoardList({ invitedLists }) {
+  readInvitedBoard({ invitedLists }) {
     return board.get(`/invited/${invitedLists}`);
   },
 

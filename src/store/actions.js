@@ -12,7 +12,6 @@ import boardHasLikeApi from '@/api/boardHasLike';
 import router from '@/routes';
 import bus from '@/utils/bus';
 import hashtagApi from '../api/hashtag';
-import { board } from '../api';
 
 const actions = {
   // 로그인
@@ -80,24 +79,34 @@ const actions = {
   READ_BOARD_ONE(_, { boardId }) {
     return boardApi.readBoardOne({ boardId });
   },
-  READ_PERSONAL_BOARD_LIST({ commit }, { lastCreatedAt }) {
-    return boardApi
-      .readPersonalBoardList({ lastCreatedAt })
-      .then(({ data }) => {
-        if (data.data === null) {
-          commit('setIsInfinity', 'N');
-          return;
-        }
-        commit('setPersonalBoardList', data.data);
-      });
+  READ_PERSONAL_BOARD({ commit }, { lastCreatedAt }) {
+    return boardApi.readPersonalBoard({ lastCreatedAt }).then(({ data }) => {
+      if (data.data === null) {
+        commit('setIsInfinity', 'N');
+        return;
+      }
+      commit('pushPersonalBoard', data.data);
+    });
   },
-  READ_RECENT_BOARD_LIST({ commit }, { recentLists }) {
-    return boardApi.readRecentBoardList({ recentLists }).then(({ data }) => {
+  async RERENDER_BOARD({ commit, dispatch, state }, { count }) {
+    if (count !== null) {
+      const { data } = await boardApi.rerenderBoard({ count });
+      await commit('rerenderBoard', data.data);
+    }
+    await dispatch('READ_RECENT_BOARD', {
+      recentLists: JSON.parse(state.user.recentBoard),
+    });
+    await dispatch('READ_INVITED_BOARD', {
+      invitedLists: JSON.parse(state.user.invitedBoard),
+    });
+  },
+  READ_RECENT_BOARD({ commit }, { recentLists }) {
+    return boardApi.readRecentBoard({ recentLists }).then(({ data }) => {
       commit('setRecentBoard', data.data);
     });
   },
-  READ_INVITED_BOARD_LIST({ commit }, { invitedLists }) {
-    return boardApi.readInvitedBoardList({ invitedLists }).then(({ data }) => {
+  READ_INVITED_BOARD({ commit }, { invitedLists }) {
+    return boardApi.readInvitedBoard({ invitedLists }).then(({ data }) => {
       commit('setInvitedBoard', data.data);
     });
   },
@@ -339,20 +348,20 @@ const actions = {
     return boardHasLikeApi
       .createBoardHasLike({ boardId, likeCount })
       .then(() => {
-        dispatch('READ_PERSONAL_BOARD_LIST', {
-          // recentLists: JSON.parse(state.user.recentBoard),
-          // invitedLists: JSON.parse(state.user.invitedBoard),
-        });
+        if (state.mainTabId === 0) {
+          dispatch('RERENDER_BOARD', { count: state.personalBoard.length });
+        }
+        dispatch('RERENDER_BOARD', { count: null });
       });
   },
   DELETE_LIKE({ dispatch, state }, { boardId, likeCount }) {
     return boardHasLikeApi
       .deleteBoardHasLike({ boardId, likeCount })
       .then(() => {
-        dispatch('READ_PERSONAL_BOARD_LIST', {
-          // recentLists: JSON.parse(state.user.recentBoard),
-          // invitedLists: JSON.parse(state.user.invitedBoard),
-        });
+        if (state.mainTabId === 0) {
+          dispatch('RERENDER_BOARD', { count: state.personalBoard.length });
+        }
+        dispatch('RERENDER_BOARD', { count: null });
       });
   },
 

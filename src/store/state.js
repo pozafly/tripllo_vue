@@ -13,7 +13,7 @@ const state = {
     createdAt: getUserFromLocalStorage('user_created_at') || '',
   },
   isInfinity: 'Y',
-  personalBoardList: [],
+  personalBoard: [],
   recentBoard: [],
   invitedBoard: [],
   board: getSessionStorage('board') || {},

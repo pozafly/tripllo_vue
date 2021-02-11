@@ -25,8 +25,15 @@ const mutations = {
   setIsInfinity(state, value) {
     state.isInfinity = value;
   },
-  setPersonalBoardList(state, data) {
-    state.personalBoardList = state.personalBoardList.concat(data);
+  pushPersonalBoard(state, data) {
+    state.personalBoard = state.personalBoard.concat(data);
+  },
+  resetPersonalBoard(state) {
+    state.personalBoard = [];
+    state.isInfinity = 'Y';
+  },
+  rerenderBoard(state, data) {
+    state.personalBoard = data;
   },
   setRecentBoard(state, recentBoard) {
     saveSessionStorage('recentBoard', recentBoard);

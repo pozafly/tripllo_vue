@@ -55,8 +55,12 @@ export default {
       const likeCount = this.board.likeCount;
 
       if (this.board.ownLike === 0) {
+        this.board.ownLike = this.board.ownLike + 1;
+        this.board.likeCount = this.board.likeCount + 1;
         this.CREATE_LIKE({ boardId, likeCount: likeCount + 1 });
       } else {
+        this.board.ownLike = this.board.ownLike - 1;
+        this.board.likeCount = this.board.likeCount - 1;
         this.DELETE_LIKE({ boardId, likeCount: likeCount - 1 });
       }
     },

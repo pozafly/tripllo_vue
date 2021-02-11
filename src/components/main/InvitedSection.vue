@@ -25,7 +25,7 @@ export default {
     ...mapState(['invitedBoard', 'user']),
   },
   methods: {
-    ...mapActions(['READ_INVITED_BOARD_LIST']),
+    ...mapActions(['READ_INVITED_BOARD']),
     getInvitedBoard() {
       if (this.user.invitedBoard === null || this.user.invitedBoard === 'null')
         return;
@@ -33,7 +33,7 @@ export default {
       if (this.user.invitedBoard) {
         invitedLists = JSON.parse(this.user.invitedBoard);
       }
-      this.READ_INVITED_BOARD_LIST({ invitedLists });
+      this.READ_INVITED_BOARD({ invitedLists });
     },
   },
   mounted() {
