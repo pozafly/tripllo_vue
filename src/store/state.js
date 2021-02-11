@@ -26,6 +26,7 @@ const state = {
   file: [],
   mainTabId: 0,
   hashtagBoards: [],
+  hashtags: [],
 };
 
 export default state;

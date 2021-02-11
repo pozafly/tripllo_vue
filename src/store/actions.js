@@ -12,6 +12,7 @@ import boardHasLikeApi from '@/api/boardHasLike';
 import router from '@/routes';
 import bus from '@/utils/bus';
 import hashtagApi from '../api/hashtag';
+import { hashtag } from '../api';
 
 const actions = {
   // 로그인
@@ -366,9 +367,23 @@ const actions = {
   },
 
   // hashtag
-  READ_BOARD_BY_HASHTAG({ commit }, hashtagName) {
-    return hashtagApi.readBoardByHashtag(hashtagName).then(({ data }) => {
-      commit('setHashtagBoards', data.data);
+  READ_BOARD_BY_HASHTAG(
+    { commit },
+    { hashtagName, lastLikeCount, lastCreatedAt },
+  ) {
+    return hashtagApi
+      .readBoardByHashtag({ hashtagName, lastLikeCount, lastCreatedAt })
+      .then(({ data }) => {
+        if (data.data === null) {
+          commit('setIsInfinity', 'N');
+          return;
+        }
+        commit('setHashtagBoards', data.data);
+      });
+  },
+  READ_HASH_ORDER_BY_COUNT({ commit }) {
+    return hashtagApi.readOrderByCount().then(({ data }) => {
+      commit('setHashOrderByCount', data.data);
     });
   },
 };

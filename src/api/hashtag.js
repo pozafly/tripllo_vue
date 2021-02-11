@@ -1,8 +1,14 @@
 import { hashtag } from '@/api';
 
 const hashtagApi = {
-  readBoardByHashtag(hashtagName) {
-    return hashtag.get(`/${hashtagName}`);
+  readBoardByHashtag({ hashtagName, lastLikeCount, lastCreatedAt }) {
+    return hashtag.get(
+      `/?hashtagName=${hashtagName}&lastLikeCount=${lastLikeCount}&lastCreatedAt=${lastCreatedAt}`,
+    );
+  },
+
+  readOrderByCount() {
+    return hashtag.get('/orderByCount');
   },
 };
 

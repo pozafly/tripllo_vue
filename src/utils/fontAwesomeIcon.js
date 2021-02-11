@@ -31,6 +31,7 @@ import {
   faLayerGroup,
   faHeart,
   faSearch,
+  faCrown,
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   faUser,
@@ -60,6 +61,7 @@ library.add(
   faLayerGroup,
   faHeart,
   faSearch,
+  faCrown,
 );
 
 import {

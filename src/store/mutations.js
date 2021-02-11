@@ -22,9 +22,6 @@ const mutations = {
   },
 
   // board
-  setIsInfinity(state, value) {
-    state.isInfinity = value;
-  },
   pushPersonalBoard(state, data) {
     state.personalBoard = state.personalBoard.concat(data);
   },
@@ -105,10 +102,18 @@ const mutations = {
 
   // hashtagByBoard
   setHashtagBoards(state, boards) {
-    state.hashtagBoards = boards;
+    state.hashtagBoards = state.hashtagBoards.concat(boards);
   },
-  deleteHashtagBoards(state) {
+  resetHashtagBoards(state) {
     state.hashtagBoards = [];
+  },
+  setHashOrderByCount(state, data) {
+    state.hashtags = data;
+  },
+
+  // infinity
+  setIsInfinity(state, value) {
+    state.isInfinity = value;
   },
 };
 
