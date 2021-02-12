@@ -15,7 +15,7 @@
     </div>
 
     <div class="hash-modal" v-if="isHashModal" v-click-outside="closeModal">
-      <SideBase @close="$emit('close')">
+      <MiniModal @close="isHashModal = false">
         <div slot="header" class="header-text">Add Hashtag</div>
         <div slot="content">
           <input
@@ -27,17 +27,17 @@
             @keypress.enter="pushHash"
           />
         </div>
-      </SideBase>
+      </MiniModal>
     </div>
   </div>
 </template>
 
 <script>
-import SideBase from '@/components/card/cardDetail/side/SideBase';
+import MiniModal from '@/components/common/MiniModal';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: { SideBase },
+  components: { MiniModal },
   data() {
     return {
       hashList: [],

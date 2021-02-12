@@ -1,5 +1,5 @@
 <template>
-  <SideBase @close="$emit('close')">
+  <MiniModal @close="$emit('close')">
     <div slot="header" class="header-text">Change Due Date</div>
     <div slot="content">
       <div class="DatePicker">
@@ -17,16 +17,16 @@
         <button class="duedate-btn remove-btn" @click="onRemove">Cancel</button>
       </div>
     </div>
-  </SideBase>
+  </MiniModal>
 </template>
 
 <script>
-import SideBase from './SideBase';
+import MiniModal from '@/components/common/MiniModal';
 import { mapActions, mapState } from 'vuex';
 
 export default {
   components: {
-    SideBase,
+    MiniModal,
   },
   data() {
     let date = new Date();

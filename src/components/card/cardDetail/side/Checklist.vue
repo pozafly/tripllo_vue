@@ -1,5 +1,5 @@
 <template>
-  <SideBase @close="$emit('close')">
+  <MiniModal @close="$emit('close')">
     <div slot="header" class="header-text">Add Checklist</div>
     <div slot="content">
       <div class="content-text">Title</div>
@@ -13,16 +13,16 @@
       />
       <button class="checklist-btn" @click="addChecklist">Add</button>
     </div>
-  </SideBase>
+  </MiniModal>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import SideBase from './SideBase';
+import MiniModal from '@/components/common/MiniModal';
 
 export default {
   components: {
-    SideBase,
+    MiniModal,
   },
   data() {
     return {

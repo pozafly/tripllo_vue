@@ -7,25 +7,25 @@
       </div>
       <button class="duedate-cancel" @click="isDelete = true">···</button>
       <div class="duedate-delete" v-if="isDelete">
-        <SideBase @close="isDelete = false">
+        <MiniModal @close="isDelete = false">
           <div slot="header" class="header-text">Delete DueDate</div>
           <div slot="content">
             <button class="duedate-delete-btn" @click="deleteDueDate">
               Delete this DueDate?
             </button>
           </div>
-        </SideBase>
+        </MiniModal>
       </div>
     </div>
   </li>
 </template>
 
 <script>
-import SideBase from '@/components/card/cardDetail/side/SideBase';
+import MiniModal from '@/components/common/MiniModal';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: { SideBase },
+  components: { MiniModal },
   data() {
     return {
       isDelete: false,

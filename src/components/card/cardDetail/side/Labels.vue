@@ -1,5 +1,5 @@
 <template>
-  <SideBase @close="$emit('close')">
+  <MiniModal @close="$emit('close')">
     <div slot="header" class="header-text">Labels</div>
     <div slot="content">
       <div class="content-text">LABELS</div>
@@ -17,15 +17,15 @@
         </a>
       </div>
     </div>
-  </SideBase>
+  </MiniModal>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import SideBase from './SideBase';
+import MiniModal from '@/components/common/MiniModal';
 
 export default {
-  components: { SideBase },
+  components: { MiniModal },
   data() {
     return {
       labels: {

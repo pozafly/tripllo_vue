@@ -44,7 +44,7 @@
           </div>
         </div>
 
-        <div class="title-wrap">
+        <div class="title-wrap" v-if="isHashtag">
           <awesome icon="hashtag" class="icon" />
           <span>Hash Tag</span>
           <div class="subtext">
@@ -52,7 +52,7 @@
             - 15자 이내, 3개 까지 입력가능.
           </div>
         </div>
-        <div class="hash-wrap">
+        <div class="hash-wrap" v-if="isHashtag">
           <input
             class="form-control hash-form"
             type="text"
@@ -122,6 +122,7 @@ export default {
       valid: false,
       hashList: [],
       hashItem: '',
+      isHashtag: true,
       publicYn: 'Y',
       colors: {
         red: '#fa5252',
@@ -145,6 +146,11 @@ export default {
         alert('해시태그는 15자를 넘길 수 없습니다.');
         return;
       }
+    },
+    publicYn() {
+      console.log(this.publicYn);
+      if (this.publicYn === 'N') this.isHashtag = false;
+      else this.isHashtag = true;
     },
   },
   mounted() {

@@ -1,5 +1,5 @@
 <template>
-  <SideBase @close="$emit('close')">
+  <MiniModal @close="$emit('close')">
     <div slot="header" class="header-text">Add a File?</div>
     <div slot="content">
       <button class="add-btn" @click="$refs.file.click()">
@@ -11,17 +11,17 @@
       </span>
       <input type="file" ref="file" class="file" @change="uploadFile" />
     </div>
-  </SideBase>
+  </MiniModal>
 </template>
 
 <script>
-import SideBase from './SideBase';
+import MiniModal from '@/components/common/MiniModal';
 import bus from '@/utils/bus';
 import { mapActions, mapState } from 'vuex';
 
 export default {
   components: {
-    SideBase,
+    MiniModal,
   },
   computed: {
     ...mapState(['card', 'file']),

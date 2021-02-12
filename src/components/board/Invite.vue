@@ -1,5 +1,5 @@
 <template>
-  <SideBase @close="$emit('noInviteClose')">
+  <MiniModal @close="$emit('noInviteClose')">
     <div slot="header" class="header-text">Invite</div>
     <div slot="content">
       <div class="content-text">Search Member</div>
@@ -25,18 +25,18 @@
         </ul>
       </div>
     </div>
-  </SideBase>
+  </MiniModal>
 </template>
 
 <script>
-import SideBase from '@/components/card/cardDetail/side/SideBase';
+import MiniModal from '@/components/common/MiniModal';
 import InviteDetail from './InviteDetail';
 import _ from 'lodash';
 import { mapActions, mapState } from 'vuex';
 
 export default {
   components: {
-    SideBase,
+    MiniModal,
     InviteDetail,
   },
   data() {

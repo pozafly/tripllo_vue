@@ -1,5 +1,5 @@
 <template>
-  <SideBase @close="$emit('close')">
+  <MiniModal @close="$emit('close')">
     <div slot="header" class="header-text">Push Message</div>
     <div slot="content">
       <div class="content-text">Message List</div>
@@ -12,19 +12,16 @@
       </div>
       <span v-else class="no-message">No Message...</span>
     </div>
-  </SideBase>
+  </MiniModal>
 </template>
 
 <script>
-import SideBase from '@/components/card/cardDetail/side/SideBase';
+import MiniModal from '@/components/common/MiniModal';
 import MessageDetail from './MessageDetail';
 import { mapState } from 'vuex';
 
 export default {
-  components: {
-    SideBase,
-    MessageDetail,
-  },
+  components: { MiniModal, MessageDetail },
   computed: {
     ...mapState(['pushMessage']),
   },

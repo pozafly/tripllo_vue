@@ -21,14 +21,14 @@
         </div>
       </div>
       <div class="location-delete" v-if="isDelete">
-        <SideBase @close="isDelete = false">
+        <MiniModal @close="isDelete = false">
           <div slot="header" class="header-text">Delete Location</div>
           <div slot="content">
             <button class="location-delete-btn" @click="deleteLocation">
               Delete this Location?
             </button>
           </div>
-        </SideBase>
+        </MiniModal>
       </div>
     </div>
     <LocationMap v-if="isLocationMap" @close="isLocationMap = false" />
@@ -36,12 +36,12 @@
 </template>
 
 <script>
-import SideBase from '@/components/card/cardDetail/side/SideBase';
+import MiniModal from '@/components/common/MiniModal';
 import LocationMap from './LocationMap';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: { SideBase, LocationMap },
+  components: { MiniModal, LocationMap },
   data() {
     return {
       isDelete: false,

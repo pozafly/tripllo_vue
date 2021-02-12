@@ -38,24 +38,24 @@
       </template>
     </div>
     <div class="comment-delete" v-if="isDelete">
-      <SideBase @close="isDelete = false">
+      <MiniModal @close="isDelete = false">
         <div slot="header" class="header-text">Delete Comment</div>
         <div slot="content">
           <button class="comment-delete-btn" @click="deleteComment(item)">
             Delete this Comment?
           </button>
         </div>
-      </SideBase>
+      </MiniModal>
     </div>
   </div>
 </template>
 
 <script>
-import SideBase from '@/components/card/cardDetail/side/SideBase';
+import MiniModal from '@/components/common/MiniModal';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: { SideBase },
+  components: { MiniModal },
   props: ['item'],
   data() {
     return {

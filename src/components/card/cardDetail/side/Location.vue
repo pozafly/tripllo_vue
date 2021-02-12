@@ -1,5 +1,5 @@
 <template>
-  <SideBase @close="$emit('close')">
+  <MiniModal @close="$emit('close')">
     <div slot="header" class="header-text">Location</div>
     <div slot="content">
       <input
@@ -9,17 +9,16 @@
         ref="searchMap"
       />
     </div>
-  </SideBase>
+  </MiniModal>
 </template>
 
 <script>
-import LoadScript from 'vue-plugin-load-script';
 import { mapActions, mapState } from 'vuex';
-import SideBase from './SideBase';
+import MiniModal from '@/components/common/MiniModal';
 
 export default {
   components: {
-    SideBase,
+    MiniModal,
   },
   data() {
     return {

@@ -4,7 +4,7 @@
     <div class="about-wrap">
       <button class="signout-btn" @click="openDeleteModal">Signout</button>
       <div class="delete-modal" v-if="isDelete">
-        <SideBase @close="modalClose">
+        <MiniModal @close="modalClose">
           <div slot="header" class="header-text">SIGNOUT</div>
           <div slot="content">
             <span>
@@ -22,18 +22,18 @@
               탈퇴취소
             </button>
           </div>
-        </SideBase>
+        </MiniModal>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import SideBase from '@/components/card/cardDetail/side/SideBase';
+import MiniModal from '@/components/common/MiniModal';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: { SideBase },
+  components: { MiniModal },
   computed: {
     ...mapState(['user']),
   },

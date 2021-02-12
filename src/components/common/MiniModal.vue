@@ -2,7 +2,7 @@
   <div class="base-wrap" v-click-outside="close">
     <div class="header">
       <slot name="header" class="header-text">header</slot>
-      <a @click="$emit('close')" class="header-cancel">&times;</a>
+      <a href="" @click.prevent="close" class="header-cancel">&times;</a>
     </div>
     <div class="content">
       <slot name="content">content</slot>
@@ -14,6 +14,7 @@
 export default {
   methods: {
     close() {
+      console.log('닫힌다.');
       this.$emit('close');
     },
   },

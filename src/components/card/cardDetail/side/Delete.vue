@@ -1,24 +1,24 @@
 <template>
-  <SideBase @close="$emit('close')">
+  <MiniModal @close="$emit('close')">
     <div slot="header" class="header-text">Delete this Card?</div>
     <div slot="content">
       <button class="delete-btn" @click="onDelete">
         Delete this Card
       </button>
     </div>
-  </SideBase>
+  </MiniModal>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import SideBase from './SideBase';
+import MiniModal from '@/components/common/MiniModal';
 
 export default {
   computed: {
     ...mapState(['card', 'board']),
   },
   components: {
-    SideBase,
+    MiniModal,
   },
   methods: {
     ...mapActions(['DELETE_CARD']),

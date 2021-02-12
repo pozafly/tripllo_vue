@@ -65,7 +65,7 @@
               ></a>
               <awesome icon="user" class="created-icon" v-else></awesome>
             </span>
-            <span class="created-by">{{ board.createdBy }}</span>
+            <span class="created-by">@{{ board.createdBy }}</span>
           </div>
         </div>
       </div>
