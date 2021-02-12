@@ -94,7 +94,7 @@ export default {
         } else {
           $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
         }
-      }, 1000);
+      }, 1200);
     },
   },
   mounted() {
