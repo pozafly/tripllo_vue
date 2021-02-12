@@ -1,14 +1,17 @@
 <template>
   <section class="wrap">
-    <div class="boards" v-if="invitedBoard">
+    <div class="boards">
       <div class="page-title">
         <awesome icon="user-friends" class="icon"></awesome>
         <span class="title-text">Invited Boards</span>
       </div>
-      <div class="list-wrap">
+      <div class="list-wrap" v-if="invitedBoard.length !== 0">
         <div class="board-list" v-for="board in invitedBoard" :key="board.id">
           <BoardItem :board="board" />
         </div>
+      </div>
+      <div v-else>
+        <div class="nodata-text">아직 초대된 Board가 없습니다...</div>
       </div>
     </div>
     <div class="space"></div>
@@ -72,6 +75,11 @@ export default {
         min-width: 180px;
         padding: 5px;
       }
+    }
+    .nodata-text {
+      color: #212732;
+      padding: 40px;
+      text-align: center;
     }
   }
   .space {

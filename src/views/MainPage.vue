@@ -40,7 +40,7 @@ export default {
 
 <style scoped lang="scss">
 .page {
-  height: auto;
+  height: 100%;
   margin-top: -40px;
   padding-top: 40px;
   box-sizing: border-box;
