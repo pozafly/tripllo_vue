@@ -1,11 +1,6 @@
 <template>
   <main>
     <div class="container">
-      <div class="push-conatiner" v-if="push.pushYn">
-        <div class="push-box">
-          <span>{{ push.message }}</span>
-        </div>
-      </div>
       <span class="sign-up-text"><b>Sign up to Tripllo</b></span>
       <form @submit.prevent="submitForm">
         <div class="submit-items">
@@ -14,37 +9,46 @@
             type="text"
             placeholder="Enter id"
             v-model="userData.id"
-            ref="submitBtn"
+            ref="id"
           />
           <input
             class="submit-item"
             type="password"
             placeholder="Enter password"
             v-model="userData.password"
+            ref="password"
           />
           <input
             class="submit-item"
             type="password"
             placeholder="Enter password again"
             v-model="againPassword"
+            ref="againPassword"
           />
           <input
             class="submit-item"
             type="text"
             placeholder="Enter email"
             v-model="userData.email"
+            ref="email"
           />
           <input
             class="submit-item"
             type="text"
             placeholder="Enter name"
             v-model="userData.name"
+            ref="name"
           />
           <button class="submit-item btn" type="submit" :disabled="btnDisabled">
             <b>Sign Up</b>
           </button>
         </div>
       </form>
+      <div class="push-conatiner" v-if="push.pushYn">
+        <div class="push-box">
+          <span>{{ push.message }}</span>
+        </div>
+      </div>
       <template v-if="isSocialForm">
         <div class="text">OR</div>
         <div class="external-items">
@@ -94,6 +98,12 @@ export default {
         pushYn: false,
         message: '',
       },
+      valid: {
+        id: false,
+        password: false,
+        againPassword: false,
+        email: false,
+      },
       btnDisabled: true,
       isSocialForm: true,
       googleParams: { client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID },
@@ -128,6 +138,25 @@ export default {
   methods: {
     ...mapActions(['SIGNUP', 'LOGIN', 'VALID_ID']),
     async submitForm() {
+      const valid = this.valid;
+      if (valid.id === false) {
+        alert('ID 조건을 확인하세요');
+        this.$refs.id.focus();
+        return;
+      } else if (valid.password === false) {
+        alert('Password 조건을 확인하세요');
+        this.$refs.password.focus();
+        return;
+      } else if (valid.againPassword === false) {
+        alert('password와 다시 입력한 password가 동일하지 않습니다.');
+        this.$refs.againPassword.focus();
+        return;
+      } else if (valid.email === false) {
+        alert('email 조건을 확인하세요');
+        this.$refs.email.focus();
+        return;
+      }
+
       try {
         await this.SIGNUP(this.userData);
         await this.LOGIN({
@@ -150,6 +179,7 @@ export default {
         try {
           await this.VALID_ID(id);
           this.push.pushYn = false;
+          this.valid.id = true;
         } catch ({ response }) {
           this.pushInsert(response.data.message);
         }
@@ -161,15 +191,17 @@ export default {
         this.pushInsert(pwValid[1]);
       } else {
         this.push.pushYn = false;
+        this.valid.password = true;
       }
     },
-    validateAgainPw(pw) {
+    validateAgainPw() {
       const realPw = this.userData.password;
       const againPw = this.againPassword;
       if (realPw !== againPw) {
         this.pushInsert('다시 입력한 비밀번호가 같지 않습니다.');
       } else {
         this.push.pushYn = false;
+        this.valid.againPassword = true;
       }
     },
     validateEmail(email) {
@@ -177,6 +209,7 @@ export default {
         this.pushInsert('이메일 유형에 맞지 않습니다.');
       } else {
         this.push.pushYn = false;
+        this.valid.email = true;
       }
     },
     pushInsert(message) {
@@ -228,8 +261,8 @@ img {
   .push-conatiner {
     display: flex;
     height: 2rem;
-    padding-bottom: 1.2rem;
-    height: 4rem;
+    padding: 0.9rem 0;
+    /* height: 4rem; */
     .push-box {
       display: flex;
       flex-direction: column;

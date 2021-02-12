@@ -14,7 +14,6 @@
 export default {
   methods: {
     close() {
-      console.log('닫힌다.');
       this.$emit('close');
     },
   },

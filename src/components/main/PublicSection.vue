@@ -20,7 +20,7 @@
     <div class="boards">
       <div class="page-title">
         <awesome icon="crown" class="icon" />
-        <span class="title-text">Rank Hash tags</span>
+        <span class="title-text">Hash tags Ranking</span>
         <span class="side-text"> - Top 5</span>
         <div class="hashtag">
           <span
@@ -129,7 +129,7 @@ export default {
         // isInfinity는 state에 올라가 있다. 초기 값은 Y
         if (this.isInfinity === 'Y') {
           // 마지막 DOM의 dataset에서 createdAt을 가져와, data에 등록된 lastCreateAt에 집어넣는다.
-          if (this.$refs.boardItem.lastChild) {
+          if (this.$refs.boardItem) {
             this.lastLikeCount = this.$refs.boardItem.lastChild.dataset.lastLikeCount;
             this.lastCreatedAt = this.$refs.boardItem.lastChild.dataset.lastCreatedAt;
           }

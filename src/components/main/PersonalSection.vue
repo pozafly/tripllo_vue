@@ -89,7 +89,8 @@ export default {
         // isInfinity는 state에 올라가 있다. 초기 값은 Y
         if (this.isInfinity === 'Y') {
           // 마지막 DOM의 dataset에서 createdAt을 가져와, data에 등록된 lastCreateAt에 집어넣는다.
-          this.lastCreatedAt = this.$refs.boardItem.lastChild.dataset.lastCreatedAt;
+          if (this.$refs.boardItem)
+            this.lastCreatedAt = this.$refs.boardItem.lastChild.dataset.lastCreatedAt;
           $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
         } else {
           $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.

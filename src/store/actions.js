@@ -89,17 +89,27 @@ const actions = {
       commit('pushPersonalBoard', data.data);
     });
   },
-  async RERENDER_BOARD({ commit, dispatch, state }, { count }) {
+  RERENDER_BOARD({ commit, dispatch, state }, { count }) {
     if (count !== null) {
-      const { data } = await boardApi.rerenderBoard({ count });
-      await commit('rerenderBoard', data.data);
+      boardApi
+        .rerenderBoard({ count })
+        .then(({ data }) => {
+          commit('rerenderBoard', data.data);
+        })
+        .then(() => {
+          if (
+            state.user.recentBoard !== null &&
+            state.user.recentBoard !== 'null'
+          )
+            dispatch('READ_RECENT_BOARD', {
+              recentLists: JSON.parse(state.user.recentBoard),
+            });
+        });
     }
-    await dispatch('READ_RECENT_BOARD', {
-      recentLists: JSON.parse(state.user.recentBoard),
-    });
-    await dispatch('READ_INVITED_BOARD', {
-      invitedLists: JSON.parse(state.user.invitedBoard),
-    });
+    if (state.user.invitedBoard !== null && state.user.invitedBoard !== 'null')
+      dispatch('READ_INVITED_BOARD', {
+        invitedLists: JSON.parse(state.user.invitedBoard),
+      });
   },
   READ_RECENT_BOARD({ commit }, { recentLists }) {
     return boardApi.readRecentBoard({ recentLists }).then(({ data }) => {

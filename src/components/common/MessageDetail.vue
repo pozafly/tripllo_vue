@@ -2,8 +2,12 @@
   <li class="message-wrap">
     <span class="message-content">{{ message.content }}</span>
     <span class="message-time">{{ message.createdAt | timeForToday }}</span>
-    <button class="message-btn save-btn" @click="acceptMessage">수락</button>
-    <button class="message-btn remove-btn" @click="rejectMessage">거절</button>
+    <div>
+      <button class="message-btn save-btn" @click="acceptMessage">수락</button>
+      <button class="message-btn remove-btn" @click="rejectMessage">
+        거절
+      </button>
+    </div>
   </li>
 </template>
 
@@ -80,7 +84,7 @@ export default {
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.08);
   margin-bottom: 4px;
-  height: 90px;
+  height: auto;
   .message-content {
     padding: 1px;
     display: block;
@@ -94,9 +98,8 @@ export default {
     position: relative;
     width: 65px;
     height: 25px;
-    margin: 10px 5px 0 0;
-    right: -100px;
-    top: 30px;
+    margin: 10px 5px 10px 0;
+    right: -130px;
     &.save-btn {
       &:hover {
         background: #60bd4e;
