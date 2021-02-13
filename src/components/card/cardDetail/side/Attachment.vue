@@ -31,7 +31,6 @@ export default {
     uploadFile() {
       const file = this.$refs.file.files[0];
       const fileData = new FormData();
-      console.log(file);
 
       if (file.size > 1048576 * 10) {
         alert('10MB 이상인 파일은 업로드 할 수 없습니다.. 양해부탁..');

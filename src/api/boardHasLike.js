@@ -6,7 +6,6 @@ const boardHasLikeApi = {
   },
 
   deleteBoardHasLike({ boardId, likeCount }) {
-    console.log({ boardId, likeCount });
     return boardHasLike.delete(`/${boardId}/${likeCount}`);
   },
 };

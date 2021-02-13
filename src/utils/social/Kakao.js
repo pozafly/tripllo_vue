@@ -10,7 +10,6 @@ const Kakao = {
     window.Kakao.API.request({
       url: '/v2/user/me',
       success: async res => {
-        console.log(res);
         const kakao_account = res.kakao_account;
         const req = {
           id: res.id,

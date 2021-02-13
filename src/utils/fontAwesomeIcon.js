@@ -10,7 +10,6 @@ import {
   faAlignLeft,
   faCheckSquare,
   faMapMarkerAlt,
-  faComments,
   faEdit,
   faHome,
   faSuitcase,
@@ -32,6 +31,7 @@ import {
   faHeart,
   faSearch,
   faCrown,
+  faComment,
 } from '@fortawesome/free-solid-svg-icons';
 library.add(
   faUser,
@@ -40,7 +40,6 @@ library.add(
   faAlignLeft,
   faCheckSquare,
   faMapMarkerAlt,
-  faComments,
   faEdit,
   faHome,
   faSuitcase,
@@ -62,6 +61,7 @@ library.add(
   faHeart,
   faSearch,
   faCrown,
+  faComment,
 );
 
 import {

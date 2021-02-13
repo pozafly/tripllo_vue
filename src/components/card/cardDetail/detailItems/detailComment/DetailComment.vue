@@ -1,7 +1,7 @@
 <template>
   <li class="body-item">
     <div>
-      <awesome icon="comments" class="fas fa-comments"></awesome>
+      <awesome icon="comment" class="fas fa-comments"></awesome>
       <span class="body-card-text">Comments</span>
       <div v-for="item in comment" :key="item.id">
         <div

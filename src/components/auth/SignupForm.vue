@@ -165,7 +165,6 @@ export default {
         });
         this.$router.push('/main');
       } catch ({ response }) {
-        console.log(response);
         this.pushInsert(response.data.message);
       }
     },

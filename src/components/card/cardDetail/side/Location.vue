@@ -51,7 +51,6 @@ export default {
     ...mapActions(['UPDATE_CARD']),
     fillInAddress() {
       const place = this.autocomplete.getPlace();
-      console.log(place);
       const geometry = {
         lat: place.geometry.location.lat(),
         lng: place.geometry.location.lng(),

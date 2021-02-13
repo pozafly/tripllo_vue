@@ -265,6 +265,7 @@ const actions = {
       .createComment({ cardId, userId, comment, dept, groupNum })
       .then(() => {
         dispatch('READ_COMMENT', state.card.id);
+        dispatch('READ_BOARD_DETAIL', state.board.id);
       });
   },
   READ_COMMENT({ commit }, cardId) {
@@ -280,6 +281,7 @@ const actions = {
   DELETE_COMMENT({ dispatch, state }, id) {
     return commentApi.deleteComment(id).then(() => {
       dispatch('READ_COMMENT', state.card.id);
+      dispatch('READ_BOARD_DETAIL', state.board.id);
     });
   },
 

@@ -11,7 +11,6 @@ const uploadApi = {
     return upload.post('/image', imageData);
   },
   deleteFile(fileId) {
-    console.log(fileId);
     return upload.delete(`/${fileId}`);
   },
 };

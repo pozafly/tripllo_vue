@@ -46,7 +46,6 @@ export default {
       if (deleteFile) this.DELETE_FILE(this.item.id);
     },
     permission() {
-      console.log(this.board.invitedUser);
       if (this.board.createdBy === this.user.id) return true;
       if (this.board.invitedUser) {
         if (this.board.invitedUser.includes(this.user.id)) return true;

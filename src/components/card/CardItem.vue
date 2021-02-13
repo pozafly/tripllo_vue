@@ -14,35 +14,27 @@
       <div class="board-inside-icons">
         <!-- 햄버거 -->
         <div class="board-inside-icon" v-if="card.description">
-          <awesome
-            icon="align-left"
-            class="fas fa-layer-group board-inside-desc"
-          ></awesome>
+          <awesome icon="align-left" class="fas fa-layer-group icon-item" />
         </div>
         <!-- 체크리스트 -->
         <div class="board-inside-icon" v-if="card.isChecklist === 'Y'">
-          <awesome
-            icon="check-square"
-            class="far fa-check-square board-inside-checklist"
-          ></awesome>
+          <awesome icon="check-square" class="icon-item" />
         </div>
         <!-- 시간표시 -->
         <div class="board-inside-icon" v-if="card.dueDate">
-          <awesome
-            :icon="['far', 'clock']"
-            class="far fa-clock board-inside-desc"
-          ></awesome>
+          <awesome :icon="['far', 'clock']" class="icon-item" />
         </div>
         <!-- 첨부파일 -->
         <div class="board-inside-icon" v-if="card.isAttachment === 'Y'">
-          <awesome icon="paperclip" class="far fa-paperclip"></awesome>
+          <awesome icon="paperclip" class="icon-item" />
         </div>
         <!-- 장소 -->
         <div class="board-inside-icon" v-if="card.location">
-          <awesome
-            icon="map-marker-alt"
-            class="fas fa-map-marker-alt"
-          ></awesome>
+          <awesome icon="map-marker-alt" class="icon-item" />
+        </div>
+        <!-- 코멘트 -->
+        <div class="board-inside-icon" v-if="card.isComment === 1">
+          <awesome icon="comment" class="icon-item" />
         </div>
       </div>
     </router-link>
@@ -92,19 +84,14 @@ export default {
   box-shadow: 0 1px 0 #ccc;
   position: relative;
   .board-inside-icons {
+    padding: 1px 0 4px;
     .board-inside-icon {
       margin: 4px;
       font-size: 13px;
       color: #5e6c84;
       display: inline;
-      .board-inside-desc {
+      .icon-item {
         padding-right: 10px;
-      }
-      .board-inside-checklist {
-        padding-right: 10px;
-      }
-      .board-inside-checklist-text {
-        margin-left: -5px;
       }
     }
   }

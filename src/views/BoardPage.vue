@@ -145,6 +145,7 @@ export default {
       this.setTheme(this.board.bgColor);
       this.setInvitedUser();
     });
+    if (this.board.createdBy !== this.user.id) this.isOwner = false;
   },
   mounted() {
     window.document.body.style.overflowY = `hidden`;
@@ -209,7 +210,6 @@ export default {
       this.UPDATE_USER({ id: this.user.id, recentBoard });
     },
     setInvitedUser() {
-      if (this.board.createdBy !== this.user.id) this.isOwner = false;
       if (!this.board.invitedUser) return;
       this.READ_INVITED_USER(JSON.parse(this.board.invitedUser)).then(
         ({ data }) => {
