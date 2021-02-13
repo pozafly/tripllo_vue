@@ -62,8 +62,8 @@ export default {
     ...mapState(['personalBoard', 'recentBoard', 'user', 'isInfinity']),
   },
   watch: {
-    user() {
-      this.getRecentBoard();
+    'user.recentBoard'() {
+      if (this.user.recentBoard) this.getRecentBoard();
     },
   },
   methods: {
@@ -100,7 +100,7 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.getRecentBoard();
+      if (this.user.invitedBoard) this.getRecentBoard();
     });
   },
   beforeDestroy() {

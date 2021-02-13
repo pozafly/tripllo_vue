@@ -40,7 +40,9 @@ export default {
     },
   },
   mounted() {
-    this.getInvitedBoard();
+    this.$nextTick(() => {
+      if (this.user.recentBoard) this.getInvitedBoard();
+    });
   },
 };
 </script>

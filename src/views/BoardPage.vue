@@ -22,14 +22,14 @@
               <ProfileImage :board="board" />
             </span>
 
-            <span class="board-item" @click="changePublic">
+            <span class="board-item" @click="changePublic" v-if="isOwner">
               {{ publicYn }}
             </span>
 
             <span
               class="board-item"
               @click="openInviteModal"
-              v-if="board.publicYn === 'Y'"
+              v-if="board.publicYn === 'Y' && isOwner"
             >
               Invite
               <Invite
@@ -51,7 +51,10 @@
               </span>
             </span>
 
-            <div class="board-hash-wrap" v-if="board.publicYn === 'Y'">
+            <div
+              class="board-hash-wrap"
+              v-if="board.publicYn === 'Y' && isOwner"
+            >
               <HashtagDisplay />
             </div>
 
@@ -120,6 +123,7 @@ export default {
       lDragger: '',
       isInvite: false,
       invitedUser: [],
+      isOwner: true,
     };
   },
   watch: {
@@ -205,6 +209,7 @@ export default {
       this.UPDATE_USER({ id: this.user.id, recentBoard });
     },
     setInvitedUser() {
+      if (this.board.createdBy !== this.user.id) this.isOwner = false;
       if (!this.board.invitedUser) return;
       this.READ_INVITED_USER(JSON.parse(this.board.invitedUser)).then(
         ({ data }) => {

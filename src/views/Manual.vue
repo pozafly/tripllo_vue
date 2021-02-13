@@ -8,12 +8,17 @@
             <li><span class="title">Tripllo</span></li>
           </ul>
         </header>
-        <div class="button-wrap">
+        <div class="button-wrap" v-if="!isAuth">
           <button class="move-btn" @click="$router.push('/auth/login')">
             Login
           </button>
           <button class="move-btn" @click="$router.push('/auth/signUp')">
             Sign Up
+          </button>
+        </div>
+        <div class="button-wrap" v-else>
+          <button class="return-btn" @click="$router.go(-1)">
+            되돌아가기
           </button>
         </div>
       </div>
@@ -217,9 +222,13 @@
 
 <script>
 import Footer from '@/components/common/Footer';
+import { mapGetters } from 'vuex';
 
 export default {
   components: { Footer },
+  computed: {
+    ...mapGetters(['isAuth']),
+  },
   created: function() {
     window.addEventListener('scroll', this.handleScroll);
   },
@@ -300,6 +309,14 @@ export default {
             filter: brightness(90%);
           }
         }
+        .return-btn {
+          width: 85px;
+          height: 40px;
+          box-shadow: rgba(0, 0, 0, 0.2) 0 0 19px;
+          background-color: #43ab5f;
+          position: relative;
+          right: -80px;
+        }
       }
     }
   }
@@ -335,12 +352,10 @@ export default {
           width: 450px;
           img {
             width: 400px;
-            /* height: 400px; */
-            margin-top: 30px;
+            margin: 30px 0;
             border-radius: 10px;
           }
           .text-items {
-            /* background-color: pink; */
             display: flex;
             flex-direction: column;
             justify-content: space-evenly;
