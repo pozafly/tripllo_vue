@@ -5,6 +5,7 @@
       class="checkbox-input"
       :checked="isChecked"
       @click="isCheckChange"
+      maxlength="399"
     />
     <template v-if="!isItem">
       <span class="checkbox-item-text" v-if="!isChecked">
@@ -25,6 +26,7 @@
         @blur="onSubmitItem"
         @keypress.enter="onKeyupEnter"
         placeholder="Edit Item and press Enter"
+        maxlength="399"
       />
     </template>
   </div>

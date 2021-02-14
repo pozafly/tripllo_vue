@@ -1,88 +1,93 @@
 <template>
   <section class="wrap">
-    <div class="boards">
-      <div class="page-title">
-        <awesome icon="search" class="icon" />
-        <span class="title-text">Search</span>
-        <span class="side-text"> - Search you want..</span>
-        <input
-          type="text"
-          class="form-control"
-          ref="input"
-          spellcheck="false"
-          placeholder="Write you want Searching Hashtag"
-          v-model="searchHashValue"
-          @keydown="reset"
-        />
-      </div>
-    </div>
-
-    <div class="boards">
-      <div class="page-title">
-        <awesome icon="crown" class="icon" />
-        <span class="title-text">Hash tags Ranking</span>
-        <span class="side-text"> - Top 5</span>
-        <div class="hashtag">
-          <span
-            v-for="item in hashtags"
-            :key="item.name"
-            class="hashtag-item"
-            @click="selectHash(item.name)"
-          >
-            <span class="hashtag-text"># {{ item.name }}</span>
-            <span class="hashtag-count">({{ item.count }})</span>
-          </span>
+    <div class="inside-wrap">
+      <div class="boards">
+        <div class="page-title main-title">
+          <awesome icon="search" class="icon" />
+          <span class="title-text">Search</span>
+          <span class="side-text search-side"> - Search you want..</span>
+          <input
+            type="text"
+            class="form-control"
+            ref="input"
+            spellcheck="false"
+            placeholder="Write you want Searching Hashtag"
+            v-model="searchHashValue"
+            @keydown="reset"
+            maxlength="14"
+          />
         </div>
       </div>
-    </div>
 
-    <div class="boards">
-      <div class="page-title">
-        <awesome icon="globe-americas" class="icon" />
-        <span class="title-text">Public Boards</span>
-        <span class="side-text"> - order by like</span>
-      </div>
-      <div class="list-wrap" ref="boardItem">
-        <div
-          class="board-list"
-          v-for="board in hashtagBoards"
-          :key="board.id"
-          :data-last-created-at="board.createdAt"
-          :data-last-like-count="board.likeCount"
-        >
-          <BoardItem :board="board" />
-          <div class="created-info">
-            <span>
-              <a
-                href=""
-                class="created-img"
-                @click.prevent="menuShow"
-                v-if="
-                  board.createdUserPicture !== null &&
-                    board.createdUserPicture !== 'null'
-                "
-                :style="{ backgroundImage: `url(${board.createdUserPicture})` }"
-              ></a>
-              <awesome icon="user" class="created-icon" v-else></awesome>
+      <div class="boards">
+        <div class="page-title">
+          <awesome icon="crown" class="icon" />
+          <span class="title-text">Hash tags Ranking</span>
+          <span class="side-text"> - Top 5</span>
+          <div class="hashtag">
+            <span
+              v-for="item in hashtags"
+              :key="item.name"
+              class="hashtag-item"
+              @click="selectHash(item.name)"
+            >
+              <span class="hashtag-text"># {{ item.name }}</span>
+              <span class="hashtag-count">({{ item.count }})</span>
             </span>
-            <span class="created-by">@{{ board.createdBy }}</span>
           </div>
         </div>
       </div>
-    </div>
-    <div class="space">
-      <infinite-loading
-        @infinite="infiniteHandler"
-        spinner="waveDots"
-        :identifier="infiniteId"
-      >
-        <div
-          slot="no-more"
-          style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px;"
-        >
-          목록의 끝입니다 :)
+
+      <div class="boards">
+        <div class="page-title">
+          <awesome icon="globe-americas" class="icon" />
+          <span class="title-text">Public Boards</span>
+          <span class="side-text"> - order by like</span>
         </div>
-      </infinite-loading>
+        <div class="list-wrap" ref="boardItem">
+          <div
+            class="board-list"
+            v-for="board in hashtagBoards"
+            :key="board.id"
+            :data-last-created-at="board.createdAt"
+            :data-last-like-count="board.likeCount"
+          >
+            <BoardItem :board="board" />
+            <div class="created-info">
+              <span>
+                <a
+                  href=""
+                  class="created-img"
+                  @click.prevent="menuShow"
+                  v-if="
+                    board.createdUserPicture !== null &&
+                      board.createdUserPicture !== 'null'
+                  "
+                  :style="{
+                    backgroundImage: `url(${board.createdUserPicture})`,
+                  }"
+                ></a>
+                <awesome icon="user" class="created-icon" v-else></awesome>
+              </span>
+              <span class="created-by">@{{ board.createdBy }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="space">
+        <infinite-loading
+          @infinite="infiniteHandler"
+          spinner="waveDots"
+          :identifier="infiniteId"
+        >
+          <div
+            slot="no-more"
+            style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px;"
+          >
+            목록의 끝입니다 :)
+          </div>
+        </infinite-loading>
+      </div>
     </div>
   </section>
 </template>
@@ -170,96 +175,113 @@ export default {
 <style scoped lang="scss">
 .wrap {
   width: 700px;
-  .boards {
+  .inside-wrap {
+    background: #fff;
     margin: 21px 0;
-    padding: 2px 20px;
-    &:first-child {
-      padding: 20px 20px 8px;
-    }
-    .page-title {
-      padding-bottom: 13px;
-      padding-left: 7px;
-      font-size: 18px;
-      font-weight: bold;
-      .icon {
-        color: #444e61;
+    padding: 20px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0 19px;
+    border-radius: 16px;
+    .boards {
+      margin: 30px 0;
+      &:first-child {
+        margin: 40px;
+        text-align: center;
       }
-      .title-text {
-        color: #212732;
-        margin-left: 10px;
-      }
-      .side-text {
-        font-size: 13px;
-        color: gray;
-      }
-      .hashtag {
-        margin-top: 5px;
-        padding: 9px;
-        .hashtag-item {
-          font-size: 15px;
-          background: rgba(0, 0, 0, 0.1);
-          margin-right: 10px;
-          border-radius: 20px;
-          padding: 5px 8px;
+      .page-title {
+        padding-bottom: 13px;
+        padding-left: 7px;
+        font-size: 18px;
+        font-weight: 540;
+        &.main-title {
+          font-size: 25px;
+          font-weight: 700;
+        }
+        .icon {
+          color: #444e61;
+        }
+        .title-text {
           color: #212732;
-          cursor: pointer;
-          &:hover {
-            background: rgba(0, 0, 0, 0.17);
-          }
-          .hashtag-text {
-            padding-right: 3px;
-          }
-          .hashtag-count {
-            font-size: 11px;
+          margin-left: 10px;
+        }
+        .side-text {
+          font-size: 13px;
+          color: gray;
+          &.search-side {
+            font-weight: 540;
           }
         }
-      }
-    }
-    .form-control {
-      margin-top: 20px;
-      width: 50%;
-    }
-    .list-wrap {
-      display: flex;
-      flex-wrap: wrap;
-      .board-list {
-        display: table-cell;
-        min-width: 180px;
-        padding: 5px;
-        .created-info {
-          background: rgba(0, 0, 0, 0.1);
-          height: 30px;
-          padding: 0 4px;
-          display: flex;
-          align-items: center;
-          /* justify-content: space-between; */
-          .created-by {
-            font-size: 11px;
-            padding-left: 4px;
-          }
-          .created-img {
-            padding: 3px 12px;
-            background-color: rgba(255, 255, 255, 0.5);
-            color: white;
-            width: 11px;
-            height: 30px;
-            border-radius: 50%;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-          }
-          .created-icon {
+        .hashtag {
+          margin-top: 5px;
+          padding: 9px;
+          font-weight: 420;
+          .hashtag-item {
+            font-size: 13px;
             background: rgba(0, 0, 0, 0.1);
-            padding: 5px 6px;
-            width: 13px;
-            border-radius: 50%;
+            margin-right: 10px;
+            border-radius: 20px;
+            padding: 5px 8px;
+            color: #212732;
+            cursor: pointer;
+            &:hover {
+              background: rgba(0, 0, 0, 0.17);
+            }
+            .hashtag-text {
+              padding-right: 3px;
+            }
+            .hashtag-count {
+              font-size: 11px;
+            }
+          }
+        }
+      }
+      .form-control {
+        margin: 30px auto 20px;
+        width: 80%;
+        height: 30px;
+        font-size: 16px;
+      }
+      .list-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        .board-list {
+          display: table-cell;
+          min-width: 180px;
+          padding: 5px;
+          .created-info {
+            background: rgba(0, 0, 0, 0.1);
+            height: 30px;
+            padding: 0 4px;
+            display: flex;
+            align-items: center;
+            /* justify-content: space-between; */
+            .created-by {
+              font-size: 11px;
+              padding-left: 4px;
+            }
+            .created-img {
+              padding: 3px 12px;
+              background-color: rgba(255, 255, 255, 0.5);
+              color: white;
+              width: 11px;
+              height: 30px;
+              border-radius: 50%;
+              background-size: cover;
+              background-position: center;
+              background-repeat: no-repeat;
+            }
+            .created-icon {
+              background: rgba(0, 0, 0, 0.1);
+              padding: 5px 6px;
+              width: 13px;
+              border-radius: 50%;
+            }
           }
         }
       }
     }
-  }
-  .space {
-    padding: 10px 0;
+    .space {
+      padding: 10px 0;
+    }
   }
 }
 </style>

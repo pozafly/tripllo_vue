@@ -31,6 +31,7 @@
           <li>
             <img
               src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/manual/createBoard.gif"
+              loading="lazy"
             />
           </li>
           <li>
@@ -64,6 +65,7 @@
           <li>
             <img
               src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/manual/listAndCardMove.gif"
+              loading="lazy"
             />
           </li>
           <li>
@@ -87,9 +89,11 @@
           <li>
             <img
               src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/manual/card1.gif"
+              loading="lazy"
             />
             <img
               src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/manual/card3.gif"
+              loading="lazy"
             />
           </li>
           <li>
@@ -131,6 +135,7 @@
           <li>
             <img
               src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/manual/invite.gif"
+              loading="lazy"
             />
           </li>
           <li>
@@ -160,6 +165,7 @@
           <li>
             <img
               src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/manual/public.gif"
+              loading="lazy"
             />
           </li>
           <li>
@@ -190,9 +196,11 @@
           <li>
             <img
               src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/manual/profile.gif"
+              loading="lazy"
             />
             <img
               src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/manual/email.gif"
+              loading="lazy"
             />
           </li>
           <li>

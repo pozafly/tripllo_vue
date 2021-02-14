@@ -13,6 +13,7 @@
               ref="inputTitle"
               @keypress.enter="onKeyupEnter"
               @blur="onSubmitTitle"
+              maxlength="44"
             />
             <span v-else class="board-item" @click="onClickTitle">
               {{ board.title }}
@@ -125,12 +126,6 @@ export default {
       invitedUser: [],
       isOwner: true,
     };
-  },
-  watch: {
-    inputTitle() {
-      if (this.inputTitle.length > 44)
-        alert('title은 45자를 넘을 수 없습니다.');
-    },
   },
   computed: {
     ...mapState(['board', 'user']),

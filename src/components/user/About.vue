@@ -29,6 +29,7 @@
             type="text"
             class="form-control input"
             v-model="userData.name"
+            maxlength="19"
           />
         </div>
         <div class="form-item">
@@ -37,6 +38,7 @@
             type="text"
             class="form-control input"
             v-model="userData.email"
+            maxlength="44"
           />
         </div>
         <div class="form-item">
@@ -45,6 +47,7 @@
             type="text"
             class="form-control textarea"
             v-model="userData.bio"
+            maxlength="199"
           />
         </div>
         <button class="form-save" @click.prevent="updateUser">Save</button>

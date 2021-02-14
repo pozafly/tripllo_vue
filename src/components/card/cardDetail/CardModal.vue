@@ -14,6 +14,7 @@
           :value="card.title"
           @blur="onSubmitTitle"
           @keypress.enter="onKeyupEnter"
+          maxlength="44"
         />
         <a v-else href="" @click.prevent="onEditTitle">
           {{ card.title }} <awesome icon="edit" class="fas fa-edit"></awesome>

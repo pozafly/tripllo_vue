@@ -9,6 +9,7 @@
         v-model="inputTitle"
         @keypress.enter="onKeyupEnter"
         @blur="onSubmitTitle"
+        maxlength="19"
       />
       <div v-else class="list-header-title" @click.prevent="onClickTitle">
         {{ list.title }} <awesome icon="edit" class="fas fa-edit"></awesome>

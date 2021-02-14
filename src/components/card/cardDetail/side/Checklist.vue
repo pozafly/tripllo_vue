@@ -10,6 +10,7 @@
         ref="inputTitle"
         spellcheck="false"
         @keypress.enter="addChecklist"
+        maxlength="44"
       />
       <button class="checklist-btn" @click="addChecklist">Add</button>
     </div>

@@ -23,6 +23,7 @@
               v-model="title"
               ref="title"
               placeholder="보드 제목을 입력해주세요"
+              maxlength="44"
             />
           </div>
 
@@ -59,6 +60,7 @@
             v-model="hashItem"
             placeholder="예시) 국내여행, 고양이 ... 등"
             @keypress.enter="pushHash"
+            maxlength="14"
           />
           <div class="hash-item">
             <span class="hashtag" v-for="hash in hashList" :key="hash">

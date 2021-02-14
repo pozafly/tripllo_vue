@@ -45,7 +45,7 @@ export default {
   padding-top: 40px;
   box-sizing: border-box;
   .main-wrap {
-    height: 100%;
+    height: auto;
     min-height: 80%;
     max-width: 1000px;
     margin: 0 auto;

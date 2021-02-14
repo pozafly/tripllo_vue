@@ -9,6 +9,7 @@
       placeholder="Enter list title..."
       @blur="onSubmitTitle"
       @keypress.enter="onKeyupEnter"
+      maxlength="64"
     />
     <a v-else href="">&plus; Add another list</a>
   </div>

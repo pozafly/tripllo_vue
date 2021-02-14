@@ -21,6 +21,7 @@
         v-model="inputTitle"
         @blur="onSubmitTitle"
         @keypress.enter="onKeyupEnter"
+        maxlength="44"
       />
       <button class="checkbox-input-btn" @click="onSubmitTitle">
         Save
@@ -53,6 +54,7 @@
         placeholder="Add an Item"
         @blur="onSubmitItem"
         @keypress.enter="onKeyupEnter"
+        maxlength="399"
       />
       <button
         class="checkbox-input-btn checkbox-item-save"

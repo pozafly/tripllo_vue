@@ -25,6 +25,7 @@
             ref="hashModal"
             placeholder="예시) 국내여행, 고양이 ... 등"
             @keypress.enter="pushHash"
+            maxlength="14"
           />
         </div>
       </MiniModal>

@@ -10,6 +10,7 @@
           placeholder="Enter a title for this card..."
           @keypress.enter="onKeyupEnter"
           @blur="onSubmit"
+          maxlength="44"
         />
       </div>
       <button class="btn btn-success" type="submit" :disabled="invalidInput">
