@@ -10,7 +10,7 @@
         v-show="labelArray.includes(label)"
         :style="{ backgroundColor: label }"
       ></div>
-      <div>{{ card.title }}</div>
+      <div class="card-title">{{ card.title }}</div>
       <div class="board-inside-icons">
         <!-- 햄버거 -->
         <div class="board-inside-icon" v-if="card.description">
@@ -83,6 +83,10 @@ export default {
   padding: 6px 20px 2px 8px;
   box-shadow: 0 1px 0 #ccc;
   position: relative;
+  .card-title {
+    font-size: 14px;
+    font-weight: 450;
+  }
   .board-inside-icons {
     padding: 1px 0 4px;
     .board-inside-icon {

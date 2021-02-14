@@ -25,8 +25,8 @@ export function setInterceptors(instance) {
         error.response.data.status === 'UNAUTHORIZED'
       ) {
         alert('권한이 없습니다.');
-        if (router.history.current.fullPath.includes('card')) return;
-        router.push('/main');
+        // if (router.history.current.fullPath.includes('card')) return;
+        // router.push('/main');
       }
       return Promise.reject(error);
     },

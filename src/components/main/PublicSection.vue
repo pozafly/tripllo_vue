@@ -53,7 +53,10 @@
             :data-last-like-count="board.likeCount"
           >
             <BoardItem :board="board" />
-            <div class="created-info">
+            <div
+              class="created-info"
+              @click="$router.push(`/user/${board.createdBy}`)"
+            >
               <span>
                 <a
                   href=""
@@ -74,7 +77,7 @@
           </div>
         </div>
       </div>
-      <div class="space">
+      <div class="infinity">
         <infinite-loading
           @infinite="infiniteHandler"
           spinner="waveDots"
@@ -236,9 +239,9 @@ export default {
       }
       .form-control {
         margin: 30px auto 20px;
-        width: 80%;
+        width: 50%;
         height: 30px;
-        font-size: 16px;
+        font-size: 14px;
       }
       .list-wrap {
         display: flex;
@@ -253,7 +256,7 @@ export default {
             padding: 0 4px;
             display: flex;
             align-items: center;
-            /* justify-content: space-between; */
+            cursor: pointer;
             .created-by {
               font-size: 11px;
               padding-left: 4px;
@@ -279,7 +282,7 @@ export default {
         }
       }
     }
-    .space {
+    .infinity {
       padding: 10px 0;
     }
   }

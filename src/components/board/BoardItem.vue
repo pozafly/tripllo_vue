@@ -128,7 +128,6 @@ export default {
       bottom: -4px;
       color: #fff;
       .hashtag {
-        font-size: 6px;
         display: inline-block;
         margin: 1px 2px;
         padding: 0px 3px;
@@ -137,7 +136,7 @@ export default {
         color: #fff;
         line-height: 20px;
         font-size: 13px;
-        text-align: right;
+        font-weight: 350;
       }
     }
     .heart {

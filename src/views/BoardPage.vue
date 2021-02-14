@@ -19,7 +19,10 @@
               {{ board.title }}
             </span>
 
-            <span class="board-item owner-user">
+            <span
+              class="board-item owner-user"
+              @click="$router.push(`/user/${board.createdBy}`)"
+            >
               <ProfileImage :board="board" />
             </span>
 
@@ -46,7 +49,11 @@
 
             <span v-if="board.invitedUser">
               <span class="board-item invited-user">
-                <span v-for="item in invitedUser" :key="item.id">
+                <span
+                  v-for="item in invitedUser"
+                  :key="item.id"
+                  @click="$router.push(`/user/${item.id}`)"
+                >
                   <ProfileImage :item="item" />
                 </span>
               </span>
@@ -139,8 +146,8 @@ export default {
     this.READ_BOARD_DETAIL(this.$route.params.boardId).then(() => {
       this.setTheme(this.board.bgColor);
       this.setInvitedUser();
+      if (this.board.createdBy !== this.user.id) this.isOwner = false;
     });
-    if (this.board.createdBy !== this.user.id) this.isOwner = false;
   },
   mounted() {
     window.document.body.style.overflowY = `hidden`;

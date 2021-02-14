@@ -32,7 +32,7 @@
         </div>
       </div>
     </div>
-    <div class="space">
+    <div class="infinity">
       <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
         <div
           slot="no-more"
@@ -162,7 +162,7 @@ export default {
       }
     }
   }
-  .space {
+  .infinity {
     padding: 10px 0;
   }
 }

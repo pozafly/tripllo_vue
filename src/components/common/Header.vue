@@ -81,7 +81,7 @@
         <div class="profile-item id">@{{ user.id }}</div>
       </div>
       <a class="menu-close" @click.prevent="menuShow">&times;</a>
-      <a class="menu-item" @click="$router.push('/user')">
+      <a class="menu-item" @click="$router.push('/my')">
         <awesome icon="user-edit" class="fas fa-user-edit"></awesome>
         <span>Edit profile</span>
       </a>
@@ -143,6 +143,7 @@ export default {
     },
     updateTheme() {
       if (this.$route.path.includes('main')) return;
+      if (this.$route.path.includes('my')) return;
       if (this.$route.path.includes('user')) return;
 
       const board = document.querySelector('.board');

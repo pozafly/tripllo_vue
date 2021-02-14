@@ -9,6 +9,10 @@ const boardApi = {
     return board.get(`/personal/${lastCreatedAt}`);
   },
 
+  readSearchUserBoard({ searchUser, lastCreatedAt }) {
+    return board.get(`/${searchUser}/${lastCreatedAt}`);
+  },
+
   rerenderBoard({ count }) {
     return board.get(`/rerender/${count}`);
   },
