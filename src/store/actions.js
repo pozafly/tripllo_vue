@@ -9,10 +9,9 @@ import pushMessageApi from '@/api/pushMessage';
 import uploadApi from '@/api/upload';
 import emailApi from '@/api/email';
 import boardHasLikeApi from '@/api/boardHasLike';
+import hashtagApi from '@/api/hashtag';
 import router from '@/routes';
 import bus from '@/utils/bus';
-import hashtagApi from '../api/hashtag';
-import { hashtag } from '../api';
 
 const actions = {
   // 로그인

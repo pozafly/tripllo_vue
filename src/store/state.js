@@ -7,6 +7,7 @@ const state = {
     email: getUserFromLocalStorage('user_email') || '',
     name: getUserFromLocalStorage('user_name') || '',
     bio: getUserFromLocalStorage('user_bio') || '',
+    social: getUserFromLocalStorage('user_social' || ''),
     picture: getUserFromLocalStorage('user_picture') || '',
     recentBoard: getUserFromLocalStorage('user_recentBoard') || '',
     invitedBoard: getUserFromLocalStorage('user_invitedBoard') || '',

@@ -2,6 +2,7 @@ function saveUserToLocalStorage(user) {
   localStorage.setItem('user_id', user.id);
   localStorage.setItem('user_email', user.email);
   localStorage.setItem('user_name', user.name);
+  localStorage.setItem('user_social', user.social);
   localStorage.setItem('user_bio', user.bio);
   localStorage.setItem('user_picture', user.picture);
   localStorage.setItem('user_recentBoard', user.recentBoard);
