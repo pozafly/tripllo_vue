@@ -32,6 +32,7 @@ export default {
         console.log(this.member.id + '초대완료');
         this.socket.send(
           JSON.stringify({
+            userId: this.user.id,
             target: this.member.id,
             content: `@${this.user.id}님이 '${this.board.title}' 보드에 초대합니다.`,
             boardId: this.board.id,

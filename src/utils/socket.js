@@ -25,8 +25,12 @@ function onClose(evt) {
 }
 
 //서버에 데이터 전송
-function socketOnSend(target, content) {
-  store.state.socket.send(JSON.stringify({ target, content }));
-}
+// function socketOnSend(target, content) {
+//   store.state.socket.send(JSON.stringify({ target, content }));
+// }
 
-export { socketConnect, onClose, socketOnSend };
+export {
+  socketConnect,
+  onClose,
+  // socketOnSend,
+};
