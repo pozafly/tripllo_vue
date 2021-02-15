@@ -52,19 +52,11 @@
       <template v-if="isSocialForm">
         <div class="text">OR</div>
         <div class="external-items">
-          <!-- <GoogleLogin
-            class="external-item"
-            :params="googleParams"
-            :onSuccess="googleSuccess"
-          >
-            <img src="@/assets/user/logo/google.png" />
-            <b> Continue with Google</b>
-          </GoogleLogin> -->
-          <div id="loginBtn" class="external-item">
-            <div class="google">
+          <div id="loginBtn">
+            <button class="external-item">
               <img src="@/assets/user/logo/google.png" />
               <b> Continue with Google</b>
-            </div>
+            </button>
           </div>
           <div id="name"></div>
           <button class="external-item" @click="facebookSignup">
@@ -341,13 +333,6 @@ img {
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      .google {
-        display: flex;
-        align-items: center;
-        font-weight: 400;
-        font-stretch: normal;
-        font-size: 13.3333px;
-      }
       &:hover {
         background-color: #f9fafc;
       }
