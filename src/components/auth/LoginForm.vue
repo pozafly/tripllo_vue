@@ -28,19 +28,22 @@
     <template v-if="isSocialForm">
       <div class="text">OR</div>
       <div class="external-items">
-        <GoogleLogin
-          class="external_item"
-          :params="googleParams"
-          :onSuccess="googleSuccess"
-        >
+        <!-- <button class="external-item" @click="googleSuccess" id="my-signin2">
           <img src="@/assets/user/logo/google.png" />
           <b> Continue with Google</b>
-        </GoogleLogin>
-        <button class="external_item" @click="facebookLogin">
+        </button> -->
+        <div id="loginBtn" class="external-item">
+          <div class="google">
+            <img src="@/assets/user/logo/google.png" />
+            <b> Continue with Google</b>
+          </div>
+        </div>
+        <div id="name"></div>
+        <button class="external-item" @click="facebookLogin">
           <img src="@/assets/user/logo/facebook.png" />
           <b> Continue with Facebook</b>
         </button>
-        <button class="external_item" @click="kakaoLogin">
+        <button class="external-item" @click="kakaoLogin">
           <img src="@/assets/user/logo/kakao.png" />
           <b> Continue with KakaoTalk</b>
         </button>
@@ -101,14 +104,18 @@ export default {
         this.push.message = response.data.message;
       }
     },
-    async googleSuccess(googleUser) {
-      if (localStorage.getItem('user_token')) {
-        alert('이미 로그인 되어 있습니다.');
-        this.$router.push('/main');
-      } else {
-        this.$Google.login(googleUser);
-      }
-    },
+    // async googleSuccess(googleUser) {
+    //   console.log(googleUser);
+    // if (localStorage.getItem('user_token')) {
+    //   alert('이미 로그인 되어 있습니다.');
+    //   this.$router.push('/main');
+    // } else {
+    //   console.log('ㅇㅕ긴 오겠지?');
+    //   console.log(googleUser);
+
+    //   this.$Google.login(googleUser);
+    // }
+    // },
     facebookLogin: async function() {
       if (localStorage.getItem('user_token')) {
         alert('이미 로그인 되어 있습니다.');
@@ -126,10 +133,11 @@ export default {
       }
     },
   },
-  mounted() {
-    // if (this.$route.query.code) {
-    //   this.$Github.signup(this.$route.query.code);
-    // }
+  created() {
+    this.$loadScript(`https://apis.google.com/js/api:client.js`).then(() => {
+      console.log('성공?');
+      this.$Google.init();
+    });
   },
 };
 </script>
@@ -196,7 +204,7 @@ export default {
     justify-content: space-around;
     height: 10rem;
     margin-top: 1rem;
-    .external_item {
+    .external-item {
       background: #fff;
       color: rgba(0, 0, 0, 0.54);
       box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px 0;
@@ -209,6 +217,14 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+      cursor: pointer;
+      .google {
+        display: flex;
+        align-items: center;
+        font-weight: 400;
+        font-stretch: normal;
+        font-size: 13.3333px;
+      }
       &:hover {
         background-color: #f9fafc;
       }

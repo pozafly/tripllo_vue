@@ -52,14 +52,21 @@
       <template v-if="isSocialForm">
         <div class="text">OR</div>
         <div class="external-items">
-          <GoogleLogin
+          <!-- <GoogleLogin
             class="external-item"
             :params="googleParams"
             :onSuccess="googleSuccess"
           >
             <img src="@/assets/user/logo/google.png" />
             <b> Continue with Google</b>
-          </GoogleLogin>
+          </GoogleLogin> -->
+          <div id="loginBtn" class="external-item">
+            <div class="google">
+              <img src="@/assets/user/logo/google.png" />
+              <b> Continue with Google</b>
+            </div>
+          </div>
+          <div id="name"></div>
           <button class="external-item" @click="facebookSignup">
             <img src="@/assets/user/logo/facebook.png" />
             <b> Continue with Facebook</b>
@@ -215,14 +222,17 @@ export default {
       this.push.pushYn = true;
       this.push.message = message;
     },
-    googleSuccess(googleUser) {
-      if (localStorage.getItem('user_token')) {
-        alert('이미 로그인 되어 있습니다.');
-        this.$router.push('/main');
-      } else {
-        this.$Google.signup(googleUser);
-      }
-    },
+    // googleSuccess(googleUser) {
+    //   console.log(googleUser);
+    //   if (localStorage.getItem('user_token')) {
+    //     alert('이미 로그인 되어 있습니다.');
+    //     this.$router.push('/main');
+    //   } else {
+    //     console.log('여긴오니?');
+    //     console.log(googleUser);
+    //     this.$Google.signup(googleUser);
+    //   }
+    // },
     facebookSignup() {
       if (localStorage.getItem('user_token')) {
         alert('이미 로그인 되어 있습니다.');
@@ -239,6 +249,12 @@ export default {
         this.$Kakao.signup();
       }
     },
+  },
+  created() {
+    this.$loadScript(`https://apis.google.com/js/api:client.js`).then(() => {
+      console.log('성공?');
+      this.$Google.init();
+    });
   },
 };
 </script>
@@ -324,6 +340,14 @@ img {
       display: flex;
       justify-content: center;
       align-items: center;
+      cursor: pointer;
+      .google {
+        display: flex;
+        align-items: center;
+        font-weight: 400;
+        font-stretch: normal;
+        font-size: 13.3333px;
+      }
       &:hover {
         background-color: #f9fafc;
       }
