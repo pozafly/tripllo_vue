@@ -34,7 +34,6 @@
             <b> Continue with Google</b>
           </button>
         </div>
-        <div id="name"></div>
         <button class="external-item" @click="facebookLogin">
           <img src="@/assets/user/logo/facebook.png" />
           <b> Continue with Facebook</b>
@@ -131,7 +130,6 @@ export default {
   },
   created() {
     this.$loadScript(`https://apis.google.com/js/api:client.js`).then(() => {
-      console.log('성공?');
       this.$Google.init();
     });
   },

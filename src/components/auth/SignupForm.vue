@@ -58,7 +58,6 @@
               <b> Continue with Google</b>
             </button>
           </div>
-          <div id="name"></div>
           <button class="external-item" @click="facebookSignup">
             <img src="@/assets/user/logo/facebook.png" />
             <b> Continue with Facebook</b>
@@ -214,17 +213,6 @@ export default {
       this.push.pushYn = true;
       this.push.message = message;
     },
-    // googleSuccess(googleUser) {
-    //   console.log(googleUser);
-    //   if (localStorage.getItem('user_token')) {
-    //     alert('이미 로그인 되어 있습니다.');
-    //     this.$router.push('/main');
-    //   } else {
-    //     console.log('여긴오니?');
-    //     console.log(googleUser);
-    //     this.$Google.signup(googleUser);
-    //   }
-    // },
     facebookSignup() {
       if (localStorage.getItem('user_token')) {
         alert('이미 로그인 되어 있습니다.');
@@ -244,7 +232,6 @@ export default {
   },
   created() {
     this.$loadScript(`https://apis.google.com/js/api:client.js`).then(() => {
-      console.log('성공?');
       this.$Google.init();
     });
   },
