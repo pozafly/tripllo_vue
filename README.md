@@ -44,15 +44,21 @@
 
 ## 4. 핵심 기능
 
-이 서비스의 핵심 기능은 계획 등록 기능입니다.
-
-사용자는 
+- 계획 등록
+- 사용자 초대
 
 <details>
 <summary><b>핵심 기능 설명 펼치기</b></summary>
 <div markdown="1">
 ### 4.1 전체 흐름
+![전체 프로세스](https://user-images.githubusercontent.com/59427983/108020126-06030f80-705f-11eb-934d-d115b3e90e20.jpg)
 
+
+### 4.2 계획 등록
+ - **화면 랜더링** : 
+   - 도메인 별 계획을 등록할 때, Action 함수 호출 후 Component를 다시 그려줄 수 있는 Action 함수를 호출합니다. :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_vue/blob/d83f89c1f799b4281fcf43d8a40242991fb7afb2/src/store/actions.js#L158)
+   - 1:N 관계를 가진 컴포넌트가 쿼리문으로 조회 된 후 리랜더링 됩니다.  :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/77266edb3c874cd43132425e75a587641e4983fd/src/main/resources/mapper/BoardMapper.xml#L195)
+- **** :
 
 
 

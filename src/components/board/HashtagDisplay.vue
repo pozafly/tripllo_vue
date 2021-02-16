@@ -34,9 +34,11 @@
 </template>
 
 <script>
+import MiniModal from '@/components/common/MiniModal';
 import { mapActions, mapState } from 'vuex';
 
 export default {
+  components: { MiniModal },
   data() {
     return {
       hashList: [],
