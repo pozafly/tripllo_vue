@@ -1,6 +1,6 @@
 # :pushpin: Tripllo
 
-> 계획 공유 서비스.
+> Trello Clone. 계획 공유 서비스.
 >
 > <a>https://tripllo.tech</a>
 
@@ -37,4 +37,6 @@
 <br/>
 
 ## 3. ERD 설계
+
+![tripllo](https://user-images.githubusercontent.com/59427983/108009279-b19f6600-7045-11eb-998a-8a1b0fdd3eb4.png)
 
