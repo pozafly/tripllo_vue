@@ -22,10 +22,8 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import MiniModal from '@/components/common/MiniModal';
 
 export default {
-  components: { MiniModal },
   data() {
     return {
       labels: {

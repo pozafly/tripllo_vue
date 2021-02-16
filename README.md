@@ -51,9 +51,12 @@
 <details>
 <summary><b>핵심 기능 설명 펼치기</b></summary>
 <div markdown="1">
-    ### 4.1 a뭐무ㅝ뭐
-    ### 4.2 뭐무머ㅝ
+### 4.1 전체 흐름
 
+
+
+
+### 4.2 뭐무머ㅝ
 </div>
 </details>
 

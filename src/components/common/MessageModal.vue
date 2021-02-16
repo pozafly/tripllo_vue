@@ -16,12 +16,11 @@
 </template>
 
 <script>
-import MiniModal from '@/components/common/MiniModal';
 import MessageDetail from './MessageDetail';
 import { mapState } from 'vuex';
 
 export default {
-  components: { MiniModal, MessageDetail },
+  components: { MessageDetail },
   computed: {
     ...mapState(['pushMessage']),
   },

@@ -36,12 +36,11 @@
 </template>
 
 <script>
-import MiniModal from '@/components/common/MiniModal';
 import LocationMap from './LocationMap';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: { MiniModal, LocationMap },
+  components: { LocationMap },
   data() {
     return {
       isDelete: false,

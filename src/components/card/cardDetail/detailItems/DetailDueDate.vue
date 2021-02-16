@@ -21,11 +21,9 @@
 </template>
 
 <script>
-import MiniModal from '@/components/common/MiniModal';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: { MiniModal },
   data() {
     return {
       isDelete: false,
@@ -82,8 +80,8 @@ export default {
 }
 .duedate-delete {
   position: absolute;
-  top: 255px;
-  left: 80px;
+  top: 155px;
+  left: 207px;
   overflow-x: visible;
   z-index: 9999;
   .duedate-delete-btn {

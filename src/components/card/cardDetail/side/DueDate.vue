@@ -21,13 +21,9 @@
 </template>
 
 <script>
-import MiniModal from '@/components/common/MiniModal';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: {
-    MiniModal,
-  },
   data() {
     let date = new Date();
     date.setMinutes(0, 0, 0);

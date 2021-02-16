@@ -11,19 +11,14 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import MiniModal from '@/components/common/MiniModal';
 
 export default {
   computed: {
     ...mapState(['card', 'board']),
   },
-  components: {
-    MiniModal,
-  },
   methods: {
     ...mapActions(['DELETE_CARD']),
     onDelete() {
-      // if (!window.confirm('카드를 삭제하시겠습니까?')) return;
       this.DELETE_CARD({ id: this.card.id });
       this.$router.push(`/board/${this.board.id}`);
     },

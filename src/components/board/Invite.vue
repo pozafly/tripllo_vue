@@ -29,16 +29,12 @@
 </template>
 
 <script>
-import MiniModal from '@/components/common/MiniModal';
 import InviteDetail from './InviteDetail';
 import _ from 'lodash';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: {
-    MiniModal,
-    InviteDetail,
-  },
+  components: { InviteDetail },
   data() {
     return {
       inputId: '',

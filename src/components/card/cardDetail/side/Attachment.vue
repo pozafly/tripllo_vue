@@ -15,14 +15,10 @@
 </template>
 
 <script>
-import MiniModal from '@/components/common/MiniModal';
 import bus from '@/utils/bus';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: {
-    MiniModal,
-  },
   computed: {
     ...mapState(['card', 'file']),
   },
