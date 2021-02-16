@@ -1,6 +1,6 @@
 # :pushpin: Tripllo
 
-> Trello Clone. 계획 공유 서비스.
+> Trello Clone, 계획 공유 서비스
 >
 > <a>https://tripllo.tech</a>
 
@@ -62,7 +62,7 @@
   - Action 함수 호출 후 Component를 다시 그려줄 수 있는 Action 함수를 호출합니다. :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_vue/blob/d83f89c1f799b4281fcf43d8a40242991fb7afb2/src/store/actions.js#L158)
   - 1:N 관계를 가진 컴포넌트가 쿼리문으로 조회 된 후 리랜더링 됩니다.  :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/77266edb3c874cd43132425e75a587641e4983fd/src/main/resources/mapper/BoardMapper.xml#L195)
 - **카드 기능**
-  - 
+  - Location(구글맵 API) :pushpin: 
 
 ### 4.2 뭐무머ㅝ
 
