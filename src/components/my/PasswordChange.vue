@@ -31,7 +31,7 @@
 <script>
 import bus from '@/utils/bus.js';
 import { validatePw } from '@/utils/validation';
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   data() {
@@ -41,10 +41,18 @@ export default {
       againPw: '',
     };
   },
+  computed: {
+    ...mapState(['user']),
+  },
   methods: {
     ...mapActions(['CHANGE_PASSWORD']),
     change() {
       bus.$emit('start:spinner');
+      if (this.user.id === 'test') {
+        alert('test 아이디는 비밀변호 변경이 불가능 합니다.');
+        bus.$emit('end:spinner');
+        return;
+      }
       if (this.newPw !== this.againPw) {
         alert(
           '입력하신 새로운 비밀번호와 재입력 비밀번호가 일치하지 않습니다.',
