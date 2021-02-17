@@ -308,16 +308,16 @@ data() {
 }
 ...
 watch: {
-	userData: {
-		id: function() {
-			() => {
+  userData: {
+    id: function() {
+      () => {
         _.debounce(function(e)) {
-        	this.validUserId(e);
-      	}
+          this.validUserId(e);
+        }
       },
     ...
-		},
-	},
+    },
+  },
 },
 ```
 
@@ -325,8 +325,8 @@ watch: {
 </details>
 
 - 아래와 같이
-- 객체 내부의 변수 1개만 감지 :  '객체.변수명': [some function]
-- 객체 내부 요소가 하나라도 변화할 때 감지 : handler(e), deep: true
+- 객체 내부의 변수 1개만 감지 :  `'객체.변수명': [some function]`
+- 객체 내부 요소가 하나라도 변화할 때 감지 : `handler(e)`, `deep: true`
 - debounce는 즉시 실행 함수로 선언하는 것이 아니라, 함수 자체를 등록해줘야 한다는 것을 알게되어 개선할 수 있었습니다.
 
 <details>
@@ -417,7 +417,7 @@ const state = {
 
 ### 5.4 API 요청 시 JWT 인증 문제
 
-- 다음과 같이 axios interceptor에서, 로그인 후 받아온 JWT token을 header에 담아 백엔드로 보내 인증을 하고 싶었습니다.
+- axios interceptor에서, 로그인 후 받아온 JWT token을 header에 담아 백엔드로 보내 인증을 하고 싶었습니다.
 
 <details>
 <summary><b>interceptor.js</b></summary>
@@ -525,7 +525,7 @@ public String resolveToken(HttpServletRequest request) {
 <div markdown="1">
 
 - 외부 API( ex) 소셜로그인, 구글맵) 를 사용할 때 index.html에 script 태그를 선언하게 되면 모든 페이지에서 스크립트가 로드된다.
-- 하나의 vue 컴포넌트에서만 script를 load 하고 싶었다. 해당 vue 파일에서 script load가 필요한 상황.
+- 성능 낭비이기 때문에, 하나의 vue 컴포넌트에서만 script를 load 하고 싶었다. 해당 vue 파일에서 script load가 필요한 상황.
 - `vue-plugin-load-script` 모듈을 다운받아 플러그인 화하여 사용했음. :pushpin: [코드 보기](https://github.com/pozafly/tripllo_vue/blob/9e857c084e89d48b45402f60ece3c1857678c8f1/src/components/card/cardDetail/side/Location.vue#L32)
 
 </div>
@@ -536,7 +536,6 @@ public String resolveToken(HttpServletRequest request) {
 <div markdown="1">
 
 - 프로젝트 내 input 수정 로직은 Enter를 누르거나, input에서 포커스를 벗어나면 UPDATE 되는 방식을 사용함. 
-
 - input 태그에 @keyup.enter와 @blur를 사용하는데 keyup 이벤트가 발생하면 blur 이벤트까지 같이 일어나 api가 2번 요청되는 이슈가 있었음.
 
   <details>
@@ -545,7 +544,7 @@ public String resolveToken(HttpServletRequest request) {
 
   ```html
   <input
-  	...
+    ...
     @keyup.enter="onSubmitTitle"
     @blur="onSubmitTitle"
   />
@@ -561,7 +560,7 @@ public String resolveToken(HttpServletRequest request) {
 
   ```html
   <input
-  	...
+    ...
     @keypress.enter="onKeyupEnter"
     @blur="onSubmitTitle"
   />
@@ -600,7 +599,7 @@ public String resolveToken(HttpServletRequest request) {
 <div markdown="1">
 
 - 상위 태그의 height 가 auto 일 경우, height 값에 따라서 sticky가 위치를 조정함.
-- height를 **100%**로 주어 하위 컴포넌트들이 높이 값을 상속받게 하여 해결. :pushpin: [commit 보기](https://github.com/pozafly/tripllo_vue/commit/783eb1bb54e878723dcf50b59b62c02b7d8f2e17)
+- height를 100%로 주어 하위 컴포넌트들이 높이 값을 상속받게 하여 해결. :pushpin: [commit 보기](https://github.com/pozafly/tripllo_vue/commit/783eb1bb54e878723dcf50b59b62c02b7d8f2e17)
 
 </div>
 </details>
@@ -650,9 +649,10 @@ public String resolveToken(HttpServletRequest request) {
 <summary><b>@AuthenticationPrincipal 현재 접속한 userId 가져오기</b></summary>
 <div markdown="1">
 
-- 토큰으로 해당 User의 ID를 자동으로 받을 수 없을까 고민했음. 
+- token으로 해당 User의 ID를 자동으로 받을 수 없을까 고민했음.
+- 보안 상으로 클라이언트가 직접 userId를 매개변수로 하여 api를 호출하면 다른 user의 정보가 변경 될 수 있으므로.
 - JwtTokenProvider에 있는 getUserPk() 메서드를 static화 하여 Contorller에서 끌어다 사용하기로 했음. (Controller에서 @RequestHeader(value = "Authorization")을 통해 token을 얻고 getUserPK() 메서드로 userId를 가져오는 방식) :pushpin: [commit 보기](https://github.com/pozafly/tripllo_springBoot/commit/419b5266c3531eb5e02204262ca7d72d3cd6f1da#diff-6fd385944e33e2fa5d338023a92a71e2ba0161719f5ffc7fbcf106bf513554e0)
-- SpringSecurity에서 제공하는 @AuthenticationPrincipal을 통해 손쉽게 가져오는 방법을 사용. :pushpin:  [commit 보기](https://github.com/pozafly/tripllo_springBoot/commit/dc5fb1c1b28642abadbdd8f968e0f7967aac69bd#diff-a85245a5e6338e27e8e77061d7faf11669d2b964173a405c125ecf439ab0373a)
+- 하지만, SpringSecurity에서 제공하는 @AuthenticationPrincipal을 통해 손쉽게 가져오는 방법을 사용. :pushpin:  [commit 보기](https://github.com/pozafly/tripllo_springBoot/commit/dc5fb1c1b28642abadbdd8f968e0f7967aac69bd#diff-a85245a5e6338e27e8e77061d7faf11669d2b964173a405c125ecf439ab0373a)
 
 </div>
 </details>
@@ -706,10 +706,10 @@ public String resolveToken(HttpServletRequest request) {
 <summary><b>EC2 access key 노출로 ssh 접속 후, 지속적 끊김 문제</b></summary>
 <div markdown="1">
 
-- ec2 - amazon linux 2 로 인스턴스를 만들고 SpringBoot와 연동하는 도중, Github에 secret key를 노출하는 사건이 발생.
+- EC2 - amazon linux 2 로 인스턴스를 만들고 SpringBoot와 연동하는 도중, Github에 secret key를 노출하는 사건이 발생.
 - ssh 접속이 되어도 15분 안으로 끊어지는 이슈. secret key가 노출되었다고 aws로부터 여러개의 이메일이 와있었음.
 - Git reset HEAD 를 사용하여 commit을 삭제, aws에 알렸는데도 불구하고 ssh 접속이 끊기는 현상은 없어지지 않았음.
-- 계정 삭제 후 다시 처음부터 세팅. 이 사건으로 secret key는 반드시 ec2 내에 옮겨두고 SpringBoot로 부터 build시 ec2 내 따로 생성해둔 environment(properties) 파일을 함께 묶어 build가 되도록 함.
+- `계정 삭제 후 다시 처음부터 세팅.` 이 사건으로 secret key는 반드시 ec2 내에 옮겨두고 SpringBoot로 부터 build시 ec2 내 따로 생성해둔 environment(properties) 파일을 함께 묶어 build가 되도록 함.
 
 </div>
 </details>
