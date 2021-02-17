@@ -46,10 +46,10 @@
 
 ## 4. 핵심 기능
 
-- 계획 등록
-- 사용자 초대
-
-
+1. 전체 흐름
+2. 계획 등록
+3. 사용자 초대
+4. 소셜 기능
 
 <details>
 <summary><b>핵심 기능 설명 펼치기</b></summary>
@@ -136,18 +136,15 @@
 
 ### 5.1 무한 스크롤 적용 문제
 
-<details>
-<summary><b>📌 보기</b></summary>
-<div markdown="1">
-
-
 - Board를 조회 시, 생성된 날짜(createdAt)를 desc 순으로 정렬하고 있는데, 모든 Data를 한번에 들고오는 방식이었습니다.
 - 무한 스크롤을 적용하려고 하니 모든 데이터를 한번에 들고 오면 무한 스크롤을 적용하는 것이 의미가 없어집니다.
 - [커서 기반 페이지네이션](https://velog.io/@minsangk/%EC%BB%A4%EC%84%9C-%EA%B8%B0%EB%B0%98-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-Cursor-based-Pagination-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)을 읽고 MySQL의 limit와 offset을 사용해 들고오면 모든 DB내 모든 Board 데이터를 조회 후 가져오게 되므로 성능상 문제가 생긴다는 사실을 알게 되었습니다. 
 
 <br/>
 
-**기존코드**
+<details>
+<summary><b>기존코드</b></summary>
+<div markdown="1">
 
 ```sql
 <select id="readPersonalBoardList" parameterType="String" resultType="com.pozafly.tripllo.board.model.Board">
@@ -172,6 +169,9 @@
 </select>
 ```
 
+</div>
+</details>
+
 <br/>
 
 - 커서(기준) 은 정렬하고 있는 대상인 created_at 이며
@@ -179,7 +179,9 @@
 
 <br/>
 
-**수정된 코드**
+<details>
+<summary><b>수정된 코드</b></summary>
+<div markdown="1">
 
 ```sql
 <select id="readPersonalBoardList" parameterType="Map" resultType="com.pozafly.tripllo.board.model.Board">
@@ -214,11 +216,16 @@
 </select>
 ```
 
+</div>
+</details>
+
 <br/>
 
 - vue-infinite-loading 패키지를 설치하고, lastCreatedAt 변수에 담을 값을 html dataset에 두어 정보를 가져오게 했습니다.
 
-**Vue templete 코드**
+<details>
+<summary><b>Vue templete 코드</b></summary>
+<div markdown="1">
 
 ```html
 <div class="list-wrap" ref="boardItem">  <!-- 여기 ref 등록해주어야 자식의 마지막 DOM을 가져올 수 있다. -->
@@ -243,12 +250,17 @@
 </infinite-loading>
 ```
 
+</div>
+</details>
+
 - 이때, vue-infinite-loading는 $state.loaded와 $state.complete로 무한스크롤이 끝났는지 끝나지 않았는지 판단합니다.
 - 판단할 수 있도록 구분값이 필요했는데 해당 api는 Action 함수를 통해 가져오므로, state에 올려서 판단하도록 했습니다.
 
 <br/>
 
-**Vue script 코드**
+<details>
+<summary><b>Vue script 코드</b></summary>
+<div markdown="1">
 
 ```javascript
 data() {
@@ -275,24 +287,22 @@ async infiniteHandler($state) {
 },
 ```
 
-📌 [따로 정리해 둔 링크](https://github.com/pozafly/TIL/blob/main/Vue/Vue%20무한스크롤.md)
-
 </div>
 </details>
 
+📌 [따로 정리해 둔 링크](https://github.com/pozafly/TIL/blob/main/Vue/Vue%20무한스크롤.md)
+
+
 ### 5.2 event 중첩 문제
-
-<details>
-<summary><b>📌 보기</b></summary>
-<div markdown="1">
-
 
 - 프로젝트 내 title 수정 로직은 클릭시 input 태그가 그 자리에 띄워져 수정 후 Enter를 누르거나, input에서 포커스를 벗어나면 UPDATE 되는 방식을 선택했습니다.
 - input 태그에 @keyup.enter와 @blur를 사용하는데 keyup 이벤트가 발생하면 blur 이벤트까지 같이 일어나 api가 2번 요청되는 이슈가 있었습니다.
 
 <br/>
 
-**기존코드**
+<details>
+<summary><b>기존코드</b></summary>
+<div markdown="1">
 
 ```html
 <input
@@ -302,11 +312,16 @@ async infiniteHandler($state) {
 />
 ```
 
+</div>
+</details>
+
 <br/>
 
 - 이때, 2개 모두 onSubmitTitle을 거는 것이 아니라 @keyup.enter 이벤트에는 blur 이벤트가 트리거 되는 이벤트를 따로 등록시켜주어 개선할 수 있었습니다.
 
-**개선 된 코드**
+<details>
+<summary><b>개선 된 코드</b></summary>
+<div markdown="1">
 
 ```html
 <input
@@ -325,11 +340,6 @@ onKeyupEnter(event) {
 
 ### 5.3 페이지 새로고침 시 state 데이터가 조회되지 않는 문제
 
-<details>
-<summary><b>📌 보기</b></summary>
-<div markdown="1">
-
-
 - Vue는 SPA 이므로 새로고침 했을 때, state에 jwt(token), user 정보등의 데이터가 지워져 여러 오류를 발생시켰습니다.
 - 이를 해결하기 위해서 브라우저 저장소(쿠키)를 이용하기로 했습니다.
 - 하지만, 쿠키는 4kb밖에 되지 않고 서버에 계속해서 쿠키를 보내기 때문에 제외 하기로 했습니다.
@@ -342,7 +352,9 @@ onKeyupEnter(event) {
 
 <br/>
 
-**state 코드**
+<details>
+<summary><b>state 코드</b></summary>
+<div markdown="1">
 
 ```javascript
 state.js
@@ -381,20 +393,17 @@ const state = {
 </div>
 </details>
 
+<br/>
+
 ### 5.4 API 요청 시 JWT 인증 문제
-
-<details>
-<summary><b>📌 보기</b></summary>
-<div markdown="1">
-
-
-API 요청 시 JWT 인증 문제
 
 - 다음과 같이 axios interceptor에서, 로그인 후 받아온 JWT token을 header에 담아 백엔드로 보내 인증을 하고 싶었습니다.
 
 <br/>
 
-**interceptor.js**
+<details>
+<summary><b>interceptor.js</b></summary>
+<div markdown="1">
 
 ```javascript
 instance.interceptors.request.use(
@@ -408,9 +417,14 @@ instance.interceptors.request.use(
 );
 ```
 
+</div>
+</details>
+
 - SpringSecurity의 JwtTokenProvider class에서 `request.getHeader("TOKEN");` 이렇게 token을 받고 있었는데, 이는 token 앞에 "TOKEN" 이라는 문자열을 붙인 뒤 token을 보내야만 읽어들일 수 있는 코드였습니다.
 
-**기존코드**
+<details>
+<summary><b>기존 코드</b></summary>
+<div markdown="1">
 
 ```java
 // Request의 Header에서 token 값을 가져옵니다. "TOKEN" : "TOKEN값'
@@ -419,26 +433,16 @@ public String resolveToken(HttpServletRequest request) {
 }
 ```
 
+</div>
+</details>
+
 <br/>
 
 - 사진과 같이 크롬 Network tap의 Request Header에 `Authorization` 이라는 key를 가지고 보내고 있었기 때문에 JwtTokenProvider에서 이를 불러오지 못하고 있었습니다.
 
 <img width="711" alt="스크린샷 2021-02-17 오후 2 45 26" src="https://user-images.githubusercontent.com/59427983/108161686-e20eff00-712e-11eb-85b9-8cde73d9b596.png">
 
-- 따라서 JwtTokenProvider class에서 **Authorization** 이라는 이름으로 token을 받겠다고 명시해 주어 문제를 해결했습니다.
-
-<br/>
-
-**개선된 코드**
-
-```java
-public String resolveToken(HttpServletRequest request) {
-    return request.getHeader("Authorization");
-}
-```
-
-</div>
-</details>
+- 따라서 JwtTokenProvider class에서 request.getHeader(**Authorization**) 이름으로 token을 받겠다고 명시해 주어 문제를 해결했습니다.
 
 <br/>
 
