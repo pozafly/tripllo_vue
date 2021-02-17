@@ -66,33 +66,32 @@
 
 - **카드 기능**
 
-  - Location(구글맵 API) :pushpin: ​ [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailLocation/LocationMap.vue#L56)
+  - Location(구글맵 API) 
 
     - 구글맵 API를 사용해서 card에서는 static 이미지를 불러오며 클릭시, 구글맵 전체를 볼 수 있습니다.
-    - 구글맵 상세 페이지에서는 해당 Board에서 등록된 모든 location이 지도에 표시되는 클러스터 기능이 포함되어 있습니다.
+    - 구글맵 상세 페이지에서는 해당 Board에서 등록된 모든 location이 지도에 표시되는 클러스터 기능이 구현되어 있습니다. :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailLocation/LocationMap.vue#L56)
 
   - Attachment
 
     - 파일 업로드 시 local에 파일을 저장 후 S3에 올린 다음 local에 남은 파일을 지웁니다.
 
     - Spring Cloud AWS를 이용해 S3에 static_[유저이름] 으로 된 폴더를 생성해 파일을 저장합니다. :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/5a0c0d1fd697f5c6ec74d39b4e9f058ac6ab914c/src/main/java/com/pozafly/tripllo/fileUpload/S3Uploader.java#L29)
-    - 파일은 권한을 체크하여 다운 받거나 삭제할 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailAttachment/AttachmentList.vue#L48)
+    - 파일은 권한체크 후 다운 받거나 삭제할 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailAttachment/AttachmentList.vue#L48)
 
   - Checklist
 
-    - KProgress 모듈을 사용해 체크 목록이 변화할 때마다 게이지가 변화합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailChecklists/Checklists.vue#L155)
-    - 체크 목록 이름을 변경할 때 이벤트 버블링을 방지합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailChecklists/Checklists.vue#L119)
+    - KProgress 모듈을 사용해 체크 목록이 변화할 때마다 게이지가 변합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailChecklists/Checklists.vue#L155)
+    - 이름을 변경할 때 *event.relatedTaget*으로 이벤트 버블링을 방지합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailChecklists/Checklists.vue#L119)
 
   - Comments
 
     - 답글(대댓글)을 위한 group_num, dept 칼럼을 두어 답글을 표현합니다.
     - 삭제 시 댓글에 답글이 없을 경우는 화면에서 사라지지만, 답글이 존재하는 경우 *삭제된 메세지 입니다.* 라고 표시됩니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/5a0c0d1fd697f5c6ec74d39b4e9f058ac6ab914c/src/main/java/com/pozafly/tripllo/comment/service/impl/CommentServiceImpl.java#L91)
 
-  - 그 외 기능(메모 - Description, 라벨링 - Labels, 날짜 지정 - due date)
-- **드래그 앤 드롭** :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/utils/dragger/dragger.js#L8)
-
-  - dragula 모듈을 사용해, List와 Card를 드래그해서 위치를 변화시킬 수 있습니다.
-  - 대상의 이전 DOM과 다음 DOM을 비교해서 pos(포지션) 값을 지정 후 UPDATE 합니다.
+  - 그 외 기능 - Description(메모), Labels(라벨링), dueDate(날짜 지정)
+- **드래그 앤 드롭** 
+- dragula 모듈을 사용해, List와 Card를 드래그해서 위치를 변화시킬 수 있습니다.
+  - 대상의 이전 DOM과 다음 DOM을 비교해서 pos(포지션) 값을 지정 후 UPDATE 합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/utils/dragger/dragger.js#L8)
 - **화면 랜더링**
   - Action 함수 호출 후 Component를 다시 그려줄 수 있는 Action 함수를 호출합니다. :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_vue/blob/d83f89c1f799b4281fcf43d8a40242991fb7afb2/src/store/actions.js#L158)
   - 1:N 관계를 가진 컴포넌트가 쿼리문으로 조회 된 후 리랜더링 됩니다.  :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/77266edb3c874cd43132425e75a587641e4983fd/src/main/resources/mapper/BoardMapper.xml#L195)
@@ -101,16 +100,16 @@
 
 ### 4.3 사용자 초대
 
-- **유저 검색** :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/board/Invite.vue#L44)
-  - 모달 창에서 초대하고 싶은 회원의 ID를 검색합니다. filter를 사용해 자신과 이미 초대된 사람은 목록에 뜨지 않습니다.
+- **유저 검색**
+  - 모달 창에서 초대하고 싶은 회원의 ID를 검색합니다. filter를 사용해 자신과 이미 초대된 사람은 목록에 뜨지 않습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/board/Invite.vue#L64)
 
 - **실시간 messaging**
-  - sockjs-client로 공통 컴포넌트인 Header.vue에서 Connection을 실행합니다.
+  - 로그인 후 sockjs-client로 공통 컴포넌트인 Header.vue에서 Connection을 실행합니다.  :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/666fd04cd62171bd760f8788c59eb467e1c26b20/src/utils/socket.js#L5)
   - Spring WebSocket에서 HandshakeInterceptor 를 통해 socket 세션을 받아온 후, 현재 접속자 끼리 초대장을 보낼 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/java/com/pozafly/tripllo/webSocket/WebSocketHandler.java#L19)
   - Header.vue에서 초대장을 받고, Notification 처리와, 초대장 갯수를 표현합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/common/Header.vue#L161)
 - **초대 수락**
-  - 접속자가 해당 Board의 초대된 사람 목록에 추가되고, 접속자의 초대 된 Board 목록에 추가 됩니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/common/MessageDetail.vue#L30)
-  - 이 때, 초대한 사람의 Board가 수정되어야 하므로 Spring Interceptor에서 권한 체크를 합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/java/com/pozafly/tripllo/common/interceptor/BoardAuthInterceptor.java#L77)
+  - 유저가 초대된 Board의 invitedUser 목록에 추가되고, 해당 유저의 invitedBoard 목록에 추가 됩니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/common/MessageDetail.vue#L30)
+  - 이때, 초대한 사람의 Board가 수정되어야 하므로 Spring Interceptor에서 권한 체크를 합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/java/com/pozafly/tripllo/common/interceptor/BoardAuthInterceptor.java#L77)
 
 <br/>
 
@@ -119,12 +118,9 @@
 - 해시태그
 
   - Array - push, splice를 통해 해시태그를 지정, 삭제할 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/fa0b24d02ad944a63ae18f1734024faebdfab76b/src/components/board/HashtagDisplay.vue#L72)
-  - 태그를 조작할 수 있는 display가 Board를 만든 주인에게만 보여집니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/fa0b24d02ad944a63ae18f1734024faebdfab76b/src/views/BoardPage.vue#L62)
-
+  - Board를 만든 주인만 해시태그를 수정할 수 있도록 화면 숨김 처리되어 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/fa0b24d02ad944a63ae18f1734024faebdfab76b/src/views/BoardPage.vue#L62)
   - N:M 관계를 board_has_hashtag 중간 테이블을 두고 1:N 관계로 풀어서 조회합니다.  :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/resources/mapper/HashtagMapper.xml#L12)
-
 - 좋아요
-
   - Board 조회시, 유저의 좋아요 클릭 여부를 판단하기 위해 own_like 칼럼을 표현합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/resources/mapper/BoardMapper.xml#L23)
 
 </div>
@@ -136,14 +132,14 @@
 
 ### 5.1 무한 스크롤 적용 문제
 
-- Board를 조회 시, 생성된 날짜(createdAt)를 desc 순으로 정렬하고 있는데, 모든 Data를 한번에 들고오는 방식이었습니다.
-- 무한 스크롤을 적용하려고 하니 모든 데이터를 한번에 들고 오면 무한 스크롤을 적용하는 것이 의미가 없어집니다.
-- [커서 기반 페이지네이션](https://velog.io/@minsangk/%EC%BB%A4%EC%84%9C-%EA%B8%B0%EB%B0%98-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-Cursor-based-Pagination-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)을 읽고 MySQL의 limit와 offset을 사용해 들고오면 모든 DB내 모든 Board 데이터를 조회 후 가져오게 되므로 성능상 문제가 생긴다는 사실을 알게 되었습니다. 
+- Board 조회 시, Data를 **한번에** 조회 해오는 방식이었습니다.
+- 무한 스크롤을 적용할 때 전체를 조회하는 것이 아니라 이어지는 일부분을 가져와야 했습니다.
+- [커서 기반 페이지네이션](https://velog.io/@minsangk/%EC%BB%A4%EC%84%9C-%EA%B8%B0%EB%B0%98-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-Cursor-based-Pagination-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)을 읽고 MySQL의 limit와 offset을 사용해서 들고오면, **Table 전체를 조회** 후 offset에 맞는 Data를 가져오게 되므로 성능상 문제가 생긴다는 사실을 알게 되었습니다. 
 
 <br/>
 
 <details>
-<summary><b>기존코드</b></summary>
+<summary><b>기존SQL</b></summary>
 <div markdown="1">
 
 ```sql
@@ -172,15 +168,12 @@
 </div>
 </details>
 
-<br/>
-
-- 커서(기준) 은 정렬하고 있는 대상인 created_at 이며
-- MyBatis의 choose when otherwise를 사용하여 처음 조회 시, lastCreateAt 변수에 'firstCall' 문자열로 매개변수를 받아 14개의 데이터만 가지고 가게 만들었으며, 그 후에 lastCreatedAt 변수에 마지막 DOM의 createdAt를 담아서 던지게 되면 otherwise에 걸려 and 조건문을 타게 되는 구조로 변경했습니다.
-
-<br/>
+- 커서(기준)은 정렬하고 있는 대상인 created_at 이며
+- 처음 조회 시 `lastCreatedAt` 변수에 **firstCall** 문자열을 주어, 14개의 데이터만 조회하게 만들었습니다.
+- 이후 조회 시 `lastCreatedAt` 변수에 **화면에 뿌려진 마지막 DOM의 createdAt**로 조회하면, 커서(기준) 보다 작은 순서로 Data를 가져옵니다. 
 
 <details>
-<summary><b>수정된 코드</b></summary>
+<summary><b>수정된 SQL</b></summary>
 <div markdown="1">
 
 ```sql
@@ -219,9 +212,7 @@
 </div>
 </details>
 
-<br/>
-
-- vue-infinite-loading 패키지를 설치하고, lastCreatedAt 변수에 담을 값을 html dataset에 두어 정보를 가져오게 했습니다.
+- Vue에서는 `vue-infinite-loading` 패키지를 설치하고, lastCreatedAt 변수에 담길 값을 html dataset에 두어 정보를 가져오게 했습니다.
 
 <details>
 <summary><b>Vue templete 코드</b></summary>
@@ -253,10 +244,8 @@
 </div>
 </details>
 
-- 이때, vue-infinite-loading는 $state.loaded와 $state.complete로 무한스크롤이 끝났는지 끝나지 않았는지 판단합니다.
-- 판단할 수 있도록 구분값이 필요했는데 해당 api는 Action 함수를 통해 가져오므로, state에 올려서 판단하도록 했습니다.
-
-<br/>
+- 이때, vue-infinite-loading는 `$state.loaded`와 `$state.complete`로 무한스크롤이 끝났는지 판단합니다.
+- 판단을 위해 구분값이 필요했는데, state에 isInfinity변수를 생성하여 판단하도록 했습니다.
 
 <details>
 <summary><b>Vue script 코드</b></summary>
@@ -290,65 +279,89 @@ async infiniteHandler($state) {
 </div>
 </details>
 
-📌 [따로 정리해 둔 링크](https://github.com/pozafly/TIL/blob/main/Vue/Vue%20무한스크롤.md)
-
-
-### 5.2 event 중첩 문제
-
-- 프로젝트 내 title 수정 로직은 클릭시 input 태그가 그 자리에 띄워져 수정 후 Enter를 누르거나, input에서 포커스를 벗어나면 UPDATE 되는 방식을 선택했습니다.
-- input 태그에 @keyup.enter와 @blur를 사용하는데 keyup 이벤트가 발생하면 blur 이벤트까지 같이 일어나 api가 2번 요청되는 이슈가 있었습니다.
-
 <br/>
 
-<details>
-<summary><b>기존코드</b></summary>
-<div markdown="1">
+### 5.2 vue watch 사용시 객체 감지 & lodash debounce 문제
 
-```html
-<input
-	...
-  @keyup.enter="onSubmitTitle"
-  @blur="onSubmitTitle"
-/>
+- 회원가입 페이지에서 input을 조작할 때, 동적으로 validation 체크와 button 활성화 기능을 넣고 싶었습니다.
+- vue의 watch를 통한 데이터를 감지와 input 태그에 debounce를 걸어 약간의 딜레이를 주고자했습니다.
+- 하지만, vue data에 선언된 userData가 객체형태였고 객체의 요소 하나라도 변하면 메서드가 실행되는 문제가 발생했습니다.
+
+기존 소스
+
+```javascript
+data() {
+  return {
+    userData: {
+      id: '',
+      password: '',
+      email: '',
+      name: '',
+      response: '',
+      name: '',       
+    },
+  },
+}
+...
+watch: {
+	userData: {
+		id: function() {
+			() => {
+        _.debounce(function(e)) {
+        	this.validUserId(e);
+      	}
+      },
+    ...
+		},
+	},
+},
 ```
 
-</div>
-</details>
+- 아래와 같이
+- 객체 내부의 변수 1개만 감지 :  '객체.변수명': [some function]
+- 객체 내부 요소가 하나라도 변화할 때 감지 : handler(e), deep: true
+- debounce는 즉시 실행 함수로 선언하는 것이 아니라, 함수 자체를 등록해줘야 한다는 것을 알게되어 개선할 수 있었습니다.
 
-<br/>
-
-- 이때, 2개 모두 onSubmitTitle을 거는 것이 아니라 @keyup.enter 이벤트에는 blur 이벤트가 트리거 되는 이벤트를 따로 등록시켜주어 개선할 수 있었습니다.
-
-<details>
-<summary><b>개선 된 코드</b></summary>
-<div markdown="1">
-
-```html
-<input
-	...
-  @keypress.enter="onKeyupEnter"
-  @blur="onSubmitTitle"
-/>
-...
-onKeyupEnter(event) {
-  event.target.blur();
+```javascript
+watch: {
+  userData: {
+    handler(e) {
+			...
+      e.id !== '' && e.password !== '' && e.email !== '' && e.name !== ''
+        ? (this.btnDisabled = false)
+      : (this.btnDisabled = true);
+    },
+    deep: true,
+  },
+  'userData.id': _.debounce(function(e) {
+    this.validUserId(e);
+  }, 750),
+  'userData.password': _.debounce(function(e) {
+    this.validatePw(e);
+  }, 750),
+  againPassword: _.debounce(function(e) {
+    this.validateAgainPw(e);
+  }, 750),
+  'userData.email': _.debounce(function(e) {
+    this.validateEmail(e);
+  }, 750),
 },
 ```
 
 </div>
 </details>
 
+<br/>
+
+
 ### 5.3 페이지 새로고침 시 state 데이터가 조회되지 않는 문제
 
 - Vue는 SPA 이므로 새로고침 했을 때, state에 jwt(token), user 정보등의 데이터가 지워져 여러 오류를 발생시켰습니다.
-- 이를 해결하기 위해서 브라우저 저장소(쿠키)를 이용하기로 했습니다.
-- 하지만, 쿠키는 4kb밖에 되지 않고 서버에 계속해서 쿠키를 보내기 때문에 제외 하기로 했습니다.
-- 로컬 스토리지에는 user와 token 정보를 두었는데 이는 페이지를 나갔다가 재접속 했을 시, 바로 main화면으로 로그인 된 상태로 클라이언트가 이용하게 하기 위함입니다.
-- 세션 스토리지는 board 정보나 그 외 다시 api를 연동해야하는 휘발성이 있는 객체들을 저장하기로 했습니다.
-
-- 📌 [Git Commit](https://github.com/pozafly/tripllo_vue/commit/5c239dc691985746a44d2d6bd128216ea4374c85)
-
-- 새로고침 시 state에서 webStorage에 저장된 Data를 가져오도록 했습니다.
+- 이를 해결하기 위해서 브라우저 저장소(쿠키)를 이용했었습니다.
+- 하지만, 쿠키는 4kb밖에 되지 않고 서버에 계속해서 쿠키를 보내기 때문에 제외 하고 webStorage를 사용하기로 했습니다.
+- `localStorage`는 user와 token 정보를 저장합니다. 페이지를 나갔다가 다시 접속 했을 때, 로그인 된 상태인 main화면으로 클라이언트가 이용하게 하기 위함입니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/666fd04cd62171bd760f8788c59eb467e1c26b20/src/routes/index.js#L8)
+- `sessionStorage`는 새롭게 api를 연동해야하는 휘발성이 있는 객체들을 저장하기로 했습니다. :pushpin: [commit 보기](https://github.com/pozafly/tripllo_vue/commit/5c239dc691985746a44d2d6bd128216ea4374c85)
+- 새로고침 시, state에서 webStorage에 저장된 Data를 가져오도록 했습니다.
 
 <br/>
 
@@ -420,7 +433,8 @@ instance.interceptors.request.use(
 </div>
 </details>
 
-- SpringSecurity의 JwtTokenProvider class에서 `request.getHeader("TOKEN");` 이렇게 token을 받고 있었는데, 이는 token 앞에 "TOKEN" 이라는 문자열을 붙인 뒤 token을 보내야만 읽어들일 수 있는 코드였습니다.
+- SpringSecurity의 JwtTokenProvider class에서 아래 코드와 같이 token을 받고 있었습니다.
+- 이는 token 앞에 "TOKEN" 이라는 문자열을 가진 header를 읽는 코드였습니다.
 
 <details>
 <summary><b>기존 코드</b></summary>
@@ -438,11 +452,12 @@ public String resolveToken(HttpServletRequest request) {
 
 <br/>
 
-- 사진과 같이 크롬 Network tap의 Request Header에 `Authorization` 이라는 key를 가지고 보내고 있었기 때문에 JwtTokenProvider에서 이를 불러오지 못하고 있었습니다.
+- 사진과 같이 크롬 Network tap의 Request Header를 확인해보면,
+- token을,  `Authorization` 이라는 이름으로 보내고 있었기 때문에 JwtTokenProvider에서 이를 불러오지 못하고 있었습니다.
 
 <img width="711" alt="스크린샷 2021-02-17 오후 2 45 26" src="https://user-images.githubusercontent.com/59427983/108161686-e20eff00-712e-11eb-85b9-8cde73d9b596.png">
 
-- 따라서 JwtTokenProvider class에서 request.getHeader(**Authorization**) 이름으로 token을 받겠다고 명시해 주어 문제를 해결했습니다.
+- 따라서 JwtTokenProvider class에서 request.getHeader(**"Authorization"**) 코드로 token을 받겠다고 명시해 주어 문제를 해결했습니다.
 
 <br/>
 
@@ -512,38 +527,33 @@ public String resolveToken(HttpServletRequest request) {
 </details>
 
 <details>
-<summary><b>watch 사용시 객체 감지 & lodash debounce 문제</b></summary>
+<summary><b>event 중첩 문제</b></summary>
 <div markdown="1">
 
-- vue data에 선언된 userData가 객체형태이므로 아래와 같이 handler, deep 으로 watch에게 알려주고
-- debounce는 즉시 실행 함수로 선언하는 것이 아니라, 함수 자체를 등록해줘야 한다는 것을 알게됨.
+- 프로젝트 내 input 수정 로직은 Enter를 누르거나, input에서 포커스를 벗어나면 UPDATE 되는 방식을 사용함. 
+- input 태그에 @keyup.enter와 @blur를 사용하는데 keyup 이벤트가 발생하면 blur 이벤트까지 같이 일어나 api가 2번 요청되는 이슈가 있었음.
 
-```javascript
-watch: {
-  userData: {
-    handler(e) {
-      e.id === '' && e.password === '' && e.email === '' && e.name === ''
-        ? (this.isSocialForm = true)
-      : (this.isSocialForm = false);
+**기존코드**
+```html
+<input
+	...
+  @keyup.enter="onSubmitTitle"
+  @blur="onSubmitTitle"
+/>
+```
 
-      e.id !== '' && e.password !== '' && e.email !== '' && e.name !== ''
-        ? (this.btnDisabled = false)
-      : (this.btnDisabled = true);
-    },
-    deep: true,
-  },
-  'userData.id': _.debounce(function(e) {
-    this.validUserId(e);
-  }, 750),
-  'userData.password': _.debounce(function(e) {
-    this.validatePw(e);
-  }, 750),
-  againPassword: _.debounce(function(e) {
-    this.validateAgainPw(e);
-  }, 750),
-  'userData.email': _.debounce(function(e) {
-    this.validateEmail(e);
-  }, 750),
+- 이때, 2개 모두 같은 method를 등록하는 것이 아니라 @keyup.enter 이벤트에는 blur 이벤트가 트리거 되는 이벤트를 따로 등록시켜주어 개선할 수 있었음.
+
+**개선 된 코드**
+```html
+<input
+	...
+  @keypress.enter="onKeyupEnter"
+  @blur="onSubmitTitle"
+/>
+...
+onKeyupEnter(event) {
+  event.target.blur();
 },
 ```
 
@@ -565,7 +575,7 @@ watch: {
 <div markdown="1">
 
 - input 속성으로 maxlength를 걸어주었음.
-- [Commit 보기](https://github.com/pozafly/tripllo_vue/commit/66dc7b573a860f7408de8c41206432a2c1651001)
+- [commit 보기](https://github.com/pozafly/tripllo_vue/commit/66dc7b573a860f7408de8c41206432a2c1651001)
 
 </div>
 </details>
@@ -576,7 +586,7 @@ watch: {
 
 - 상위 태그의 height 가 auto 일 경우, height 값에 따라서 sticky가 위치를 조정한다.
 - height를 100%로 주어 하위 컴포넌트들이 높이 값을 상속받게 하여 해결 
-- [Commit 보기](https://github.com/pozafly/tripllo_vue/commit/783eb1bb54e878723dcf50b59b62c02b7d8f2e17)
+- [commit 보기](https://github.com/pozafly/tripllo_vue/commit/783eb1bb54e878723dcf50b59b62c02b7d8f2e17)
 
 </div>
 </details>
@@ -586,7 +596,7 @@ watch: {
 <div markdown="1">
 
 - infinite-loading 태그의 :identifier 속성을 선언해서 컴포넌트가 교체될 때마다 infiniteId를 변화시켜주면 다른 컴포넌트에서도 무한 스크롤을 사용할 수 있게 되었다.
-- [Commit 보기](https://github.com/pozafly/tripllo_vue/commit/554baeffb0adb7eb6b82c4c728e5014e218315ad)
+- [commit 보기](https://github.com/pozafly/tripllo_vue/commit/554baeffb0adb7eb6b82c4c728e5014e218315ad)
 
 </div>
 </details>
@@ -630,9 +640,9 @@ long listId = (long)Double.parseDouble(String.valueOf(requestBody.get("listId"))
 <summary><b>AuthenticationPrincipal 현재 접속한 userId 가져오기</b></summary>
 <div markdown="1">
 
-- 토큰으로 해당 User의 ID를 자동으로 받을 수 없을까 고민하다가 나름의 생각으로 JwtTokenProvider에 있는 getUserPk() 메서드를 static화 하여 Contorller에서 끌어다 사용하기로 했다. [Commit 보기](https://github.com/pozafly/tripllo_springBoot/commit/419b5266c3531eb5e02204262ca7d72d3cd6f1da#diff-6fd385944e33e2fa5d338023a92a71e2ba0161719f5ffc7fbcf106bf513554e0)
+- 토큰으로 해당 User의 ID를 자동으로 받을 수 없을까 고민하다가 나름의 생각으로 JwtTokenProvider에 있는 getUserPk() 메서드를 static화 하여 Contorller에서 끌어다 사용하기로 했다. [commit 보기](https://github.com/pozafly/tripllo_springBoot/commit/419b5266c3531eb5e02204262ca7d72d3cd6f1da#diff-6fd385944e33e2fa5d338023a92a71e2ba0161719f5ffc7fbcf106bf513554e0)
 - Controller에서 @RequestHeader(value = "Authorization")을 통해 token을 얻고 getUserPK() 메서드로 userId를 가져오는 방식이었다.
-- SpringSecurity에서 제공하는 @AuthenticationPrincipal을 통해 손쉽게 가져오는 방법을 알게 되었다. [Commit 보기](https://github.com/pozafly/tripllo_springBoot/commit/dc5fb1c1b28642abadbdd8f968e0f7967aac69bd#diff-a85245a5e6338e27e8e77061d7faf11669d2b964173a405c125ecf439ab0373a)
+- SpringSecurity에서 제공하는 @AuthenticationPrincipal을 통해 손쉽게 가져오는 방법을 알게 되었다. [commit 보기](https://github.com/pozafly/tripllo_springBoot/commit/dc5fb1c1b28642abadbdd8f968e0f7967aac69bd#diff-a85245a5e6338e27e8e77061d7faf11669d2b964173a405c125ecf439ab0373a)
 
 </div>
 </details>
@@ -653,7 +663,7 @@ long listId = (long)Double.parseDouble(String.valueOf(requestBody.get("listId"))
 <div markdown="1">
 
 - 프로젝트에서 권한문제는 큰 문제였으므로 SpringSecurity의 role을 이용하여 권한을 줄 수 있을지 고민했는데 아무래도 role은 각기 다른 도메인에게 부여할 수 없는 것이기에 도메인 별 Interceptor를 만들어야겠다고 생각했다.
-- Interceptor에서 권한을 체크하기 위해 Controller로 들어오는 @ReqeustBody를 끌어와야 했다. 그러려면 HttpServletRequestWrapper 객체를 상속받아 재구현해야 했다. [Interceptor에서 권한 관리하기](https://lannstark.tistory.com/19), [RequestBody의 내용을 로그로 남기고 싶다.](https://singun.github.io/2017/02/04/logging-requestbody/)
+- Interceptor에서 권한을 체크하기 위해 Controller로 들어오는 @ReqeustBody를 끌어와야 했다. 그러려면 HttpServletRequestWrapper 객체를 상속받아 재구현해야 했다. 참고자료 :  [Interceptor에서 권한 관리하기](https://lannstark.tistory.com/19), [RequestBody의 내용을 로그로 남기고 싶다.](https://singun.github.io/2017/02/04/logging-requestbody/)
 - ReadableRequestWrapper class 생성으로 해결. [코드 보기](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/java/com/pozafly/tripllo/common/filter/ReadableRequestWrapper.java#L14)
 
 </div>
@@ -663,7 +673,7 @@ long listId = (long)Double.parseDouble(String.valueOf(requestBody.get("listId"))
 <summary><b>MyBatis selectKey 문제</b></summary>
 <div markdown="1">
 
-- 테이블의 PK는 주로 autoincrement로 설정되어 레코드가 추가될 때마다 자동으로 1씩 올라가는 구조이다.
+- 테이블의 PK는 주로 auto_increment로 설정되어 레코드가 추가될 때마다 자동으로 1씩 올라가는 구조이다.
 - insert 후, 이 PK값을 사용해야될 때가 있는데 MyBatis의 selectKey 태그를 이용해 PK값을 가져와서 사용했다.
 - [코드 보기](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/resources/mapper/CommentMapper.xml#L36)
 
@@ -674,8 +684,7 @@ long listId = (long)Double.parseDouble(String.valueOf(requestBody.get("listId"))
 <summary><b>Gson, JsonParser 라이브러리 호환 문제</b></summary>
 <div markdown="1">
 
-- Gradlew 명령어를 사용하여
-- Gradle 6.6.1 -> Gradle 4.10.2 로 변경하여 해결
+- Gradlew 명령어를 사용하여, Gradle 6.6.1 -> Gradle 4.10.2 로 변경하여 해결.
 
 </div>
 </details>
@@ -701,7 +710,8 @@ long listId = (long)Double.parseDouble(String.valueOf(requestBody.get("listId"))
 <div markdown="1">
 
 - aws free 유저이기 때문에 SpringBoot build 시 메모리 부족으로 build가 되지 않는 문제가 발생했다.
-- [리눅스 메모리 부족 문제 해결 방법](https://hiseon.me/linux/linux-swap-file/), [AWS(EC2) - swap 메모리 생성](http://www.macnorton.com/csLab/886323), [aws공식 swap 메모리 사용법](https://aws.amazon.com/ko/premiumsupport/knowledge-center/ec2-memory-swap-file/) 을 통해 문제 해결
+- swap 파일을 생성하여 설정해서 문제를 해결.
+- 참고자료 : [리눅스 메모리 부족 문제 해결 방법](https://hiseon.me/linux/linux-swap-file/), [AWS(EC2) - swap 메모리 생성](http://www.macnorton.com/csLab/886323), [aws공식 swap 메모리 사용법](https://aws.amazon.com/ko/premiumsupport/knowledge-center/ec2-memory-swap-file/) 
 
 </div>
 </details>
@@ -712,7 +722,7 @@ long listId = (long)Double.parseDouble(String.valueOf(requestBody.get("listId"))
 
 - Vue는 AWS-CloudFront와 Certificate Manager를 사용해 SSL 이 적용되어 https url을 갖게 되었지만, 서버는 http url 이었으므로, 서버를 https url로 변경시켜주어야 했다.
 - let's encrypt 로 무료 SSL 인증서를 발급받고 nginx의 Reverse Proxy를 사용하여 적용.
-- [nginx와 let's encrypt로 SSL 적용하기(+자동 갱신)](https://www.zerocho.com/category/NodeJS/post/5ef450a5701d8a001f84baeb), [nginx를 활용해 AWS EC2에 https 적용하기](https://velog.io/@teveloper/nginx-nginx%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%B4-AWS-EC2%EC%97%90-https-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0-%EB%AC%B4%EB%A3%8C-SSL-%EC%9D%B8%EC%A6%9D%EC%84%9C-%EB%B0%9C%EA%B8%89) 참고.
+- 참고자료 : [nginx와 let's encrypt로 SSL 적용하기(+자동 갱신)](https://www.zerocho.com/category/NodeJS/post/5ef450a5701d8a001f84baeb), [nginx를 활용해 AWS EC2에 https 적용하기](https://velog.io/@teveloper/nginx-nginx%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%B4-AWS-EC2%EC%97%90-https-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0-%EB%AC%B4%EB%A3%8C-SSL-%EC%9D%B8%EC%A6%9D%EC%84%9C-%EB%B0%9C%EA%B8%89)
 
 </div>
 </details>
@@ -724,7 +734,7 @@ long listId = (long)Double.parseDouble(String.valueOf(requestBody.get("listId"))
 - SpringBoot의 배포자동화로 Travis를 사용하는데 build 에러가 났다.
 - AWS-RDS MySQL datasource가 SpringBoot단의 .properties 파일에 있고, github 소스에 올릴 때는 해당 properties가 올라가지 않기 때문이다.(ec2에 따로 지정해둠.)
 - local에서는 propertise가 존재하기 때문에 문제없이 build 되었지만 Github과 연동된 Travis는 Datasource가 없다며 빌드에러는 낸 것.
-- 편법으로 h2를 적용하기로 했다. 메모리 DB인 h2는 Datasource가 존재하지 않아도 에러를 내지 않기 때문에.
+- `h2`를 적용하기로 했다. 메모리 DB인 h2는 Datasource가 존재하지 않아도 에러를 내지 않기 때문에.
 - gradle에 따로 h2 라이브러리를 로드받아 build하여 문제를 해결함.
 
 </div>
