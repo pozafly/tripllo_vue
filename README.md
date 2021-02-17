@@ -68,7 +68,7 @@
 
   - Location(구글맵 API) 
 
-    - 구글맵 API를 사용해서 card에서는 static 이미지를 불러오며 클릭시, 구글맵 전체를 볼 수 있습니다.
+    - 구글맵 API를 사용해서 card에서는 static 이미지를 불러오며 클릭 시, 구글맵 전체를 볼 수 있습니다.
     - 구글맵 상세 페이지에서는 해당 Board에서 등록된 모든 location이 지도에 표시되는 클러스터 기능이 구현되어 있습니다. :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailLocation/LocationMap.vue#L56)
 
   - Attachment
@@ -76,7 +76,7 @@
     - 파일 업로드 시 local에 파일을 저장 후 S3에 올린 다음 local에 남은 파일을 지웁니다.
 
     - Spring Cloud AWS를 이용해 S3에 static_[유저이름] 으로 된 폴더를 생성해 파일을 저장합니다. :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/5a0c0d1fd697f5c6ec74d39b4e9f058ac6ab914c/src/main/java/com/pozafly/tripllo/fileUpload/S3Uploader.java#L29)
-    - 파일은 권한체크 후 다운 받거나 삭제할 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailAttachment/AttachmentList.vue#L48)
+    - 파일은 권한 체크 후 다운받거나 삭제할 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailAttachment/AttachmentList.vue#L48)
 
   - Checklist
 
@@ -90,11 +90,12 @@
 
   - 그 외 기능 - Description(메모), Labels(라벨링), dueDate(날짜 지정)
 - **드래그 앤 드롭** 
-- dragula 모듈을 사용해, List와 Card를 드래그해서 위치를 변화시킬 수 있습니다.
+
+  - dragula 모듈을 사용해, List와 Card를 드래그해서 위치를 변화시킬 수 있습니다.
   - 대상의 이전 DOM과 다음 DOM을 비교해서 pos(포지션) 값을 지정 후 UPDATE 합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/utils/dragger/dragger.js#L8)
-- **화면 랜더링**
+- **화면 렌더링**
   - Action 함수 호출 후 Component를 다시 그려줄 수 있는 Action 함수를 호출합니다. :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_vue/blob/d83f89c1f799b4281fcf43d8a40242991fb7afb2/src/store/actions.js#L158)
-  - 1:N 관계를 가진 컴포넌트가 쿼리문으로 조회 된 후 리랜더링 됩니다.  :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/77266edb3c874cd43132425e75a587641e4983fd/src/main/resources/mapper/BoardMapper.xml#L195)
+  - 1:N 관계를 가진 컴포넌트가 쿼리문으로 조회된 후 리랜더링 됩니다.  :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/77266edb3c874cd43132425e75a587641e4983fd/src/main/resources/mapper/BoardMapper.xml#L195)
 
 <br/>
 
@@ -106,9 +107,9 @@
 - **실시간 messaging**
   - 로그인 후 sockjs-client로 공통 컴포넌트인 Header.vue에서 Connection을 실행합니다.  :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/666fd04cd62171bd760f8788c59eb467e1c26b20/src/utils/socket.js#L5)
   - Spring WebSocket에서 HandshakeInterceptor 를 통해 socket 세션을 받아온 후, 현재 접속자 끼리 초대장을 보낼 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/java/com/pozafly/tripllo/webSocket/WebSocketHandler.java#L19)
-  - Header.vue에서 초대장을 받고, Notification 처리와, 초대장 갯수를 표현합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/common/Header.vue#L161)
+  - Header.vue에서 초대장을 받고, Notification 처리와, 초대장 개수를 표현합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/common/Header.vue#L161)
 - **초대 수락**
-  - 유저가 초대된 Board의 invitedUser 목록에 추가되고, 해당 유저의 invitedBoard 목록에 추가 됩니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/common/MessageDetail.vue#L30)
+  - 유저가 초대된 Board의 invitedUser 목록에 추가되고, 해당 유저의 invitedBoard 목록에 추가됩니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/common/MessageDetail.vue#L30)
   - 이때, 초대한 사람의 Board가 수정되어야 하므로 Spring Interceptor에서 권한 체크를 합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/java/com/pozafly/tripllo/common/interceptor/BoardAuthInterceptor.java#L77)
 
 <br/>
@@ -116,16 +117,13 @@
 ### 4.4 소셜 기능
 
 - 해시태그
-
   - Array - push, splice를 통해 해시태그를 지정, 삭제할 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/fa0b24d02ad944a63ae18f1734024faebdfab76b/src/components/board/HashtagDisplay.vue#L72)
   - Board를 만든 주인만 해시태그를 수정할 수 있도록 화면 숨김 처리되어 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/fa0b24d02ad944a63ae18f1734024faebdfab76b/src/views/BoardPage.vue#L62)
   - N:M 관계를 board_has_hashtag 중간 테이블을 두고 1:N 관계로 풀어서 조회합니다.  :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/resources/mapper/HashtagMapper.xml#L12)
   
 - 좋아요
-  
   - 좋아요 순서로 Public Tab의 상단에 표현됩니다.
-  
-  - Board 조회시, 유저의 좋아요 클릭 여부를 판단하기 위해 own_like 칼럼을 표현합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/resources/mapper/BoardMapper.xml#L23)
+  - Board 조회 시, 유저의 좋아요 클릭 여부를 판단하기 위해 own_like 칼럼을 표현합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/resources/mapper/BoardMapper.xml#L23)
 
 </div>
 </details>
@@ -136,9 +134,9 @@
 
 ### 5.1 무한 스크롤 적용 문제
 
-- Board 조회 시, Data를 **한번에** 조회 해오는 방식이었습니다.
+- Board 조회 시, Data를 **한 번**에 조회하는 방식이었습니다.
 - 무한 스크롤을 적용할 때 전체를 조회하는 것이 아니라 이어지는 일부분을 가져와야 했습니다.
-- [커서 기반 페이지네이션](https://velog.io/@minsangk/%EC%BB%A4%EC%84%9C-%EA%B8%B0%EB%B0%98-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-Cursor-based-Pagination-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)을 읽고 MySQL의 limit와 offset을 사용해서 들고오면, **Table 전체를 조회** 후 offset에 맞는 Data를 가져오게 되므로 성능상 문제가 생긴다는 사실을 알게 되었습니다. 
+- [커서 기반 페이지네이션](https://velog.io/@minsangk/%EC%BB%A4%EC%84%9C-%EA%B8%B0%EB%B0%98-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-Cursor-based-Pagination-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)을 읽고 MySQL의 limit와 offset을 사용해서 들고 오면, **Table 전체를 조회** 후 offset에 맞는 Data를 가져오게 되므로 성능상 문제가 생긴다는 사실을 알게 되었습니다. 
 
 <details>
 <summary><b>기존SQL</b></summary>
@@ -170,9 +168,9 @@
 </div>
 </details>
 
-- 커서(기준)은 정렬하고 있는 대상인 created_at 이며
-- 처음 조회 시 lastCreatedAt 변수에 `firstCall` 문자열을 주어, 14개의 데이터만 조회하게 만들었습니다.
-- 이후 조회 시 lastCreatedAt 변수에 `화면에 뿌려진 마지막 DOM의 createdAt`로 조회하면, 커서(기준) 보다 작은 순서로 Data를 가져옵니다. 
+- 커서(기준)는 정렬하고 있는 대상인 created_at 이며
+- 처음 조회 시 lastCreatedAt 변수에 `firstCall` 문자열을 주어, 14개의 데이터만 조회했습니다.
+- 이후 조회 시 lastCreatedAt 변수에 `화면에 뿌려진 마지막 DOM의 createdAt`로 조회하면, 커서(기준)보다 작은 순서로 Data를 가져옵니다. 
 
 <details>
 <summary><b>수정된 SQL</b></summary>
@@ -214,7 +212,7 @@
 </div>
 </details>
 
-- Vue에서는 `vue-infinite-loading` 패키지를 설치하고, lastCreatedAt 변수에 담길 값을 HTML dataset에 두어 정보를 가져오게 했습니다.
+- Vue에서는 `vue-infinite-loading` 패키지를 설치하고, lastCreatedAt 변수에 담길 값을 HTML dataset 에 두어 정보를 가져오게 했습니다.
 
 <details>
 <summary><b>Vue templete 코드</b></summary>
@@ -247,7 +245,7 @@
 </details>
 
 - 이때, vue-infinite-loading는 `$state.loaded`와 `$state.complete`로 무한스크롤이 끝났는지 판단합니다.
-- 판단을 위해 구분값이 필요했는데, state에 isInfinity변수를 생성하여 판단하도록 했습니다.
+- 판단을 위해 구분값이 필요했는데, state에 isInfinity 변수를 생성하여 판단하도록 했습니다.
 
 <details>
 <summary><b>Vue script 코드</b></summary>
@@ -283,10 +281,10 @@ infiniteHandler($state) {
 
 <br/>
 
-### 5.2 vue watch 사용시 객체 감지 & lodash debounce 문제
+5.2 vue watch 사용 시 객체 감지 & lodash debounce 문제
 
 - 회원가입 페이지에서 input을 조작할 때, 동적으로 validation 체크와 button 활성화 기능을 넣고 싶었습니다.
-- vue의 watch를 통한 데이터를 감지와 input 태그에 debounce를 걸어 약간의 딜레이를 주고자했습니다.
+- vue의 watch를 통한 데이터를 감지와 input 태그에 debounce를 걸어 약간의 딜레이를 주고자 했습니다.
 - 하지만, vue data에 선언된 userData가 객체형태였고 객체의 요소 하나라도 변하면 메서드가 실행되는 문제가 발생했습니다.
 
 <details>
@@ -327,7 +325,7 @@ watch: {
 - 아래와 같이
 - 객체 내부의 변수 1개만 감지 :  `'객체.변수명': [some function]`
 - 객체 내부 요소가 하나라도 변화할 때 감지 : `handler(e)`, `deep: true`
-- debounce는 즉시 실행 함수로 선언하는 것이 아니라, 함수 자체를 등록해줘야 한다는 것을 알게되어 개선할 수 있었습니다.
+- debounce는 즉시 실행 함수로 선언하는 것이 아니라, 함수 자체를 등록해줘야 한다는 것을 알게 되어 개선할 수 있었습니다.
 
 <details>
 <summary><b>개선된 코드</b></summary>
@@ -364,14 +362,13 @@ watch: {
 
 <br/>
 
-
 ### 5.3 새로고침 시 state가 사라지는 문제
 
-- Vue는 SPA 이므로 새로고침 했을 때, state에 jwt(token), user 정보등의 데이터가 지워져 여러 오류를 발생시켰습니다.
+- Vue는 SPA이므로 새로고침 했을 때, state에 jwt(token), user 정보 등의 데이터가 지워져 여러 오류를 발생시켰습니다.
 - 이를 해결하기 위해서 브라우저 저장소(쿠키)를 이용 하여 문제를 해결했습니다.
-- 하지만, 쿠키는 4kb밖에 되지 않고 서버에 계속해서 쿠키를 보내기 때문에 제외 하고 webStorage를 사용하기로 했습니다.
-- `localStorage`는 user와 token 정보를 저장합니다. 재접속 시, 로그인 된 상태로 이용하게 하기 위함입니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/666fd04cd62171bd760f8788c59eb467e1c26b20/src/routes/index.js#L8)
-- `sessionStorage`는 새롭게 api를 연동해야하는 휘발성이 있는 객체들을 저장합니다. :pushpin: [commit 보기](https://github.com/pozafly/tripllo_vue/commit/5c239dc691985746a44d2d6bd128216ea4374c85)
+- 하지만, 쿠키는 4kb밖에 되지 않고 서버에 계속해서 쿠키를 보내기 때문에 제외하고 webStorage를 사용하기로 했습니다.
+- `localStorage`는 user와 token 정보를 저장합니다. 재접속 시, 로그인된 상태로 이용하게 하기 위함입니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/666fd04cd62171bd760f8788c59eb467e1c26b20/src/routes/index.js#L8)
+- `sessionStorage`는 새롭게 api를 연동해야 하는 휘발성이 있는 객체들을 저장합니다. :pushpin: [commit 보기](https://github.com/pozafly/tripllo_vue/commit/5c239dc691985746a44d2d6bd128216ea4374c85)
 - 새로고침 시, state에서 webStorage에 저장된 Data를 가져오도록 했습니다.
 
 <details>
@@ -472,8 +469,8 @@ public String resolveToken(HttpServletRequest request) {
 <summary><b>Dev 서버가 실행되지 않는 문제(PostCSS)</b></summary>
 <div markdown="1">
 
-- PostCSS는 자바스크립트로 CSS 변환을 해주는 도구이며, **CSS 작성 경험을 향상시켜주는 도구**. 
-- npm을 업데이트 했는데 node-sass, sass-loader 두가지는 npm 버전을 많이 가린다고 알고 있었음.
+- PostCSS는 자바스크립트로 CSS 변환을 해주는 도구이며, **CSS 작성 경험을 향상 시켜주는 도구**. 
+- npm을 업데이트했는데 node-sass, sass-loader 두 가지는 npm 버전을 많이 가린다고 알고 있었음.
 - [npm 설치가 안되는 에러](https://velog.io/@2ujin/npm-설치가-안되는-에러) 를 참고하여 node-module을 지우고 다시 설치로 해결.
 
 </div>
@@ -493,8 +490,8 @@ public String resolveToken(HttpServletRequest request) {
 <summary><b>vue-google-login 플러그인 문제</b></summary>
 <div markdown="1">
 
-- 커뮤니티에 링크를 공유 후 다른 접속자들의 환경에서는 접속이 안된다는 제보를 받음.
-- test시 크롬은 동작을 하는데 사파리에서 구글 로그인을 사용하니 아무 동작을 하지 않음.
+- 커뮤니티에 링크를 공유 후 다른 접속자들의 환경에서는 접속이 안 된다는 제보를 받음.
+- test시 크롬은 동작하는데 사파리에서 구글 로그인을 사용하니 아무 동작을 하지 않음.
 - 플러그인을 지우고, Google 공식 버전으로 직접 코딩 후 해결. :pushpin: [코드 보기](https://github.com/pozafly/tripllo_vue/blob/master/src/utils/social/Facebook.js)
 
 </div>
@@ -514,7 +511,7 @@ public String resolveToken(HttpServletRequest request) {
 <summary><b>비동기 처리 문제</b></summary>
 <div markdown="1">
 
-- async await를 사용하여 가독성이 좋게 만들어보려 했지만, Promise 가 return 되지 않는 메서드에도 await를 사용하는 바람에 처리되지 않음.
+- async await를 사용하여 가독성이 좋게 만들어보려 했지만, Promise가 return 되지 않는 메서드에도 await를 사용하는 바람에 처리되지 않음.
 - `(Promise 객체).then(() => {})` 문법으로 체이닝 하여 해결. :pushpin: [코드 보기](https://github.com/pozafly/tripllo_vue/blob/9e857c084e89d48b45402f60ece3c1857678c8f1/src/store/actions.js#L91)
 
 </div>
@@ -576,7 +573,7 @@ public String resolveToken(HttpServletRequest request) {
 </details>
 
 <details>
-<summary><b>한글 문자열 입력시 함수가 2번 실행되는 문제.</b></summary>
+<summary><b>한글 문자열 입력 시 함수가 2번 실행되는 문제.</b></summary>
 <div markdown="1">
 
 - keyup은 키보드에서 손을 떼었을 때 실행되며, keypress는 키보드를 눌렀을 때 실행됨.
@@ -586,7 +583,7 @@ public String resolveToken(HttpServletRequest request) {
 </details>
 
 <details>
-<summary><b>MySQL 글자 수 제한으로 인해 input 입력 값이 등록되지 않는 문제. </b></summary>
+<summary><b>MySQL 글자 수 제한으로 인해 input 입력값이 등록되지 않는 문제. </b></summary>
 <div markdown="1">
 
 - input 속성으로 **maxlength**를 걸어주었음. :pushpin: [commit 보기](https://github.com/pozafly/tripllo_vue/commit/66dc7b573a860f7408de8c41206432a2c1651001)
@@ -598,7 +595,7 @@ public String resolveToken(HttpServletRequest request) {
 <summary><b>display sticky 시, 다른 컴포넌트를 붙였을 때 ui가 틀어지는 문제</b></summary>
 <div markdown="1">
 
-- 상위 태그의 height 가 auto 일 경우, height 값에 따라서 sticky가 위치를 조정함.
+- 상위 태그의 height가 auto 일 경우, height 값에 따라서 sticky가 위치를 조정함.
 - height를 100%로 주어 하위 컴포넌트들이 높이 값을 상속받게 하여 해결. :pushpin: [commit 보기](https://github.com/pozafly/tripllo_vue/commit/783eb1bb54e878723dcf50b59b62c02b7d8f2e17)
 
 </div>
@@ -631,7 +628,7 @@ public String resolveToken(HttpServletRequest request) {
 <summary><b>Java 타입 문제</b></summary>
 <div markdown="1">
 
-- 소수점이 붙은 String 형("12.0")의 숫자가 long 형으로 바로 변환이 안되어 Double 타입으로 변경 후 long 타입으로 변경.
+- 소수점이 붙은 String 형("12.0")의 숫자가 long 형으로 바로 변환이 안 되어 Double 타입으로 변경 후 long 타입으로 변경.
 
   ```java
   long listId = (long)Double.parseDouble(String.valueOf(requestBody.get("listId")));
@@ -650,7 +647,7 @@ public String resolveToken(HttpServletRequest request) {
 <div markdown="1">
 
 - token으로 해당 User의 ID를 자동으로 받을 수 없을까 고민했음.
-- 보안 상으로 클라이언트가 직접 userId를 매개변수로 하여 api를 호출하면 다른 user의 정보가 변경 될 수 있으므로.
+- 보안상으로 클라이언트가 직접 userId를 매개변수로 하여 api를 호출하면 다른 user의 정보가 변경될 수 있으므로.
 - JwtTokenProvider에 있는 getUserPk() 메서드를 static화 하여 Contorller에서 끌어다 사용하기로 했음. (Controller에서 @RequestHeader(value = "Authorization")을 통해 token을 얻고 getUserPK() 메서드로 userId를 가져오는 방식) :pushpin: [commit 보기](https://github.com/pozafly/tripllo_springBoot/commit/419b5266c3531eb5e02204262ca7d72d3cd6f1da#diff-6fd385944e33e2fa5d338023a92a71e2ba0161719f5ffc7fbcf106bf513554e0)
 - 하지만, SpringSecurity에서 제공하는 @AuthenticationPrincipal을 통해 손쉽게 가져오는 방법을 사용. :pushpin:  [commit 보기](https://github.com/pozafly/tripllo_springBoot/commit/dc5fb1c1b28642abadbdd8f968e0f7967aac69bd#diff-a85245a5e6338e27e8e77061d7faf11669d2b964173a405c125ecf439ab0373a)
 
@@ -661,8 +658,8 @@ public String resolveToken(HttpServletRequest request) {
 <summary><b>Java 배열 요소 삭제 문제</b></summary>
 <div markdown="1">
 
-- 배열의 요소를 삭제 해야했음. for문을 사용하고 싶지 않고 forEach로 배열을 순회하여 작업하고 싶었음.
-- 하지만 오류문도 없이 배열의 요소가 삭제되지 않았는데, [컬렉션에서 원소 삭제하기](https://www.daleseo.com/how-to-remove-from-list-in-java/) 를 참고하여 `removeIf()` 메서드 사용으로 문제를 해결. :pushpin:[코드 보기](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/java/com/pozafly/tripllo/board/service/impl/BoardServiceImpl.java#L255)
+- 배열의 요소를 삭제 해야 했음. for문을 사용하고 싶지 않고 forEach로 배열을 순회하여 작업하고 싶었음.
+- 하지만 오류 문도 없이 배열의 요소가 삭제되지 않았는데, [컬렉션에서 원소 삭제하기](https://www.daleseo.com/how-to-remove-from-list-in-java/) 를 참고하여 `removeIf()` 메서드 사용으로 문제를 해결. :pushpin:[코드 보기](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/java/com/pozafly/tripllo/board/service/impl/BoardServiceImpl.java#L255)
 
 </div>
 </details>
@@ -671,8 +668,8 @@ public String resolveToken(HttpServletRequest request) {
 <summary><b>Interceptor에서 request body 사용 문제</b></summary>
 <div markdown="1">
 
-- 프로젝트에서 권한문제는 큰 문제였으므로, SpringSecurity의 role을 이용하여 권한을 줄 수 있을지 고민.
-- 하지만 role은 각기 다른 도메인에게 부여할 수 없는 것. 도메인 별 Interceptor를 만들어야겠다고 생각.
+- 프로젝트에서 권한 문제는 큰 문제였으므로, SpringSecurity의 role을 이용하여 권한을 줄 수 있을지 고민.
+- 하지만 role은 각기 다른 도메인에 부여할 수 없는 것. 도메인별 Interceptor를 만들어야겠다고 생각.
 - Interceptor에서 권한을 체크하기 위해 Controller로 들어오는 @ReqeustBody를 끌어와야 했다. 그러려면 HttpServletRequestWrapper 객체를 상속받아 재구현해야 했다. 참고자료 :  [Interceptor에서 권한 관리하기](https://lannstark.tistory.com/19), [RequestBody의 내용을 로그로 남기고 싶다.](https://singun.github.io/2017/02/04/logging-requestbody/)
 - ReadableRequestWrapper class 생성으로 해결. :pushpin:  [코드 보기](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/java/com/pozafly/tripllo/common/filter/ReadableRequestWrapper.java#L14)
 
@@ -684,7 +681,7 @@ public String resolveToken(HttpServletRequest request) {
 <div markdown="1">
 
 - 테이블의 PK는 주로 auto_increment로 설정되어 레코드가 추가될 때마다 자동으로 1씩 올라가는 구조.
-- insert 후, 이 PK값을 사용해야될 때가 있는데 MyBatis의 selectKey 태그를 이용해 PK값을 가져와서 사용. :pushpin:[코드 보기](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/resources/mapper/CommentMapper.xml#L36)
+- insert 후, 이 PK 값을 사용해야 될 때가 있는데 MyBatis의 selectKey 태그를 이용해 PK값을 가져와서 사용. :pushpin:[코드 보기](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/resources/mapper/CommentMapper.xml#L36)
 
 </div>
 </details>
@@ -706,8 +703,8 @@ public String resolveToken(HttpServletRequest request) {
 <summary><b>EC2 access key 노출로 ssh 접속 후, 지속적 끊김 문제</b></summary>
 <div markdown="1">
 
-- EC2 - amazon linux 2 로 인스턴스를 만들고 SpringBoot와 연동하는 도중, Github에 secret key를 노출하는 사건이 발생.
-- ssh 접속이 되어도 15분 안으로 끊어지는 이슈. secret key가 노출되었다고 aws로부터 여러개의 이메일이 와있었음.
+- EC2 - amazon linux 2로 인스턴스를 만들고 SpringBoot와 연동하는 도중, Github에 secret key를 노출하는 사건이 발생.
+- ssh 접속이 되어도 15분 안으로 끊어지는 이슈. secret key가 노출되었다고 aws로부터 여러 개의 이메일이 와있었음.
 - Git reset HEAD 를 사용하여 commit을 삭제, aws에 알렸는데도 불구하고 ssh 접속이 끊기는 현상은 없어지지 않았음.
 - `계정 삭제 후 다시 처음부터 세팅.` 이 사건으로 secret key는 반드시 ec2 내에 옮겨두고 SpringBoot로 부터 build시 ec2 내 따로 생성해둔 environment(properties) 파일을 함께 묶어 build가 되도록 함.
 
@@ -718,7 +715,7 @@ public String resolveToken(HttpServletRequest request) {
 <summary><b>linux 메모리 문제</b></summary>
 <div markdown="1">
 
-- aws free 유저이기 때문에 SpringBoot build 시 메모리 부족으로 build가 되지 않는 문제가 발생.
+- AWS free 유저이기 때문에 SpringBoot build 시 메모리 부족으로 build가 되지 않는 문제가 발생.
 - swap 파일을 생성하여 설정해서 문제를 해결.
 - 참고자료 : [리눅스 메모리 부족 문제 해결 방법](https://hiseon.me/linux/linux-swap-file/), [AWS(EC2) - swap 메모리 생성](http://www.macnorton.com/csLab/886323), [aws공식 swap 메모리 사용법](https://aws.amazon.com/ko/premiumsupport/knowledge-center/ec2-memory-swap-file/) 
 
@@ -729,8 +726,8 @@ public String resolveToken(HttpServletRequest request) {
 <summary><b>Mixed Content 문제</b></summary>
 <div markdown="1">
 
-- Mixed Content는 https, http 간 통신 규약이 매칭 되지 않을 때 생기는 문제.
-- Frontend는 AWS-CloudFront와 AWS-Certificate Manager를 사용해 SSL 이 적용되어 `https` url을 갖게 되었지만, Backend는 `http` url 이었으므로, Backend를 https url로 변경시켜주어야 했다.
+- Mixed Content는 https, http 간 통신 규약이 매칭되지 않을 때 생기는 문제.
+- Frontend는 AWS-CloudFront와 AWS-Certificate Manager를 사용해 SSL이 적용되어 `https` url을 갖게 되었지만, Backend는 `http` url 이었으므로, Backend를 https url로 변경시켜주어야 했다.
 - `let's encrypt` 로 무료 SSL 인증서를 발급받고 nginx의 Reverse Proxy를 사용하여 적용.
 - 참고자료 : [nginx와 let's encrypt로 SSL 적용하기(+자동 갱신)](https://www.zerocho.com/category/NodeJS/post/5ef450a5701d8a001f84baeb), [nginx를 활용해 AWS EC2에 https 적용하기](https://velog.io/@teveloper/nginx-nginx%EB%A5%BC-%ED%99%9C%EC%9A%A9%ED%95%B4-AWS-EC2%EC%97%90-https-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0-%EB%AC%B4%EB%A3%8C-SSL-%EC%9D%B8%EC%A6%9D%EC%84%9C-%EB%B0%9C%EA%B8%89)
 
@@ -741,17 +738,17 @@ public String resolveToken(HttpServletRequest request) {
 <summary><b>Build 자동화 문제(Travis)</b></summary>
 <div markdown="1">
 
-- SpringBoot의 배포자동화로 Travis를 사용하는데 build 에러가 남.
-- AWS-RDS MySQL datasource가 SpringBoot단의 properties 파일에 있고, github 소스에 올릴 때는 해당 properties가 올라가지 않기 때문이다.(ec2에 따로 지정해둠)
-- local에서는 propertise가 존재하기 때문에 문제없이 build 되었지만 Github과 연동된 Travis는 Datasource가 없다며 빌드에러를 낸 것.
+- SpringBoot의 Build 자동화로 Travis를 사용하는데 build 에러가 남.
+- AWS-RDS MySQL datasource가 SpringBoot단의 properties 파일에 있고, github 소스에 올릴 때는 해당 properties가 올라가지 않기 때문이다. (ec2에 따로 지정해둠)
+- local에서는 properties가 존재하기 때문에 문제없이 build 되었지만 Github과 연동된 Travis는 Datasource가 없다며 빌드에러를 낸 것.
 - `h2`를 적용하기로 했다. 메모리 DB인 h2는 Datasource가 존재하지 않아도 에러를 내지 않기 때문에.
-- gradle에 따로 h2 라이브러리를 로드받아 build하여 문제를 해결함.
+- gradle에 따로 h2 라이브러리를 로드 받아 build 하여 문제를 해결함.
 
 </div>
 </details>
 
 <details>
-<summary><b>S3 File upload시 local 파일 저장 권한 문제</b></summary>
+<summary><b>S3 File upload 시 local 파일 저장 권한 문제</b></summary>
 <div markdown="1">
 
 - SpringBoot에서 S3로 파일을 올릴 때 반드시 local 어딘가에 File을 저장 후 올리고 나서 지우는 작업을 하는 구조.
@@ -766,10 +763,10 @@ public String resolveToken(HttpServletRequest request) {
 <summary><b>Test ID 비밀번호 변경 문제</b></summary>
 <div markdown="1">
 
-- Spring Scheduler를 사용하여 test ID를 만들고, 7-23시 사이에 2시간 간격으로 test ID의 모든 데이터가 재구성 되도록 만들어 놓았음.
-- 하지만 누군가 test ID의 비밀번호를 바꾸는 바람에 접속이 불가능하게 되었음.
-- SpringSecurity에서 제공하는 passwordEncoder의 BCrypt 방식으로 비밀번호를 저장하고 login 시 복호화하여 login 하기 때문에 쿼리문으로 비밀번호를 원상태로 돌리는 것은 불가능함.
-- 미리 만들어둔 ApplicationRunner를 구현한 class가 있었기 때문에 다시 build 후 원상복구 시킨 뒤, 방어로직을 추가함.
+- Spring Scheduler를 사용하여 test ID를 만들고, 7-23시 사이에 2시간 간격으로 test ID의 모든 데이터가 재구성되도록 만들어 놓았음.
+- 하지만 누군가 test ID의 비밀번호를 바꾸는 바람에 접속할 수 없게 되었음.
+- SpringSecurity에서 제공하는 passwordEncoder의 BCrypt 방식으로 비밀번호를 저장하고 login 시 복호화하여 login 하므로 쿼리문으로 비밀번호를 원상태로 돌리는 것은 불가능함.
+- 미리 만들어둔 ApplicationRunner를 구현한 class가 있었기 때문에 다시 build 후 원상복구 시킨 뒤, 방어 로직을 추가함.
 
 </div>
 </details>
