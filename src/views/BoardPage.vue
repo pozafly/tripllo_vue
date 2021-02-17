@@ -176,7 +176,7 @@ export default {
         this.$refs.inputTitle.focus();
       });
     },
-    onKeyupEnter() {
+    onKeyupEnter(event) {
       // 이벤트 트리거. onSubmitTitle이 두번 실행되는 것을 방지. https://velog.io/@kyh196201/1025
       event.target.blur();
     },
