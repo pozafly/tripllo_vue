@@ -32,7 +32,6 @@
     "vue-plugin-load-script": "^1.3.2",
     "vue-router": "^3.4.9",
     "vuex": "^3.6.0",
-    "vuex-persistedstate": "^4.0.0-beta.1",
     "webstomp-client": "^1.2.6"
   },
   "devDependencies": {
