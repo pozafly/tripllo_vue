@@ -143,7 +143,7 @@
 
 - Board를 조회 시, 생성된 날짜(createdAt)를 desc 순으로 정렬하고 있는데, 모든 Data를 한번에 들고오는 방식이었습니다.
 - 무한 스크롤을 적용하려고 하니 모든 데이터를 한번에 들고 오면 무한 스크롤을 적용하는 것이 의미가 없어집니다.
-- 또한 MySQL의 limit와 offset을 사용해 들고오면 모든 DB내 모든 Board 데이터를 조회 후 가져오게 되므로 성능상 문제가 생긴다는 사실을 알게 되었습니다. [커서 기반 페이지네이션](https://velog.io/@minsangk/%EC%BB%A4%EC%84%9C-%EA%B8%B0%EB%B0%98-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-Cursor-based-Pagination-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)
+- [커서 기반 페이지네이션](https://velog.io/@minsangk/%EC%BB%A4%EC%84%9C-%EA%B8%B0%EB%B0%98-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-Cursor-based-Pagination-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)을 읽고 MySQL의 limit와 offset을 사용해 들고오면 모든 DB내 모든 Board 데이터를 조회 후 가져오게 되므로 성능상 문제가 생긴다는 사실을 알게 되었습니다. 
 
 <br/>
 
@@ -276,6 +276,9 @@ async infiniteHandler($state) {
 ```
 
 📌 [따로 정리해 둔 링크](https://github.com/pozafly/TIL/blob/main/Vue/Vue%20무한스크롤.md)
+
+</div>
+</details>
 
 <br/>
 
@@ -446,14 +449,6 @@ public String resolveToken(HttpServletRequest request) {
 <br/>
 
 ## 6. 그 외 트러블 슈팅
-
-<details>
-<summary><b>📌 보기</b></summary>
-<div markdown="1">
-
-
-</div>
-</details>
 
 ### 6.1 Frontend
 
@@ -685,7 +680,7 @@ long listId = (long)Double.parseDouble(String.valueOf(requestBody.get("listId"))
 </div>
 </details>
 
-
+<br/>
 
 ### 6.3 배포
 
@@ -758,7 +753,3 @@ long listId = (long)Double.parseDouble(String.valueOf(requestBody.get("listId"))
 
 </div>
 </details>
-
-
-
-<br/>
