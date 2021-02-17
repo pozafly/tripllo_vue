@@ -4,7 +4,7 @@
 >
 > 메인 : <a>https://tripllo.tech</a>
 >
-> 간단 메뉴얼 : https://tripllo.tech/manual
+> 간단 메뉴얼 : <a>https://tripllo.tech/manual</a>
 
 <br/>
 
@@ -284,6 +284,10 @@ async infiniteHandler($state) {
 
 ### 5.2 event 중첩 문제
 
+<details>
+<summary><b>보기</b></summary>
+<div markdown="1">
+
 - 프로젝트 내 title 수정 로직은 클릭시 input 태그가 그 자리에 띄워져 수정 후 Enter를 누르거나, input에서 포커스를 벗어나면 UPDATE 되는 방식을 선택했습니다.
 - input 태그에 @keyup.enter와 @blur를 사용하는데 keyup 이벤트가 발생하면 blur 이벤트까지 같이 일어나 api가 2번 요청되는 이슈가 있었습니다.
 
@@ -323,6 +327,10 @@ onKeyupEnter(event) {
   event.target.blur();
 },
 ```
+
+</div>
+</details>
+
 
 </div>
 </details>
