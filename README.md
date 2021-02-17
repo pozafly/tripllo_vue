@@ -280,8 +280,6 @@ async infiniteHandler($state) {
 </div>
 </details>
 
-<br/>
-
 ### 5.2 event 중첩 문제
 
 <details>
@@ -324,8 +322,6 @@ onKeyupEnter(event) {
 
 </div>
 </details>
-
-<br/>
 
 ### 5.3 페이지 새로고침 시 state 데이터가 조회되지 않는 문제
 
@@ -385,9 +381,7 @@ const state = {
 </div>
 </details>
 
-<br/>
-
-5.4 API 요청 시 JWT 인증 문제
+### 5.4 API 요청 시 JWT 인증 문제
 
 <details>
 <summary><b>📌 보기</b></summary>
@@ -625,6 +619,8 @@ long listId = (long)Double.parseDouble(String.valueOf(requestBody.get("listId"))
 3. Double.parseDouble : Double 형으로 파싱
 4. (long) : long 형으로 변환
 
+</div>
+</details>
 
 <details>
 <summary><b>AuthenticationPrincipal 현재 접속한 userId 가져오기</b></summary>
