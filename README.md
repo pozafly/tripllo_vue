@@ -74,7 +74,6 @@
   - Attachment
 
     - 파일 업로드 시 local에 파일을 저장 후 S3에 올린 다음 local에 남은 파일을 지웁니다.
-
     - Spring Cloud AWS를 이용해 S3에 static_[유저이름] 으로 된 폴더를 생성해 파일을 저장합니다. :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/5a0c0d1fd697f5c6ec74d39b4e9f058ac6ab914c/src/main/java/com/pozafly/tripllo/fileUpload/S3Uploader.java#L29)
     - 파일은 권한 체크 후 다운받거나 삭제할 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailAttachment/AttachmentList.vue#L48)
 
@@ -410,6 +409,67 @@ const state = {
 </div>
 </details>
 
+<details>
+<summary><b>webStorage 코드</b></summary>
+<div markdown="1">
+
+```javascript
+function saveUserToLocalStorage(user) {
+  localStorage.setItem('user_id', user.id);
+  localStorage.setItem('user_email', user.email);
+  localStorage.setItem('user_name', user.name);
+  localStorage.setItem('user_social', user.social);
+  localStorage.setItem('user_bio', user.bio);
+  localStorage.setItem('user_picture', user.picture);
+  localStorage.setItem('user_recentBoard', user.recentBoard);
+  localStorage.setItem('user_invitedBoard', user.invitedBoard);
+  localStorage.setItem('user_created_at', user.createdAt);
+}
+
+function saveUserToken(token) {
+  localStorage.setItem('user_token', token);
+}
+
+function getUserFromLocalStorage(key) {
+  return localStorage.getItem(key);
+}
+
+function clearStorage() {
+  localStorage.clear();
+  sessionStorage.clear();
+}
+
+function clearSessionStorage() {
+  sessionStorage.clear();
+}
+
+function saveSessionStorage(key, value) {
+  sessionStorage.setItem(key, JSON.stringify(value));
+}
+
+function getSessionStorage(key) {
+  return JSON.parse(sessionStorage.getItem(key));
+}
+
+function deleteSessionStorage(key) {
+  sessionStorage.removeItem(key);
+}
+
+export {
+  saveUserToLocalStorage,
+  saveUserToken,
+  getUserFromLocalStorage,
+  clearStorage,
+  saveSessionStorage,
+  getSessionStorage,
+  deleteSessionStorage,
+  clearSessionStorage,
+};
+```
+
+</div>
+</details>
+
 <br/>
 
 ### 5.4 API 요청 시 JWT 인증 문제
@@ -497,7 +557,7 @@ Error: PostCSS received undefined instead of CSS string
 
 - 커뮤니티에 링크를 공유 후 다른 접속자들의 환경에서는 접속이 안 된다는 제보를 받음.
 - test시 크롬은 동작하는데 사파리에서 구글 로그인을 사용하니 아무 동작을 하지 않음.
-- 플러그인을 지우고, Google 공식 버전으로 직접 코딩 후 해결. :pushpin: [코드 보기](https://github.com/pozafly/tripllo_vue/blob/master/src/utils/social/Facebook.js)
+- 플러그인을 지우고, Google 공식 버전으로 직접 코딩 후 해결. :pushpin: [코드 보기](https://github.com/pozafly/tripllo_vue/blob/master/src/utils/social/Google.js)
 
 </div>
 </details>
