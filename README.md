@@ -281,7 +281,7 @@ infiniteHandler($state) {
 
 <br/>
 
-5.2 vue watch 사용 시 객체 감지 & lodash debounce 문제
+### 5.2 vue watch 사용 시 객체 감지 & lodash debounce 문제
 
 - 회원가입 페이지에서 input을 조작할 때, 동적으로 validation 체크와 button 활성화 기능을 넣고 싶었습니다.
 - vue의 watch를 통한 데이터를 감지와 input 태그에 debounce를 걸어 약간의 딜레이를 주고자 했습니다.
@@ -469,10 +469,15 @@ public String resolveToken(HttpServletRequest request) {
 <summary><b>Dev 서버가 실행되지 않는 문제(PostCSS)</b></summary>
 <div markdown="1">
 
+```javascript
+Uncaught Error: Module build failed (from ./node_modules/postcss-loader/src/index.js) :
+Error: PostCSS received undefined instead of CSS string
+...
+```
+
 - PostCSS는 자바스크립트로 CSS 변환을 해주는 도구이며, **CSS 작성 경험을 향상 시켜주는 도구**. 
 - npm을 업데이트했는데 node-sass, sass-loader 두 가지는 npm 버전을 많이 가린다고 알고 있었음.
 - [npm 설치가 안되는 에러](https://velog.io/@2ujin/npm-설치가-안되는-에러) 를 참고하여 node-module을 지우고 다시 설치로 해결.
-
 </div>
 </details>
 
@@ -695,6 +700,18 @@ public String resolveToken(HttpServletRequest request) {
 </div>
 </details>
 
+<details>
+<summary><b>Test ID 비밀번호 변경 문제</b></summary>
+<div markdown="1">
+
+- Spring Scheduler를 사용하여 Test ID를 만들고, 7-23시 사이에 2시간 간격으로 Test ID의 모든 데이터가 재구성되도록 만들어 놓았음.
+- 하지만 누군가 Test ID의 비밀번호를 바꾸는 바람에 접속할 수 없게 되었음.
+- SpringSecurity에서 제공하는 passwordEncoder의 BCrypt 방식으로 비밀번호를 저장하고 login 시 복호화하여 login 하므로 쿼리문으로 비밀번호를 원상태로 돌리는 것은 불가능함.
+- 미리 만들어둔 ApplicationRunner를 구현한 class가 있었기 때문에 다시 build 후 원상복구 시킨 뒤, 방어 로직을 추가함.
+
+</div>
+</details>
+
 <br/>
 
 ### 6.3 배포
@@ -755,18 +772,6 @@ public String resolveToken(HttpServletRequest request) {
 - mac 환경에서는 SpringBoot 폴더 내 파일이 생겼다가 지워지는데, 배포 후 linux에는 permission 문제가 생겼다.
 - 따라서 SpringBoot의 properties에 환경별 path를 지정하고, @Value를 통해 디렉토리를 지정함.
 - 그리고 linux 환경에서 해당 디렉토리를 만들어 chmod로 권한을 부여해 해결.
-
-</div>
-</details>
-
-<details>
-<summary><b>Test ID 비밀번호 변경 문제</b></summary>
-<div markdown="1">
-
-- Spring Scheduler를 사용하여 test ID를 만들고, 7-23시 사이에 2시간 간격으로 test ID의 모든 데이터가 재구성되도록 만들어 놓았음.
-- 하지만 누군가 test ID의 비밀번호를 바꾸는 바람에 접속할 수 없게 되었음.
-- SpringSecurity에서 제공하는 passwordEncoder의 BCrypt 방식으로 비밀번호를 저장하고 login 시 복호화하여 login 하므로 쿼리문으로 비밀번호를 원상태로 돌리는 것은 불가능함.
-- 미리 만들어둔 ApplicationRunner를 구현한 class가 있었기 때문에 다시 build 후 원상복구 시킨 뒤, 방어 로직을 추가함.
 
 </div>
 </details>
