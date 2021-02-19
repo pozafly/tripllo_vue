@@ -835,3 +835,7 @@ Error: PostCSS received undefined instead of CSS string
 
 </div>
 </details>
+
+
+
+[프로젝트 문제점 및 후기](https://pozafly.github.io/tripllo/Tripllo-%ED%9B%84%EA%B8%B0/)
