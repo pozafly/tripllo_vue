@@ -24,7 +24,11 @@
     </div>
 
     <div v-if="isAddCard">
-      <AddCard :listId="list.id" @close="isAddCard = false" />
+      <AddCard
+        :listId="list.id"
+        @close="isAddCard = false"
+        @cardFocus="cardFocus"
+      />
     </div>
     <div v-else>
       <a class="add-card-btn" href="" @click.prevent="isAddCard = true">
@@ -52,13 +56,6 @@ export default {
       isEditTitle: false,
       inputTitle: '',
     };
-  },
-  watch: {
-    'board.card'() {
-      this.$nextTick(() => {
-        this.$el.querySelector('.card-list').lastChild.scrollIntoView();
-      });
-    },
   },
   created() {
     this.inputTitle = this.list.title;
@@ -91,6 +88,13 @@ export default {
       // if (!window.confirm(`${this.list.title} 리스트를 삭제하시겠습니까?`))
       //   return;
       this.DELETE_LIST({ id: this.list.id });
+    },
+    cardFocus() {
+      this.$nextTick(() => {
+        setTimeout(() => {
+          this.$el.querySelector('.card-list').lastChild.scrollIntoView();
+        }, 150);
+      });
     },
   },
 };

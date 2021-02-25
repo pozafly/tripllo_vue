@@ -85,7 +85,7 @@
                 <List :list="list" />
               </div>
               <div class="addList-wrapper">
-                <AddList />
+                <AddList @listFocus="listFocus" />
               </div>
             </div>
           </div>
@@ -142,13 +142,13 @@ export default {
       } else return 'Private';
     },
   },
-  watch: {
-    'board.lists'() {
-      this.$nextTick(() => {
-        this.$el.querySelector('.list-section').lastChild.scrollIntoView();
-      });
-    },
-  },
+  // watch: {
+  //   'board.lists'() {
+  //     this.$nextTick(() => {
+  //       this.$el.querySelector('.list-section').lastChild.scrollIntoView();
+  //     });
+  //   },
+  // },
   created() {
     this.READ_BOARD_DETAIL(this.$route.params.boardId).then(() => {
       this.setTheme(this.board.bgColor);
@@ -262,6 +262,13 @@ export default {
 
       let change = window.confirm(sentense);
       if (change) this.UPDATE_BOARD({ id: this.board.id, publicYn: status });
+    },
+    listFocus() {
+      this.$nextTick(() => {
+        setTimeout(() => {
+          this.$el.querySelector('.list-section').lastChild.scrollIntoView();
+        }, 150);
+      });
     },
   },
 };

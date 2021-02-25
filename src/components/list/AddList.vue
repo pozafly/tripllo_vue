@@ -50,6 +50,7 @@ export default {
         this.$nextTick(() => {
           this.inputTitle = '';
           this.$refs.inputTitle.focus();
+          this.$emit('listFocus');
         });
       });
     },

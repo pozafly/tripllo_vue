@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     ...mapActions(['CREATE_CARD']),
-    async onSubmit() {
+    onSubmit() {
       if (this.invalidInput) {
         this.$emit('close');
         return;
@@ -50,10 +50,11 @@ export default {
       const { inputTitle, listId } = this;
       const pos = this.newCardPos();
 
-      await this.CREATE_CARD({ title: inputTitle, listId, pos }).finally(() => {
+      this.CREATE_CARD({ title: inputTitle, listId, pos }).finally(() => {
         this.$nextTick(() => {
           this.inputTitle = '';
           this.$refs.inputTitle.focus();
+          this.$emit('cardFocus');
         });
       });
     },
