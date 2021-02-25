@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 import AddCard from '@/components/card/AddCard';
 import CardItem from '@/components/card/CardItem';
 
@@ -45,12 +45,20 @@ export default {
     CardItem,
   },
   props: ['list'],
+  computed: { ...mapState(['board']) },
   data() {
     return {
       isAddCard: false,
       isEditTitle: false,
       inputTitle: '',
     };
+  },
+  watch: {
+    'board.card'() {
+      this.$nextTick(() => {
+        this.$el.querySelector('.card-list').lastChild.scrollIntoView();
+      });
+    },
   },
   created() {
     this.inputTitle = this.list.title;

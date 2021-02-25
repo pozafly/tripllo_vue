@@ -142,6 +142,13 @@ export default {
       } else return 'Private';
     },
   },
+  watch: {
+    'board.lists'() {
+      this.$nextTick(() => {
+        this.$el.querySelector('.list-section').lastChild.scrollIntoView();
+      });
+    },
+  },
   created() {
     this.READ_BOARD_DETAIL(this.$route.params.boardId).then(() => {
       this.setTheme(this.board.bgColor);
