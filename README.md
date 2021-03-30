@@ -838,4 +838,4 @@ Error: PostCSS received undefined instead of CSS string
 
 
 
-[프로젝트 문제점 및 후기](http://localhost:8000/tripllo/Tripllo%20%ED%9B%84%EA%B8%B0/)
+[프로젝트 문제점 및 후기](https://pozafly.github.io/tripllo/Tripllo%20%ED%9B%84%EA%B8%B0/)
