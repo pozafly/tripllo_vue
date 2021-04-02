@@ -218,7 +218,7 @@ export default {
         alert('이미 로그인 되어 있습니다.');
         this.$router.push('/main');
       } else {
-        this.$Facebook.signup();
+        this.$_Facebook.signup();
       }
     },
     kakaoSignup() {
@@ -226,13 +226,13 @@ export default {
         alert('이미 로그인 되어 있습니다.');
         this.$router.push('/main');
       } else {
-        this.$Kakao.signup();
+        this.$_Kakao.signup();
       }
     },
   },
   created() {
     this.$loadScript(`https://apis.google.com/js/api:client.js`).then(() => {
-      this.$Google.init();
+      this.$_Google.init();
     });
   },
 };

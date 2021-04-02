@@ -99,24 +99,12 @@ export default {
         this.push.message = response.data.message;
       }
     },
-    // async googleSuccess(googleUser) {
-    //   console.log(googleUser);
-    // if (localStorage.getItem('user_token')) {
-    //   alert('이미 로그인 되어 있습니다.');
-    //   this.$router.push('/main');
-    // } else {
-    //   console.log('ㅇㅕ긴 오겠지?');
-    //   console.log(googleUser);
-
-    //   this.$Google.login(googleUser);
-    // }
-    // },
-    facebookLogin: async function() {
+    facebookLogin() {
       if (localStorage.getItem('user_token')) {
         alert('이미 로그인 되어 있습니다.');
         this.$router.push('/main');
       } else {
-        this.$Facebook.login();
+        this.$_Facebook.login();
       }
     },
     kakaoLogin() {
@@ -124,13 +112,13 @@ export default {
         alert('이미 로그인 되어 있습니다.');
         this.$router.push('/main');
       } else {
-        this.$Kakao.login();
+        this.$_Kakao.login();
       }
     },
   },
   created() {
     this.$loadScript(`https://apis.google.com/js/api:client.js`).then(() => {
-      this.$Google.init();
+      this.$_Google.init();
     });
   },
 };

@@ -18,41 +18,46 @@ const Google = {
       element,
       {},
       googleUser => {
+        const profile = googleUser.getBasicProfile();
+
         if (getUserFromLocalStorage('user_token')) {
           alert('이미 로그인 되어 있습니다.');
           router.push('/main');
           return;
         }
         const path = router.history.current.path;
-        if (path.includes('login')) this.login(googleUser);
-        else this.signup(googleUser);
+        if (path.includes('login')) {
+          this.login(profile);
+        } else {
+          this.signup(profile);
+        }
       },
       function(error) {
-        // alert(JSON.stringify(error, undefined, 2));
+        alert(JSON.stringify(error, undefined, 2));
         console.log(JSON.stringify(error, undefined, 2));
       },
     );
   },
 
-  login(googleUser) {
-    this.makeReq(googleUser).then(req => {
+  login(profile) {
+    this.makeReq(profile).then(req => {
       socialLogin(req);
     });
   },
 
-  signup(googleUser) {
-    this.makeReq(googleUser).then(req => {
+  signup(profile) {
+    this.makeReq(profile).then(req => {
       socialSignup(req);
     });
   },
 
-  makeReq(googleUser) {
+  makeReq(profile) {
     return new Promise((resolve, reject) => {
       const req = {
-        name: googleUser.Fs.sd,
-        id: googleUser.Fs.lt,
-        email: googleUser.Fs.lt,
-        picture: googleUser.Fs.wI,
+        name: profile.getName(),
+        id: profile.getEmail(),
+        email: profile.getEmail(),
+        picture: profile.getImageUrl(),
         social: 'Google',
       };
       resolve(req);
