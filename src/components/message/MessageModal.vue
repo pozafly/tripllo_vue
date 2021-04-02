@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import MessageDetail from './MessageDetail';
+import MessageDetail from '@/components/message/MessageDetail';
 import { mapState } from 'vuex';
 
 export default {

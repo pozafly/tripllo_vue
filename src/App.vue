@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <Noti />
+    <AlertNotification />
     <router-view></router-view>
-    <spinner :loading="LoadingStatus"></spinner>
+    <LoadingSpinner :loading="LoadingStatus"></LoadingSpinner>
   </div>
 </template>
 
 <script>
-import Spinner from '@/components/common/Spinner.vue';
-import Noti from '@/components/common/Noti';
+import LoadingSpinner from '@/components/common/LoadingSpinner.vue';
+import AlertNotification from '@/components/common/AlertNotification';
 import bus from '@/utils/bus.js';
 
 export default {
-  components: { Spinner, Noti },
+  components: { LoadingSpinner, AlertNotification },
   data() {
     return {
       LoadingStatus: false,

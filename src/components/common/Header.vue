@@ -99,7 +99,7 @@
 <script>
 import { socketConnect } from '@/utils/socket';
 import bus from '@/utils/bus';
-import MessageModal from '@/components/common/MessageModal';
+import MessageModal from '@/components/message/MessageModal';
 import { mapActions, mapGetters, mapState } from 'vuex';
 
 export default {

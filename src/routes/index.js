@@ -28,7 +28,7 @@ const firstAccess = (to, from, next) => {
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    { path: '*', component: () => import('@/components/common/NotFound') },
+    { path: '*', component: () => import('@/views/NotFoundPage') },
     { path: '/', beforeEnter: firstAccess },
     {
       path: '/intro',
@@ -36,11 +36,11 @@ const router = new VueRouter({
     },
     {
       path: '/privacy',
-      component: () => import('@/views/Privacy'),
+      component: () => import('@/views/PrivacyPage'),
     },
     {
       path: '/manual',
-      component: () => import('@/views/Manual'),
+      component: () => import('@/views/ManualPage'),
     },
     {
       path: '/main',
