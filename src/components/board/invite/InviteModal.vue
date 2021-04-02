@@ -51,7 +51,9 @@ export default {
 
   watch: {
     inputId: _.debounce(function(id) {
-      if (id === '') this.memberList = [];
+      if (id === '') {
+        this.memberList = [];
+      }
       this.READ_IS_INVITE_USER(id)
         .then(({ data }) => {
           this.memberList = data.data;

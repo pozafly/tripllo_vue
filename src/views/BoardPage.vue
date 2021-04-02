@@ -6,14 +6,14 @@
         <div class="board">
           <div class="board-header">
             <input
-              class="form-control"
               v-if="isEditTitle"
-              type="text"
-              v-model="inputTitle"
               ref="inputTitle"
+              v-model="inputTitle"
+              class="form-control"
+              type="text"
+              maxlength="44"
               @keypress.enter="onKeyupEnter"
               @blur="onSubmitTitle"
-              maxlength="44"
             />
             <span v-else class="board-item" @click="onClickTitle">
               {{ board.title }}
@@ -26,14 +26,14 @@
               <ProfileImage :board="board" />
             </span>
 
-            <span class="board-item" @click="changePublic" v-if="isOwner">
+            <span v-if="isOwner" class="board-item" @click="changePublic">
               {{ publicYn }}
             </span>
 
             <span
+              v-if="board.publicYn === 'Y' && isOwner"
               class="board-item"
               @click="openInviteModal"
-              v-if="board.publicYn === 'Y' && isOwner"
             >
               Invite
               <InviteModal
@@ -60,8 +60,8 @@
             </span>
 
             <div
-              class="board-hash-wrap"
               v-if="board.publicYn === 'Y' && isOwner"
+              class="board-hash-wrap"
             >
               <HashtagModal />
             </div>
@@ -77,9 +77,9 @@
           <div class="list-section-wrapper">
             <div class="list-section">
               <div
-                class="list-wrapper"
                 v-for="list in board.lists"
                 :key="list.id"
+                class="list-wrapper"
                 :data-list-id="list.id"
               >
                 <ListItem :list="list" />
@@ -93,8 +93,8 @@
       </div>
       <BoardMenu
         v-if="isBoardMenu"
-        @close="isBoardMenu = false"
         ref="boardMenu"
+        @close="isBoardMenu = false"
       />
       <router-view></router-view>
     </div>
@@ -122,6 +122,7 @@ export default {
     ProfileImage,
     HashtagModal,
   },
+
   data() {
     return {
       isEditTitle: false,
@@ -134,14 +135,18 @@ export default {
       isOwner: true,
     };
   },
+
   computed: {
     ...mapState(['board', 'user']),
     publicYn() {
       if (this.board.publicYn === 'Y') {
         return 'Public';
-      } else return 'Private';
+      } else {
+        return 'Private';
+      }
     },
   },
+
   // watch: {
   //   'board.lists'() {
   //     this.$nextTick(() => {
@@ -149,24 +154,31 @@ export default {
   //     });
   //   },
   // },
+
   created() {
     this.READ_BOARD_DETAIL(this.$route.params.boardId).then(() => {
       this.setTheme(this.board.bgColor);
       this.setInvitedUser();
-      if (this.board.createdBy !== this.user.id) this.isOwner = false;
+      if (this.board.createdBy !== this.user.id) {
+        this.isOwner = false;
+      }
     });
   },
+
   mounted() {
     window.document.body.style.overflowY = `hidden`;
   },
-  beforeDestroy() {
-    this.makeRecent();
-    window.document.body.style.overflowY = `scroll`;
-  },
+
   updated() {
     dragger.listDragger();
     dragger.cardDragger();
   },
+
+  beforeDestroy() {
+    this.makeRecent();
+    window.document.body.style.overflowY = `scroll`;
+  },
+
   methods: {
     ...mapActions([
       'READ_BOARD_DETAIL',
@@ -191,11 +203,15 @@ export default {
       this.isEditTitle = false;
 
       this.inputTitle = this.inputTitle.trim();
-      if (!this.inputTitle) return;
+      if (!this.inputTitle) {
+        return;
+      }
 
       const id = this.board.id;
       const title = this.inputTitle;
-      if (title === this.board.title) return;
+      if (title === this.board.title) {
+        return;
+      }
 
       this.UPDATE_BOARD({ id, title });
     },
@@ -209,17 +225,23 @@ export default {
         recentArray = JSON.parse(this.user.recentBoard);
       }
       recentArray.forEach((el, idx) => {
-        if (el === this.board.id) recentArray.splice(idx, 1);
+        if (el === this.board.id) {
+          recentArray.splice(idx, 1);
+        }
       });
 
-      if (recentArray.length >= 3) recentArray.pop();
+      if (recentArray.length >= 3) {
+        recentArray.pop();
+      }
       recentArray.unshift(this.board.id);
 
       const recentBoard = JSON.stringify(recentArray);
       this.UPDATE_USER({ id: this.user.id, recentBoard });
     },
     setInvitedUser() {
-      if (!this.board.invitedUser) return;
+      if (!this.board.invitedUser) {
+        return;
+      }
       this.READ_INVITED_USER(JSON.parse(this.board.invitedUser)).then(
         ({ data }) => {
           this.invitedUser = data.data;
@@ -227,7 +249,9 @@ export default {
       );
     },
     openInviteModal(e) {
-      if (e.target.nodeName === 'SPAN') this.isInvite = true;
+      if (e.target.nodeName === 'SPAN') {
+        this.isInvite = true;
+      }
     },
     inviteModalClose({ memberId, boardTitle }) {
       this.isInvite = false;
@@ -240,8 +264,12 @@ export default {
       });
     },
     menuOutsideClose(e) {
-      if (e.target.className === 'board-header-btn show-menu') return;
-      if (!this.$refs.boardMenu) return;
+      if (e.target.className === 'board-header-btn show-menu') {
+        return;
+      }
+      if (!this.$refs.boardMenu) {
+        return;
+      }
       if (!this.$refs.boardMenu.$el.contains(e.target)) {
         this.isBoardMenu = false;
       }
@@ -261,7 +289,9 @@ export default {
       }
 
       let change = window.confirm(sentense);
-      if (change) this.UPDATE_BOARD({ id: this.board.id, publicYn: status });
+      if (change) {
+        this.UPDATE_BOARD({ id: this.board.id, publicYn: status });
+      }
     },
     listFocus() {
       this.$nextTick(() => {

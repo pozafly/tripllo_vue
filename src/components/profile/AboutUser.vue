@@ -50,7 +50,9 @@
             maxlength="199"
           />
         </div>
-        <button class="form-save" @click.prevent="updateUser">Save</button>
+        <button class="form-save" type="button" @click.prevent="updateUser">
+          Save
+        </button>
       </form>
     </div>
   </div>

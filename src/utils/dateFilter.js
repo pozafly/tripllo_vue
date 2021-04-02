@@ -29,7 +29,9 @@ export function timeForToday(value) {
   const betweenTime = Math.floor(
     (today.getTime() - timeValue.getTime()) / 1000 / 60,
   );
-  if (betweenTime < 1) return '방금전';
+  if (betweenTime < 1) {
+    return '방금전';
+  }
   if (betweenTime < 60) {
     return `${betweenTime}분전`;
   }

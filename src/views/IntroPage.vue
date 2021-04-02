@@ -1,7 +1,7 @@
 <template>
   <div class="intro-wrap">
     <div class="header-wrap">
-      <div class="fixed" ref="header">
+      <div ref="header" class="fixed">
         <header>
           <ul class="title-wrap">
             <li><awesome icon="suitcase" class="fas fa-suitcase"></awesome></li>
@@ -9,10 +9,18 @@
           </ul>
         </header>
         <div class="button-wrap">
-          <button class="move-btn" @click="$router.push('/auth/login')">
+          <button
+            class="move-btn"
+            type="button"
+            @click="$router.push('/auth/login')"
+          >
             Login
           </button>
-          <button class="move-btn" @click="$router.push('/auth/signUp')">
+          <button
+            class="move-btn"
+            type="button"
+            @click="$router.push('/auth/signUp')"
+          >
             Sign Up
           </button>
         </div>
@@ -130,18 +138,24 @@
         </ul>
 
         <div class="side-btn">
-          <button class="side-btn-item" @click="$router.push('/manual')">
+          <button
+            class="side-btn-item"
+            type="button"
+            @click="$router.push('/manual')"
+          >
             Tripllo 사용설명서
           </button>
           <div class="code">
             <button
               class="side-btn-item"
+              type="button"
               @click="goPage('https://github.com/pozafly/tripllo_vue')"
             >
               Tripllo_vue GITHUB
             </button>
             <button
               class="side-btn-item"
+              type="button"
               @click="goPage('https://github.com/pozafly/tripllo_springBoot')"
             >
               Tripllo_SpringBoot GITHUB
@@ -160,18 +174,25 @@
 import Footer from '@/components/common/Footer.vue';
 
 export default {
-  components: { Footer },
+  components: {
+    Footer,
+  },
+
   created: function() {
     window.addEventListener('scroll', this.handleScroll);
   },
+
   beforeDestroy: function() {
     window.removeEventListener('scroll', this.handleScroll);
   },
+
   methods: {
     handleScroll() {
       if (window.scrollY === 0) {
         this.$refs.header.style.background = 'none';
-      } else this.$refs.header.style.background = 'rgba(0,0,0,0.4)';
+      } else {
+        this.$refs.header.style.background = 'rgba(0,0,0,0.4)';
+      }
     },
     goPage(url) {
       window.open(url);

@@ -36,11 +36,15 @@ export default {
         alert('권한이 없습니다.');
         return;
       }
-      if (e.target.className === 'file-delete-btn') return;
+      if (e.target.className === 'file-delete-btn') {
+        return;
+      }
       let download = window.confirm(
         `${this.item.fileName}을 다운로드 받으시겠습니까?`,
       );
-      if (download) location.href = `${this.item.link}`;
+      if (download) {
+        location.href = `${this.item.link}`;
+      }
     },
     deleteFile() {
       if (!this.permission()) {
@@ -50,12 +54,18 @@ export default {
       let deleteFile = window.confirm(
         `${this.item.fileName} 파일을 삭제하시겠습니까?`,
       );
-      if (deleteFile) this.DELETE_FILE(this.item.id);
+      if (deleteFile) {
+        this.DELETE_FILE(this.item.id);
+      }
     },
     permission() {
-      if (this.board.createdBy === this.user.id) return true;
+      if (this.board.createdBy === this.user.id) {
+        return true;
+      }
       if (this.board.invitedUser) {
-        if (this.board.invitedUser.includes(this.user.id)) return true;
+        if (this.board.invitedUser.includes(this.user.id)) {
+          return true;
+        }
       } else return false;
     },
   },

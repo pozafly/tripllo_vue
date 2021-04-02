@@ -24,7 +24,11 @@
         <MiniModal @close="isDelete = false">
           <div slot="header" class="header-text">Delete Location</div>
           <div slot="content">
-            <button class="location-delete-btn" @click="deleteLocation">
+            <button
+              class="location-delete-btn"
+              type="button"
+              @click="deleteLocation"
+            >
               Delete this Location?
             </button>
           </div>
@@ -59,14 +63,18 @@ export default {
 
   watch: {
     card() {
-      if (!this.card.location) return;
+      if (!this.card.location) {
+        return;
+      }
       this.location = JSON.parse(this.card.location);
       this.setImg();
     },
   },
 
   mounted() {
-    if (!this.card.location) return;
+    if (!this.card.location) {
+      return;
+    }
     this.location = JSON.parse(this.card.location);
     this.setImg();
   },
@@ -74,7 +82,9 @@ export default {
   methods: {
     ...mapActions(['UPDATE_CARD']),
     setImg() {
-      if (!this.card.location) return;
+      if (!this.card.location) {
+        return;
+      }
       const location = this.location;
       // https://developers.google.com/maps/documentation/maps-static/start
       this.imgUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${location.lat},${location.lng}
@@ -82,7 +92,9 @@ export default {
         &key=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}&region=kr`;
     },
     openMap(e) {
-      if (e.target.className === 'location-control') return;
+      if (e.target.className === 'location-control') {
+        return;
+      }
       this.isLocationMap = true;
     },
     gotoGoogle() {

@@ -53,16 +53,16 @@
         <div class="text">OR</div>
         <div class="external-items">
           <div id="loginBtn">
-            <button class="external-item">
+            <button class="external-item" type="button">
               <img src="@/assets/user/logo/google.png" />
               <b> Continue with Google</b>
             </button>
           </div>
-          <button class="external-item" @click="facebookSignup">
+          <button class="external-item" type="button" @click="facebookSignup">
             <img src="@/assets/user/logo/facebook.png" />
             <b> Continue with Facebook</b>
           </button>
-          <button class="external-item" @click="kakaoSignup">
+          <button class="external-item" type="button" @click="kakaoSignup">
             <img src="@/assets/user/logo/kakao.png" />
             <b> Continue with KakaoTalk</b>
           </button>

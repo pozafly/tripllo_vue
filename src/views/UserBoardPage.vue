@@ -5,11 +5,11 @@
       <div class="user-header">
         <div class="auth-items">
           <span
+            v-if="userInfo.picture !== null && userInfo.picture !== 'null'"
             href=""
             class="auth-item img"
-            @click.prevent="menuShow"
-            v-if="userInfo.picture !== null && userInfo.picture !== 'null'"
             :style="{ backgroundImage: `url(${userInfo.picture})` }"
+            @click.prevent="menuShow"
           ></span>
           <div v-else class="icon-wrap">
             <awesome icon="user" class="fas fa-user auth-item"></awesome>
@@ -17,19 +17,19 @@
           <span class="auth-item name">{{ userInfo.name }}</span>
           <span class="auth-item id">@{{ userInfo.id }}</span>
         </div>
-        <span class="bio" v-if="userInfo.bio">{{ userInfo.bio }}</span>
-        <span class="bio" v-else>작성된 Bio가 없습니다..</span>
+        <span v-if="userInfo.bio" class="bio">{{ userInfo.bio }}</span>
+        <span v-else class="bio">작성된 Bio가 없습니다..</span>
       </div>
       <div class="user-info">
         <div class="info-wrap">
           <span class="info-text">
             <awesome icon="globe-americas" class="icon" /> Board List
           </span>
-          <div class="info-inside" ref="boardItem">
+          <div ref="boardItem" class="info-inside">
             <div
-              class="board-list"
               v-for="board in userBoards"
               :key="board.id"
+              class="board-list"
               :data-last-created-at="board.createdAt"
             >
               <BoardItem :board="board" />
@@ -37,7 +37,7 @@
           </div>
         </div>
         <div class="infinity">
-          <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
+          <infinite-loading spinner="waveDots" @infinite="infiniteHandler">
             <div
               slot="no-more"
               style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px;"
@@ -58,7 +58,11 @@ import boardApi from '@/api/board';
 import authApi from '@/api/auth';
 
 export default {
-  components: { Header, BoardItem },
+  components: {
+    Header,
+    BoardItem,
+  },
+
   data() {
     return {
       userBoards: [],
@@ -67,9 +71,11 @@ export default {
       isInfinity: 'Y',
     };
   },
+
   created() {
     this.readUser();
   },
+
   methods: {
     readUser() {
       authApi.readUser(this.$route.params.userId).then(({ data }) => {
@@ -87,7 +93,6 @@ export default {
             this.isInfinity = 'N';
             return;
           }
-          console.log(data.data);
           this.userBoards = this.userBoards.concat(data.data);
         });
     },
@@ -97,8 +102,9 @@ export default {
         // isInfinity는 state에 올라가 있다. 초기 값은 Y
         if (this.isInfinity === 'Y') {
           // 마지막 DOM의 dataset에서 createdAt을 가져와, data에 등록된 lastCreateAt에 집어넣는다.
-          if (this.$refs.boardItem.lastChild)
+          if (this.$refs.boardItem.lastChild) {
             this.lastCreatedAt = this.$refs.boardItem.lastChild.dataset.lastCreatedAt;
+          }
           $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
         } else {
           $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.

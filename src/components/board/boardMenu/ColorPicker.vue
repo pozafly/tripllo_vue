@@ -5,8 +5,12 @@
       class="chrome-picker"
       @input="updateValue"
     ></chrome-color-picker>
-    <button class="btn chrome-choice" @click="onSelect">선택</button>
-    <button class="btn chrome-cancel" @click="onCancel">취소</button>
+    <button class="btn chrome-choice" type="button" @click="onSelect">
+      선택
+    </button>
+    <button class="btn chrome-cancel" type="button" @click="onCancel">
+      취소
+    </button>
   </div>
 </template>
 

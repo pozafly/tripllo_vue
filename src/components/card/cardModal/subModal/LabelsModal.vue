@@ -46,7 +46,9 @@ export default {
 
   mounted() {
     // 밑에서 join으로 만든 문자열을 받아와서 split으로 다시 array로 만든다.
-    if (!this.card.labelColor) return;
+    if (!this.card.labelColor) {
+      return;
+    }
     const array = this.card.labelColor.split(',');
     this.colorArray = array;
   },
@@ -65,7 +67,9 @@ export default {
       } else {
         // 있다면 빼라
         const idx = this.colorArray.indexOf(colorValue);
-        if (idx > -1) this.colorArray.splice(idx, 1);
+        if (idx > -1) {
+          this.colorArray.splice(idx, 1);
+        }
       }
       // join을 사용하여 문자열로 만든다.
       const labelColor = this.colorArray.join(',');

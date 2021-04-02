@@ -9,7 +9,11 @@
         {{ checklist.title }}
         <awesome icon="edit" class="fas fa-edit"></awesome>
       </a>
-      <button class="checklist-title-delete-btn" @click="deleteChecklist">
+      <button
+        class="checklist-title-delete-btn"
+        type="button"
+        @click="deleteChecklist"
+      >
         Delete
       </button>
     </span>
@@ -23,7 +27,7 @@
         @blur="onSubmitTitle"
         @keypress.enter="onKeyupEnter"
       />
-      <button class="checkbox-input-btn" @click="onSubmitTitle">
+      <button class="checkbox-input-btn" type="button" @click="onSubmitTitle">
         Save
       </button>
       <a href="" class="checkbox-input-cancel" @click.prevent="isTitle = false">
@@ -43,7 +47,12 @@
       :items="items"
     />
 
-    <button v-if="!isItem" class="checkbox-add-btn" @click="isAddItem">
+    <button
+      v-if="!isItem"
+      class="checkbox-add-btn"
+      type="button"
+      @click="isAddItem"
+    >
       Add an item
     </button>
     <span v-else>
@@ -58,6 +67,7 @@
       />
       <button
         class="checkbox-input-btn checkbox-item-save"
+        type="button"
         @click="onSubmitItem"
       >
         Save
@@ -128,9 +138,13 @@ export default {
     onSubmitTitle({ relatedTarget }) {
       this.isTitle = false;
       if (relatedTarget) {
-        if (relatedTarget.className === 'checkbox-input-cancel') return;
+        if (relatedTarget.className === 'checkbox-input-cancel') {
+          return;
+        }
       }
-      if (this.inputTitle.trim() === this.checklist.title) return;
+      if (this.inputTitle.trim() === this.checklist.title) {
+        return;
+      }
 
       this.UPDATE_CHECKLIST({
         id: this.checklist.id,
@@ -149,10 +163,13 @@ export default {
         if (
           relatedTarget.className ===
           'checkbox-input-cancel checkbox-item-cancel'
-        )
+        ) {
           return;
+        }
       }
-      if (this.inputItem === '') return;
+      if (this.inputItem === '') {
+        return;
+      }
 
       this.CREATE_CHECKLIST_ITEM({
         checklistId: this.checklist.id,
@@ -163,7 +180,9 @@ export default {
     },
     onProgress() {
       let count = 0;
-      if (this.checklist.items.length === 0) return;
+      if (this.checklist.items.length === 0) {
+        return;
+      }
       this.checklist.items.forEach(element => {
         if (element.isChecked === 'Y') {
           count += 1;

@@ -22,7 +22,9 @@
     >
     </textarea>
     <template v-if="isEditDesc">
-      <button class="card-desc-btn" @click="onSubmitDesc">Save</button>
+      <button class="card-desc-btn" type="button" @click="onSubmitDesc">
+        Save
+      </button>
       <a href="" class="desc-cancel" @click.prevent="isEditDesc = false">
         &times;
       </a>
@@ -60,9 +62,13 @@ export default {
 
       // body를 눌렀을 때, 이벤트 타겟이 null로 나오므로 그냥 통과(저장된단 말임.)
       if (relatedTarget) {
-        if (relatedTarget.className === 'desc-cancel') return; // x버튼을 눌렀을 때는 return
+        if (relatedTarget.className === 'desc-cancel') {
+          return; // x버튼을 눌렀을 때는 return
+        }
       }
-      if (this.description === this.card.description) return;
+      if (this.description === this.card.description) {
+        return;
+      }
       this.UPDATE_CARD({ id: this.card.id, description: this.description });
     },
     onKeyupEnter(event) {

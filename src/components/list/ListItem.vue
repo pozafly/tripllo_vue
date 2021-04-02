@@ -86,11 +86,15 @@ export default {
       this.isEditTitle = false;
 
       this.inputTitle = this.inputTitle.trim();
-      if (!this.inputTitle) return;
+      if (!this.inputTitle) {
+        return;
+      }
 
       const id = this.list.id;
       const title = this.inputTitle;
-      if (title === this.list.title) return;
+      if (title === this.list.title) {
+        return;
+      }
 
       this.UPDATE_LIST({ id, title });
     },

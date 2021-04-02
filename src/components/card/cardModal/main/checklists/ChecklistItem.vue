@@ -64,8 +64,9 @@ export default {
         target.localName === 'path' ||
         target.localName === 'svg' ||
         target.localName === 'input'
-      )
+      ) {
         return;
+      }
 
       let isChecked = '';
       if (this.items.isChecked === 'Y') {
@@ -86,7 +87,9 @@ export default {
     },
     onSubmitItem() {
       this.isItem = false;
-      if (this.inputItem.trim() === this.items.item) return;
+      if (this.inputItem.trim() === this.items.item) {
+        return;
+      }
       this.UPDATE_CHECKLIST_ITEM({
         checklistItemId: this.items.id,
         item: this.inputItem,

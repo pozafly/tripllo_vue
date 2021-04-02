@@ -46,7 +46,9 @@ const Facebook = {
                 '/me',
                 { fields: 'id, name, email, picture' },
                 res => {
-                  if (!res) LoginFailure();
+                  if (!res) {
+                    LoginFailure();
+                  }
                   const req_body = {
                     id: res.id,
                     name: res.name,

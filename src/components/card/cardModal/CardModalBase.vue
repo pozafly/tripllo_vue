@@ -19,7 +19,11 @@
             <div class="modal-footer">
               <slot name="footer">
                 default footer
-                <button class="modal-default-button" @click="$emit('close')">
+                <button
+                  class="modal-default-button"
+                  type="button"
+                  @click="$emit('close')"
+                >
                   OK
                 </button>
               </slot>
@@ -45,8 +49,9 @@ export default {
   },
   methods: {
     exit(e) {
-      if (e.target.className === 'modal-wrapper')
+      if (e.target.className === 'modal-wrapper') {
         this.$router.push(`/board/${this.board.id}`);
+      }
     },
   },
 };

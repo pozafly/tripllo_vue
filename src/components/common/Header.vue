@@ -130,10 +130,13 @@ export default {
         this.pushMessage === null ||
         this.pushMessage === 'null' ||
         this.pushMessage === ''
-      )
+      ) {
         return;
+      }
       this.pushMessage.forEach(el => {
-        if (el.isRead === 'N') this.noReadCount += 1;
+        if (el.isRead === 'N') {
+          this.noReadCount += 1;
+        }
       });
     },
   },
@@ -167,16 +170,26 @@ export default {
       this.isMenuShow = !this.isMenuShow;
     },
     updateTheme() {
-      if (this.$route.path.includes('main')) return;
-      if (this.$route.path.includes('profile')) return;
-      if (this.$route.path.includes('user')) return;
+      if (this.$route.path.includes('main')) {
+        return;
+      }
+      if (this.$route.path.includes('profile')) {
+        return;
+      }
+      if (this.$route.path.includes('user')) {
+        return;
+      }
 
       const board = document.querySelector('.board');
       const header = document.querySelector('.header');
       const icon = document.querySelectorAll('.icon');
 
-      if (board) board.style.backgroundColor = this.bgColor;
-      if (header) header.style.backgroundColor = this.bgColor;
+      if (board) {
+        board.style.backgroundColor = this.bgColor;
+      }
+      if (header) {
+        header.style.backgroundColor = this.bgColor;
+      }
       if (icon) {
         Array.from(icon).map(icon => {
           icon.style.backgroundColor = this.bgColor;

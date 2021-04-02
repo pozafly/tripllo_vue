@@ -104,7 +104,9 @@ export default {
       this.$emit('close');
     },
     onDeleteBoard() {
-      if (!window.confirm(`Delete ${this.board.title} Board?`)) return;
+      if (!window.confirm(`Delete ${this.board.title} Board?`)) {
+        return;
+      }
       this.DELETE_BOARD({ id: this.board.id }).then(() => {
         this.$notify({
           group: 'custom-template',

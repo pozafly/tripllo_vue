@@ -99,16 +99,21 @@ const actions = {
           if (
             state.user.recentBoard !== null &&
             state.user.recentBoard !== 'null'
-          )
+          ) {
             dispatch('READ_RECENT_BOARD', {
               recentLists: JSON.parse(state.user.recentBoard),
             });
+          }
         });
     }
-    if (state.user.invitedBoard !== null && state.user.invitedBoard !== 'null')
+    if (
+      state.user.invitedBoard !== null &&
+      state.user.invitedBoard !== 'null'
+    ) {
       dispatch('READ_INVITED_BOARD', {
         invitedLists: JSON.parse(state.user.invitedBoard),
       });
+    }
   },
   READ_RECENT_BOARD({ commit }, { recentLists }) {
     return boardApi.readRecentBoard({ recentLists }).then(({ data }) => {
@@ -144,7 +149,9 @@ const actions = {
     return boardApi
       .updateBoard(id, { title, bgColor, invitedUser, hashtag, publicYn })
       .then(({ data }) => {
-        if (data.data.invitedUser) return;
+        if (data.data.invitedUser) {
+          return;
+        }
         dispatch('READ_BOARD_DETAIL', state.board.id);
       });
   },

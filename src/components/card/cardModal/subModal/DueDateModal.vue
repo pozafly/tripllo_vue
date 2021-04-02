@@ -13,8 +13,12 @@
         />
       </div>
       <div>
-        <button class="duedate-btn save-btn" @click="onSave">Save</button>
-        <button class="duedate-btn remove-btn" @click="onRemove">Cancel</button>
+        <button class="duedate-btn save-btn" type="button" @click="onSave">
+          Save
+        </button>
+        <button class="duedate-btn remove-btn" type="button" @click="onRemove">
+          Cancel
+        </button>
       </div>
     </div>
   </MiniModal>
@@ -37,7 +41,9 @@ export default {
   },
 
   mounted() {
-    if (this.card.dueDate === null) return;
+    if (this.card.dueDate === null) {
+      return;
+    }
     const dueDate = this.card.dueDate;
     this.date = new Date(dueDate);
     this.$refs.datePicker.move(dueDate);

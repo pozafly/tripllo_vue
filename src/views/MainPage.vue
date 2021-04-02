@@ -32,6 +32,7 @@ export default {
     InvitedSection,
     PublicSection,
   },
+
   computed: {
     ...mapState(['mainTabId']),
   },

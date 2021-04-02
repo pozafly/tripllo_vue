@@ -70,11 +70,15 @@ export default {
     newCardPos() {
       // 맨 마지막(최근) 카드를 가져온다.
       const curList = this.board.lists.filter(l => l.id === this.listId)[0];
-      if (!curList) return 65535;
+      if (!curList) {
+        return 65535;
+      }
 
       // 카드 배열을 가져온다.
       const { cards } = curList;
-      if (!cards.length) return 65535;
+      if (!cards.length) {
+        return 65535;
+      }
 
       // 맨 마지막에 있는 카드의 pos의 정보를 가져와서 * 2
       return cards[cards.length - 1].pos * 2;

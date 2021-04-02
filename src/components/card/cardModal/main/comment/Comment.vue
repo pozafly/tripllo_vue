@@ -61,7 +61,13 @@
       >
       </textarea>
       <template v-if="isComment">
-        <button class="comment-input-btn" @click="onSubmitComment">Save</button>
+        <button
+          class="comment-input-btn"
+          type="button"
+          @click="onSubmitComment"
+        >
+          Save
+        </button>
         <a href="" class="input-cancel" @click.prevent="isComment = false">
           &times;
         </a>
@@ -96,9 +102,13 @@ export default {
       this.isComment = false;
       // body를 눌렀을 때, 이벤트 타겟이 null로 나오므로 그냥 통과(저장된단 말임.)
       if (relatedTarget) {
-        if (relatedTarget.className === 'input-cancel') return; // x버튼을 눌렀을 때는 return
+        if (relatedTarget.className === 'input-cancel') {
+          return; // x버튼을 눌렀을 때는 return
+        }
       }
-      if (this.commentText === '') return;
+      if (this.commentText === '') {
+        return;
+      }
       const cardId = this.card.id;
       const userId = this.user.id;
       const comment = this.commentText;

@@ -41,7 +41,9 @@ const dragger = {
     return { prev, next };
   },
   cardDragger() {
-    if (cDragger) cDragger.destroy();
+    if (cDragger) {
+      cDragger.destroy();
+    }
     cDragger = dragger.init(
       Array.from(document.querySelectorAll('.card-list')),
     );
@@ -60,18 +62,24 @@ const dragger = {
         type: 'card',
       });
 
-      // 맨 앞으로 옮겼다면,
-      if (!prev && next) targetCard.pos = next.pos / 2;
-      // 맨 뒤로 옮겼다면,
-      else if (!next && prev) targetCard.pos = prev.pos * 2;
-      // 중간 어딘가로 옮겼다면,
-      else if (prev && next) targetCard.pos = (prev.pos + next.pos) / 2;
+      if (!prev && next) {
+        // 맨 앞으로 옮겼다면,
+        targetCard.pos = next.pos / 2;
+      } else if (!next && prev) {
+        // 맨 뒤로 옮겼다면,
+        targetCard.pos = prev.pos * 2;
+      } else if (prev && next) {
+        // 중간 어딘가로 옮겼다면,
+        targetCard.pos = (prev.pos + next.pos) / 2;
+      }
 
       store.dispatch('UPDATE_CARD', targetCard);
     });
   },
   listDragger() {
-    if (lDragger) lDragger.destroy();
+    if (lDragger) {
+      lDragger.destroy();
+    }
     const options = {
       invalid: (el, handle) => !/^list/.test(handle.className),
       // list는 가로 방향으로만 동작하므로 options에 direction을 넣어줘야 함.
@@ -94,9 +102,13 @@ const dragger = {
         type: 'list',
       });
 
-      if (!prev && next) targetList.pos = next.pos / 2;
-      else if (!next && prev) targetList.pos = prev.pos * 2;
-      else if (prev && next) targetList.pos = (prev.pos + next.pos) / 2;
+      if (!prev && next) {
+        targetList.pos = next.pos / 2;
+      } else if (!next && prev) {
+        targetList.pos = prev.pos * 2;
+      } else if (prev && next) {
+        targetList.pos = (prev.pos + next.pos) / 2;
+      }
 
       store.dispatch('UPDATE_LIST', targetList);
     });

@@ -52,7 +52,9 @@ const Kakao = {
 
   logout() {
     window.Kakao.Auth.logout(res => {
-      if (!res) return console.log(error);
+      if (!res) {
+        return console.log(error);
+      }
       social_logout();
     });
   },

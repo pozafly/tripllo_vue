@@ -33,15 +33,22 @@ export default {
 
   mounted() {
     this.$nextTick(() => {
-      if (this.user.recentBoard) this.getInvitedBoard();
+      if (this.user.recentBoard) {
+        this.getInvitedBoard();
+      }
     });
   },
 
   methods: {
     ...mapActions(['READ_INVITED_BOARD']),
     getInvitedBoard() {
-      if (this.user.invitedBoard === null || this.user.invitedBoard === 'null')
+      if (
+        this.user.invitedBoard === null ||
+        this.user.invitedBoard === 'null'
+      ) {
         return;
+      }
+
       let invitedLists = null;
       if (this.user.invitedBoard) {
         invitedLists = JSON.parse(this.user.invitedBoard);

@@ -29,7 +29,9 @@ export default {
 
   watch: {
     card() {
-      if (!this.card.labelColor) return;
+      if (!this.card.labelColor) {
+        return;
+      }
       const array = this.card.labelColor.split(',');
       this.labelArray = array;
     },

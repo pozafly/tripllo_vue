@@ -2,7 +2,7 @@
   <MiniModal @close="$emit('close')">
     <div slot="header" class="header-text">Add a File?</div>
     <div slot="content">
-      <button class="add-btn" @click="$refs.file.click()">
+      <button class="add-btn" type="button" @click="$refs.file.click()">
         Add a file
       </button>
       <span class="refer-text">
@@ -43,7 +43,9 @@ export default {
             return;
           }
         });
-        if (!sameName) return;
+        if (!sameName) {
+          return;
+        }
       }
 
       fileData.append('data', file);

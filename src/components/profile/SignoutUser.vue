@@ -2,7 +2,9 @@
   <div>
     <h3 class="title">Signout</h3>
     <div class="about-wrap">
-      <button class="signout-btn" @click="openDeleteModal">Signout</button>
+      <button class="signout-btn" type="button" @click="openDeleteModal">
+        Signout
+      </button>
       <div v-if="isDelete" class="delete-modal">
         <template v-if="!isSocial">
           <MiniModal @close="modalClose">
@@ -19,10 +21,11 @@
                 class="form-control input"
                 @keypress.enter="deleteUser"
               />
-              <button class="delete-moal-btn remove-btn" @click="modalClose">
-                탈퇴취소
-              </button>
-              <button class="delete-moal-btn remove-btn" @click="modalClose">
+              <button
+                class="delete-moal-btn remove-btn-nomal"
+                type="button"
+                @click="modalClose"
+              >
                 탈퇴취소
               </button>
             </div>
@@ -46,12 +49,14 @@
               <button
                 class="delete-moal-btn remove-btn"
                 :disabled="btnDisabled"
+                type="button"
                 @click="deleteUser"
               >
                 탈퇴
               </button>
               <button
                 class="delete-moal-btn remove-cancel-btn"
+                type="button"
                 @click="modalClose"
               >
                 탈퇴취소
@@ -79,8 +84,11 @@ export default {
   computed: {
     ...mapState(['user']),
     isSocial() {
-      if (this.user.social !== null) return true;
-      else return false;
+      if (this.user.social !== null) {
+        return true;
+      } else {
+        return false;
+      }
     },
   },
 
@@ -95,7 +103,9 @@ export default {
       this.isDelete = false;
     },
     deleteUser() {
-      if (this.password === '') return;
+      if (this.password === '') {
+        return;
+      }
 
       this.SIGNOUT(this.password)
         .then(() => {
@@ -105,14 +115,18 @@ export default {
           this.$router.push(`/auth`);
         })
         .catch(({ response }) => {
-          if (response.data.status === 'BAD_REQUEST')
+          if (response.data.status === 'BAD_REQUEST') {
             alert(response.data.message);
+          }
         });
     },
     validId({ target }) {
       console.log(target.value);
-      if (target.value === this.user.id) this.btnDisabled = false;
-      else this.btnDisabled = true;
+      if (target.value === this.user.id) {
+        this.btnDisabled = false;
+      } else {
+        this.btnDisabled = true;
+      }
     },
     openDeleteModal() {
       this.isDelete = true;
@@ -156,6 +170,19 @@ export default {
       &.remove-btn {
         position: relative;
         right: -110px;
+        background: #5aac44;
+        color: white;
+        &:hover {
+          background: #60bd4e;
+        }
+        &:disabled {
+          background: #ccc;
+          cursor: default;
+        }
+      }
+      &.remove-btn-nomal {
+        position: relative;
+        right: -195px;
         background: #5aac44;
         color: white;
         &:hover {

@@ -5,11 +5,11 @@
       <div class="user-header">
         <div class="auth-items">
           <span
+            v-if="user.picture !== null && user.picture !== 'null'"
             href=""
             class="auth-item img"
-            @click.prevent="menuShow"
-            v-if="user.picture !== null && user.picture !== 'null'"
             :style="{ backgroundImage: `url(${user.picture})` }"
+            @click.prevent="menuShow"
           ></span>
           <div v-else class="icon-wrap">
             <awesome icon="user" class="fas fa-user auth-item"></awesome>
@@ -24,9 +24,9 @@
       <div class="tabs">
         <TabItem
           v-for="item in tapList"
-          v-bind="item"
           :key="item.id"
           v-model="currentId"
+          v-bind="item"
         />
       </div>
       <div class="user-info">
@@ -57,7 +57,14 @@ import PasswordChange from '@/components/profile/PasswordChange.vue';
 import { mapState } from 'vuex';
 
 export default {
-  components: { Header, AboutUser, SignoutUser, TabItem, PasswordChange },
+  components: {
+    Header,
+    AboutUser,
+    SignoutUser,
+    TabItem,
+    PasswordChange,
+  },
+
   data() {
     return {
       currentId: 1,
@@ -67,12 +74,14 @@ export default {
       ],
     };
   },
+
   computed: {
     ...mapState(['user']),
     current() {
       return this.tapList.find(el => el.id === this.currentId) || {};
     },
   },
+
   watch: {
     user() {
       const imgList = this.$el.querySelectorAll('.img');

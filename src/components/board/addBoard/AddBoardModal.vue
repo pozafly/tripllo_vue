@@ -154,8 +154,11 @@ export default {
       }
     },
     publicYn() {
-      if (this.publicYn === 'N') this.isHashtag = false;
-      else this.isHashtag = true;
+      if (this.publicYn === 'N') {
+        this.isHashtag = false;
+      } else {
+        this.isHashtag = true;
+      }
     },
   },
 

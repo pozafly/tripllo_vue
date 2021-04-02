@@ -13,7 +13,10 @@
 import Header from '@/components/common/Header.vue';
 
 export default {
-  components: { Header },
+  components: {
+    Header,
+  },
+
   methods: {
     goBack() {
       this.$router.push(`/main`);

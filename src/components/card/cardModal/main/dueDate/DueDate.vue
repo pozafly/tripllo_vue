@@ -5,12 +5,18 @@
       <div class="detail-duedate-item">
         {{ card.dueDate | normalFormatDate }}
       </div>
-      <button class="duedate-cancel" @click="isDelete = true">···</button>
+      <button class="duedate-cancel" type="button" @click="isDelete = true">
+        ···
+      </button>
       <div v-if="isDelete" class="duedate-delete">
         <MiniModal @close="isDelete = false">
           <div slot="header" class="header-text">Delete DueDate</div>
           <div slot="content">
-            <button class="duedate-delete-btn" @click="deleteDueDate">
+            <button
+              class="duedate-delete-btn"
+              type="button"
+              @click="deleteDueDate"
+            >
               Delete this DueDate?
             </button>
           </div>

@@ -7,8 +7,9 @@ async function socialLogin(req, isSignup) {
     store.commit('setUserToken', data.data.token);
     store.commit('setUser', data.data);
 
-    if (isSignup === 'afterSignup')
+    if (isSignup === 'afterSignup') {
       alert('회원가입 완료! 메인 페이지로 이동합니다.');
+    }
 
     router.push('/main');
   } catch (error) {
@@ -19,7 +20,9 @@ async function socialLogin(req, isSignup) {
       const confirmYn = confirm(
         '아직 가입되지 않은 회원입니다. \n회원가입 화면으로 이동하시겠습니까?',
       );
-      if (confirmYn) router.push('/auth/signup');
+      if (confirmYn) {
+        router.push('/auth/signup');
+      }
     }
   }
 }
@@ -36,7 +39,9 @@ async function socialSignup(req) {
     const confirmYn = confirm(
       '이미 가입된 소셜 회원입니다. \n로그인 화면으로 이동하시겠습니까?',
     );
-    if (confirmYn) router.push('/auth/login');
+    if (confirmYn) {
+      router.push('/auth/login');
+    }
   }
 }
 

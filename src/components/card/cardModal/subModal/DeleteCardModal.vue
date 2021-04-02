@@ -2,7 +2,7 @@
   <MiniModal @close="$emit('close')">
     <div slot="header" class="header-text">Delete this Card?</div>
     <div slot="content">
-      <button class="delete-btn" @click="onDelete">
+      <button class="delete-btn" type="button" @click="onDelete">
         Delete this Card
       </button>
     </div>

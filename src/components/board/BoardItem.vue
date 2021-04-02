@@ -80,8 +80,9 @@ export default {
         e.target.className === 'heart' ||
         e.target.className === 'side-wrap' ||
         e.target.className === 'heart-num'
-      )
+      ) {
         return;
+      }
       this.$router.push(`/board/${this.board.id}`);
     },
   },

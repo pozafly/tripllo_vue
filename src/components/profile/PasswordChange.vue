@@ -20,7 +20,7 @@
           <span>비밀번호 재입력</span>
           <input v-model="againPw" type="password" class="form-control input" />
         </div>
-        <button class="form-save" @click.prevent="change">
+        <button class="form-save" type="button" @click.prevent="change">
           비밀번호 변경하기
         </button>
       </form>

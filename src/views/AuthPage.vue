@@ -26,19 +26,25 @@
 import Footer from '@/components/common/Footer.vue';
 
 export default {
-  components: { Footer },
+  components: {
+    Footer,
+  },
+
+  created() {
+    this.$loadScript(`https://developers.kakao.com/sdk/js/kakao.js`).then(
+      () => {
+        if (!window.Kakao.isInitialized()) {
+          this.$_Kakao.init();
+        }
+      },
+    );
+    this.$_Facebook.init();
+  },
+
   methods: {
     goMain() {
       this.$router.push('/main');
     },
-  },
-  created() {
-    this.$loadScript(`https://developers.kakao.com/sdk/js/kakao.js`).then(
-      () => {
-        if (!window.Kakao.isInitialized()) this.$_Kakao.init();
-      },
-    );
-    this.$_Facebook.init();
   },
 };
 </script>

@@ -73,8 +73,11 @@ export default {
   methods: {
     ...mapActions(['UPDATE_BOARD']),
     setHashList() {
-      if (this.board.hashtag) this.hashList = JSON.parse(this.board.hashtag);
-      else this.hashtag = [];
+      if (this.board.hashtag) {
+        this.hashList = JSON.parse(this.board.hashtag);
+      } else {
+        this.hashtag = [];
+      }
     },
     pushHash() {
       if (this.hashList != null && this.hashList != '[]') {
@@ -113,7 +116,9 @@ export default {
       });
     },
     closeModal(e) {
-      if (e.target.className === 'hashtag-delete') return;
+      if (e.target.className === 'hashtag-delete') {
+        return;
+      }
       this.isHashModal = false;
     },
   },

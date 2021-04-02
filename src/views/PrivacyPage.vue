@@ -199,7 +199,9 @@
       침입차단시스템을 이용하여 외부로부터의 무단 접근을 통제하고 있습니다.<br /><br />
     </p>
     <p class="my-name">황선태 Web Developer</p>
-    <button class="back-btn" @click="$router.push('/auth')">뒤로가기</button>
+    <button class="back-btn" type="button" @click="$router.push('/auth')">
+      뒤로가기
+    </button>
   </div>
 </template>
 

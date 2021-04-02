@@ -110,7 +110,9 @@ export default {
       this.isEditTitle = false;
 
       const inputTitle = this.$refs.inputTitle.value || '';
-      if (inputTitle === this.card.title) return;
+      if (inputTitle === this.card.title) {
+        return;
+      }
       this.UPDATE_CARD({ id: this.card.id, title: inputTitle });
     },
     onKeyupEnter(event) {

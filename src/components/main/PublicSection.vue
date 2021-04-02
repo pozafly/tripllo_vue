@@ -176,7 +176,9 @@ export default {
       this.setIsInfinity('Y');
     },
     selectHash(value) {
-      if (value === this.searchHashValue) return;
+      if (value === this.searchHashValue) {
+        return;
+      }
       this.searchHashValue = value;
       this.reset();
     },

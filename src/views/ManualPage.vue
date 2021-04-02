@@ -1,23 +1,31 @@
 <template>
   <div class="intro-wrap">
     <div class="header-wrap">
-      <div class="fixed" ref="header">
+      <div ref="header" class="fixed">
         <header>
           <ul class="title-wrap">
             <li><awesome icon="suitcase" class="fas fa-suitcase"></awesome></li>
             <li><span class="title">Tripllo</span></li>
           </ul>
         </header>
-        <div class="button-wrap" v-if="!isAuth">
-          <button class="move-btn" @click="$router.push('/auth/login')">
+        <div v-if="!isAuth" class="button-wrap">
+          <button
+            class="move-btn"
+            type="button"
+            @click="$router.push('/auth/login')"
+          >
             Login
           </button>
-          <button class="move-btn" @click="$router.push('/auth/signUp')">
+          <button
+            class="move-btn"
+            type="button"
+            @click="$router.push('/auth/signUp')"
+          >
             Sign Up
           </button>
         </div>
-        <div class="button-wrap" v-else>
-          <button class="return-btn" @click="$router.go(-1)">
+        <div v-else class="button-wrap">
+          <button class="return-btn" type="button" @click="$router.go(-1)">
             되돌아가기
           </button>
         </div>
@@ -233,21 +241,29 @@ import Footer from '@/components/common/Footer.vue';
 import { mapGetters } from 'vuex';
 
 export default {
-  components: { Footer },
+  components: {
+    Footer,
+  },
+
   computed: {
     ...mapGetters(['isAuth']),
   },
+
   created: function() {
     window.addEventListener('scroll', this.handleScroll);
   },
+
   beforeDestroy: function() {
     window.removeEventListener('scroll', this.handleScroll);
   },
+
   methods: {
     handleScroll() {
       if (window.scrollY === 0) {
         this.$refs.header.style.background = 'none';
-      } else this.$refs.header.style.background = 'rgba(0,0,0,0.4)';
+      } else {
+        this.$refs.header.style.background = 'rgba(0,0,0,0.4)';
+      }
     },
   },
 };

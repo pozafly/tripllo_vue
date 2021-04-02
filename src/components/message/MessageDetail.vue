@@ -3,8 +3,14 @@
     <span class="message-content">{{ message.content }}</span>
     <span class="message-time">{{ message.createdAt | timeForToday }}</span>
     <div>
-      <button class="message-btn save-btn" @click="acceptMessage">수락</button>
-      <button class="message-btn remove-btn" @click="rejectMessage">
+      <button class="message-btn save-btn" type="button" @click="acceptMessage">
+        수락
+      </button>
+      <button
+        class="message-btn remove-btn"
+        type="button"
+        @click="rejectMessage"
+      >
         거절
       </button>
     </div>
@@ -27,7 +33,9 @@ export default {
   },
 
   mounted() {
-    if (this.message.isRead === 'Y') return;
+    if (this.message.isRead === 'Y') {
+      return;
+    }
     this.UPDATE_PUSH_MESSAGE({ id: this.message.id, isRead: 'Y' });
   },
 
@@ -79,7 +87,9 @@ export default {
     },
     rejectMessage() {
       let confirm = window.confirm('해당 메세지를 삭제하시겠습니까?');
-      if (confirm) this.DELETE_PUSH_MESSAGE({ id: this.message.id });
+      if (confirm) {
+        this.DELETE_PUSH_MESSAGE({ id: this.message.id });
+      }
     },
   },
 };

@@ -12,7 +12,9 @@
         maxlength="44"
         @keypress.enter="addChecklist"
       />
-      <button class="checklist-btn" @click="addChecklist">Add</button>
+      <button class="checklist-btn" type="button" @click="addChecklist">
+        Add
+      </button>
     </div>
   </MiniModal>
 </template>

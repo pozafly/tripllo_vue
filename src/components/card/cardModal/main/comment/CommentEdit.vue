@@ -41,7 +41,11 @@
       <MiniModal @close="isDelete = false">
         <div slot="header" class="header-text">Delete Comment</div>
         <div slot="content">
-          <button class="comment-delete-btn" @click="deleteComment(item)">
+          <button
+            class="comment-delete-btn"
+            type="button"
+            @click="deleteComment(item)"
+          >
             Delete this Comment?
           </button>
         </div>
@@ -87,8 +91,12 @@ export default {
     onSubmitComment() {
       this.isEditComment = false;
 
-      if (this.commentText === '') return;
-      if (this.commentText === this.item.comment) return;
+      if (this.commentText === '') {
+        return;
+      }
+      if (this.commentText === this.item.comment) {
+        return;
+      }
 
       const id = this.item.id;
       const userId = this.user.id;
@@ -99,7 +107,9 @@ export default {
     onSubmitNestedComment() {
       this.isEditNestedComment = false;
 
-      if (this.nestedComment === '') return;
+      if (this.nestedComment === '') {
+        return;
+      }
 
       const cardId = this.card.id;
       const userId = this.user.id;
