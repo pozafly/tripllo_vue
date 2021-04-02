@@ -35,19 +35,19 @@
     </div>
     <div slot="footer"></div>
     <div slot="side" class="side-slot">
-      <ControllWrapper />
+      <SubModalWrapper />
     </div>
   </CardModalBase>
 </template>
 
 <script>
 import CardModalBase from '@/components/card/cardModal/CardModalBase.vue';
-import ControllWrapper from '@/components/card/cardModal/controller/ControllWrapper.vue';
-import Labels from '@/components/card/cardModal/main/Labels.vue';
+import SubModalWrapper from '@/components/card/cardModal/subModal/SubModalWrapper.vue';
+import Labels from '@/components/card/cardModal/main/labels/Labels.vue';
 import ChecklistWrapper from '@/components/card/cardModal/main/checklists/ChecklistWrapper.vue';
-import DueDate from '@/components/card/cardModal/main/DueDate.vue';
+import DueDate from '@/components/card/cardModal/main/dueDate/DueDate.vue';
 import Location from '@/components/card/cardModal/main/location/Location.vue';
-import Description from '@/components/card/cardModal/main/Description.vue';
+import Description from '@/components/card/cardModal/main/description/Description.vue';
 import Comment from '@/components/card/cardModal/main/comment/Comment.vue';
 import Attachment from '@/components/card/cardModal/main/attachment/Attachment.vue';
 import { mapActions, mapMutations, mapState } from 'vuex';
@@ -55,7 +55,7 @@ import { mapActions, mapMutations, mapState } from 'vuex';
 export default {
   components: {
     CardModalBase,
-    ControllWrapper,
+    SubModalWrapper,
     Labels,
     ChecklistWrapper,
     DueDate,

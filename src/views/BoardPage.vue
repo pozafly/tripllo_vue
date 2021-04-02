@@ -106,7 +106,7 @@ import Header from '@/components/common/Header.vue';
 import ListItem from '@/components/list/ListItem.vue';
 import AddList from '@/components/list/AddList.vue';
 import BoardMenu from '@/components/board/boardMenu/BoardMenu.vue';
-import dragger from '@/utils/dragger/dragger';
+import dragger from '@/utils/dragger';
 import InviteModal from '@/components/board/invite/InviteModal.vue';
 import ProfileImage from '@/components/board/ProfileImage.vue';
 import HashtagModal from '@/components/board/HashtagModal.vue';

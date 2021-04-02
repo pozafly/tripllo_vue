@@ -50,10 +50,10 @@
 
 <script>
 import Header from '@/components/common/Header.vue';
-import AboutUser from '@/components/my/AboutUser.vue';
-import SignoutUser from '@/components/my/SignoutUser.vue';
-import TabItem from '@/components/my/TapItem.vue';
-import PasswordChange from '@/components/my/PasswordChange.vue';
+import AboutUser from '@/components/profile/AboutUser.vue';
+import SignoutUser from '@/components/profile/SignoutUser.vue';
+import TabItem from '@/components/profile/TapItem.vue';
+import PasswordChange from '@/components/profile/PasswordChange.vue';
 import { mapState } from 'vuex';
 
 export default {

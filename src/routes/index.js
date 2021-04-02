@@ -80,12 +80,12 @@ const router = new VueRouter({
       ],
     },
     {
-      path: '/my',
-      component: () => import('@/views/MyPage.vue'),
+      path: '/profile',
+      component: () => import('@/views/ProfilePage.vue'),
     },
     {
       path: '/user/:userId',
-      component: () => import('@/views/UserPage.vue'),
+      component: () => import('@/views/UserBoardPage.vue'),
     },
   ],
 });

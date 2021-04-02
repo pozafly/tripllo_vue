@@ -51,12 +51,12 @@
 </template>
 
 <script>
-import LabelsModal from '@/components/card/cardModal/controller/LabelsModal.vue';
-import ChecklistModal from '@/components/card/cardModal/controller/ChecklistModal.vue';
-import DueDateModal from '@/components/card/cardModal/controller/DueDateModal.vue';
-import AttachmentModal from '@/components/card/cardModal/controller/AttachmentModal.vue';
-import LocationModal from '@/components/card/cardModal/controller/LocationModal.vue';
-import DeleteCardModal from '@/components/card/cardModal/controller/DeleteCardModal.vue';
+import LabelsModal from '@/components/card/cardModal/subModal/LabelsModal.vue';
+import ChecklistModal from '@/components/card/cardModal/subModal/ChecklistModal.vue';
+import DueDateModal from '@/components/card/cardModal/subModal/DueDateModal.vue';
+import AttachmentModal from '@/components/card/cardModal/subModal/AttachmentModal.vue';
+import LocationModal from '@/components/card/cardModal/subModal/LocationModal.vue';
+import DeleteCardModal from '@/components/card/cardModal/subModal/DeleteCardModal.vue';
 import { mapState } from 'vuex';
 
 export default {
