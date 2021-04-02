@@ -9,7 +9,6 @@ import $_MiniModal from '@/components/common/MiniModal';
 import $_Notifications from 'vue-notification';
 import $_vClickOutside from 'v-click-outside';
 import $_InfiniteLoading from 'vue-infinite-loading';
-import { normalFormatDate, timeForToday } from '@/utils/dateFilter';
 import $_LoadScript from 'vue-plugin-load-script';
 
 const install = Vue => {
@@ -24,8 +23,6 @@ const install = Vue => {
   Vue.use($_Notifications);
   Vue.use($_vClickOutside);
   Vue.use($_InfiniteLoading);
-  Vue.filter('normalFormatDate', normalFormatDate);
-  Vue.filter('timeForToday', timeForToday);
 };
 
 export { install };
