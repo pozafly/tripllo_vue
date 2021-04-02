@@ -4,13 +4,13 @@
     <div slot="content">
       <div class="content-text">Title</div>
       <input
+        ref="inputTitle"
+        v-model="inputTitle"
         type="text"
         class="form-control checklist-title"
-        v-model="inputTitle"
-        ref="inputTitle"
         spellcheck="false"
-        @keypress.enter="addChecklist"
         maxlength="44"
+        @keypress.enter="addChecklist"
       />
       <button class="checklist-btn" @click="addChecklist">Add</button>
     </div>
@@ -26,12 +26,15 @@ export default {
       inputTitle: 'Checklist',
     };
   },
+
   computed: {
     ...mapState(['card']),
   },
+
   mounted() {
     this.$refs.inputTitle.focus();
   },
+
   methods: {
     ...mapActions(['CREATE_CHECKLIST']),
     addChecklist() {

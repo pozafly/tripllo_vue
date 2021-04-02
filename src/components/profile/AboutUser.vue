@@ -7,15 +7,15 @@
         <h3>Avatar</h3>
         <div class="avatar-wrap" @click="$refs.file.click()">
           <div
-            class="img"
             v-if="user.picture !== null && user.picture !== 'null'"
+            class="img"
             :style="{ backgroundImage: `url(${user.picture})` }"
           ></div>
-          <awesome icon="user" class="fas fa-user" v-else></awesome>
+          <awesome v-else icon="user" class="fas fa-user"></awesome>
           <span class="change">Change</span>
           <input
-            type="file"
             ref="file"
+            type="file"
             class="file"
             accept="image/*"
             @change="uploadFile"
@@ -26,27 +26,27 @@
         <div class="form-item">
           <span>Name</span>
           <input
+            v-model="userData.name"
             type="text"
             class="form-control input"
-            v-model="userData.name"
             maxlength="19"
           />
         </div>
         <div class="form-item">
           <span>Email</span>
           <input
+            v-model="userData.email"
             type="text"
             class="form-control input"
-            v-model="userData.email"
             maxlength="44"
           />
         </div>
         <div class="form-item">
           <span>Bio</span>
           <textarea
+            v-model="userData.bio"
             type="text"
             class="form-control textarea"
-            v-model="userData.bio"
             maxlength="199"
           />
         </div>
@@ -61,9 +61,6 @@ import bus from '@/utils/bus.js';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  computed: {
-    ...mapState(['user']),
-  },
   data() {
     return {
       userData: {
@@ -75,6 +72,11 @@ export default {
       },
     };
   },
+
+  computed: {
+    ...mapState(['user']),
+  },
+
   mounted() {
     this.userData.id = this.user.id !== 'null' ? this.user.id : '';
     this.userData.name = this.user.name !== 'null' ? this.user.name : '';
@@ -82,6 +84,7 @@ export default {
     this.userData.bio = this.user.bio !== 'null' ? this.user.bio : '';
     this.userData.picture = this.user.picture;
   },
+
   methods: {
     ...mapActions(['UPDATE_USER', 'UPLOAD_IMAGE']),
     updateUser() {

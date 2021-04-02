@@ -1,5 +1,5 @@
 <template>
-  <div class="card-about" ref="cardAbout">
+  <div ref="cardAbout" class="card-about">
     <div class="card-about-item">From Card</div>
     <div class="card-about-item">{{ cardInfo.title }}</div>
   </div>
@@ -8,23 +8,32 @@
 <script>
 import { mapState } from 'vuex';
 export default {
-  props: ['cardInfo'],
+  props: {
+    cardInfo: {
+      type: Object,
+      default: null,
+    },
+  },
+
+  computed: {
+    ...mapState(['card', 'board']),
+  },
+
   watch: {
     cardInfo() {
       this.onPosition();
     },
   },
-  computed: {
-    ...mapState(['card', 'board']),
+
+  mounted() {
+    this.onPosition();
   },
+
   methods: {
     onPosition() {
       this.$refs.cardAbout.style.left = `${this.cardInfo.x - 130}px`;
       this.$refs.cardAbout.style.top = `${this.cardInfo.y - 150}px`;
     },
-  },
-  mounted() {
-    this.onPosition();
   },
 };
 </script>

@@ -2,14 +2,14 @@
   <div class="add-list" @click.prevent="onAddList">
     <input
       v-if="isAddList"
+      ref="inputTitle"
+      v-model="inputTitle"
       type="text"
       class="form-control"
-      v-model="inputTitle"
-      ref="inputTitle"
       placeholder="Enter list title..."
+      maxlength="64"
       @blur="onSubmitTitle"
       @keypress.enter="onKeyupEnter"
-      maxlength="64"
     />
     <a v-else href="">&plus; Add another list</a>
   </div>

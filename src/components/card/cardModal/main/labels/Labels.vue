@@ -1,12 +1,12 @@
 <template>
-  <li class="body-item" v-if="card.labelColor">
+  <li v-if="card.labelColor" class="body-item">
     <span class="detail-title">LABELS</span>
     <div
-      class="detail-label-item"
       v-for="label in labelArray"
-      :key="label"
-      :data-value="label"
       v-show="labelArray.includes(label)"
+      :key="label"
+      class="detail-label-item"
+      :data-value="label"
       :style="{ backgroundColor: label }"
     ></div>
   </li>
@@ -22,6 +22,11 @@ export default {
       isLabelShow: false,
     };
   },
+
+  computed: {
+    ...mapState(['card']),
+  },
+
   watch: {
     card() {
       if (!this.card.labelColor) return;
@@ -29,10 +34,6 @@ export default {
       this.labelArray = array;
     },
   },
-  computed: {
-    ...mapState(['card']),
-  },
-  methods: {},
 };
 </script>
 

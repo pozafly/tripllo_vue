@@ -5,8 +5,8 @@
         <awesome icon="user-friends" class="icon"></awesome>
         <span class="title-text">Invited Boards</span>
       </div>
-      <div class="list-wrap" v-if="invitedBoard.length !== 0">
-        <div class="board-list" v-for="board in invitedBoard" :key="board.id">
+      <div v-if="invitedBoard.length !== 0" class="list-wrap">
+        <div v-for="board in invitedBoard" :key="board.id" class="board-list">
           <BoardItem :board="board" />
         </div>
       </div>
@@ -23,10 +23,20 @@ import BoardItem from '@/components/board/BoardItem.vue';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: { BoardItem },
+  components: {
+    BoardItem,
+  },
+
   computed: {
     ...mapState(['invitedBoard', 'user']),
   },
+
+  mounted() {
+    this.$nextTick(() => {
+      if (this.user.recentBoard) this.getInvitedBoard();
+    });
+  },
+
   methods: {
     ...mapActions(['READ_INVITED_BOARD']),
     getInvitedBoard() {
@@ -38,11 +48,6 @@ export default {
       }
       this.READ_INVITED_BOARD({ invitedLists });
     },
-  },
-  mounted() {
-    this.$nextTick(() => {
-      if (this.user.recentBoard) this.getInvitedBoard();
-    });
   },
 };
 </script>

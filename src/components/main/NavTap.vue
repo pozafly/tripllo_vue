@@ -32,10 +32,12 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex';
+
 export default {
   computed: {
     ...mapState(['mainTabId']),
   },
+
   methods: {
     ...mapMutations(['setMainTabId']),
     changeMainTap(value) {

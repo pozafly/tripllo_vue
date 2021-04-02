@@ -3,13 +3,13 @@
     <div class="list-header">
       <input
         v-if="isEditTitle"
-        type="text"
-        class="form-control input-title"
         ref="inputTitle"
         v-model="inputTitle"
+        type="text"
+        class="form-control input-title"
+        maxlength="19"
         @keypress.enter="onKeyupEnter"
         @blur="onSubmitTitle"
-        maxlength="19"
       />
       <div v-else class="list-header-title" @click.prevent="onClickTitle">
         {{ list.title }} <awesome icon="edit" class="fas fa-edit"></awesome>
@@ -25,7 +25,7 @@
 
     <div v-if="isAddCard">
       <AddCard
-        :listId="list.id"
+        :list-id="list.id"
         @close="isAddCard = false"
         @cardFocus="cardFocus"
       />
@@ -48,8 +48,14 @@ export default {
     AddCard,
     CardItem,
   },
-  props: ['list'],
-  computed: { ...mapState(['board']) },
+
+  props: {
+    list: {
+      type: Object,
+      default: null,
+    },
+  },
+
   data() {
     return {
       isAddCard: false,
@@ -57,9 +63,13 @@ export default {
       inputTitle: '',
     };
   },
+
+  computed: { ...mapState(['board']) },
+
   created() {
     this.inputTitle = this.list.title;
   },
+
   methods: {
     ...mapActions(['UPDATE_LIST', 'DELETE_LIST']),
     onClickTitle() {
@@ -69,7 +79,7 @@ export default {
         this.$refs.inputTitle.focus();
       });
     },
-    onKeyupEnter() {
+    onKeyupEnter(event) {
       event.target.blur();
     },
     onSubmitTitle() {

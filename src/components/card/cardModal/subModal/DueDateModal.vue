@@ -4,12 +4,12 @@
     <div slot="content">
       <div class="DatePicker">
         <DatePicker
-          mode="dateTime"
+          ref="datePicker"
           v-model="date"
+          mode="dateTime"
           color="blue"
           is-expanded
           :minute-increment="5"
-          ref="datePicker"
         />
       </div>
       <div>
@@ -31,9 +31,18 @@ export default {
       date,
     };
   },
+
   computed: {
     ...mapState(['card']),
   },
+
+  mounted() {
+    if (this.card.dueDate === null) return;
+    const dueDate = this.card.dueDate;
+    this.date = new Date(dueDate);
+    this.$refs.datePicker.move(dueDate);
+  },
+
   methods: {
     ...mapActions(['UPDATE_CARD']),
     onSave() {
@@ -55,12 +64,6 @@ export default {
       this.$emit('close');
       this.UPDATE_CARD({ id: this.card.id, dueDate: '' });
     },
-  },
-  mounted() {
-    if (this.card.dueDate === null) return;
-    const dueDate = this.card.dueDate;
-    this.date = new Date(dueDate);
-    this.$refs.datePicker.move(dueDate);
   },
 };
 </script>

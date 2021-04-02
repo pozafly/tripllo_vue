@@ -1,12 +1,12 @@
 <template>
   <section class="wrap">
-    <div class="boards" v-if="recentBoard">
+    <div v-if="recentBoard" class="boards">
       <div class="page-title">
         <awesome :icon="['far', 'clock']" class="icon"></awesome>
         <span class="title-text">Recently Viewed</span>
       </div>
       <div class="list-wrap">
-        <div class="board-list" v-for="recent in recentBoard" :key="recent.id">
+        <div v-for="recent in recentBoard" :key="recent.id" class="board-list">
           <BoardItem :board="recent" />
         </div>
       </div>
@@ -17,15 +17,15 @@
         <awesome icon="layer-group" class="icon"></awesome>
         <span class="title-text">My Boards</span>
       </div>
-      <div class="list-wrap" ref="boardItem">
+      <div ref="boardItem" class="list-wrap">
         <a class="add-board" href="" @click.prevent="showAddBoard">
           <span class="add-board-title">Create new board...</span>
         </a>
         <AddBoardModal v-if="isShowAddBoard" @close="showAddBoard" />
         <div
-          class="board-list"
           v-for="board in personalBoard"
           :key="board.id"
+          class="board-list"
           :data-last-created-at="board.createdAt"
         >
           <BoardItem :board="board" />
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="infinity">
-      <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
+      <infinite-loading spinner="waveDots" @infinite="infiniteHandler">
         <div
           slot="no-more"
           style="color: rgb(102, 102, 102); font-size: 14px; padding: 10px 0px;"
@@ -51,21 +51,38 @@ import AddBoardModal from '@/components/board/addBoard/AddBoardModal.vue';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
-  components: { BoardItem, AddBoardModal },
+  components: {
+    BoardItem,
+    AddBoardModal,
+  },
+
   data() {
     return {
       isShowAddBoard: false,
       lastCreatedAt: 'firstCall',
     };
   },
+
   computed: {
     ...mapState(['personalBoard', 'recentBoard', 'user', 'isInfinity']),
   },
+
   watch: {
     'user.recentBoard'() {
       if (this.user.recentBoard) this.getRecentBoard();
     },
   },
+
+  mounted() {
+    this.$nextTick(() => {
+      if (this.user.recentBoard) this.getRecentBoard();
+    });
+  },
+
+  beforeDestroy() {
+    this.resetPersonalBoard();
+  },
+
   methods: {
     ...mapActions(['READ_PERSONAL_BOARD', 'READ_RECENT_BOARD']),
     ...mapMutations(['resetPersonalBoard']),
@@ -97,14 +114,6 @@ export default {
         }
       }, 1200);
     },
-  },
-  mounted() {
-    this.$nextTick(() => {
-      if (this.user.recentBoard) this.getRecentBoard();
-    });
-  },
-  beforeDestroy() {
-    this.resetPersonalBoard();
   },
 };
 </script>

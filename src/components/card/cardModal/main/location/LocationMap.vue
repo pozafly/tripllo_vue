@@ -7,12 +7,12 @@
     </div>
     <div slot="body" class="google-map-wrap">
       <input
+        ref="searchMap"
         type="text"
         class="form-control map-inside-input"
         placeholder="카드 location 변경"
-        ref="searchMap"
       />
-      <LocationToCard v-if="isCardAbout" :cardInfo="cardInfo" />
+      <LocationToCard v-if="isCardAbout" :card-info="cardInfo" />
       <div class="google-map-display"></div>
     </div>
   </LocationMapBase>
@@ -30,6 +30,7 @@ export default {
     LocationMapBase,
     LocationToCard,
   },
+
   data() {
     return {
       map: '',
@@ -40,6 +41,11 @@ export default {
       cardInfo: {},
     };
   },
+
+  computed: {
+    ...mapState(['card', 'board']),
+  },
+
   watch: {
     async card() {
       // 카드가 리랜더링 되면, 카드의 location 문자열을 가지고 와서 파싱함.
@@ -48,9 +54,25 @@ export default {
       await this.mapDraw();
     },
   },
-  computed: {
-    ...mapState(['card', 'board']),
+
+  mounted() {
+    // 구글 API를 사용하기 위한 loader
+    const loader = new Loader({
+      apiKey: process.env.VUE_APP_GOOGLE_MAP_API_KEY,
+      version: 'weekly',
+      libraries: ['places'],
+    });
+    loader.load().then(() => {
+      this.mapDraw();
+      this.searchControl();
+    });
   },
+
+  async created() {
+    this.location = await JSON.parse(this.card.location);
+    this.makeLocationArray();
+  },
+
   methods: {
     ...mapActions(['UPDATE_CARD']),
     mapDraw() {
@@ -126,6 +148,7 @@ export default {
         this.$refs.searchMap.value = '';
       });
     },
+
     makeLocationArray() {
       this.locationArray = [];
       // 이 보드에 해당하는 모든 카드의 location을 배열화. 마커 클러스터를 만들기 위함.
@@ -140,22 +163,6 @@ export default {
         });
       });
     },
-  },
-  mounted() {
-    // 구글 API를 사용하기 위한 loader
-    const loader = new Loader({
-      apiKey: process.env.VUE_APP_GOOGLE_MAP_API_KEY,
-      version: 'weekly',
-      libraries: ['places'],
-    });
-    loader.load().then(() => {
-      this.mapDraw();
-      this.searchControl();
-    });
-  },
-  async created() {
-    this.location = await JSON.parse(this.card.location);
-    this.makeLocationArray();
   },
 };
 </script>

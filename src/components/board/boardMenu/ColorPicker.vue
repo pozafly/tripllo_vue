@@ -2,8 +2,8 @@
   <div class="chrome-wrap">
     <chrome-color-picker
       :value="'#FFFFFF'"
-      @input="updateValue"
       class="chrome-picker"
+      @input="updateValue"
     ></chrome-color-picker>
     <button class="btn chrome-choice" @click="onSelect">선택</button>
     <button class="btn chrome-cancel" @click="onCancel">취소</button>
@@ -15,17 +15,20 @@ import { Chrome } from 'vue-color';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
+  components: {
+    'chrome-color-picker': Chrome,
+  },
+
   data() {
     return {
       selectColor: '',
     };
   },
-  components: {
-    'chrome-color-picker': Chrome,
-  },
+
   computed: {
     ...mapState(['board']),
   },
+
   methods: {
     ...mapActions(['UPDATE_BOARD']),
     ...mapMutations(['setTheme']),

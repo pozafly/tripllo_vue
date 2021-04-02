@@ -18,10 +18,17 @@
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  props: ['item'],
+  props: {
+    item: {
+      type: Object,
+      default: null,
+    },
+  },
+
   computed: {
     ...mapState(['board', 'user']),
   },
+
   methods: {
     ...mapActions(['DELETE_FILE']),
     download(e) {

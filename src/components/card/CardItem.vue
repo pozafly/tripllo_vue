@@ -3,37 +3,37 @@
     <router-link :to="`/board/${board.id}/card/${card.id}`">
       <!-- 라벨링 -->
       <div
-        class="inside-card-label"
         v-for="label in labelArray"
-        :key="label"
-        :data-value="label"
         v-show="labelArray.includes(label)"
+        :key="label"
+        class="inside-card-label"
+        :data-value="label"
         :style="{ backgroundColor: label }"
       ></div>
       <div class="card-title">{{ card.title }}</div>
       <div class="board-inside-icons">
         <!-- 햄버거 -->
-        <div class="board-inside-icon" v-if="card.description">
+        <div v-if="card.description" class="board-inside-icon">
           <awesome icon="align-left" class="fas fa-layer-group icon-item" />
         </div>
         <!-- 체크리스트 -->
-        <div class="board-inside-icon" v-if="card.isChecklist === 'Y'">
+        <div v-if="card.isChecklist === 'Y'" class="board-inside-icon">
           <awesome icon="check-square" class="icon-item" />
         </div>
         <!-- 시간표시 -->
-        <div class="board-inside-icon" v-if="card.dueDate">
+        <div v-if="card.dueDate" class="board-inside-icon">
           <awesome :icon="['far', 'clock']" class="icon-item" />
         </div>
         <!-- 첨부파일 -->
-        <div class="board-inside-icon" v-if="card.isAttachment === 'Y'">
+        <div v-if="card.isAttachment === 'Y'" class="board-inside-icon">
           <awesome icon="paperclip" class="icon-item" />
         </div>
         <!-- 장소 -->
-        <div class="board-inside-icon" v-if="card.location">
+        <div v-if="card.location" class="board-inside-icon">
           <awesome icon="map-marker-alt" class="icon-item" />
         </div>
         <!-- 코멘트 -->
-        <div class="board-inside-icon" v-if="card.isComment === 1">
+        <div v-if="card.isComment === 1" class="board-inside-icon">
           <awesome icon="comment" class="icon-item" />
         </div>
       </div>
@@ -45,20 +45,33 @@
 import { mapState } from 'vuex';
 
 export default {
+  props: {
+    card: {
+      type: Object,
+      default: null,
+    },
+  },
+
   data() {
     return {
       labelArray: [],
     };
   },
-  props: ['card'],
+
   computed: {
     ...mapState(['board']),
   },
+
   watch: {
     'card.labelColor'() {
       this.labelSetting();
     },
   },
+
+  mounted() {
+    this.labelSetting();
+  },
+
   methods: {
     labelSetting() {
       if (!this.card.labelColor) {
@@ -68,9 +81,6 @@ export default {
       const array = this.card.labelColor.split(',');
       this.labelArray = array;
     },
-  },
-  mounted() {
-    this.labelSetting();
   },
 };
 </script>

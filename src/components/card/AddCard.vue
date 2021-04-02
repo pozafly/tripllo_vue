@@ -3,14 +3,14 @@
     <div>
       <div class="textarea-wrap">
         <textarea
-          type="text"
-          class="form-control card-input"
           ref="inputTitle"
           v-model="inputTitle"
+          type="text"
+          class="form-control card-input"
           placeholder="Enter a title for this card..."
+          maxlength="44"
           @keypress.enter="onKeyupEnter"
           @blur="onSubmit"
-          maxlength="44"
         />
       </div>
       <button class="btn btn-success" type="submit" :disabled="invalidInput">
@@ -25,21 +25,30 @@
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  props: ['listId'],
+  props: {
+    listId: {
+      type: Object,
+      default: null,
+    },
+  },
+
   data() {
     return {
       inputTitle: '',
     };
   },
+
   computed: {
     invalidInput() {
       return !this.inputTitle.trim();
     },
     ...mapState(['board']),
   },
+
   mounted() {
     this.$refs.inputTitle.focus();
   },
+
   methods: {
     ...mapActions(['CREATE_CARD']),
     onSubmit() {
@@ -70,7 +79,7 @@ export default {
       // 맨 마지막에 있는 카드의 pos의 정보를 가져와서 * 2
       return cards[cards.length - 1].pos * 2;
     },
-    onKeyupEnter() {
+    onKeyupEnter(event) {
       // 이벤트 트리거. onSubmitTitle이 두번 실행되는 것을 방지. https://velog.io/@kyh196201/1025
       event.target.blur();
     },

@@ -16,6 +16,7 @@ export default {
   computed: {
     ...mapState(['card', 'board']),
   },
+
   methods: {
     ...mapActions(['DELETE_CARD']),
     onDelete() {

@@ -5,46 +5,46 @@
       <form @submit.prevent="submitForm">
         <div class="submit-items">
           <input
+            ref="id"
+            v-model="userData.id"
             class="submit-item"
             type="text"
             placeholder="Enter id"
-            v-model="userData.id"
-            ref="id"
           />
           <input
+            ref="password"
+            v-model="userData.password"
             class="submit-item"
             type="password"
             placeholder="Enter password"
-            v-model="userData.password"
-            ref="password"
           />
           <input
+            ref="againPassword"
+            v-model="againPassword"
             class="submit-item"
             type="password"
             placeholder="Enter password again"
-            v-model="againPassword"
-            ref="againPassword"
           />
           <input
+            ref="email"
+            v-model="userData.email"
             class="submit-item"
             type="text"
             placeholder="Enter email"
-            v-model="userData.email"
-            ref="email"
           />
           <input
+            ref="name"
+            v-model="userData.name"
             class="submit-item"
             type="text"
             placeholder="Enter name"
-            v-model="userData.name"
-            ref="name"
           />
           <button class="submit-item btn" type="submit" :disabled="btnDisabled">
             <b>Sign Up</b>
           </button>
         </div>
       </form>
-      <div class="push-conatiner" v-if="push.pushYn">
+      <div v-if="push.pushYn" class="push-conatiner">
         <div class="push-box">
           <span>{{ push.message }}</span>
         </div>
@@ -107,6 +107,7 @@ export default {
       googleParams: { client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID },
     };
   },
+
   watch: {
     userData: {
       handler(e) {
@@ -133,6 +134,13 @@ export default {
       this.validateEmail(e);
     }, 750),
   },
+
+  created() {
+    this.$loadScript(`https://apis.google.com/js/api:client.js`).then(() => {
+      this.$_Google.init();
+    });
+  },
+
   methods: {
     ...mapActions(['SIGNUP', 'LOGIN', 'VALID_ID']),
     async submitForm() {
@@ -229,11 +237,6 @@ export default {
         this.$_Kakao.signup();
       }
     },
-  },
-  created() {
-    this.$loadScript(`https://apis.google.com/js/api:client.js`).then(() => {
-      this.$_Google.init();
-    });
   },
 };
 </script>

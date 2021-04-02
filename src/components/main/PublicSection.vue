@@ -7,14 +7,14 @@
           <span class="title-text">Search</span>
           <span class="side-text search-side"> - Search you want..</span>
           <input
+            ref="input"
+            v-model="searchHashValue"
             type="text"
             class="form-control"
-            ref="input"
             spellcheck="false"
             placeholder="Write you want Searching Hashtag"
-            v-model="searchHashValue"
-            @keydown="reset"
             maxlength="14"
+            @keydown="reset"
           />
         </div>
       </div>
@@ -44,11 +44,11 @@
           <span class="title-text">Public Boards</span>
           <span class="side-text"> - order by like</span>
         </div>
-        <div class="list-wrap" ref="boardItem">
+        <div ref="boardItem" class="list-wrap">
           <div
-            class="board-list"
             v-for="board in hashtagBoards"
             :key="board.id"
+            class="board-list"
             :data-last-created-at="board.createdAt"
             :data-last-like-count="board.likeCount"
           >
@@ -59,18 +59,18 @@
             >
               <span>
                 <a
-                  href=""
-                  class="created-img"
-                  @click.prevent="menuShow"
                   v-if="
                     board.createdUserPicture !== null &&
                       board.createdUserPicture !== 'null'
                   "
+                  href=""
+                  class="created-img"
                   :style="{
                     backgroundImage: `url(${board.createdUserPicture})`,
                   }"
+                  @click.prevent="menuShow"
                 ></a>
-                <awesome icon="user" class="created-icon" v-else></awesome>
+                <awesome v-else icon="user" class="created-icon"></awesome>
               </span>
               <span class="created-by">@{{ board.createdBy }}</span>
             </div>
@@ -79,9 +79,9 @@
       </div>
       <div class="infinity">
         <infinite-loading
-          @infinite="infiniteHandler"
           spinner="waveDots"
           :identifier="infiniteId"
+          @infinite="infiniteHandler"
         >
           <div
             slot="no-more"
@@ -101,12 +101,10 @@ import _ from 'lodash';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
-  components: { BoardItem },
-  watch: {
-    searchHashValue() {
-      this.searchHash({ target: { value: this.searchHashValue } });
-    },
+  components: {
+    BoardItem,
   },
+
   data() {
     return {
       searchHashValue: '',
@@ -116,9 +114,32 @@ export default {
       infiniteId: +new Date(),
     };
   },
+
   computed: {
     ...mapState(['hashtagBoards', 'isInfinity', 'hashtags']),
   },
+
+  watch: {
+    searchHashValue() {
+      this.searchHash({ target: { value: this.searchHashValue } });
+    },
+  },
+
+  created() {
+    this.READ_HASH_ORDER_BY_COUNT();
+  },
+
+  mounted() {
+    this.$nextTick(() => {
+      this.$refs.input.focus();
+    });
+  },
+
+  beforeDestroy() {
+    this.searchHashValue = '';
+    this.reset();
+  },
+
   methods: {
     ...mapActions(['READ_BOARD_BY_HASHTAG', 'READ_HASH_ORDER_BY_COUNT']),
     ...mapMutations(['resetHashtagBoards', 'setIsInfinity']),
@@ -159,18 +180,6 @@ export default {
       this.searchHashValue = value;
       this.reset();
     },
-  },
-  beforeDestroy() {
-    this.searchHashValue = '';
-    this.reset();
-  },
-  mounted() {
-    this.$nextTick(() => {
-      this.$refs.input.focus();
-    });
-  },
-  created() {
-    this.READ_HASH_ORDER_BY_COUNT();
   },
 };
 </script>

@@ -15,13 +15,13 @@
     </span>
     <span v-else>
       <input
-        type="text"
-        class="form-control checkbox-input-title"
         ref="inputTitle"
         v-model="inputTitle"
+        type="text"
+        class="form-control checkbox-input-title"
+        maxlength="44"
         @blur="onSubmitTitle"
         @keypress.enter="onKeyupEnter"
-        maxlength="44"
       />
       <button class="checkbox-input-btn" @click="onSubmitTitle">
         Save
@@ -43,18 +43,18 @@
       :items="items"
     />
 
-    <button class="checkbox-add-btn" @click="isAddItem" v-if="!isItem">
+    <button v-if="!isItem" class="checkbox-add-btn" @click="isAddItem">
       Add an item
     </button>
     <span v-else>
       <input
+        v-model="inputItem"
         type="text"
         :class="`form-control checkbox-input-title checkbox-item-input`"
-        v-model="inputItem"
         placeholder="Add an Item"
+        maxlength="399"
         @blur="onSubmitItem"
         @keypress.enter="onKeyupEnter"
-        maxlength="399"
       />
       <button
         class="checkbox-input-btn checkbox-item-save"
@@ -77,6 +77,14 @@ export default {
   components: {
     ChecklistItem,
   },
+
+  props: {
+    checklist: {
+      type: Object,
+      default: null,
+    },
+  },
+
   data() {
     return {
       isTitle: false,
@@ -87,7 +95,7 @@ export default {
       status: 'error',
     };
   },
-  props: ['checklist'],
+
   watch: {
     checklist: {
       immediate: true,
@@ -96,6 +104,7 @@ export default {
       },
     },
   },
+
   methods: {
     ...mapActions([
       'DELETE_CHECKLIST',
@@ -167,7 +176,7 @@ export default {
         ? (this.status = 'success')
         : (this.status = 'error');
     },
-    onKeyupEnter() {
+    onKeyupEnter(event) {
       event.target.blur();
     },
   },

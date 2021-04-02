@@ -18,10 +18,23 @@
 import { mapState } from 'vuex';
 
 export default {
-  props: ['member'],
+  props: {
+    member: {
+      type: Object,
+      default: null,
+    },
+  },
+
   computed: {
     ...mapState(['socket', 'board', 'user']),
   },
+
+  mounted() {
+    this.$nextTick(() => {
+      if (this.$refs.img) this.$refs.img.src = this.member.picture;
+    });
+  },
+
   methods: {
     inviteMember() {
       let push = confirm(
@@ -44,11 +57,6 @@ export default {
         });
       }
     },
-  },
-  mounted() {
-    this.$nextTick(() => {
-      if (this.$refs.img) this.$refs.img.src = this.member.picture;
-    });
   },
 };
 </script>

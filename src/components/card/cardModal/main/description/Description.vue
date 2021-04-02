@@ -3,22 +3,22 @@
     <awesome icon="align-left" class="fas fa-layer-group"></awesome>
     <span class="body-card-text">Description</span>
     <textarea
-      class="form-control card-desc textarea"
+      v-if="isEditDesc"
       ref="inputDesc"
       v-model="description"
-      v-if="isEditDesc"
+      class="form-control card-desc textarea"
       :readonly="!isEditDesc"
       spellcheck="false"
       @blur="onSubmitDesc"
     />
     <textarea
       v-else
-      class="form-control card-desc"
-      @click="onEditDesc"
-      :value="card.description"
       ref="firstDesc"
+      class="form-control card-desc"
+      :value="card.description"
       spellcheck="false"
       placeholder="Add a more detailed description..."
+      @click="onEditDesc"
     >
     </textarea>
     <template v-if="isEditDesc">
@@ -33,13 +33,20 @@
 <script>
 import { mapActions } from 'vuex';
 export default {
+  props: {
+    card: {
+      type: Object,
+      default: null,
+    },
+  },
+
   data() {
     return {
       isEditDesc: false,
       description: '',
     };
   },
-  props: ['card'],
+
   methods: {
     ...mapActions(['UPDATE_CARD']),
     onEditDesc() {

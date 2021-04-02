@@ -1,5 +1,5 @@
 <template>
-  <li class="body-item" v-if="card.location">
+  <li v-if="card.location" class="body-item">
     <div>
       <awesome icon="map-marker-alt" class="fas fa-map-marker-alt"></awesome>
       <span class="body-card-text">Loction</span>
@@ -20,7 +20,7 @@
           </div>
         </div>
       </div>
-      <div class="location-delete" v-if="isDelete">
+      <div v-if="isDelete" class="location-delete">
         <MiniModal @close="isDelete = false">
           <div slot="header" class="header-text">Delete Location</div>
           <div slot="content">
@@ -40,7 +40,10 @@ import LocationMap from '@/components/card/cardModal/main/location/LocationMap';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: { LocationMap },
+  components: {
+    LocationMap,
+  },
+
   data() {
     return {
       isDelete: false,
@@ -49,9 +52,11 @@ export default {
       location: {},
     };
   },
+
   computed: {
     ...mapState(['card']),
   },
+
   watch: {
     card() {
       if (!this.card.location) return;
@@ -59,11 +64,13 @@ export default {
       this.setImg();
     },
   },
+
   mounted() {
     if (!this.card.location) return;
     this.location = JSON.parse(this.card.location);
     this.setImg();
   },
+
   methods: {
     ...mapActions(['UPDATE_CARD']),
     setImg() {

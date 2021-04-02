@@ -7,14 +7,14 @@
           class="far fa-clipboard"
         ></awesome>
         <input
+          v-if="isEditTitle"
+          ref="inputTitle"
           class="form-control card-title-input"
           type="text"
-          ref="inputTitle"
-          v-if="isEditTitle"
           :value="card.title"
+          maxlength="44"
           @blur="onSubmitTitle"
           @keypress.enter="onKeyupEnter"
-          maxlength="44"
         />
         <a v-else href="" @click.prevent="onEditTitle">
           {{ card.title }} <awesome icon="edit" class="fas fa-edit"></awesome>
@@ -64,15 +64,18 @@ export default {
     Comment,
     Attachment,
   },
+
   data() {
     return {
       isEditTitle: false,
       listTitle: '',
     };
   },
+
   computed: {
     ...mapState(['board', 'card', 'checklists']),
   },
+
   watch: {
     // UPDATE_CARD 후 card가 들어오면 실행되도록.
     card() {
@@ -82,6 +85,14 @@ export default {
       this.listTitle = title;
     },
   },
+
+  async created() {
+    await this.READ_CARD({ id: this.$route.params.cardId });
+    await this.READ_CHECKLIST({ id: this.card.id });
+    await this.READ_COMMENT(this.card.id);
+    await this.READ_FILE(this.card.id);
+  },
+
   methods: {
     ...mapActions([
       'READ_CARD',
@@ -105,12 +116,6 @@ export default {
     onKeyupEnter(event) {
       event.target.blur();
     },
-  },
-  async created() {
-    await this.READ_CARD({ id: this.$route.params.cardId });
-    await this.READ_CHECKLIST({ id: this.card.id });
-    await this.READ_COMMENT(this.card.id);
-    await this.READ_FILE(this.card.id);
   },
 };
 </script>

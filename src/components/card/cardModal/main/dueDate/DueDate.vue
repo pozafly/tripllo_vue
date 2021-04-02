@@ -1,12 +1,12 @@
 <template>
-  <li class="body-item" v-if="card.dueDate">
+  <li v-if="card.dueDate" class="body-item">
     <div>
       <span class="detail-title">DUE DATE</span>
       <div class="detail-duedate-item">
         {{ card.dueDate | normalFormatDate }}
       </div>
       <button class="duedate-cancel" @click="isDelete = true">···</button>
-      <div class="duedate-delete" v-if="isDelete">
+      <div v-if="isDelete" class="duedate-delete">
         <MiniModal @close="isDelete = false">
           <div slot="header" class="header-text">Delete DueDate</div>
           <div slot="content">
@@ -29,9 +29,11 @@ export default {
       isDelete: false,
     };
   },
+
   computed: {
     ...mapState(['card']),
   },
+
   methods: {
     ...mapActions(['UPDATE_CARD']),
     deleteDueDate() {

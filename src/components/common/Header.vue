@@ -21,9 +21,9 @@
       <ul class="auth-wrap">
         <li class="auth-items">
           <a
+            v-if="noReadCount !== 0"
             href=""
             class="auth-item red"
-            v-if="noReadCount !== 0"
             @click.prevent="isMessageModal = true"
           >
             <awesome icon="bell"></awesome>
@@ -32,18 +32,18 @@
             </div>
           </a>
           <a
+            v-else
             href=""
             class="auth-item"
-            v-else
             @click.prevent="isMessageModal = true"
           >
             <awesome icon="bell"></awesome>
           </a>
           <MessageModal
-            class="message-modal"
             v-if="isMessageModal"
-            @close="isMessageModal = false"
             v-click-outside="closeMessageModal"
+            class="message-modal"
+            @close="isMessageModal = false"
           />
         </li>
         <li class="auth-items">
@@ -53,29 +53,29 @@
         </li>
         <li class="auth-items">
           <a
+            v-if="user.picture !== null && user.picture !== 'null'"
             href=""
             class="auth-item img"
-            @click.prevent="menuShow"
-            v-if="this.user.picture !== null && this.user.picture !== 'null'"
             :style="{ backgroundImage: `url(${user.picture})` }"
+            @click.prevent="menuShow"
           ></a>
           <awesome
+            v-else
             icon="user"
             class="fas fa-user auth-item"
             @click.prevent="menuShow"
-            v-else
           ></awesome>
         </li>
       </ul>
     </div>
 
-    <div class="menu" v-if="isMenuShow" v-click-outside="closeProfileModal">
+    <div v-if="isMenuShow" v-click-outside="closeProfileModal" class="menu">
       <div
+        v-if="user.picture !== null && user.picture !== 'null'"
         class="menu-item img"
-        v-if="this.user.picture !== null && this.user.picture !== 'null'"
         :style="{ backgroundImage: `url(${user.picture})` }"
       ></div>
-      <awesome icon="user" class="fas fa-user menu-item icon" v-else></awesome>
+      <awesome v-else icon="user" class="fas fa-user menu-item icon"></awesome>
       <div class="menu-profile">
         <div class="profile-item name">{{ user.name }}</div>
         <div class="profile-item id">@{{ user.id }}</div>
@@ -85,11 +85,11 @@
         <awesome icon="user-edit" class="fas fa-user-edit"></awesome>
         <span>Edit profile</span>
       </a>
-      <a class="menu-item" href="" v-if="isAuth" @click.prevent="logoutUser">
+      <a v-if="isAuth" class="menu-item" href="" @click.prevent="logoutUser">
         <awesome icon="running" class="fas fa-running"></awesome>
         <span>Logout</span>
       </a>
-      <router-link class="menu-item" v-else to="/auth/login">
+      <router-link v-else class="menu-item" to="/auth/login">
         <span>Login</span>
       </router-link>
     </div>
@@ -103,7 +103,10 @@ import MessageModal from '@/components/message/MessageModal.vue';
 import { mapActions, mapGetters, mapState } from 'vuex';
 
 export default {
-  components: { MessageModal },
+  components: {
+    MessageModal,
+  },
+
   data() {
     return {
       isMenuShow: false,
@@ -111,10 +114,12 @@ export default {
       isMessageModal: false,
     };
   },
+
   computed: {
     ...mapGetters(['isAuth']),
     ...mapState(['user', 'bgColor', 'pushMessage', 'socket']),
   },
+
   watch: {
     bgColor() {
       this.updateTheme();
@@ -132,6 +137,26 @@ export default {
       });
     },
   },
+
+  created() {
+    if (this.socket === null) {
+      socketConnect();
+    }
+    bus.$on('receive-message', data => {
+      this.receive(data);
+    });
+
+    this.READ_PUSH_MESSAGE(this.user.id);
+  },
+
+  mounted() {
+    this.updateTheme();
+  },
+
+  beforeDestroy() {
+    bus.$off('receive-message');
+  },
+
   methods: {
     ...mapActions(['LOGOUT', 'READ_PUSH_MESSAGE']),
     logoutUser() {
@@ -175,22 +200,6 @@ export default {
     closeProfileModal() {
       this.isMenuShow = false;
     },
-  },
-  mounted() {
-    this.updateTheme();
-  },
-  created() {
-    if (this.socket === null) {
-      socketConnect();
-    }
-    bus.$on('receive-message', data => {
-      this.receive(data);
-    });
-
-    this.READ_PUSH_MESSAGE(this.user.id);
-  },
-  beforeDestroy() {
-    bus.$off('receive-message');
   },
 };
 </script>

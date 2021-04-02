@@ -11,16 +11,16 @@
     <form @submit.prevent="submitForm">
       <div class="submit-items">
         <input
+          v-model="userData.id"
           class="submit-item"
           type="text"
           placeholder="등록 되어있는 ID를 입력해주세요"
-          v-model="userData.id"
         />
         <input
+          v-model="userData.email"
           class="submit-item"
           type="text"
           placeholder="등록 되어있는 Email을 입력해주세요"
-          v-model="userData.email"
         />
         <button class="submit-item btn" type="submit" :disabled="btnDisabled">
           <b>임시 비밀번호 이메일 보내기</b>
@@ -28,9 +28,7 @@
       </div>
     </form>
     <div class="sign_up">
-      <router-link to="/auth/login">
-        Back to Log In?
-      </router-link>
+      <router-link to="/auth/login"> Back to Log In? </router-link>
       <span class="middle-text"> | </span>
       <router-link to="/auth/signup" class="go_to_signup">
         Do you want to Sign up?
@@ -53,6 +51,7 @@ export default {
       btnDisabled: true,
     };
   },
+
   watch: {
     userData: {
       handler(e) {
@@ -63,6 +62,7 @@ export default {
       deep: true,
     },
   },
+
   methods: {
     ...mapActions(['SEND_EMAIL']),
     async submitForm() {

@@ -11,11 +11,11 @@
         <li class="menu-item">
           <div><awesome icon="user" class="fas fa-user"></awesome>Made by</div>
           <div
-            class="img"
             v-if="
               board.createdByPicture !== null &&
                 board.createdByPicture !== 'null'
             "
+            class="img"
           ></div>
           <div v-else class="icon">
             <awesome icon="user" class="fas fa-user svg"></awesome>
@@ -35,11 +35,11 @@
         </li>
         <div class="color-picker">
           <a
+            v-for="color in colors"
+            :key="color"
             class="color"
             :data-value="color"
             @click.prevent="onChangeTheme"
-            v-for="color in colors"
-            :key="color"
           ></a>
           <a class="new-pick" @click="isPicker = true">
             <div class="color new-pick-text">
@@ -67,6 +67,7 @@ export default {
   components: {
     ColorPicker,
   },
+
   data() {
     return {
       colors: {
@@ -82,9 +83,11 @@ export default {
       isPicker: false,
     };
   },
+
   computed: {
     ...mapState(['board', 'user']),
   },
+
   async mounted() {
     // 색상 선택기에 데이터 넣기
     Array.from(this.$el.querySelectorAll('.color-picker a')).forEach(el => {
@@ -93,6 +96,7 @@ export default {
 
     await this.insertStyle();
   },
+
   methods: {
     ...mapMutations(['setTheme']),
     ...mapActions(['DELETE_BOARD', 'UPDATE_BOARD']),

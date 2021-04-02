@@ -1,8 +1,8 @@
 <template>
-  <div class="base-wrap" v-click-outside="close">
+  <div v-click-outside="close" class="base-wrap">
     <div class="header">
       <slot name="header" class="header-text">header</slot>
-      <a href="" @click.prevent="close" class="header-cancel">&times;</a>
+      <a href="" class="header-cancel" @click.prevent="close">&times;</a>
     </div>
     <div class="content">
       <slot name="content">content</slot>

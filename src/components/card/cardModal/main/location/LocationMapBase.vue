@@ -20,10 +20,6 @@
   </transition>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style>
 .location-modal-mask {
   position: fixed;

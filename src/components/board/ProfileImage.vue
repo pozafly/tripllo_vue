@@ -2,24 +2,24 @@
   <span>
     <span v-if="board" class="profile-wrap">
       <span
-        href=""
-        class="invited-picture img"
         v-if="
           board.createdByPicture !== null && board.createdByPicture !== 'null'
         "
+        href=""
+        class="invited-picture img"
         :style="{ backgroundImage: `url(${board.createdByPicture})` }"
       ></span>
-      <awesome icon="user" class="invited-picture fas fa-user" v-else></awesome>
+      <awesome v-else icon="user" class="invited-picture fas fa-user"></awesome>
       <span class="user-id">@{{ board.createdBy }}</span>
     </span>
     <span v-else class="profile-wrap">
       <span
+        v-if="item.picture !== null && item.picture !== 'null'"
         href=""
         class="invited-picture img"
-        v-if="item.picture !== null && item.picture !== 'null'"
         :style="{ backgroundImage: `url(${item.picture})` }"
       ></span>
-      <awesome icon="user" class="invited-picture fas fa-user" v-else></awesome>
+      <awesome v-else icon="user" class="invited-picture fas fa-user"></awesome>
       <span class="user-id">@{{ item.id }}</span>
     </span>
   </span>
@@ -27,7 +27,16 @@
 
 <script>
 export default {
-  props: ['item', 'board'],
+  props: {
+    item: {
+      type: Object,
+      default: null,
+    },
+    board: {
+      type: Object,
+      default: null,
+    },
+  },
 };
 </script>
 

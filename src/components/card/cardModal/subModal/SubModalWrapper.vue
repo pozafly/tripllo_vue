@@ -17,34 +17,34 @@
         </li>
       </ul>
       <LabelsModal
-        @close="onClose"
         v-if="toggle === 'isLabels'"
         class="side-item-label"
+        @close="onClose"
       />
       <ChecklistModal
-        @close="onClose"
         v-if="toggle === 'isChecklist'"
         class="side-item-checklist"
+        @close="onClose"
       />
       <DueDateModal
-        @close="onClose"
         v-if="toggle === 'isDueDate'"
         class="side-item-duedate"
+        @close="onClose"
       />
       <AttachmentModal
-        @close="onClose"
         v-if="toggle === 'isAttachment'"
         class="side-item-attachment"
+        @close="onClose"
       />
       <LocationModal
-        @close="onClose"
         v-if="toggle === 'isLocation'"
         class="side-item-location"
+        @close="onClose"
       />
       <DeleteCardModal
-        @close="onClose"
         v-if="toggle === 'isDelete'"
         class="side-item-delete"
+        @close="onClose"
       />
     </div>
   </div>
@@ -68,6 +68,7 @@ export default {
     LocationModal,
     DeleteCardModal,
   },
+
   data() {
     return {
       toggle: '',
@@ -81,9 +82,11 @@ export default {
       ],
     };
   },
+
   computed: {
     ...mapState(['board']),
   },
+
   methods: {
     onCheckPosition(e) {
       // toggle에 name을 넣어서 보일지 말지 판단함.

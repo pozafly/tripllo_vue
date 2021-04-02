@@ -18,10 +18,10 @@
               <span class="require">*</span>
             </div>
             <input
+              ref="title"
+              v-model="title"
               class="form-control"
               type="text"
-              v-model="title"
-              ref="title"
               placeholder="보드 제목을 입력해주세요"
               maxlength="44"
             />
@@ -37,15 +37,15 @@
               </div>
             </div>
             <form class="radio-wrap">
-              <input type="radio" id="public" value="Y" v-model="publicYn" />
+              <input id="public" v-model="publicYn" type="radio" value="Y" />
               <label for="public" class="radio-label">Public</label>
-              <input type="radio" id="private" value="N" v-model="publicYn" />
+              <input id="private" v-model="publicYn" type="radio" value="N" />
               <label for="private" class="radio-label">Private</label>
             </form>
           </div>
         </div>
 
-        <div class="title-wrap" v-if="isHashtag">
+        <div v-if="isHashtag" class="title-wrap">
           <awesome icon="hashtag" class="icon" />
           <span>Hash Tag</span>
           <div class="subtext">
@@ -53,17 +53,17 @@
             - 15자 이내, 3개 까지 입력가능.
           </div>
         </div>
-        <div class="hash-wrap" v-if="isHashtag">
+        <div v-if="isHashtag" class="hash-wrap">
           <input
+            v-model="hashItem"
             class="form-control hash-form"
             type="text"
-            v-model="hashItem"
             placeholder="예시) 국내여행, 고양이 ... 등"
-            @keypress.enter="pushHash"
             maxlength="14"
+            @keypress.enter="pushHash"
           />
           <div class="hash-item">
-            <span class="hashtag" v-for="hash in hashList" :key="hash">
+            <span v-for="hash in hashList" :key="hash" class="hashtag">
               # {{ hash }}
               <span class="hashtag-delete" @click="deleteHash(hash)"
                 >&times;</span
@@ -81,15 +81,15 @@
           </div>
           <div class="color-picker">
             <a
+              v-for="color in colors"
+              :key="color"
               class="color"
               :data-value="color"
               @click.prevent="clickColor(color)"
-              v-for="color in colors"
-              :key="color"
             >
               <awesome
-                class="check-icon"
                 v-if="selectColor === color"
+                class="check-icon"
                 :icon="['far', 'check-circle']"
               ></awesome>
             </a>
@@ -117,7 +117,10 @@ import AddBoardModalBase from '@/components/board/addBoard/AddBoardModalBase.vue
 import { mapActions } from 'vuex';
 
 export default {
-  components: { AddBoardModalBase },
+  components: {
+    AddBoardModalBase,
+  },
+
   data() {
     return {
       title: '',
@@ -139,6 +142,7 @@ export default {
       selectColor: '#339af0',
     };
   },
+
   watch: {
     title(value) {
       this.valid = value.trim().length > 0;
@@ -154,6 +158,7 @@ export default {
       else this.isHashtag = true;
     },
   },
+
   mounted() {
     this.$refs.title.focus();
     // 색상 선택기에 데이터 넣기
@@ -161,6 +166,7 @@ export default {
       el.style.backgroundColor = el.dataset.value;
     });
   },
+
   methods: {
     ...mapActions(['CREATE_BOARD']),
     async addBoard() {

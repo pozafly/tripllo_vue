@@ -17,7 +17,9 @@ import AttachmentList from '@/components/card/cardModal/main/attachment/Attachme
 import { mapState } from 'vuex';
 
 export default {
-  components: { AttachmentList },
+  components: {
+    AttachmentList,
+  },
   computed: {
     ...mapState(['file']),
   },

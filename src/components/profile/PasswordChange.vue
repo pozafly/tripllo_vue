@@ -7,18 +7,18 @@
         <div class="form-item">
           <span>현재 비밀번호</span>
           <input
+            v-model="currentPw"
             type="password"
             class="form-control input"
-            v-model="currentPw"
           />
         </div>
         <div class="form-item">
           <span>새로운 비밀번호</span>
-          <input type="password" class="form-control input" v-model="newPw" />
+          <input v-model="newPw" type="password" class="form-control input" />
         </div>
         <div class="form-item">
           <span>비밀번호 재입력</span>
-          <input type="password" class="form-control input" v-model="againPw" />
+          <input v-model="againPw" type="password" class="form-control input" />
         </div>
         <button class="form-save" @click.prevent="change">
           비밀번호 변경하기
@@ -41,9 +41,11 @@ export default {
       againPw: '',
     };
   },
+
   computed: {
     ...mapState(['user']),
   },
+
   methods: {
     ...mapActions(['CHANGE_PASSWORD']),
     change() {

@@ -3,10 +3,10 @@
     <div slot="header" class="header-text">Location</div>
     <div slot="content">
       <input
+        ref="searchMap"
         type="text"
         class="form-control"
         placeholder="Search Google Maps"
-        ref="searchMap"
       />
     </div>
   </MiniModal>
@@ -21,9 +21,11 @@ export default {
       autocomplete: '',
     };
   },
+
   computed: {
     ...mapState(['card']),
   },
+
   mounted() {
     this.$nextTick(() => {
       this.$refs.searchMap.focus();
@@ -43,6 +45,7 @@ export default {
       this.autocomplete.addListener('place_changed', this.fillInAddress);
     });
   },
+
   methods: {
     ...mapActions(['UPDATE_CARD']),
     fillInAddress() {

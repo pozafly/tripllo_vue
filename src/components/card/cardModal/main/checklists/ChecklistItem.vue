@@ -4,14 +4,14 @@
       type="checkbox"
       class="checkbox-input"
       :checked="isChecked"
-      @click="isCheckChange"
       maxlength="399"
+      @click="isCheckChange"
     />
     <template v-if="!isItem">
-      <span class="checkbox-item-text" v-if="!isChecked">
+      <span v-if="!isChecked" class="checkbox-item-text">
         {{ items.item }}
       </span>
-      <span class="checkbox-item-text line-through" v-else>
+      <span v-else class="checkbox-item-text line-through">
         {{ items.item }}
       </span>
       <awesome icon="edit" class="fas fa-edit" @click="onEditItem"></awesome>
@@ -19,14 +19,14 @@
     </template>
     <template v-else>
       <input
-        type="text"
-        class="form-control checkbox-input-title checkboxitem-input-item"
         ref="inputItem"
         v-model="inputItem"
-        @blur="onSubmitItem"
-        @keypress.enter="onKeyupEnter"
+        type="text"
+        class="form-control checkbox-input-title checkboxitem-input-item"
         placeholder="Edit Item and press Enter"
         maxlength="399"
+        @blur="onSubmitItem"
+        @keypress.enter="onKeyupEnter"
       />
     </template>
   </div>
@@ -36,19 +36,27 @@
 import { mapActions } from 'vuex';
 
 export default {
+  props: {
+    items: {
+      type: Object,
+      default: null,
+    },
+  },
+
   data() {
     return {
       isItem: false,
       inputItem: '',
     };
   },
-  props: ['items'],
+
   computed: {
     isChecked() {
       const isChecked = this.items.isChecked;
       return isChecked === 'Y' ? true : false;
     },
   },
+
   methods: {
     ...mapActions(['DELETE_CHECKLIST_ITEM', 'UPDATE_CHECKLIST_ITEM']),
     onCheckChange({ target }) {

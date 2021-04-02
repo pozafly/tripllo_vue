@@ -20,7 +20,10 @@ import MessageDetail from '@/components/message/MessageDetail.vue';
 import { mapState } from 'vuex';
 
 export default {
-  components: { MessageDetail },
+  components: {
+    MessageDetail,
+  },
+
   computed: {
     ...mapState(['pushMessage']),
   },

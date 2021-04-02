@@ -3,7 +3,7 @@
   <transition name="modal">
     <div class="modal-mask-addBoard">
       <div class="modal-wrapper-addBoard">
-        <div class="modal-container-addBoard" v-click-outside="closeModal">
+        <div v-click-outside="closeModal" class="modal-container-addBoard">
           <div class="modal-header-addBoard">
             <slot name="header">
               default header

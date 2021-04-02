@@ -9,7 +9,7 @@
         * 10MB 이상인 파일은 업로드할 수 없습니다. aws 프리티어 유저라.. 용량이
         딸릴까봐 막아두었습니다..
       </span>
-      <input type="file" ref="file" class="file" @change="uploadFile" />
+      <input ref="file" type="file" class="file" @change="uploadFile" />
     </div>
   </MiniModal>
 </template>
@@ -22,6 +22,7 @@ export default {
   computed: {
     ...mapState(['card', 'file']),
   },
+
   methods: {
     ...mapActions(['UPLOAD']),
     uploadFile() {

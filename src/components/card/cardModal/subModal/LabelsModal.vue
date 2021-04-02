@@ -5,12 +5,12 @@
       <div class="content-text">LABELS</div>
       <div class="label">
         <a
-          :data-value="label"
-          @click.prevent="onSelectLabels"
           v-for="label in labels"
           :key="label"
+          :data-value="label"
           class="label-item"
           :style="{ backgroundColor: label }"
+          @click.prevent="onSelectLabels"
         >
           <!-- colorArray에 담았으니 거기서 label값을 포함하고 있으면 표시해라. -->
           <span v-if="colorArray.includes(label)">&or;</span>
@@ -39,15 +39,18 @@ export default {
       colorArray: [],
     };
   },
+
+  computed: {
+    ...mapState(['card']),
+  },
+
   mounted() {
     // 밑에서 join으로 만든 문자열을 받아와서 split으로 다시 array로 만든다.
     if (!this.card.labelColor) return;
     const array = this.card.labelColor.split(',');
     this.colorArray = array;
   },
-  computed: {
-    ...mapState(['card']),
-  },
+
   methods: {
     ...mapActions(['UPDATE_CARD']),
     onSelectLabels(el) {

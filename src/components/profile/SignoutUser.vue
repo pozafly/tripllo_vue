@@ -3,7 +3,7 @@
     <h3 class="title">Signout</h3>
     <div class="about-wrap">
       <button class="signout-btn" @click="openDeleteModal">Signout</button>
-      <div class="delete-modal" v-if="isDelete">
+      <div v-if="isDelete" class="delete-modal">
         <template v-if="!isSocial">
           <MiniModal @close="modalClose">
             <div slot="header" class="header-text">SIGNOUT</div>
@@ -13,10 +13,10 @@
                 탈퇴를 원하시면 비밀번호를 입력 후 <b>Enter</b>를 눌러주세요.
               </span>
               <input
-                type="password"
-                class="form-control input"
                 ref="input"
                 v-model="password"
+                type="password"
+                class="form-control input"
                 @keypress.enter="deleteUser"
               />
               <button class="delete-moal-btn remove-btn" @click="modalClose">
@@ -37,10 +37,10 @@
                 탈퇴를 원하시면 자신의 ID를 입력 후 <b>탈퇴</b>를 눌러주세요.
               </span>
               <input
-                type="password"
-                class="form-control input"
                 ref="input"
                 v-model="password"
+                type="password"
+                class="form-control input"
                 @input="validId"
               />
               <button
@@ -68,13 +68,6 @@
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  computed: {
-    ...mapState(['user']),
-    isSocial() {
-      if (this.user.social !== null) return true;
-      else return false;
-    },
-  },
   data() {
     return {
       isDelete: false,
@@ -82,9 +75,19 @@ export default {
       btnDisabled: true,
     };
   },
+
+  computed: {
+    ...mapState(['user']),
+    isSocial() {
+      if (this.user.social !== null) return true;
+      else return false;
+    },
+  },
+
   created() {
     console.log(this.user);
   },
+
   methods: {
     ...mapActions(['SIGNOUT']),
     modalClose() {

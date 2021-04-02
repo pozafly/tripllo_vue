@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="board-item" ref="boardItem" @click="goBoardPage">
+    <div ref="boardItem" class="board-item" @click="goBoardPage">
       <div class="board-item-title">{{ board.title }}</div>
-      <div class="side-wrap" v-if="board.publicYn === 'Y'">
+      <div v-if="board.publicYn === 'Y'" class="side-wrap">
         <span class="heart" @click="countHeart">
           <transition name="slide-fade">
             <template v-if="board.ownLike === 0">
@@ -12,7 +12,7 @@
           <template v-if="board.ownLike === 1">
             <awesome icon="heart" class="fill-heart" />
           </template>
-          <span class="heart-num" v-if="board.likeCount != 0">
+          <span v-if="board.likeCount != 0" class="heart-num">
             {{ board.likeCount }}
           </span>
         </span>
@@ -31,20 +31,29 @@
 import { mapActions } from 'vuex';
 
 export default {
-  props: ['board'],
-  watch: {
-    board() {
-      this.setboardItemTheme();
+  props: {
+    board: {
+      type: Object,
+      default: null,
     },
   },
+
   computed: {
     hashtag() {
       return JSON.parse(this.board.hashtag);
     },
   },
+
+  watch: {
+    board() {
+      this.setboardItemTheme();
+    },
+  },
+
   mounted() {
     this.setboardItemTheme();
   },
+
   methods: {
     ...mapActions(['CREATE_LIKE', 'DELETE_LIKE']),
     setboardItemTheme() {

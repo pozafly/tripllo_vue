@@ -2,7 +2,7 @@
   <div>
     <div class="hash-wrap">
       <div class="hash-item">
-        <span class="hashtag" v-for="hash in hashList" :key="hash">
+        <span v-for="hash in hashList" :key="hash" class="hashtag">
           # {{ hash }}
           <span class="hashtag-delete" @click="deleteHash(hash)">&times;</span>
         </span>
@@ -14,18 +14,18 @@
       </div>
     </div>
 
-    <div class="hash-modal" v-if="isHashModal" v-click-outside="closeModal">
+    <div v-if="isHashModal" v-click-outside="closeModal" class="hash-modal">
       <MiniModal @close="isHashModal = false">
         <div slot="header" class="header-text">Add Hashtag</div>
         <div slot="content">
           <input
+            ref="hashModal"
+            v-model="hashItem"
             class="form-control hash-form"
             type="text"
-            v-model="hashItem"
-            ref="hashModal"
             placeholder="예시) 국내여행, 고양이 ... 등"
-            @keypress.enter="pushHash"
             maxlength="14"
+            @keypress.enter="pushHash"
           />
         </div>
       </MiniModal>
@@ -38,7 +38,10 @@ import MiniModal from '@/components/common/MiniModal.vue';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: { MiniModal },
+  components: {
+    MiniModal,
+  },
+
   data() {
     return {
       hashList: [],
@@ -46,6 +49,11 @@ export default {
       isHashModal: false,
     };
   },
+
+  computed: {
+    ...mapState(['board']),
+  },
+
   watch: {
     hashItem() {
       if (this.hashItem.trim().length > 14) {
@@ -57,12 +65,11 @@ export default {
       this.setHashList();
     },
   },
-  computed: {
-    ...mapState(['board']),
-  },
+
   mounted() {
     this.setHashList();
   },
+
   methods: {
     ...mapActions(['UPDATE_BOARD']),
     setHashList() {

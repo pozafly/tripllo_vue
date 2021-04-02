@@ -10,7 +10,7 @@ const requireAuth = (to, from, next) => {
   if (store.getters.isAuth) {
     next();
   } else {
-    // alert('로그인 되어있지 않습니다.');
+    alert('로그인 되어있지 않습니다.');
     next(loginPath);
   }
 };
@@ -28,7 +28,6 @@ const firstAccess = (to, from, next) => {
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    { path: '*', component: () => import('@/views/NotFoundPage.vue') },
     { path: '/', beforeEnter: firstAccess },
     {
       path: '/intro',
@@ -82,11 +81,14 @@ const router = new VueRouter({
     {
       path: '/profile',
       component: () => import('@/views/ProfilePage.vue'),
+      beforeEnter: requireAuth,
     },
     {
       path: '/user/:userId',
       component: () => import('@/views/UserBoardPage.vue'),
+      beforeEnter: requireAuth,
     },
+    { path: '*', component: () => import('@/views/NotFoundPage.vue') },
   ],
 });
 

@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="push-container" v-if="push.pushYn">
+    <div v-if="push.pushYn" class="push-container">
       <div class="push-box">
         <span>{{ push.message }}</span>
       </div>
@@ -9,16 +9,16 @@
     <form @submit.prevent="submitForm">
       <div class="submit-items">
         <input
+          v-model="userData.id"
           class="submit-item"
           type="text"
           placeholder="Enter id"
-          v-model="userData.id"
         />
         <input
+          v-model="userData.password"
           class="submit-item"
           type="password"
           placeholder="Enter password"
-          v-model="userData.password"
         />
         <button class="submit-item btn" type="submit" :disabled="btnDisabled">
           <b>Log in</b>
@@ -58,6 +58,7 @@
 
 <script>
 import { mapActions } from 'vuex';
+
 export default {
   data() {
     return {
@@ -74,6 +75,7 @@ export default {
       isSocialForm: true,
     };
   },
+
   watch: {
     userData: {
       handler(e) {
@@ -88,6 +90,13 @@ export default {
       deep: true,
     },
   },
+
+  created() {
+    this.$loadScript(`https://apis.google.com/js/api:client.js`).then(() => {
+      this.$_Google.init();
+    });
+  },
+
   methods: {
     ...mapActions(['LOGIN']),
     async submitForm() {
@@ -115,11 +124,6 @@ export default {
         this.$_Kakao.login();
       }
     },
-  },
-  created() {
-    this.$loadScript(`https://apis.google.com/js/api:client.js`).then(() => {
-      this.$_Google.init();
-    });
   },
 };
 </script>

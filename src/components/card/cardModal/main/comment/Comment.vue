@@ -11,23 +11,23 @@
           }"
         >
           <div>
-            <span class="profile-wrap" v-if="!item.picture">
+            <span v-if="!item.picture" class="profile-wrap">
               <awesome icon="user" class="fas fa-user"></awesome>
             </span>
             <span
+              v-else
               :style="{ backgroundImage: `url(${item.picture})` }"
               class="user-picture"
-              v-else
             ></span>
 
             <span class="comment-createdBy">@{{ item.createdBy }}</span>
 
             <!-- 대댓글이 달린 댓글이 삭제 되었을 때는 update만 친다. 댓글이 삭제 되었습니다. 라고. -->
             <template v-if="item.deleteYn === 'N'">
-              <span class="comment-createdAt" v-if="!item.updatedAt">
+              <span v-if="!item.updatedAt" class="comment-createdAt">
                 {{ item.createdAt | timeForToday }}
               </span>
-              <span class="comment-createdAt" v-else>
+              <span v-else class="comment-createdAt">
                 {{ item.updatedAt | timeForToday }} (수정됨)
               </span>
             </template>
@@ -43,10 +43,10 @@
         </div>
       </div>
       <textarea
-        class="form-control comment-input textarea"
+        v-if="isComment"
         ref="input"
         v-model="commentText"
-        v-if="isComment"
+        class="form-control comment-input textarea"
         :readonly="!isComment"
         spellcheck="false"
         @blur="onSubmitComment"
@@ -55,9 +55,9 @@
       <textarea
         v-else
         class="form-control comment-input"
-        @click="onEditComment"
         spellcheck="false"
         placeholder="Write a comment..."
+        @click="onEditComment"
       >
       </textarea>
       <template v-if="isComment">
@@ -75,16 +75,21 @@ import CommentEdit from '@/components/card/cardModal/main/comment/CommentEdit.vu
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: { CommentEdit },
+  components: {
+    CommentEdit,
+  },
+
   data() {
     return {
       isComment: false,
       commentText: '',
     };
   },
+
   computed: {
     ...mapState(['card', 'comment', 'user']),
   },
+
   methods: {
     ...mapActions(['CREATE_COMMENT']),
     onSubmitComment({ relatedTarget }) {
@@ -100,7 +105,7 @@ export default {
       this.CREATE_COMMENT({ cardId, userId, comment });
       this.commentText = '';
     },
-    onKeyupEnter() {
+    onKeyupEnter(event) {
       event.target.blur();
     },
     onEditComment() {

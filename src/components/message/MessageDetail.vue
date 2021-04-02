@@ -15,10 +15,22 @@
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  props: ['message'],
+  props: {
+    message: {
+      type: Object,
+      default: null,
+    },
+  },
+
   computed: {
     ...mapState(['user']),
   },
+
+  mounted() {
+    if (this.message.isRead === 'Y') return;
+    this.UPDATE_PUSH_MESSAGE({ id: this.message.id, isRead: 'Y' });
+  },
+
   methods: {
     ...mapActions([
       'UPDATE_PUSH_MESSAGE',
@@ -69,10 +81,6 @@ export default {
       let confirm = window.confirm('해당 메세지를 삭제하시겠습니까?');
       if (confirm) this.DELETE_PUSH_MESSAGE({ id: this.message.id });
     },
-  },
-  mounted() {
-    if (this.message.isRead === 'Y') return;
-    this.UPDATE_PUSH_MESSAGE({ id: this.message.id, isRead: 'Y' });
   },
 };
 </script>

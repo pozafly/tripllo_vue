@@ -1,16 +1,16 @@
 <template>
   <div class="comment-wrap">
     <textarea
-      class="form-control comment-input textarea"
+      v-if="isEditComment"
       ref="input"
       v-model="commentText"
+      class="form-control comment-input textarea"
       spellcheck="false"
-      v-if="isEditComment"
       @blur="onSubmitComment"
       @keypress.enter="onKeyupEnter"
     />
-    <span class="comment-comment" v-else>{{ item.comment }}</span>
-    <div class="comment-side" v-if="!isEditComment">
+    <span v-else class="comment-comment">{{ item.comment }}</span>
+    <div v-if="!isEditComment" class="comment-side">
       <span v-if="user.id === item.createdBy && item.deleteYn === 'N'">
         <span class="comment-side-item" @click="onEditComment">Edit</span>
         <span class="comment-side-item" @click="isDelete = true">Delete</span>
@@ -19,25 +19,25 @@
       <!-- 대댓글(답글)은 삭제된 메세지에는 달수 없고, 대댓글 자체에도 달 수 없다. 일반 댓글에만 달 수 있음. -->
       <template v-if="item.deleteYn === 'N' && item.dept === 0">
         <textarea
-          class="form-control comment-input textarea nested"
+          v-if="isEditNestedComment"
           ref="nestedComment"
           v-model="nestedComment"
+          class="form-control comment-input textarea nested"
           spellcheck="false"
-          v-if="isEditNestedComment"
           placeholder="Write a comment..."
           @blur="onSubmitNestedComment"
           @keypress.enter="onKeyupEnter"
         />
         <span
+          v-if="!isEditNestedComment"
           class="comment-side-item nested"
           @click="onEditNestedComment"
-          v-if="!isEditNestedComment"
         >
           답글 달기
         </span>
       </template>
     </div>
-    <div class="comment-delete" v-if="isDelete">
+    <div v-if="isDelete" class="comment-delete">
       <MiniModal @close="isDelete = false">
         <div slot="header" class="header-text">Delete Comment</div>
         <div slot="content">
@@ -54,7 +54,13 @@
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  props: ['item'],
+  props: {
+    item: {
+      type: Object,
+      default: null,
+    },
+  },
+
   data() {
     return {
       isDelete: false,
@@ -64,9 +70,11 @@ export default {
       isEditNestedComment: false,
     };
   },
+
   computed: {
     ...mapState(['user', 'card']),
   },
+
   methods: {
     ...mapActions(['UPDATE_COMMENT', 'DELETE_COMMENT', 'CREATE_COMMENT']),
     deleteComment(item) {
