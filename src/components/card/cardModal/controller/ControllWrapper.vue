@@ -16,32 +16,32 @@
           <span class="side-item-text">{{ item }}</span>
         </li>
       </ul>
-      <Labels
+      <LabelsModal
         @close="onClose"
         v-if="toggle === 'isLabels'"
         class="side-item-label"
       />
-      <Checklist
+      <ChecklistModal
         @close="onClose"
         v-if="toggle === 'isChecklist'"
         class="side-item-checklist"
       />
-      <DueDate
+      <DueDateModal
         @close="onClose"
         v-if="toggle === 'isDueDate'"
         class="side-item-duedate"
       />
-      <Attachment
+      <AttachmentModal
         @close="onClose"
         v-if="toggle === 'isAttachment'"
         class="side-item-attachment"
       />
-      <Location
+      <LocationModal
         @close="onClose"
         v-if="toggle === 'isLocation'"
         class="side-item-location"
       />
-      <Delete
+      <DeleteCardModal
         @close="onClose"
         v-if="toggle === 'isDelete'"
         class="side-item-delete"
@@ -51,17 +51,23 @@
 </template>
 
 <script>
-import Labels from '@/components/card/cardDetail/side/Labels';
-import Checklist from '@/components/card/cardDetail/side/Checklist';
-import DueDate from '@/components/card/cardDetail/side/DueDate';
-import Attachment from '@/components/card/cardDetail/side/Attachment';
-import Location from '@/components/card/cardDetail/side/Location';
-import Delete from '@/components/card/cardDetail/side/Delete';
-import { deleteSessionStorage } from '@/utils/webStorage';
-import { mapActions, mapState } from 'vuex';
+import LabelsModal from '@/components/card/cardModal/controller/LabelsModal.vue';
+import ChecklistModal from '@/components/card/cardModal/controller/ChecklistModal.vue';
+import DueDateModal from '@/components/card/cardModal/controller/DueDateModal.vue';
+import AttachmentModal from '@/components/card/cardModal/controller/AttachmentModal.vue';
+import LocationModal from '@/components/card/cardModal/controller/LocationModal.vue';
+import DeleteCardModal from '@/components/card/cardModal/controller/DeleteCardModal.vue';
+import { mapState } from 'vuex';
 
 export default {
-  components: { Labels, Checklist, DueDate, Attachment, Location, Delete },
+  components: {
+    LabelsModal,
+    ChecklistModal,
+    DueDateModal,
+    AttachmentModal,
+    LocationModal,
+    DeleteCardModal,
+  },
   data() {
     return {
       toggle: '',

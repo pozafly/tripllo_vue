@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import LocationMap from './LocationMap';
+import LocationMap from '@/components/card/cardModal/main/location/LocationMap';
 import { mapActions, mapState } from 'vuex';
 
 export default {

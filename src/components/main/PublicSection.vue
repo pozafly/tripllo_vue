@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import BoardItem from '@/components/board/BoardItem';
+import BoardItem from '@/components/board/BoardItem.vue';
 import _ from 'lodash';
 import { mapActions, mapMutations, mapState } from 'vuex';
 

@@ -12,15 +12,15 @@
         placeholder="카드 location 변경"
         ref="searchMap"
       />
-      <CardAboutLocation v-if="isCardAbout" :cardInfo="cardInfo" />
+      <LocationToCard v-if="isCardAbout" :cardInfo="cardInfo" />
       <div class="google-map-display"></div>
     </div>
   </LocationMapBase>
 </template>
 
 <script>
-import LocationMapBase from './LocationMapBase';
-import CardAboutLocation from './CardAboutLocation';
+import LocationMapBase from '@/components/card/cardModal/main/location/LocationMapBase.vue';
+import LocationToCard from '@/components/card/cardModal/main/location/LocationToCard.vue';
 import { Loader } from '@googlemaps/js-api-loader';
 import MarkerClusterer from '@googlemaps/markerclustererplus';
 import { mapActions, mapState } from 'vuex';
@@ -28,7 +28,7 @@ import { mapActions, mapState } from 'vuex';
 export default {
   components: {
     LocationMapBase,
-    CardAboutLocation,
+    LocationToCard,
   },
   data() {
     return {

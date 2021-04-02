@@ -36,7 +36,7 @@
               v-if="board.publicYn === 'Y' && isOwner"
             >
               Invite
-              <Invite
+              <InviteModal
                 v-if="isInvite"
                 class="invite-modal"
                 @close="
@@ -63,7 +63,7 @@
               class="board-hash-wrap"
               v-if="board.publicYn === 'Y' && isOwner"
             >
-              <HashtagDisplay />
+              <HashtagModal />
             </div>
 
             <a
@@ -82,7 +82,7 @@
                 :key="list.id"
                 :data-list-id="list.id"
               >
-                <List :list="list" />
+                <ListItem :list="list" />
               </div>
               <div class="addList-wrapper">
                 <AddList @listFocus="listFocus" />
@@ -102,25 +102,25 @@
 </template>
 
 <script>
-import Header from '@/components/common/Header';
-import List from '@/components/list/List';
-import AddList from '@/components/list/AddList';
-import BoardMenu from '@/components/board/boardMenu/BoardMenu';
+import Header from '@/components/common/Header.vue';
+import ListItem from '@/components/list/ListItem.vue';
+import AddList from '@/components/list/AddList.vue';
+import BoardMenu from '@/components/board/boardMenu/BoardMenu.vue';
 import dragger from '@/utils/dragger/dragger';
-import Invite from '@/components/board/Invite';
-import ProfileImage from '@/components/board/ProfileImage';
-import HashtagDisplay from '@/components/board/HashtagDisplay';
+import InviteModal from '@/components/board/invite/InviteModal.vue';
+import ProfileImage from '@/components/board/ProfileImage.vue';
+import HashtagModal from '@/components/board/HashtagModal.vue';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
   components: {
     Header,
-    List,
+    ListItem,
     BoardMenu,
     AddList,
-    Invite,
+    InviteModal,
     ProfileImage,
-    HashtagDisplay,
+    HashtagModal,
   },
   data() {
     return {

@@ -113,7 +113,7 @@
 </template>
 
 <script>
-import AddBoardModalBase from '@/components/board/AddBoardModalBase';
+import AddBoardModalBase from '@/components/board/addBoard/AddBoardModalBase.vue';
 import { mapActions } from 'vuex';
 
 export default {

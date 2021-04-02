@@ -24,45 +24,45 @@
     </div>
     <div slot="body" class="modal-card-body">
       <ul class="body-items">
-        <DetailLabels />
-        <DetailDueDate />
-        <DetailDescription :card="card" />
-        <DetailAttachment />
-        <DetailChecklist v-if="checklists" />
-        <DetailLocation />
-        <DetailComment />
+        <Labels />
+        <DueDate />
+        <Description :card="card" />
+        <Attachment />
+        <ChecklistWrapper v-if="checklists" />
+        <Location />
+        <Comment />
       </ul>
     </div>
     <div slot="footer"></div>
     <div slot="side" class="side-slot">
-      <CardModalSide />
+      <ControllWrapper />
     </div>
   </CardModalBase>
 </template>
 
 <script>
-import CardModalBase from '@/components/card/cardDetail/CardModalBase';
-import CardModalSide from '@/components/card/cardDetail/side/CardModalSide';
-import DetailLabels from './detailItems/DetailLabels';
-import DetailChecklist from './detailItems/detailChecklists/DetailChecklist';
-import DetailDueDate from './detailItems/DetailDueDate';
-import DetailLocation from './detailItems/detailLocation/DetailLocation';
-import DetailDescription from './detailItems/DetailDescription';
-import DetailComment from './detailItems/detailComment/DetailComment';
-import DetailAttachment from './detailItems/detailAttachment/DetailAttachment';
+import CardModalBase from '@/components/card/cardModal/CardModalBase.vue';
+import ControllWrapper from '@/components/card/cardModal/controller/ControllWrapper.vue';
+import Labels from '@/components/card/cardModal/main/Labels.vue';
+import ChecklistWrapper from '@/components/card/cardModal/main/checklists/ChecklistWrapper.vue';
+import DueDate from '@/components/card/cardModal/main/DueDate.vue';
+import Location from '@/components/card/cardModal/main/location/Location.vue';
+import Description from '@/components/card/cardModal/main/Description.vue';
+import Comment from '@/components/card/cardModal/main/comment/Comment.vue';
+import Attachment from '@/components/card/cardModal/main/attachment/Attachment.vue';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
   components: {
     CardModalBase,
-    CardModalSide,
-    DetailLabels,
-    DetailChecklist,
-    DetailDueDate,
-    DetailDescription,
-    DetailLocation,
-    DetailComment,
-    DetailAttachment,
+    ControllWrapper,
+    Labels,
+    ChecklistWrapper,
+    DueDate,
+    Description,
+    Location,
+    Comment,
+    Attachment,
   },
   data() {
     return {

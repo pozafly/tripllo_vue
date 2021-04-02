@@ -38,7 +38,7 @@
             </template>
           </div>
           <div class="side-comment">
-            <SideComment :item="item" />
+            <CommentEdit :item="item" />
           </div>
         </div>
       </div>
@@ -71,11 +71,11 @@
 </template>
 
 <script>
-import SideComment from './SideComment';
+import CommentEdit from '@/components/card/cardModal/main/comment/CommentEdit.vue';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: { SideComment },
+  components: { CommentEdit },
   data() {
     return {
       isComment: false,

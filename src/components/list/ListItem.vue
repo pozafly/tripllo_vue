@@ -40,8 +40,8 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import AddCard from '@/components/card/AddCard';
-import CardItem from '@/components/card/CardItem';
+import AddCard from '@/components/card/AddCard.vue';
+import CardItem from '@/components/card/CardItem.vue';
 
 export default {
   components: {

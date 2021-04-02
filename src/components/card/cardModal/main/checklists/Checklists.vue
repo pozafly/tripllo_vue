@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import ChecklistItem from './ChecklistItem';
+import ChecklistItem from '@/components/card/cardModal/main/checklists/ChecklistItem.vue';
 import { mapActions } from 'vuex';
 
 export default {

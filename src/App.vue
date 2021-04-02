@@ -8,7 +8,7 @@
 
 <script>
 import LoadingSpinner from '@/components/common/LoadingSpinner.vue';
-import AlertNotification from '@/components/common/AlertNotification';
+import AlertNotification from '@/components/common/AlertNotification.vue';
 import bus from '@/utils/bus.js';
 
 export default {

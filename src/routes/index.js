@@ -28,64 +28,64 @@ const firstAccess = (to, from, next) => {
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    { path: '*', component: () => import('@/views/NotFoundPage') },
+    { path: '*', component: () => import('@/views/NotFoundPage.vue') },
     { path: '/', beforeEnter: firstAccess },
     {
       path: '/intro',
-      component: () => import('@/views/IntroPage'),
+      component: () => import('@/views/IntroPage.vue'),
     },
     {
       path: '/privacy',
-      component: () => import('@/views/PrivacyPage'),
+      component: () => import('@/views/PrivacyPage.vue'),
     },
     {
       path: '/manual',
-      component: () => import('@/views/ManualPage'),
+      component: () => import('@/views/ManualPage.vue'),
     },
     {
       path: '/main',
-      component: () => import('@/views/MainPage'),
+      component: () => import('@/views/MainPage.vue'),
       beforeEnter: requireAuth,
     },
     {
       // 중첩된 라우트 : 한 페이지에 url에 따라서 다른 컴포넌트를 보여야 할 때 사용.
       path: '/auth',
       redirect: '/auth/login',
-      component: () => import('@/views/AuthPage'),
+      component: () => import('@/views/AuthPage.vue'),
       children: [
         {
           path: 'login',
-          component: () => import('@/components/auth/LoginForm'),
+          component: () => import('@/components/auth/LoginForm.vue'),
         },
         {
           path: 'signup',
-          component: () => import('@/components/auth/SignupForm'),
+          component: () => import('@/components/auth/SignupForm.vue'),
         },
         {
           path: 'findPassword',
-          component: () => import('@/components/auth/FindPassword'),
+          component: () => import('@/components/auth/FindPassword.vue'),
         },
       ],
     },
     {
       path: '/board/:boardId',
-      component: () => import('@/views/BoardPage'),
+      component: () => import('@/views/BoardPage.vue'),
       beforeEnter: requireAuth,
       children: [
         {
           path: 'card/:cardId',
-          component: () => import('@/components/card/cardDetail/CardModal'),
+          component: () => import('@/components/card/cardModal/CardModal.vue'),
           beforeEnter: requireAuth,
         },
       ],
     },
     {
       path: '/my',
-      component: () => import('@/views/MyPage'),
+      component: () => import('@/views/MyPage.vue'),
     },
     {
       path: '/user/:userId',
-      component: () => import('@/views/UserPage'),
+      component: () => import('@/views/UserPage.vue'),
     },
   ],
 });

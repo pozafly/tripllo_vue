@@ -52,8 +52,8 @@
 </template>
 
 <script>
-import Header from '@/components/common/Header';
-import BoardItem from '@/components/board/BoardItem';
+import Header from '@/components/common/Header.vue';
+import BoardItem from '@/components/board/BoardItem.vue';
 import boardApi from '@/api/board';
 import authApi from '@/api/auth';
 

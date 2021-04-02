@@ -34,8 +34,8 @@
           <div class="info-inside">
             <section :key="currentId">
               <template v-if="current.content === 'About'">
-                <About />
-                <Signout />
+                <AboutUser />
+                <SignoutUser />
               </template>
               <template v-else>
                 <PasswordChange />
@@ -49,15 +49,15 @@
 </template>
 
 <script>
-import Header from '@/components/common/Header';
-import About from '@/components/my/About';
-import Signout from '@/components/my/Signout';
-import TabItem from '@/components/my/TapItem';
-import PasswordChange from '@/components/my/PasswordChange';
+import Header from '@/components/common/Header.vue';
+import AboutUser from '@/components/my/AboutUser.vue';
+import SignoutUser from '@/components/my/SignoutUser.vue';
+import TabItem from '@/components/my/TapItem.vue';
+import PasswordChange from '@/components/my/PasswordChange.vue';
 import { mapState } from 'vuex';
 
 export default {
-  components: { Header, About, Signout, TabItem, PasswordChange },
+  components: { Header, AboutUser, SignoutUser, TabItem, PasswordChange },
   data() {
     return {
       currentId: 1,

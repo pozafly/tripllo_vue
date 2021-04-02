@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import AttachmentList from './AttachmentList';
+import AttachmentList from '@/components/card/cardModal/main/attachment/Attachment.vue';
 import { mapState } from 'vuex';
 
 export default {

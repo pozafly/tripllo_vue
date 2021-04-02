@@ -46,8 +46,8 @@
 </template>
 
 <script>
-import BoardItem from '@/components/board/BoardItem';
-import AddBoardModal from '@/components/board/AddBoardModal';
+import BoardItem from '@/components/board/BoardItem.vue';
+import AddBoardModal from '@/components/board/addBoard/AddBoardModal.vue';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {

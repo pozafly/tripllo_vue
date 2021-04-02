@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Checklists from './Checklists';
+import Checklists from '@/components/card/cardModal/main/checklists/Checklists.vue';
 import { mapState } from 'vuex';
 
 export default {

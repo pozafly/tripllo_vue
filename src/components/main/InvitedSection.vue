@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import BoardItem from '@/components/board/BoardItem';
+import BoardItem from '@/components/board/BoardItem.vue';
 import { mapActions, mapState } from 'vuex';
 
 export default {

@@ -46,7 +46,7 @@
               색상선택기
             </div>
           </a>
-          <Photoshop v-if="isPicker" @cancel="isPicker = false" />
+          <ColorPicker v-if="isPicker" @cancel="isPicker = false" />
         </div>
         <li class="menu-item delete-board" @click.prevent="onDeleteBoard">
           <awesome icon="trash-alt" class="fas fa-trash-alt"></awesome>
@@ -61,11 +61,11 @@
 
 <script>
 import { mapMutations, mapActions, mapState } from 'vuex';
-import Photoshop from '@/components/board/boardMenu/Photoshop';
+import ColorPicker from '@/components/board/boardMenu/ColorPicker.vue';
 
 export default {
   components: {
-    Photoshop,
+    ColorPicker,
   },
   data() {
     return {

@@ -5,7 +5,7 @@ import $_Facebook from '@/utils/social/Facebook';
 
 import $_KProgress from 'k-progress';
 import $_DatePicker from 'v-calendar/lib/components/date-picker.umd';
-import $_MiniModal from '@/components/common/MiniModal';
+import $_MiniModal from '@/components/common/MiniModal.vue';
 import $_Notifications from 'vue-notification';
 import $_vClickOutside from 'v-click-outside';
 import $_InfiniteLoading from 'vue-infinite-loading';

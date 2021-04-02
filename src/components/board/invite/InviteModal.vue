@@ -13,7 +13,7 @@
       />
       <div v-for="member in memberList" :key="member.id">
         <ul>
-          <InviteDetail
+          <InviteModalList
             :member="member"
             @close="
               ({ memberId, boardTitle }) =>
@@ -29,12 +29,12 @@
 </template>
 
 <script>
-import InviteDetail from './InviteDetail';
+import InviteModalList from '@/components/board/invite/InviteModalList.vue';
 import _ from 'lodash';
 import { mapActions, mapState } from 'vuex';
 
 export default {
-  components: { InviteDetail },
+  components: { InviteModalList },
   data() {
     return {
       inputId: '',

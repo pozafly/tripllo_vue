@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import MiniModal from '@/components/common/MiniModal';
+import MiniModal from '@/components/common/MiniModal.vue';
 import { mapActions, mapState } from 'vuex';
 
 export default {

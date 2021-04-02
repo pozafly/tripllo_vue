@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import Footer from '@/components/common/Footer';
+import Footer from '@/components/common/Footer.vue';
 
 export default {
   components: { Footer },

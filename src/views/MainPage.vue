@@ -2,7 +2,7 @@
   <div class="page">
     <Header />
     <div class="main-wrap">
-      <SideNavTap />
+      <NavTap />
       <template v-if="mainTabId === 0">
         <PersonalSection />
       </template>
@@ -17,17 +17,17 @@
 </template>
 
 <script>
-import Header from '@/components/common/Header';
-import SideNavTap from '@/components/main/SideNavTap';
-import PersonalSection from '@/components/main/PersonalSection';
-import InvitedSection from '@/components/main/InvitedSection';
-import PublicSection from '@/components/main/PublicSection';
+import Header from '@/components/common/Header.vue';
+import NavTap from '@/components/main/NavTap.vue';
+import PersonalSection from '@/components/main/PersonalSection.vue';
+import InvitedSection from '@/components/main/InvitedSection.vue';
+import PublicSection from '@/components/main/PublicSection.vue';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     Header,
-    SideNavTap,
+    NavTap,
     PersonalSection,
     InvitedSection,
     PublicSection,
