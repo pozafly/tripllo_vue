@@ -39,7 +39,18 @@ export default {
   props: {
     items: {
       type: Object,
-      default: null,
+      require: false,
+      default: () => ({
+        checklistId: 0,
+        createdAt: '',
+        createdBy: '',
+        id: 0,
+        isChecked: 'N',
+        item: '',
+        updatedAt: '',
+        updatedBy: '',
+        userId: '',
+      }),
     },
   },
 

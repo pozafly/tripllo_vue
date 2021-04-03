@@ -28,7 +28,8 @@ export default {
   props: {
     listId: {
       type: Number,
-      default: null,
+      default: 0,
+      require: false,
     },
   },
 

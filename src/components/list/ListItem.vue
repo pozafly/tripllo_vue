@@ -52,7 +52,14 @@ export default {
   props: {
     list: {
       type: Object,
-      default: null,
+      require: false,
+      default: () => ({
+        boardId: 0,
+        cards: Array,
+        id: 0,
+        pos: 0,
+        title: '',
+      }),
     },
   },
 

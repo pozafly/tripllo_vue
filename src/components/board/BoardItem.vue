@@ -34,7 +34,22 @@ export default {
   props: {
     board: {
       type: Object,
-      default: null,
+      require: true,
+      default: () => ({
+        bgColor: '#4AC06A',
+        createdAt: '',
+        createdBy: '',
+        hashtag: '[]',
+        id: 0,
+        invitedUser: null,
+        likeCount: 0,
+        ownLike: 0,
+        publicYn: 'Y',
+        title: '',
+        updatedAt: null,
+        updatedBy: null,
+        userId: null,
+      }),
     },
   },
 

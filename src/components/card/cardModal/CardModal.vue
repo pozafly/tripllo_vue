@@ -26,7 +26,7 @@
       <ul class="body-items">
         <Labels />
         <DueDate />
-        <Description :card="card" />
+        <Description :card-description="card.description" :card-id="card.id" />
         <Attachment />
         <ChecklistWrapper v-if="checklists" />
         <Location />

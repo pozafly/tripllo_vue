@@ -24,7 +24,20 @@ export default {
   props: {
     message: {
       type: Object,
-      default: null,
+      require: false,
+      default: () => ({
+        boardId: 0,
+        content: '',
+        createdAt: '',
+        createdBy: '',
+        id: 0,
+        isRead: 'N',
+        senderId: '',
+        targetId: '',
+        updatedAt: '',
+        updatedBy: '',
+        userId: '',
+      }),
     },
   },
 

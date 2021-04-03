@@ -143,7 +143,8 @@ export default {
 
   created() {
     socketConnect();
-    this.receive();
+    this.receiveListener();
+    this.readPushMessage();
   },
 
   mounted() {
@@ -160,37 +161,32 @@ export default {
       this.LOGOUT();
       this.$router.push('/auth/login');
     },
+    readPushMessage() {
+      this.READ_PUSH_MESSAGE(this.user.id);
+    },
     menuShow() {
       this.isMenuShow = !this.isMenuShow;
     },
     updateTheme() {
-      if (this.$route.path.includes('main')) {
-        return;
-      }
-      if (this.$route.path.includes('profile')) {
-        return;
-      }
-      if (this.$route.path.includes('user')) {
-        return;
-      }
+      if (this.$route.path.includes('board')) {
+        const board = document.querySelector('.board');
+        const header = document.querySelector('.header');
+        const icon = document.querySelectorAll('.icon');
 
-      const board = document.querySelector('.board');
-      const header = document.querySelector('.header');
-      const icon = document.querySelectorAll('.icon');
-
-      if (board) {
-        board.style.backgroundColor = this.bgColor;
-      }
-      if (header) {
-        header.style.backgroundColor = this.bgColor;
-      }
-      if (icon) {
-        Array.from(icon).map(icon => {
-          icon.style.backgroundColor = this.bgColor;
-        });
+        if (board) {
+          board.style.backgroundColor = this.bgColor;
+        }
+        if (header) {
+          header.style.backgroundColor = this.bgColor;
+        }
+        if (icon) {
+          Array.from(icon).map(icon => {
+            icon.style.backgroundColor = this.bgColor;
+          });
+        }
       }
     },
-    receive() {
+    receiveListener() {
       bus.$on('receive-message', data => {
         const message = JSON.parse(data);
         this.$notify({

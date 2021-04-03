@@ -15,7 +15,7 @@
       v-else
       ref="firstDesc"
       class="form-control card-desc"
-      :value="card.description"
+      :value="cardDescription"
       spellcheck="false"
       placeholder="Add a more detailed description..."
       @click="onEditDesc"
@@ -36,9 +36,15 @@
 import { mapActions } from 'vuex';
 export default {
   props: {
-    card: {
-      type: Object,
-      default: null,
+    cardDescription: {
+      type: String,
+      require: false,
+      default: '',
+    },
+    cardId: {
+      type: Number,
+      require: false,
+      default: 0,
     },
   },
 
@@ -49,11 +55,15 @@ export default {
     };
   },
 
+  mounted() {
+    console.log(this.card);
+  },
+
   methods: {
     ...mapActions(['UPDATE_CARD']),
     onEditDesc() {
       this.isEditDesc = true;
-      this.description = this.card.description;
+      this.description = this.cardDescription;
       this.$nextTick(() => this.$refs.inputDesc.focus());
     },
     // relatedTarget: 이벤트 발생 타겟을 의미함.
@@ -66,10 +76,10 @@ export default {
           return; // x버튼을 눌렀을 때는 return
         }
       }
-      if (this.description === this.card.description) {
+      if (this.description === this.cardDescription) {
         return;
       }
-      this.UPDATE_CARD({ id: this.card.id, description: this.description });
+      this.UPDATE_CARD({ id: this.cardId, description: this.description });
     },
     onKeyupEnter(event) {
       event.target.blur();

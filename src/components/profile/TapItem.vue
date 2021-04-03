@@ -9,14 +9,17 @@ export default {
   props: {
     id: {
       type: Number,
+      require: true,
       default: null,
     },
     label: {
       type: String,
+      require: true,
       default: null,
     },
     value: {
       type: Number,
+      require: true,
       default: null,
     },
   },

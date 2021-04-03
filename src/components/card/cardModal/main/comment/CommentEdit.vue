@@ -61,7 +61,21 @@ export default {
   props: {
     item: {
       type: Object,
-      default: null,
+      require: false,
+      default: () => ({
+        cardId: 0,
+        comment: '',
+        createdAt: '',
+        createdBy: '',
+        deleteYn: 'N',
+        dept: 0,
+        groupNum: 0,
+        id: 0,
+        picture: '',
+        updatedAt: '',
+        updatedBy: '',
+        userId: '',
+      }),
     },
   },
 
@@ -143,9 +157,9 @@ export default {
     font-size: 14px;
     position: relative;
     display: inline-block;
-    padding: 5px;
+    padding: 8px 12px;
     background-color: #fff;
-    border-radius: 3px;
+    border-radius: 15px;
     box-shadow: 0 1px 2px -1px rgba(9, 30, 66, 0.25),
       0 0 0 1px rgba(9, 30, 66, 0.08);
     box-sizing: border-box;
@@ -173,10 +187,12 @@ export default {
       box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px 0;
     }
     &.textarea {
+      margin: 15px 0;
       height: 32px;
-      background: #fff;
+      background: rgba(9, 30, 66, 0.04);
       box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px 0;
       outline: none;
+      width: 80%;
     }
     &.nested {
       display: block;

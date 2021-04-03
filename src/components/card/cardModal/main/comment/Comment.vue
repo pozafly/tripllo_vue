@@ -138,7 +138,7 @@ export default {
   font-family: Arial;
   font-size: 14px;
   cursor: pointer;
-  background: #fff;
+  background: rgba(9, 30, 66, 0.04);
   overflow: hidden;
   overflow-wrap: break-word;
   outline: none;
@@ -147,7 +147,7 @@ export default {
   }
   &.textarea {
     height: 32px;
-    background: #fff;
+    background: #dbdfe4;
     box-shadow: rgba(0, 0, 0, 0.2) 1px 1px 5px 0;
     outline: none;
   }

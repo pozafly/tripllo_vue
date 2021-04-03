@@ -1,9 +1,6 @@
 <template>
   <div>
-    <awesome
-      :icon="['far', 'check-square']"
-      class="far fa-check-square"
-    ></awesome>
+    <awesome icon="check-square" class="far fa-check-square"></awesome>
     <span v-if="!isTitle">
       <a href="" class="checklist-body-card-text" @click.prevent="editTitle">
         {{ checklist.title }}
@@ -91,7 +88,18 @@ export default {
   props: {
     checklist: {
       type: Object,
-      default: null,
+      require: false,
+      default: () => ({
+        cardId: 0,
+        createdAt: '',
+        createdBy: '',
+        id: 0,
+        items: Array,
+        title: '',
+        updatedAt: '',
+        updatedBy: '',
+        userId: '',
+      }),
     },
   },
 

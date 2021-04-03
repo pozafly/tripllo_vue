@@ -20,7 +20,7 @@ export default {
     Checklists,
   },
   computed: {
-    ...mapState(['card', 'checklists']),
+    ...mapState(['checklists']),
   },
 };
 </script>

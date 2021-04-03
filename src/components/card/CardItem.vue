@@ -48,7 +48,21 @@ export default {
   props: {
     card: {
       type: Object,
-      default: null,
+      require: true,
+      default: () => ({
+        description: '',
+        dueDate: '',
+        id: 0,
+        isAttachment: 'N',
+        isChecklist: 'N',
+        // 0: 없음, 1: 있음
+        isComment: 0,
+        labelColor: null,
+        listId: 0,
+        location: '',
+        pos: 0,
+        title: '',
+      }),
     },
   },
 

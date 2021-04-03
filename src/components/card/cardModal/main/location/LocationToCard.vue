@@ -11,7 +11,13 @@ export default {
   props: {
     cardInfo: {
       type: Object,
-      default: null,
+      require: true,
+      default: () => ({
+        cardId: 0,
+        title: '',
+        x: 0,
+        y: 0,
+      }),
     },
   },
 

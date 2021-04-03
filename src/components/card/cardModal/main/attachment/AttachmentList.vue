@@ -21,7 +21,12 @@ export default {
   props: {
     item: {
       type: Object,
-      default: null,
+      require: true,
+      default: () => ({
+        extension: '',
+        fileName: '',
+        createdAt: '',
+      }),
     },
   },
 

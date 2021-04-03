@@ -30,10 +30,15 @@ export default {
   props: {
     item: {
       type: Object,
-      default: null,
+      require: false,
+      default: () => ({
+        picture: '',
+        id: '',
+      }),
     },
     board: {
       type: Object,
+      require: true,
       default: null,
     },
   },

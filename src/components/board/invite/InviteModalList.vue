@@ -21,7 +21,11 @@ export default {
   props: {
     member: {
       type: Object,
-      default: null,
+      require: true,
+      default: () => ({
+        id: '',
+        picture: '',
+      }),
     },
   },
 
