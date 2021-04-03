@@ -1,7 +1,7 @@
 import store from '@/store';
 import router from '@/routes';
 
-async function socialLogin(req, isSignup) {
+const socialLogin = async (req, isSignup) => {
   try {
     const { data } = await store.dispatch('SOCIAL_LOGIN', req.id);
     store.commit('setUserToken', data.data.token);
@@ -25,9 +25,9 @@ async function socialLogin(req, isSignup) {
       }
     }
   }
-}
+};
 
-async function socialSignup(req) {
+const socialSignup = async req => {
   try {
     await store.dispatch('VALID_ID', req.id);
     await store.dispatch('SIGNUP', req);
@@ -43,6 +43,6 @@ async function socialSignup(req) {
       router.push('/auth/login');
     }
   }
-}
+};
 
 export { socialLogin, socialSignup };

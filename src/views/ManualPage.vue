@@ -249,11 +249,11 @@ export default {
     ...mapGetters(['isAuth']),
   },
 
-  created: function() {
+  created() {
     window.addEventListener('scroll', this.handleScroll);
   },
 
-  beforeDestroy: function() {
+  beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll);
   },
 

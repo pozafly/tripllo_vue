@@ -178,11 +178,11 @@ export default {
     Footer,
   },
 
-  created: function() {
+  created() {
     window.addEventListener('scroll', this.handleScroll);
   },
 
-  beforeDestroy: function() {
+  beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll);
   },
 

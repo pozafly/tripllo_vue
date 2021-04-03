@@ -32,7 +32,7 @@ const Google = {
           this.signup(profile);
         }
       },
-      function(error) {
+      error => {
         alert(JSON.stringify(error, undefined, 2));
         console.log(JSON.stringify(error, undefined, 2));
       },

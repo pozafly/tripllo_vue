@@ -1,5 +1,5 @@
 // 필터 관련 함수
-export function normalFormatDate(value) {
+export const normalFormatDate = value => {
   const date = new Date(value);
   const year = date.getFullYear();
 
@@ -20,9 +20,9 @@ export function normalFormatDate(value) {
   minutes = minutes > 9 ? minutes : `0${minutes}`;
 
   return `${year}-${month}-${day} ${hours}:${minutes} ${ampm}`;
-}
+};
 
-export function timeForToday(value) {
+export const timeForToday = value => {
   const today = new Date();
   const timeValue = new Date(value);
 
@@ -47,4 +47,4 @@ export function timeForToday(value) {
   }
 
   return `${Math.floor(betweenTimeDay / 365)}년전`;
-}
+};

@@ -2,24 +2,24 @@
 import store from '@/store';
 import router from '@/routes';
 
-export function setInterceptors(instance) {
+export const setInterceptors = instance => {
   // request
   instance.interceptors.request.use(
-    function(config) {
+    config => {
       config.headers.Authorization = store.state.token;
       return config;
     },
-    function(error) {
+    error => {
       return Promise.reject(error);
     },
   );
 
   // response
   instance.interceptors.response.use(
-    function(response) {
+    response => {
       return response;
     },
-    function(error) {
+    error => {
       if (
         error.response.data.status === 403 ||
         error.response.data.status === 'UNAUTHORIZED'
@@ -33,4 +33,4 @@ export function setInterceptors(instance) {
   );
 
   return instance;
-}
+};
