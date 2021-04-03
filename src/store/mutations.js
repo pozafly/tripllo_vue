@@ -1,6 +1,5 @@
 import {
   saveUserToLocalStorage,
-  clearStorage,
   saveSessionStorage,
   deleteSessionStorage,
   saveTokenToLocalStorage,
@@ -18,7 +17,8 @@ const mutations = {
   },
   logout(state) {
     state.user = {};
-    clearStorage();
+    localStorage.clear();
+    sessionStorage.clear();
   },
 
   // board

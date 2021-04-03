@@ -40,6 +40,7 @@ const dragger = {
     });
     return { prev, next };
   },
+
   cardDragger() {
     if (cDragger) {
       cDragger.destroy();
@@ -76,6 +77,7 @@ const dragger = {
       store.dispatch('UPDATE_CARD', targetCard);
     });
   },
+
   listDragger() {
     if (lDragger) {
       lDragger.destroy();

@@ -41,16 +41,19 @@ export default {
   },
 
   mounted() {
-    if (this.card.dueDate === null) {
-      return;
-    }
-    const dueDate = this.card.dueDate;
-    this.date = new Date(dueDate);
-    this.$refs.datePicker.move(dueDate);
+    this.cardDueDateSync();
   },
 
   methods: {
     ...mapActions(['UPDATE_CARD']),
+    cardDueDateSync() {
+      if (this.card.dueDate === null) {
+        return;
+      }
+      const dueDate = this.card.dueDate;
+      this.date = new Date(dueDate);
+      this.$refs.datePicker.move(dueDate);
+    },
     onSave() {
       this.$emit('close');
 

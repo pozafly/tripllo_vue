@@ -117,7 +117,7 @@ export default {
 
   computed: {
     ...mapGetters(['isAuth']),
-    ...mapState(['user', 'bgColor', 'pushMessage', 'socket']),
+    ...mapState(['user', 'bgColor', 'pushMessage']),
   },
 
   watch: {
@@ -142,14 +142,8 @@ export default {
   },
 
   created() {
-    if (this.socket === null) {
-      socketConnect();
-    }
-    bus.$on('receive-message', data => {
-      this.receive(data);
-    });
-
-    this.READ_PUSH_MESSAGE(this.user.id);
+    socketConnect();
+    this.receive();
   },
 
   mounted() {
@@ -196,16 +190,17 @@ export default {
         });
       }
     },
-    receive(data) {
-      const message = JSON.parse(data);
-      this.$notify({
-        group: 'custom-template',
-        duration: 5000,
-        closeOnClick: true,
-        title: '초대장이 도착했습니다',
-        text: `${message.content}`,
+    receive() {
+      bus.$on('receive-message', data => {
+        const message = JSON.parse(data);
+        this.$notify({
+          group: 'custom-template',
+          duration: 5000,
+          closeOnClick: true,
+          title: '초대장이 도착했습니다',
+          text: `${message.content}`,
+        });
       });
-      this.READ_PUSH_MESSAGE(this.user.id);
     },
     closeMessageModal() {
       this.isMessageModal = false;

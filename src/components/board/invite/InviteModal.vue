@@ -65,11 +65,14 @@ export default {
   },
 
   mounted() {
-    this.$refs.inputId.focus();
+    this.inputFocus();
   },
 
   methods: {
     ...mapActions(['READ_IS_INVITE_USER']),
+    inputFocus() {
+      this.$refs.inputId.focus();
+    },
     invitedUserFiler(member) {
       if (this.board.invitedUser) {
         return (

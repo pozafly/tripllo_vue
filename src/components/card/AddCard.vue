@@ -46,11 +46,14 @@ export default {
   },
 
   mounted() {
-    this.$refs.inputTitle.focus();
+    this.titleFocus();
   },
 
   methods: {
     ...mapActions(['CREATE_CARD']),
+    titleFocus() {
+      this.$refs.inputTitle.focus();
+    },
     onSubmit() {
       if (this.invalidInput) {
         this.$emit('close');

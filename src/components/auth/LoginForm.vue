@@ -92,12 +92,6 @@ export default {
     },
   },
 
-  created() {
-    this.$loadScript(`https://apis.google.com/js/api:client.js`).then(() => {
-      this.$_Google.init();
-    });
-  },
-
   methods: {
     ...mapActions(['LOGIN']),
     async submitForm() {

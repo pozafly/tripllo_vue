@@ -33,10 +33,7 @@ export default {
   },
 
   mounted() {
-    if (this.message.isRead === 'Y') {
-      return;
-    }
-    this.UPDATE_PUSH_MESSAGE({ id: this.message.id, isRead: 'Y' });
+    this.setMessage();
   },
 
   methods: {
@@ -47,6 +44,12 @@ export default {
       'UPDATE_USER',
       'READ_BOARD_ONE',
     ]),
+    setMessage() {
+      if (this.message.isRead === 'Y') {
+        return;
+      }
+      this.UPDATE_PUSH_MESSAGE({ id: this.message.id, isRead: 'Y' });
+    },
     async acceptMessage() {
       const { data } = await this.READ_BOARD_ONE({
         boardId: this.message.boardId,

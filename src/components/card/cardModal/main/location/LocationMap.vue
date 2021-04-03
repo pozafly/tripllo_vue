@@ -47,34 +47,34 @@ export default {
   },
 
   watch: {
-    async card() {
-      // 카드가 리랜더링 되면, 카드의 location 문자열을 가지고 와서 파싱함.
-      this.location = await JSON.parse(this.card.location);
-      await this.makeLocationArray();
-      await this.mapDraw();
+    card() {
+      this.makeLocationArray();
+      this.mapDraw();
     },
   },
 
   mounted() {
     // 구글 API를 사용하기 위한 loader
-    const loader = new Loader({
-      apiKey: process.env.VUE_APP_GOOGLE_MAP_API_KEY,
-      version: 'weekly',
-      libraries: ['places'],
-    });
-    loader.load().then(() => {
-      this.mapDraw();
-      this.searchControl();
-    });
+    this.setLoader();
   },
 
-  async created() {
-    this.location = await JSON.parse(this.card.location);
+  created() {
     this.makeLocationArray();
   },
 
   methods: {
     ...mapActions(['UPDATE_CARD']),
+    setLoader() {
+      const loader = new Loader({
+        apiKey: process.env.VUE_APP_GOOGLE_MAP_API_KEY,
+        version: 'weekly',
+        libraries: ['places'],
+      });
+      loader.load().then(() => {
+        this.mapDraw();
+        this.searchControl();
+      });
+    },
     mapDraw() {
       this.map = new google.maps.Map(
         this.$el.querySelector('.google-map-display'),
@@ -150,6 +150,8 @@ export default {
     },
 
     makeLocationArray() {
+      // 카드가 리랜더링 되면, 카드의 location 문자열을 가지고 와서 파싱함.
+      this.location = JSON.parse(this.card.location);
       this.locationArray = [];
       // 이 보드에 해당하는 모든 카드의 location을 배열화. 마커 클러스터를 만들기 위함.
       this.board.lists.map(list => {

@@ -67,11 +67,14 @@ export default {
   computed: { ...mapState(['board']) },
 
   created() {
-    this.inputTitle = this.list.title;
+    this.insertListTitle();
   },
 
   methods: {
     ...mapActions(['UPDATE_LIST', 'DELETE_LIST']),
+    insertListTitle() {
+      this.inputTitle = this.list.title;
+    },
     onClickTitle() {
       this.isEditTitle = true;
       this.$nextTick(() => {

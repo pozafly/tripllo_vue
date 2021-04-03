@@ -136,12 +136,6 @@ export default {
     }, 750),
   },
 
-  created() {
-    this.$loadScript(`https://apis.google.com/js/api:client.js`).then(() => {
-      this.$_Google.init();
-    });
-  },
-
   methods: {
     ...mapActions(['SIGNUP', 'LOGIN', 'VALID_ID']),
     async submitForm() {

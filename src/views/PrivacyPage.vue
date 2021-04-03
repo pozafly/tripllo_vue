@@ -205,10 +205,6 @@
   </div>
 </template>
 
-<script>
-export default {};
-</script>
-
 <style scoped lang="scss">
 .wrap {
   max-width: 800px;

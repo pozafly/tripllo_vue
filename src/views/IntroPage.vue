@@ -179,14 +179,20 @@ export default {
   },
 
   created() {
-    window.addEventListener('scroll', this.handleScroll);
+    this.addEvent();
   },
 
   beforeDestroy() {
-    window.removeEventListener('scroll', this.handleScroll);
+    this.removeEvent();
   },
 
   methods: {
+    addEvent() {
+      window.addEventListener('scroll', this.handleScroll);
+    },
+    removeEvent() {
+      window.removeEventListener('scroll', this.handleScroll);
+    },
     handleScroll() {
       if (window.scrollY === 0) {
         this.$refs.header.style.background = 'none';

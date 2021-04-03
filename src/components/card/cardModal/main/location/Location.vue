@@ -72,10 +72,6 @@ export default {
   },
 
   mounted() {
-    if (!this.card.location) {
-      return;
-    }
-    this.location = JSON.parse(this.card.location);
     this.setImg();
   },
 
@@ -85,6 +81,8 @@ export default {
       if (!this.card.location) {
         return;
       }
+      this.location = JSON.parse(this.card.location);
+
       const location = this.location;
       // https://developers.google.com/maps/documentation/maps-static/start
       this.imgUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${location.lat},${location.lng}

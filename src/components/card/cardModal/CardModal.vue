@@ -86,11 +86,8 @@ export default {
     },
   },
 
-  async created() {
-    await this.READ_CARD({ id: this.$route.params.cardId });
-    await this.READ_CHECKLIST({ id: this.card.id });
-    await this.READ_COMMENT(this.card.id);
-    await this.READ_FILE(this.card.id);
+  created() {
+    this.readCardInfo();
   },
 
   methods: {
@@ -102,6 +99,12 @@ export default {
       'READ_FILE',
     ]),
     ...mapMutations(['deleteComment', 'deleteFile']),
+    async readCardInfo() {
+      await this.READ_CARD({ id: this.$route.params.cardId });
+      await this.READ_CHECKLIST({ id: this.card.id });
+      await this.READ_COMMENT(this.card.id);
+      await this.READ_FILE(this.card.id);
+    },
     onEditTitle() {
       this.isEditTitle = true;
       this.$nextTick(() => this.$refs.inputTitle.focus());

@@ -34,11 +34,14 @@ export default {
   },
 
   mounted() {
-    this.$refs.inputTitle.focus();
+    this.titleFocus();
   },
 
   methods: {
     ...mapActions(['CREATE_CHECKLIST']),
+    titleFocus() {
+      this.$refs.inputTitle.focus();
+    },
     addChecklist() {
       this.$emit('close');
       this.CREATE_CHECKLIST({ title: this.inputTitle, cardId: this.card.id });

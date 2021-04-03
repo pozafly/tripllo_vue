@@ -76,9 +76,7 @@ export default {
   },
 
   mounted() {
-    this.$nextTick(() => {
-      if (this.user.recentBoard) this.getRecentBoard();
-    });
+    if (this.user.recentBoard) this.getRecentBoard();
   },
 
   beforeDestroy() {

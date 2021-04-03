@@ -80,15 +80,18 @@ export default {
   },
 
   mounted() {
-    this.userData.id = this.user.id !== 'null' ? this.user.id : '';
-    this.userData.name = this.user.name !== 'null' ? this.user.name : '';
-    this.userData.email = this.user.email !== 'null' ? this.user.email : '';
-    this.userData.bio = this.user.bio !== 'null' ? this.user.bio : '';
-    this.userData.picture = this.user.picture;
+    this.setUser();
   },
 
   methods: {
     ...mapActions(['UPDATE_USER', 'UPLOAD_IMAGE']),
+    setUser() {
+      this.userData.id = this.user.id !== 'null' ? this.user.id : '';
+      this.userData.name = this.user.name !== 'null' ? this.user.name : '';
+      this.userData.email = this.user.email !== 'null' ? this.user.email : '';
+      this.userData.bio = this.user.bio !== 'null' ? this.user.bio : '';
+      this.userData.picture = this.user.picture;
+    },
     updateUser() {
       this.UPDATE_USER(this.userData).then(() => {
         alert('회원정보 수정 완료');

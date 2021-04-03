@@ -30,14 +30,17 @@ export default {
   },
 
   mounted() {
-    this.$nextTick(() => {
-      if (this.$refs.img) {
-        this.$refs.img.src = this.member.picture;
-      }
-    });
+    this.setImage();
   },
 
   methods: {
+    setImage() {
+      this.$nextTick(() => {
+        if (this.$refs.img) {
+          this.$refs.img.src = this.member.picture;
+        }
+      });
+    },
     inviteMember() {
       let push = confirm(
         `@${this.member.id} 님에게 ${this.board.title} 보드로 초대하시겠습니까?`,

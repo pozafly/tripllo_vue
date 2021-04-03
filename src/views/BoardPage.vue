@@ -156,27 +156,20 @@ export default {
   // },
 
   created() {
-    this.READ_BOARD_DETAIL(this.$route.params.boardId).then(() => {
-      this.setTheme(this.board.bgColor);
-      this.setInvitedUser();
-      if (this.board.createdBy !== this.user.id) {
-        this.isOwner = false;
-      }
-    });
+    this.readBoardDetail();
   },
 
   mounted() {
-    window.document.body.style.overflowY = `hidden`;
+    this.setOverflowStyle('hidden');
   },
 
   updated() {
-    dragger.listDragger();
-    dragger.cardDragger();
+    this.updateDragger();
   },
 
   beforeDestroy() {
+    this.setOverflowStyle('scroll');
     this.makeRecent();
-    window.document.body.style.overflowY = `scroll`;
   },
 
   methods: {
@@ -187,6 +180,22 @@ export default {
       'READ_INVITED_USER',
     ]),
     ...mapMutations(['setTheme']),
+    setOverflowStyle(type) {
+      window.document.body.style.overflowY = type;
+    },
+    readBoardDetail() {
+      this.READ_BOARD_DETAIL(this.$route.params.boardId).then(() => {
+        this.setTheme(this.board.bgColor);
+        this.setInvitedUser();
+        if (this.board.createdBy !== this.user.id) {
+          this.isOwner = false;
+        }
+      });
+    },
+    updateDragger() {
+      dragger.listDragger();
+      dragger.cardDragger();
+    },
     onClickTitle() {
       this.isEditTitle = true;
       //$nextTick : 시간 지연 // https://backback.tistory.com/382

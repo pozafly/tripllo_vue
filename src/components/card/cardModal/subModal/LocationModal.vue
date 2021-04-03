@@ -27,27 +27,30 @@ export default {
   },
 
   mounted() {
-    this.$nextTick(() => {
-      this.$refs.searchMap.focus();
-    });
-
-    // loadScript는 컴포넌트 단위로 외부 script 태그를 삽입해줌.
-    this.$loadScript(
-      `https://maps.googleapis.com/maps/api/js?key=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}&libraries=places`,
-    ).then(() => {
-      this.autocomplete = new google.maps.places.Autocomplete(
-        this.$refs.searchMap,
-        {
-          // geocode: 단순 주소    ||    establishment : 지역정보 서비스(업체)
-          types: ['geocode', 'establishment'],
-        },
-      );
-      this.autocomplete.addListener('place_changed', this.fillInAddress);
-    });
+    this.inputFocus();
+    this.mapLoadScript();
   },
 
   methods: {
     ...mapActions(['UPDATE_CARD']),
+    inputFocus() {
+      this.$refs.searchMap.focus();
+    },
+    mapLoadScript() {
+      // loadScript는 컴포넌트 단위로 외부 script 태그를 삽입해줌.
+      this.$loadScript(
+        `https://maps.googleapis.com/maps/api/js?key=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}&libraries=places`,
+      ).then(() => {
+        this.autocomplete = new google.maps.places.Autocomplete(
+          this.$refs.searchMap,
+          {
+            // geocode: 단순 주소    ||    establishment : 지역정보 서비스(업체)
+            types: ['geocode', 'establishment'],
+          },
+        );
+        this.autocomplete.addListener('place_changed', this.fillInAddress);
+      });
+    },
     fillInAddress() {
       const place = this.autocomplete.getPlace();
       const geometry = {

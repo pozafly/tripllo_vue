@@ -163,15 +163,21 @@ export default {
   },
 
   mounted() {
-    this.$refs.title.focus();
-    // 색상 선택기에 데이터 넣기
-    Array.from(this.$el.querySelectorAll('.color-picker a')).forEach(el => {
-      el.style.backgroundColor = el.dataset.value;
-    });
+    this.titleFocus();
+    this.setColor();
   },
 
   methods: {
     ...mapActions(['CREATE_BOARD']),
+    titleFocus() {
+      this.$refs.title.focus();
+    },
+    setColor() {
+      // 색상 선택기에 데이터 넣기
+      Array.from(this.$el.querySelectorAll('.color-picker a')).forEach(el => {
+        el.style.backgroundColor = el.dataset.value;
+      });
+    },
     async addBoard() {
       const title = this.title.trim();
       const bgColor = this.selectColor;

@@ -92,10 +92,6 @@ export default {
     },
   },
 
-  created() {
-    console.log(this.user);
-  },
-
   methods: {
     ...mapActions(['SIGNOUT']),
     modalClose() {
@@ -121,7 +117,6 @@ export default {
         });
     },
     validId({ target }) {
-      console.log(target.value);
       if (target.value === this.user.id) {
         this.btnDisabled = false;
       } else {

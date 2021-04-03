@@ -25,9 +25,11 @@ export default {
       inputTitle: '',
     };
   },
+
   computed: {
     ...mapState(['board']),
   },
+
   methods: {
     ...mapActions(['CREATE_LIST']),
     onAddList() {

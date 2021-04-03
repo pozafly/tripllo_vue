@@ -126,23 +126,26 @@ export default {
   },
 
   created() {
-    this.READ_HASH_ORDER_BY_COUNT();
+    this.readHash();
   },
 
   mounted() {
-    this.$nextTick(() => {
-      this.$refs.input.focus();
-    });
+    this.inputFocus();
   },
 
   beforeDestroy() {
-    this.searchHashValue = '';
     this.reset();
   },
 
   methods: {
     ...mapActions(['READ_BOARD_BY_HASHTAG', 'READ_HASH_ORDER_BY_COUNT']),
     ...mapMutations(['resetHashtagBoards', 'setIsInfinity']),
+    inputFocus() {
+      this.$refs.input.focus();
+    },
+    readHash() {
+      this.READ_HASH_ORDER_BY_COUNT();
+    },
     searchHash: _.debounce(function({ target }) {
       this.infiniteId += 1;
       this.searchHashValue = target.value;
@@ -170,6 +173,7 @@ export default {
       }, 1200);
     },
     reset() {
+      this.searchHashValue = '';
       this.lastLikeCount = '';
       this.lastCreatedAt = '';
       this.resetHashtagBoards();

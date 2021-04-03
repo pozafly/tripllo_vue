@@ -88,18 +88,14 @@ export default {
     ...mapState(['board', 'user']),
   },
 
-  async mounted() {
-    // 색상 선택기에 데이터 넣기
-    Array.from(this.$el.querySelectorAll('.color-picker a')).forEach(el => {
-      el.style.backgroundColor = el.dataset.value;
-    });
-
-    await this.insertStyle();
+  mounted() {
+    this.setStyle();
   },
 
   methods: {
     ...mapMutations(['setTheme']),
     ...mapActions(['DELETE_BOARD', 'UPDATE_BOARD']),
+    setColor() {},
     onClose() {
       this.$emit('close');
     },
@@ -123,7 +119,13 @@ export default {
       const bgColor = el.target.dataset.value;
       this.UPDATE_BOARD({ id, bgColor }).then(() => this.setTheme(bgColor));
     },
-    insertStyle() {
+    setStyle() {
+      // 색상 선택기에 데이터 넣기
+      Array.from(this.$el.querySelectorAll('.color-picker a')).forEach(el => {
+        el.style.backgroundColor = el.dataset.value;
+      });
+
+      // icon image setting
       this.$nextTick(() => {
         if (
           this.board.createdByPicture === null ||

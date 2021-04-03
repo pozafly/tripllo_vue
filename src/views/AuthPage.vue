@@ -31,19 +31,31 @@ export default {
   },
 
   created() {
-    this.$loadScript(`https://developers.kakao.com/sdk/js/kakao.js`).then(
-      () => {
-        if (!window.Kakao.isInitialized()) {
-          this.$_Kakao.init();
-        }
-      },
-    );
-    this.$_Facebook.init();
+    this.googleLoad();
+    this.kakaoLoad();
+    this.facebookLoad();
   },
 
   methods: {
     goMain() {
       this.$router.push('/main');
+    },
+    googleLoad() {
+      this.$loadScript(`https://apis.google.com/js/api:client.js`).then(() => {
+        this.$_Google.init();
+      });
+    },
+    kakaoLoad() {
+      this.$loadScript(`https://developers.kakao.com/sdk/js/kakao.js`).then(
+        () => {
+          if (!window.Kakao.isInitialized()) {
+            this.$_Kakao.init();
+          }
+        },
+      );
+    },
+    facebookLoad() {
+      this.$_Facebook.init();
     },
   },
 };

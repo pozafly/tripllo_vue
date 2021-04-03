@@ -32,11 +32,7 @@ export default {
   },
 
   mounted() {
-    this.$nextTick(() => {
-      if (this.user.recentBoard) {
-        this.getInvitedBoard();
-      }
-    });
+    this.getInvitedBoard();
   },
 
   methods: {

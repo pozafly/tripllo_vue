@@ -45,16 +45,19 @@ export default {
   },
 
   mounted() {
-    // 밑에서 join으로 만든 문자열을 받아와서 split으로 다시 array로 만든다.
-    if (!this.card.labelColor) {
-      return;
-    }
-    const array = this.card.labelColor.split(',');
-    this.colorArray = array;
+    this.makeLabelArray();
   },
 
   methods: {
     ...mapActions(['UPDATE_CARD']),
+    makeLabelArray() {
+      // 밑에서 join으로 만든 문자열을 받아와서 split으로 다시 array로 만든다.
+      if (!this.card.labelColor) {
+        return;
+      }
+      const array = this.card.labelColor.split(',');
+      this.colorArray = array;
+    },
     onSelectLabels(el) {
       const colorValue = el.target.dataset.value;
 
