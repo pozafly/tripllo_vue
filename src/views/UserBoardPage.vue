@@ -30,7 +30,7 @@
               v-for="board in userBoards"
               :key="board.id"
               class="board-list"
-              :data-last-created-at="board.createdAt"
+              :lastCreatedAt="board.createdAt"
             >
               <BoardItem :board="board" />
             </div>
@@ -103,7 +103,9 @@ export default {
         if (this.isInfinity === 'Y') {
           // 마지막 DOM의 dataset에서 createdAt을 가져와, data에 등록된 lastCreateAt에 집어넣는다.
           if (this.$refs.boardItem.lastChild) {
-            this.lastCreatedAt = this.$refs.boardItem.lastChild.dataset.lastCreatedAt;
+            this.lastCreatedAt = this.$refs.boardItem.lastChild.getAttribute(
+              'lastCreatedAt',
+            );
           }
           $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
         } else {

@@ -8,9 +8,8 @@
         <li
           v-for="item in sideItems"
           :key="item"
-          :data-name="item"
           class="side-item"
-          @click.prevent="onCheckPosition"
+          @click.prevent="onCheckPosition(item)"
         >
           <awesome :icon="modalSideIcon(item)" class="modal-side-icon" />
           <span class="side-item-text">{{ item }}</span>
@@ -88,9 +87,9 @@ export default {
   },
 
   methods: {
-    onCheckPosition(e) {
+    onCheckPosition(item) {
       // toggle에 name을 넣어서 보일지 말지 판단함.
-      const name = `is${e.target.dataset.name}`;
+      const name = `is${item}`;
       this.toggle === name ? (this.toggle = '') : (this.toggle = name);
     },
     modalSideIcon(item) {

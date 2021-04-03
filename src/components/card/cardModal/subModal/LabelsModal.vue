@@ -7,10 +7,9 @@
         <a
           v-for="label in labels"
           :key="label"
-          :data-value="label"
           class="label-item"
           :style="{ backgroundColor: label }"
-          @click.prevent="onSelectLabels"
+          @click.prevent="onSelectLabels(label)"
         >
           <!-- colorArray에 담았으니 거기서 label값을 포함하고 있으면 표시해라. -->
           <span v-if="colorArray.includes(label)">&or;</span>
@@ -58,8 +57,9 @@ export default {
       const array = this.card.labelColor.split(',');
       this.colorArray = array;
     },
-    onSelectLabels(el) {
-      const colorValue = el.target.dataset.value;
+    onSelectLabels(label) {
+      const colorValue = label;
+      console.log(colorValue);
 
       // 없다면 push해라
       if (!this.colorArray.includes(colorValue)) {

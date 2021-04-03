@@ -84,7 +84,7 @@
               v-for="color in colors"
               :key="color"
               class="color"
-              :data-value="color"
+              :style="{ backgroundColor: color }"
               @click.prevent="clickColor(color)"
             >
               <awesome
@@ -164,19 +164,12 @@ export default {
 
   mounted() {
     this.titleFocus();
-    this.setColor();
   },
 
   methods: {
     ...mapActions(['CREATE_BOARD']),
     titleFocus() {
       this.$refs.title.focus();
-    },
-    setColor() {
-      // 색상 선택기에 데이터 넣기
-      Array.from(this.$el.querySelectorAll('.color-picker a')).forEach(el => {
-        el.style.backgroundColor = el.dataset.value;
-      });
     },
     async addBoard() {
       const title = this.title.trim();

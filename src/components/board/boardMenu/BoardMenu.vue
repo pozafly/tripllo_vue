@@ -38,8 +38,8 @@
             v-for="color in colors"
             :key="color"
             class="color"
-            :data-value="color"
-            @click.prevent="onChangeTheme"
+            :style="{ backgroundColor: color }"
+            @click.prevent="onChangeTheme(color)"
           ></a>
           <a class="new-pick" @click="isPicker = true">
             <div class="color new-pick-text">
@@ -114,17 +114,12 @@ export default {
         this.$router.push('/main');
       });
     },
-    onChangeTheme(el) {
+    onChangeTheme(color) {
       const id = this.board.id;
-      const bgColor = el.target.dataset.value;
+      const bgColor = color;
       this.UPDATE_BOARD({ id, bgColor }).then(() => this.setTheme(bgColor));
     },
     setStyle() {
-      // 색상 선택기에 데이터 넣기
-      Array.from(this.$el.querySelectorAll('.color-picker a')).forEach(el => {
-        el.style.backgroundColor = el.dataset.value;
-      });
-
       // icon image setting
       this.$nextTick(() => {
         if (
