@@ -1,9 +1,9 @@
 import {
   saveUserToLocalStorage,
-  saveUserToken,
   clearStorage,
   saveSessionStorage,
   deleteSessionStorage,
+  saveTokenToLocalStorage,
 } from '@/utils/webStorage';
 
 const mutations = {
@@ -13,7 +13,7 @@ const mutations = {
     state.user = user;
   },
   setUserToken(state, token) {
-    saveUserToken(token);
+    saveTokenToLocalStorage(token);
     state.token = token;
   },
   logout(state) {

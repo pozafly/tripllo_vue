@@ -1,48 +1,63 @@
-function saveUserToLocalStorage(user) {
-  localStorage.setItem('user_id', user.id);
-  localStorage.setItem('user_email', user.email);
-  localStorage.setItem('user_name', user.name);
-  localStorage.setItem('user_social', user.social);
-  localStorage.setItem('user_bio', user.bio);
-  localStorage.setItem('user_picture', user.picture);
-  localStorage.setItem('user_recentBoard', user.recentBoard);
-  localStorage.setItem('user_invitedBoard', user.invitedBoard);
-  localStorage.setItem('user_created_at', user.createdAt);
-}
+// 인코딩, 디코딩 함수
+const makeIncodeValue = (key, value) => {
+  const data = encodeURIComponent(JSON.stringify(value));
+  localStorage.setItem(key, btoa(data));
+};
 
-function saveUserToken(token) {
-  localStorage.setItem('user_token', token);
-}
+const returnDecodeValue = value => {
+  const decode = atob(value);
+  const data = JSON.parse(decodeURIComponent(decode));
+  return data;
+};
 
-function getUserFromLocalStorage(key) {
-  return localStorage.getItem(key);
-}
+// 로컬스토리지 관련 함수(user)
+const saveUserToLocalStorage = user => {
+  makeIncodeValue('TRIPLLO-V1-U', user);
+};
 
-function clearStorage() {
+const getUserFromLocalStorage = () => {
+  if (localStorage.getItem('TRIPLLO-V1-U')) {
+    return returnDecodeValue(localStorage.getItem('TRIPLLO-V1-U'));
+  }
+};
+
+// 로컬스토리지 관련 함수(token)
+const saveTokenToLocalStorage = token => {
+  makeIncodeValue('TRIPLLO-V1-T', token);
+};
+
+const getTokenFromLocalStorage = () => {
+  if (localStorage.getItem('TRIPLLO-V1-T')) {
+    return returnDecodeValue(localStorage.getItem('TRIPLLO-V1-T'));
+  }
+};
+
+const clearStorage = () => {
   localStorage.clear();
   sessionStorage.clear();
-}
+};
 
-function clearSessionStorage() {
+const clearSessionStorage = () => {
   sessionStorage.clear();
-}
+};
 
-function saveSessionStorage(key, value) {
+const saveSessionStorage = (key, value) => {
   sessionStorage.setItem(key, JSON.stringify(value));
-}
+};
 
-function getSessionStorage(key) {
+const getSessionStorage = key => {
   return JSON.parse(sessionStorage.getItem(key));
-}
+};
 
-function deleteSessionStorage(key) {
+const deleteSessionStorage = key => {
   sessionStorage.removeItem(key);
-}
+};
 
 export {
   saveUserToLocalStorage,
-  saveUserToken,
   getUserFromLocalStorage,
+  saveTokenToLocalStorage,
+  getTokenFromLocalStorage,
   clearStorage,
   saveSessionStorage,
   getSessionStorage,

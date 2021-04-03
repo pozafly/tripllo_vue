@@ -6,7 +6,7 @@ import { getUserFromLocalStorage } from '@/utils/webStorage';
 Vue.use(VueRouter);
 
 const requireAuth = (to, from, next) => {
-  const loginPath = `/auth`;
+  const loginPath = '/auth';
   if (store.getters.isAuth) {
     next();
   } else {
@@ -16,12 +16,10 @@ const requireAuth = (to, from, next) => {
 };
 
 const firstAccess = (to, from, next) => {
-  const mainPath = '/main';
-  const introPath = '/intro';
-  if (getUserFromLocalStorage('user_id')) {
-    next(mainPath);
+  if (getUserFromLocalStorage()) {
+    next('/main');
   } else {
-    next(introPath);
+    next('/intro');
   }
 };
 

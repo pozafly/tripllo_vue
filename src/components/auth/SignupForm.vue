@@ -81,6 +81,7 @@
 import _ from 'lodash';
 import { validateId, validatePw, validateEmail } from '@/utils/validation';
 import { mapActions } from 'vuex';
+import { getUserFromLocalStorage } from '@/utils/webStorage';
 
 export default {
   data() {
@@ -222,7 +223,7 @@ export default {
       this.push.message = message;
     },
     facebookSignup() {
-      if (localStorage.getItem('user_token')) {
+      if (getUserFromLocalStorage()) {
         alert('이미 로그인 되어 있습니다.');
         this.$router.push('/main');
       } else {
@@ -230,7 +231,7 @@ export default {
       }
     },
     kakaoSignup() {
-      if (localStorage.getItem('user_token')) {
+      if (getUserFromLocalStorage()) {
         alert('이미 로그인 되어 있습니다.');
         this.$router.push('/main');
       } else {

@@ -27,7 +27,7 @@ import { mapActions, mapState } from 'vuex';
 export default {
   props: {
     listId: {
-      type: Object,
+      type: Number,
       default: null,
     },
   },
