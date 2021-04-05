@@ -148,14 +148,6 @@ export default {
     },
   },
 
-  // watch: {
-  //   'board.lists'() {
-  //     this.$nextTick(() => {
-  //       this.$el.querySelector('.list-section').lastChild.scrollIntoView();
-  //     });
-  //   },
-  // },
-
   created() {
     this.readBoardDetail();
   },

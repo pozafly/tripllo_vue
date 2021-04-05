@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - 14.16.0
+
+branches:
+  only:
+    - master
+
+cache:
+ directories:
+   - node_modules
+
+script: "npm run build"
+
+# CI 실행 완료 시 메일로 알람
+notifications:
+  email:
+    recipients:
+      - pozafly@kakao.com
