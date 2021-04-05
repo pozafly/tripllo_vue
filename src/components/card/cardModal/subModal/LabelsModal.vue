@@ -59,7 +59,6 @@ export default {
     },
     onSelectLabels(label) {
       const colorValue = label;
-      console.log(colorValue);
 
       // 없다면 push해라
       if (!this.colorArray.includes(colorValue)) {

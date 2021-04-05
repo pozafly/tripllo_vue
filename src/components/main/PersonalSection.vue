@@ -69,14 +69,12 @@ export default {
 
   watch: {
     'user.recentBoard'() {
-      if (this.user.recentBoard) {
-        this.getRecentBoard();
-      }
+      this.getRecentBoard();
     },
   },
 
   mounted() {
-    if (this.user.recentBoard) this.getRecentBoard();
+    this.getRecentBoard();
   },
 
   beforeDestroy() {
@@ -105,6 +103,7 @@ export default {
       });
       setTimeout(() => {
         // isInfinity는 state에 올라가 있다. 초기 값은 Y
+        // READ_PERSONAL_BOARD 후, .then으로 component에서 작업할 수 없다. 따라서 state에서 작업함.
         if (this.isInfinity === 'Y') {
           if (this.$refs.boardItem) {
             this.lastCreatedAt = this.$refs.boardItem.lastChild.getAttribute(
