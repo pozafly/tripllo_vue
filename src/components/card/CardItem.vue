@@ -1,5 +1,5 @@
 <template>
-  <div class="card-item" :data-card-id="card.id" :data-card-pos="card.pos">
+  <div class="card-item" :cardId="card.id" :pos="card.pos">
     <router-link :to="`/board/${board.id}/card/${card.id}`">
       <!-- 라벨링 -->
       <div
@@ -7,9 +7,9 @@
         v-show="labelArray.includes(label)"
         :key="label"
         class="inside-card-label"
-        :data-value="label"
         :style="{ backgroundColor: label }"
       ></div>
+
       <div class="card-title">{{ card.title }}</div>
       <div class="board-inside-icons">
         <!-- 햄버거 -->

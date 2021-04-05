@@ -80,7 +80,7 @@
                 v-for="list in board.lists"
                 :key="list.id"
                 class="list-wrapper"
-                :data-list-id="list.id"
+                :listId="list.id"
               >
                 <ListItem :list="list" />
               </div>

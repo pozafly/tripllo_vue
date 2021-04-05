@@ -55,10 +55,6 @@ export default {
     };
   },
 
-  mounted() {
-    console.log(this.card);
-  },
-
   methods: {
     ...mapActions(['UPDATE_CARD']),
     onEditDesc() {

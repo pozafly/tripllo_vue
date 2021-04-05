@@ -99,11 +99,11 @@ export default {
       }
       this.READ_RECENT_BOARD({ recentLists });
     },
-    async infiniteHandler($state) {
+    infiniteHandler($state) {
       this.READ_PERSONAL_BOARD({
         lastCreatedAt: this.lastCreatedAt,
       });
-      await setTimeout(() => {
+      setTimeout(() => {
         // isInfinity는 state에 올라가 있다. 초기 값은 Y
         if (this.isInfinity === 'Y') {
           if (this.$refs.boardItem) {

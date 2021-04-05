@@ -11,20 +11,20 @@ const dragger = {
   },
   // candidates : 후보군 || type : card인지 list인지 구분
   siblings({ el, wrapper, candidates, type }) {
-    const curId = el.dataset[type + 'Id'] * 1;
+    const curId = el.getAttribute(type + 'Id') * 1;
 
     let prev = null;
     let next = null;
 
     candidates.forEach((el, idx, arr) => {
-      const id = el.dataset[type + 'Id'] * 1;
+      const id = el.getAttribute(type + 'Id') * 1;
       if (id === curId) {
         // 이전 카드가 첫번째 카드가 아니라면 이전(-1)card의 id, pos를 줌
         prev =
           idx > 0
             ? {
-                id: arr[idx - 1].dataset[type + 'Id'] * 1,
-                pos: arr[idx - 1].dataset[type + 'Pos'] * 1,
+                id: arr[idx - 1].getAttribute(type + 'Id') * 1,
+                pos: arr[idx - 1].getAttribute('pos') * 1,
               }
             : null;
 
@@ -32,8 +32,8 @@ const dragger = {
         next =
           idx < arr.length - 1
             ? {
-                id: arr[idx + 1].dataset[type + 'Id'] * 1,
-                pos: arr[idx + 1].dataset[type + 'Pos'] * 1,
+                id: arr[idx + 1].getAttribute(type + 'Id') * 1,
+                pos: arr[idx + 1].getAttribute('pos') * 1,
               }
             : null;
       }
@@ -51,9 +51,9 @@ const dragger = {
 
     cDragger.on('drop', (el, wrapper, target, siblings) => {
       const targetCard = {
-        id: el.dataset.cardId * 1,
+        id: el.getAttribute('cardId') * 1,
         // list 이동과는 다르게, card 이동은 list간의 이동도 가능해야하기때문에 listId 를 줌.
-        listId: wrapper.dataset.listId * 1,
+        listId: wrapper.getAttribute('listId') * 1,
         pos: 65535,
       };
       const { prev, next } = this.siblings({
@@ -94,7 +94,7 @@ const dragger = {
     );
     lDragger.on('drop', (el, wrapper, target, siblings) => {
       const targetList = {
-        id: el.dataset.listId * 1,
+        id: el.getAttribute('listId') * 1,
         pos: 65535,
       };
       const { prev, next } = this.siblings({

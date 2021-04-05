@@ -6,7 +6,6 @@
       v-show="labelArray.includes(label)"
       :key="label"
       class="detail-label-item"
-      :data-value="label"
       :style="{ backgroundColor: label }"
     ></div>
   </li>

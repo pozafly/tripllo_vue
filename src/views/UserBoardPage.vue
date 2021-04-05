@@ -96,12 +96,12 @@ export default {
           this.userBoards = this.userBoards.concat(data.data);
         });
     },
-    async infiniteHandler($state) {
+    infiniteHandler($state) {
       this.searchBoard();
-      await setTimeout(() => {
+      setTimeout(() => {
         // isInfinity는 state에 올라가 있다. 초기 값은 Y
         if (this.isInfinity === 'Y') {
-          // 마지막 DOM의 dataset에서 createdAt을 가져와, data에 등록된 lastCreateAt에 집어넣는다.
+          // 마지막 DOM의 속성에서 createdAt을 가져와, data에 등록된 lastCreateAt에 집어넣는다.
           if (this.$refs.boardItem.lastChild) {
             this.lastCreatedAt = this.$refs.boardItem.lastChild.getAttribute(
               'lastCreatedAt',

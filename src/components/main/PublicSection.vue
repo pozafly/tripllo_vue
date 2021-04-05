@@ -150,14 +150,14 @@ export default {
       this.infiniteId += 1;
       this.searchHashValue = target.value;
     }, 750),
-    async infiniteHandler($state) {
+    infiniteHandler($state) {
       this.state = $state;
       const hashtagName = this.searchHashValue;
       const lastLikeCount = this.lastLikeCount;
       const lastCreatedAt = this.lastCreatedAt;
       this.READ_BOARD_BY_HASHTAG({ hashtagName, lastLikeCount, lastCreatedAt });
 
-      await setTimeout(() => {
+      setTimeout(() => {
         // isInfinity는 state에 올라가 있다. 초기 값은 Y
         if (this.isInfinity === 'Y') {
           if (this.$refs.boardItem) {
