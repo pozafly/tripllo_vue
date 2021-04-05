@@ -7,8 +7,8 @@
           <span class="title-text">Search</span>
           <span class="side-text search-side"> - Search you want..</span>
           <input
-            ref="input"
             v-model="searchHashValue"
+            v-focus
             type="text"
             class="form-control"
             spellcheck="false"
@@ -128,10 +128,6 @@ export default {
     this.readHash();
   },
 
-  mounted() {
-    this.inputFocus();
-  },
-
   beforeDestroy() {
     this.searchHashValue = '';
     this.reset();
@@ -140,10 +136,6 @@ export default {
   methods: {
     ...mapActions(['READ_BOARD_BY_HASHTAG', 'READ_HASH_ORDER_BY_COUNT']),
     ...mapMutations(['resetHashtagBoards', 'setIsInfinity']),
-
-    inputFocus() {
-      this.$refs.input.focus();
-    },
 
     readHash() {
       this.READ_HASH_ORDER_BY_COUNT();

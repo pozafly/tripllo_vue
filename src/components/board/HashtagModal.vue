@@ -21,6 +21,7 @@
           <input
             ref="hashModal"
             v-model="hashItem"
+            v-focus
             class="form-control hash-form"
             type="text"
             placeholder="예시) 국내여행, 고양이 ... 등"
@@ -111,9 +112,6 @@ export default {
     },
     openMadal() {
       this.isHashModal = true;
-      this.$nextTick(() => {
-        this.$refs.hashModal.focus();
-      });
     },
     closeModal(e) {
       if (e.target.className === 'hashtag-delete') {

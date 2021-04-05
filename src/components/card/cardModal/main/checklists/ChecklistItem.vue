@@ -19,8 +19,8 @@
     </template>
     <template v-else>
       <input
-        ref="inputItem"
         v-model="inputItem"
+        v-focus
         type="text"
         class="form-control checkbox-input-title checkboxitem-input-item"
         placeholder="Edit Item and press Enter"
@@ -108,9 +108,6 @@ export default {
     },
     onEditItem() {
       this.isItem = true;
-      this.$nextTick(() => {
-        this.$el.querySelector(`.checkboxitem-input-item`).focus();
-      });
       this.inputItem = this.items.item;
     },
     onKeyupEnter() {

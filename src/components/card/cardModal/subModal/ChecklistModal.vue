@@ -4,8 +4,8 @@
     <div slot="content">
       <div class="content-text">Title</div>
       <input
-        ref="inputTitle"
         v-model="inputTitle"
+        v-focus
         type="text"
         class="form-control checklist-title"
         spellcheck="false"
@@ -33,15 +33,8 @@ export default {
     ...mapState(['card']),
   },
 
-  mounted() {
-    this.titleFocus();
-  },
-
   methods: {
     ...mapActions(['CREATE_CHECKLIST']),
-    titleFocus() {
-      this.$refs.inputTitle.focus();
-    },
     addChecklist() {
       this.$emit('close');
       this.CREATE_CHECKLIST({ title: this.inputTitle, cardId: this.card.id });

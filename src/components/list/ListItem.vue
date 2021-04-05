@@ -5,6 +5,7 @@
         v-if="isEditTitle"
         ref="inputTitle"
         v-model="inputTitle"
+        v-focus
         type="text"
         class="form-control input-title"
         maxlength="19"
@@ -84,10 +85,7 @@ export default {
     },
     onClickTitle() {
       this.isEditTitle = true;
-      this.$nextTick(() => {
-        this.$refs.inputTitle.value = this.list.title;
-        this.$refs.inputTitle.focus();
-      });
+      this.$refs.inputTitle.value = this.list.title;
     },
     onKeyupEnter(event) {
       event.target.blur();
@@ -114,11 +112,9 @@ export default {
       this.DELETE_LIST({ id: this.list.id });
     },
     cardFocus() {
-      this.$nextTick(() => {
-        setTimeout(() => {
-          this.$el.querySelector('.card-list').lastChild.scrollIntoView();
-        }, 150);
-      });
+      setTimeout(() => {
+        this.$el.querySelector('.card-list').lastChild.scrollIntoView();
+      }, 100);
     },
   },
 };

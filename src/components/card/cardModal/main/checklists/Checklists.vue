@@ -18,6 +18,7 @@
       <input
         ref="inputTitle"
         v-model="inputTitle"
+        v-focus
         type="text"
         class="form-control checkbox-input-title"
         maxlength="44"
@@ -54,7 +55,9 @@
     </button>
     <span v-else>
       <input
+        ref="addItemInput"
         v-model="inputItem"
+        v-focus
         type="text"
         :class="`form-control checkbox-input-title checkbox-item-input`"
         placeholder="Add an Item"
@@ -131,11 +134,7 @@ export default {
     ]),
     editTitle() {
       this.isTitle = true;
-
-      this.$nextTick(() => {
-        this.inputTitle = this.checklist.title;
-        this.$refs.inputTitle.focus();
-      });
+      this.inputTitle = this.checklist.title;
     },
     deleteChecklist() {
       this.DELETE_CHECKLIST({
@@ -161,9 +160,7 @@ export default {
     },
     isAddItem() {
       this.isItem = true;
-      this.$nextTick(() => {
-        this.$el.querySelector(`.checkbox-input-title`).focus();
-      });
+      this.$refs.addItemInput.focus();
     },
     onSubmitItem({ relatedTarget }) {
       this.isItem = false;

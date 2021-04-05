@@ -2,7 +2,11 @@
   <div>
     <h3 class="title">Signout</h3>
     <div class="about-wrap">
-      <button class="signout-btn" type="button" @click="openDeleteModal">
+      <button
+        class="signout-btn"
+        type="button"
+        @click="() => (isDelete = true)"
+      >
         Signout
       </button>
       <div v-if="isDelete" class="delete-modal">
@@ -15,8 +19,8 @@
                 탈퇴를 원하시면 비밀번호를 입력 후 <b>Enter</b>를 눌러주세요.
               </span>
               <input
-                ref="input"
                 v-model="password"
+                v-focus
                 type="password"
                 class="form-control input"
                 @keypress.enter="deleteUser"
@@ -42,6 +46,7 @@
               <input
                 ref="input"
                 v-model="password"
+                v-focus
                 type="password"
                 class="form-control input"
                 @input="validId"
@@ -122,10 +127,6 @@ export default {
       } else {
         this.btnDisabled = true;
       }
-    },
-    openDeleteModal() {
-      this.isDelete = true;
-      this.$nextTick(() => this.$refs.input.focus());
     },
   },
 };

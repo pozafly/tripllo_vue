@@ -1,16 +1,17 @@
 import Vue from 'vue';
 import App from './App.vue';
-import router from '@/routes/index';
-import store from '@/store/index';
-import { install } from '@/plugin';
+import router from '@/routes';
+import store from '@/store';
+import { usePlugin } from '@/compositions/plugin';
+import { useDirective } from '@/compositions/directive';
+import { useFilter } from '@/compositions/filter';
 import '@/utils/fontAwesomeIcon.js';
-import { normalFormatDate, timeForToday } from '@/utils/dateFilter';
 
 Vue.config.productionTip = false;
-Vue.use(install);
 
-Vue.filter('normalFormatDate', normalFormatDate);
-Vue.filter('timeForToday', timeForToday);
+Vue.use(usePlugin);
+Vue.use(useDirective);
+Vue.use(useFilter);
 
 new Vue({
   render: h => h(App),

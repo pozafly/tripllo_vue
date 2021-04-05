@@ -121,20 +121,18 @@ export default {
     },
     setStyle() {
       // icon image setting
-      this.$nextTick(() => {
-        if (
-          this.board.createdByPicture === null ||
-          this.board.createdByPicture === 'null'
-        ) {
-          const icon = this.$el.querySelectorAll('.icon');
-          Array.from(icon)[0].style.backgroundColor = this.board.bgColor;
-        } else {
-          const imgList = this.$el.querySelectorAll('.img');
-          Array.from(imgList).forEach(e => {
-            e.style.backgroundImage = `url(${this.board.createdByPicture})`;
-          });
-        }
-      });
+      if (
+        this.board.createdByPicture === null ||
+        this.board.createdByPicture === 'null'
+      ) {
+        const icon = this.$el.querySelectorAll('.icon');
+        Array.from(icon)[0].style.backgroundColor = this.board.bgColor;
+      } else {
+        const imgList = this.$el.querySelectorAll('.img');
+        Array.from(imgList).forEach(e => {
+          e.style.backgroundImage = `url(${this.board.createdByPicture})`;
+        });
+      }
     },
   },
 };

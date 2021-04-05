@@ -4,6 +4,7 @@
       v-if="isAddList"
       ref="inputTitle"
       v-model="inputTitle"
+      v-focus
       type="text"
       class="form-control"
       placeholder="Enter list title..."
@@ -34,7 +35,6 @@ export default {
     ...mapActions(['CREATE_LIST']),
     onAddList() {
       this.isAddList = true;
-      this.$nextTick(() => this.$refs.inputTitle.focus());
     },
     onSubmitTitle() {
       this.inputTitle = this.inputTitle.trim();
@@ -49,11 +49,9 @@ export default {
       const pos = lastList ? lastList.pos * 2 : 65535;
 
       this.CREATE_LIST({ title, boardId, pos }).finally(() => {
-        this.$nextTick(() => {
-          this.inputTitle = '';
-          this.$refs.inputTitle.focus();
-          this.$emit('listFocus');
-        });
+        this.inputTitle = '';
+        this.$refs.inputTitle.focus();
+        this.$emit('listFocus');
       });
     },
     onKeyupEnter() {

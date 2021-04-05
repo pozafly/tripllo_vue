@@ -5,6 +5,7 @@
         <textarea
           ref="inputTitle"
           v-model="inputTitle"
+          v-focus
           type="text"
           class="form-control card-input"
           placeholder="Enter a title for this card..."
@@ -46,15 +47,9 @@ export default {
     ...mapState(['board']),
   },
 
-  mounted() {
-    this.titleFocus();
-  },
-
   methods: {
     ...mapActions(['CREATE_CARD']),
-    titleFocus() {
-      this.$refs.inputTitle.focus();
-    },
+
     onSubmit() {
       if (this.invalidInput) {
         this.$emit('close');
@@ -64,11 +59,9 @@ export default {
       const pos = this.newCardPos();
 
       this.CREATE_CARD({ title: inputTitle, listId, pos }).finally(() => {
-        this.$nextTick(() => {
-          this.inputTitle = '';
-          this.$refs.inputTitle.focus();
-          this.$emit('cardFocus');
-        });
+        this.inputTitle = '';
+        this.$refs.inputTitle.focus();
+        this.$emit('cardFocus');
       });
     },
     newCardPos() {

@@ -4,8 +4,8 @@
     <div slot="content">
       <div class="content-text">Search Member</div>
       <input
-        ref="inputId"
         v-model="inputId"
+        v-focus
         type="text"
         class="form-control invite-title"
         spellcheck="false"
@@ -64,15 +64,9 @@ export default {
     }, 750),
   },
 
-  mounted() {
-    this.inputFocus();
-  },
-
   methods: {
     ...mapActions(['READ_IS_INVITE_USER']),
-    inputFocus() {
-      this.$refs.inputId.focus();
-    },
+
     invitedUserFiler(member) {
       if (this.board.invitedUser) {
         return (

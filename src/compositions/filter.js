@@ -1,5 +1,5 @@
-// 필터 관련 함수
-export const normalFormatDate = value => {
+// 시간 나열 filter
+const normalFormatDate = value => {
   const date = new Date(value);
   const year = date.getFullYear();
 
@@ -22,7 +22,8 @@ export const normalFormatDate = value => {
   return `${year}-${month}-${day} ${hours}:${minutes} ${ampm}`;
 };
 
-export const timeForToday = value => {
+// 몇분전 filter
+const timeForToday = value => {
   const today = new Date();
   const timeValue = new Date(value);
 
@@ -47,4 +48,9 @@ export const timeForToday = value => {
   }
 
   return `${Math.floor(betweenTimeDay / 365)}년전`;
+};
+
+export const useFilter = Vue => {
+  Vue.filter('normalFormatDate', normalFormatDate);
+  Vue.filter('timeForToday', timeForToday);
 };

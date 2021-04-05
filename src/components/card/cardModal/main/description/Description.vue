@@ -4,7 +4,6 @@
     <span class="body-card-text">Description</span>
     <textarea
       v-if="isEditDesc"
-      ref="inputDesc"
       v-model="description"
       class="form-control card-desc textarea"
       :readonly="!isEditDesc"
@@ -60,7 +59,6 @@ export default {
     onEditDesc() {
       this.isEditDesc = true;
       this.description = this.cardDescription;
-      this.$nextTick(() => this.$refs.inputDesc.focus());
     },
     // relatedTarget: 이벤트 발생 타겟을 의미함.
     onSubmitDesc({ relatedTarget }) {

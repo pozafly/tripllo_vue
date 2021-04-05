@@ -9,6 +9,7 @@
               v-if="isEditTitle"
               ref="inputTitle"
               v-model="inputTitle"
+              v-focus
               class="form-control"
               type="text"
               maxlength="44"
@@ -197,12 +198,9 @@ export default {
       dragger.cardDragger();
     },
     onClickTitle() {
+      console.log('onClickTitle');
       this.isEditTitle = true;
-      //$nextTick : 시간 지연 // https://backback.tistory.com/382
-      this.$nextTick(() => {
-        this.$refs.inputTitle.value = this.board.title;
-        this.$refs.inputTitle.focus();
-      });
+      this.inputTitle = this.board.title;
     },
     onKeyupEnter(event) {
       // 이벤트 트리거. onSubmitTitle이 두번 실행되는 것을 방지. https://velog.io/@kyh196201/1025
@@ -303,11 +301,9 @@ export default {
       }
     },
     listFocus() {
-      this.$nextTick(() => {
-        setTimeout(() => {
-          this.$el.querySelector('.list-section').lastChild.scrollIntoView();
-        }, 150);
-      });
+      setTimeout(() => {
+        this.$el.querySelector('.list-section').lastChild.scrollIntoView();
+      }, 100);
     },
   },
 };

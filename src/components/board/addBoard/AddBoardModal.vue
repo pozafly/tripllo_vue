@@ -18,8 +18,8 @@
               <span class="require">*</span>
             </div>
             <input
-              ref="title"
               v-model="title"
+              v-focus
               class="form-control"
               type="text"
               placeholder="보드 제목을 입력해주세요"
@@ -162,15 +162,9 @@ export default {
     },
   },
 
-  mounted() {
-    this.titleFocus();
-  },
-
   methods: {
     ...mapActions(['CREATE_BOARD']),
-    titleFocus() {
-      this.$refs.title.focus();
-    },
+
     async addBoard() {
       const title = this.title.trim();
       const bgColor = this.selectColor;

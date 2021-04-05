@@ -8,6 +8,7 @@
           <span>현재 비밀번호</span>
           <input
             v-model="currentPw"
+            v-focus
             type="password"
             class="form-control input"
           />

@@ -2,8 +2,8 @@
   <div class="comment-wrap">
     <textarea
       v-if="isEditComment"
-      ref="input"
       v-model="commentText"
+      v-focus
       class="form-control comment-input textarea"
       spellcheck="false"
       @blur="onSubmitComment"
@@ -20,8 +20,8 @@
       <template v-if="item.deleteYn === 'N' && item.dept === 0">
         <textarea
           v-if="isEditNestedComment"
-          ref="nestedComment"
           v-model="nestedComment"
+          v-focus
           class="form-control comment-input textarea nested"
           spellcheck="false"
           placeholder="Write a comment..."
@@ -137,14 +137,10 @@ export default {
     },
     onEditComment() {
       this.isEditComment = true;
-      this.$nextTick(() => {
-        this.$refs.input.focus();
-        this.commentText = this.item.comment;
-      });
+      this.commentText = this.item.comment;
     },
     onEditNestedComment() {
       this.isEditNestedComment = true;
-      this.$nextTick(() => this.$refs.nestedComment.focus());
     },
   },
 };

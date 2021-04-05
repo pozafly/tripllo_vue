@@ -4,6 +4,7 @@
     <div slot="content">
       <input
         ref="searchMap"
+        v-focus
         type="text"
         class="form-control"
         placeholder="Search Google Maps"
@@ -27,15 +28,12 @@ export default {
   },
 
   mounted() {
-    this.inputFocus();
     this.mapLoadScript();
   },
 
   methods: {
     ...mapActions(['UPDATE_CARD']),
-    inputFocus() {
-      this.$refs.searchMap.focus();
-    },
+
     mapLoadScript() {
       // loadScript는 컴포넌트 단위로 외부 script 태그를 삽입해줌.
       this.$loadScript(

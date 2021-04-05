@@ -9,6 +9,7 @@
         <input
           v-if="isEditTitle"
           ref="inputTitle"
+          v-focus
           class="form-control card-title-input"
           type="text"
           :value="card.title"
@@ -107,7 +108,6 @@ export default {
     },
     onEditTitle() {
       this.isEditTitle = true;
-      this.$nextTick(() => this.$refs.inputTitle.focus());
     },
     onSubmitTitle() {
       this.isEditTitle = false;

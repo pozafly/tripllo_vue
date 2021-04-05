@@ -114,13 +114,18 @@ export default {
       const comment = this.commentText;
       this.CREATE_COMMENT({ cardId, userId, comment });
       this.commentText = '';
+      this.scrollAction();
     },
     onKeyupEnter(event) {
       event.target.blur();
     },
     onEditComment() {
       this.isComment = true;
-      this.$nextTick(() => this.$refs.input.focus());
+    },
+    scrollAction() {
+      setTimeout(() => {
+        this.$el.scrollIntoView(false);
+      }, 100);
     },
   },
 };

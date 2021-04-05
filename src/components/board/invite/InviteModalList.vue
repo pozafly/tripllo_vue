@@ -39,11 +39,9 @@ export default {
 
   methods: {
     setImage() {
-      this.$nextTick(() => {
-        if (this.$refs.img) {
-          this.$refs.img.src = this.member.picture;
-        }
-      });
+      if (this.$refs.img) {
+        this.$refs.img.src = this.member.picture;
+      }
     },
     inviteMember() {
       let push = confirm(
