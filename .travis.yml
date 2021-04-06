@@ -32,6 +32,9 @@ deploy:
   local_dir: dist
 
 after_deploy:
+  - echo $TEST_ID
+  - echo "$TEST_ID"
+  - echo "$TEST_ID IS TEST?"
   - aws configure set preview.cloudfront true
   - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"
 
