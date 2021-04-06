@@ -20,7 +20,7 @@ before_install:
 before_deploy:
   - pip install --user awscli
 
- deploy:
+deploy:
   provider: s3
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
