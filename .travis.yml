@@ -34,8 +34,7 @@ deploy:
 
 after_deploy:
   - aws configure set preview.cloudfront true
-  - travis-ci-cloudfront-invalidation -a $AWS_ACCESS_KEY -s $AWS_SECRET_KEY -c $CLOUDFRONT_ID -i '/*'
-  # -b $TRAVIS_BRANCH -p $TRAVIS_PULL_REQUEST -o 'master'
+  - travis-ci-cloudfront-invalidation -a $AWS_ACCESS_KEY -s $AWS_SECRET_KEY -c $CLOUDFRONT_ID -i '/*' -b $TRAVIS_BRANCH -p $TRAVIS_PULL_REQUEST -o 'master'
   # - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"
 
 notifications:
