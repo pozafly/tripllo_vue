@@ -32,10 +32,8 @@ deploy:
   local_dir: dist
 
 after_deploy:
-  - aws configure set aws_access_key_id $AWS_ACCESS_ID
-  - aws configure set aws_secret_access_key $AWS_SECRET_ID
   - aws configure set preview.cloudfront true
-  - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRIBUTION_ID --paths "/*"
+  - aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_ID --paths "/*"
 
 notifications:
   email:
