@@ -19,7 +19,6 @@ const state = {
   socket: null,
   pushMessage: '',
   file: [],
-  mainTabId: 0,
   hashtagBoards: [],
   hashtags: [],
 };

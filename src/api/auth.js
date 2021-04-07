@@ -4,6 +4,7 @@ import store from '@/store';
 
 // 로그인 API
 const authApi = {
+  // login
   loginUser(userData) {
     return instance.post('login', userData);
   },
@@ -18,6 +19,7 @@ const authApi = {
   validId(userId) {
     return instance.get(`user/valid/${userId}`);
   },
+
   readIsInviteUser(userId) {
     return instance.get(`user/isInvite/${userId}`, {
       headers: {

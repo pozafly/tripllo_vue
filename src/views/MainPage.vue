@@ -2,7 +2,7 @@
   <div class="page">
     <Header />
     <div class="main-wrap">
-      <NavTap />
+      <NavTap @changeTab="changeTab" />
       <template v-if="mainTabId === 0">
         <PersonalSection />
       </template>
@@ -22,7 +22,7 @@ import NavTap from '@/components/main/NavTap.vue';
 import PersonalSection from '@/components/main/PersonalSection.vue';
 import InvitedSection from '@/components/main/InvitedSection.vue';
 import PublicSection from '@/components/main/PublicSection.vue';
-import { mapState } from 'vuex';
+import { getSessionStorage } from '@/utils/webStorage';
 
 export default {
   components: {
@@ -33,8 +33,16 @@ export default {
     PublicSection,
   },
 
-  computed: {
-    ...mapState(['mainTabId']),
+  data() {
+    return {
+      mainTabId: getSessionStorage('mainTabId'),
+    };
+  },
+
+  methods: {
+    changeTab(value) {
+      this.mainTabId = value;
+    },
   },
 };
 </script>

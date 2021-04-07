@@ -12,6 +12,7 @@ const mutations = {
     state.user = user;
   },
   setUserToken(state, token) {
+    saveSessionStorage('mainTabId', 0);
     saveTokenToLocalStorage(token);
     state.token = token;
   },
@@ -93,11 +94,6 @@ const mutations = {
   },
   deleteFile(state) {
     state.file = [];
-  },
-
-  // main tap
-  setMainTabId(state, value) {
-    state.mainTabId = value;
   },
 
   // hashtagByBoard

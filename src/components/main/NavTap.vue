@@ -31,17 +31,20 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex';
+import { getSessionStorage, saveSessionStorage } from '@/utils/webStorage';
 
 export default {
-  computed: {
-    ...mapState(['mainTabId']),
+  data() {
+    return {
+      mainTabId: getSessionStorage('mainTabId'),
+    };
   },
 
   methods: {
-    ...mapMutations(['setMainTabId']),
     changeMainTap(value) {
-      this.setMainTabId(value);
+      this.mainTabId = value;
+      this.$emit('changeTab', value);
+      saveSessionStorage('mainTabId', value);
     },
   },
 };
