@@ -2,9 +2,9 @@ import Vue from 'vue';
 import App from './App.vue';
 import router from '@/routes';
 import store from '@/store';
-import { usePlugin } from '@/compositions/plugin';
-import { useDirective } from '@/compositions/directive';
-import { useFilter } from '@/compositions/filter';
+import { usePlugin } from '@/features/plugin';
+import { useDirective } from '@/features/directive';
+import { useFilter } from '@/features/filter';
 import '@/utils/fontAwesomeIcon.js';
 
 Vue.config.productionTip = false;
