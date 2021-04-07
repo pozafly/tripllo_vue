@@ -68,7 +68,7 @@ export default {
       userBoards: [],
       userInfo: {},
       lastCreatedAt: 'firstCall',
-      isInfinity: 'Y',
+      isInfinity: true,
     };
   },
 
@@ -78,40 +78,48 @@ export default {
 
   methods: {
     readUser() {
-      authApi.readUser(this.$route.params.userId).then(({ data }) => {
-        this.userInfo = data.data;
-      });
+      authApi
+        .readUser(this.$route.params.userId)
+        .catch(error => {
+          console.log(error);
+          alert('유저 정보를 가져오지 못했습니다.');
+        })
+        .then(({ data }) => {
+          this.userInfo = data.data;
+        });
     },
-    searchBoard() {
+
+    searchBoard($state) {
       boardApi
         .readSearchUserBoard({
           searchUser: this.$route.params.userId,
           lastCreatedAt: this.lastCreatedAt,
         })
+        .catch(error => {
+          console.log(error);
+          alert('유저 보드를 가져오지 못했습니다.');
+        })
         .then(({ data }) => {
           if (data.data === null) {
-            this.isInfinity = 'N';
-            return;
+            this.isInfinity = false;
+            $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
+          } else {
+            this.userBoards = this.userBoards.concat(data.data);
           }
-          this.userBoards = this.userBoards.concat(data.data);
         });
     },
+
     infiniteHandler($state) {
-      this.searchBoard();
+      this.searchBoard($state);
       setTimeout(() => {
-        // isInfinity는 state에 올라가 있다. 초기 값은 Y
-        if (this.isInfinity === 'Y') {
+        if (this.isInfinity === true || this.$refs.boardItem.lastChild) {
           // 마지막 DOM의 속성에서 createdAt을 가져와, data에 등록된 lastCreateAt에 집어넣는다.
-          if (this.$refs.boardItem.lastChild) {
-            this.lastCreatedAt = this.$refs.boardItem.lastChild.getAttribute(
-              'lastCreatedAt',
-            );
-          }
+          this.lastCreatedAt = this.$refs.boardItem.lastChild.getAttribute(
+            'lastCreatedAt',
+          );
           $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
-        } else {
-          $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
         }
-      }, 1200);
+      }, 1000);
     },
   },
 };

@@ -28,7 +28,6 @@ const mutations = {
   },
   resetPersonalBoard(state) {
     state.personalBoard = [];
-    state.isInfinity = 'Y';
   },
   rerenderBoard(state, data) {
     state.personalBoard = data;
@@ -105,11 +104,6 @@ const mutations = {
   },
   setHashOrderByCount(state, data) {
     state.hashtags = data;
-  },
-
-  // infinity
-  setIsInfinity(state, value) {
-    state.isInfinity = value;
   },
 };
 

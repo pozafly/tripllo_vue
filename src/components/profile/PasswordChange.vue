@@ -76,8 +76,6 @@ export default {
       this.CHANGE_PASSWORD({
         currentPw: this.currentPw,
         newPw: this.newPw,
-      }).then(() => {
-        alert('비밀번호 변경 완료');
       });
     },
     validatePw(pw) {

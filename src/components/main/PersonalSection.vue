@@ -60,11 +60,12 @@ export default {
     return {
       isShowAddBoard: false,
       lastCreatedAt: 'firstCall',
+      isInfinity: true,
     };
   },
 
   computed: {
-    ...mapState(['personalBoard', 'recentBoard', 'user', 'isInfinity']),
+    ...mapState(['personalBoard', 'recentBoard', 'user']),
   },
 
   watch: {
@@ -83,11 +84,14 @@ export default {
 
   methods: {
     ...mapActions(['READ_PERSONAL_BOARD', 'READ_RECENT_BOARD']),
-    ...mapMutations(['resetPersonalBoard']),
+    ...mapMutations(['resetPersonalBoard', 'pushPersonalBoard']),
+
     showAddBoard() {
       this.isShowAddBoard = !this.isShowAddBoard;
     },
+
     getRecentBoard() {
+      console.log('dddddd');
       if (this.user.recentBoard === null || this.user.recentBoard === 'null') {
         return;
       }
@@ -95,26 +99,35 @@ export default {
       if (this.user.recentBoard) {
         recentLists = JSON.parse(this.user.recentBoard);
       }
+      console.log(recentLists);
       this.READ_RECENT_BOARD({ recentLists });
     },
+
     infiniteHandler($state) {
       this.READ_PERSONAL_BOARD({
         lastCreatedAt: this.lastCreatedAt,
-      });
-      setTimeout(() => {
-        // isInfinity는 state에 올라가 있다. 초기 값은 Y
-        // READ_PERSONAL_BOARD 후, .then으로 component에서 작업할 수 없다. 따라서 state에서 작업함.
-        if (this.isInfinity === 'Y') {
-          if (this.$refs.boardItem) {
-            this.lastCreatedAt = this.$refs.boardItem.lastChild.getAttribute(
-              'lastCreatedAt',
-            );
+      })
+        .catch(error => {
+          console.log(error);
+          alert('Personal 보드를 가져오지 못했습니다.');
+        })
+        .then(({ data }) => {
+          if (data.data === null) {
+            this.isInfinity = false;
+            $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
+          } else {
+            this.pushPersonalBoard(data.data);
           }
+        });
+
+      setTimeout(() => {
+        if (this.isInfinity === true || this.$refs.boardItem) {
+          this.lastCreatedAt = this.$refs.boardItem.lastChild.getAttribute(
+            'lastCreatedAt',
+          );
           $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
-        } else {
-          $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
         }
-      }, 1200);
+      }, 1000);
     },
   },
 };

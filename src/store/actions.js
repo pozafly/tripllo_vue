@@ -17,107 +17,125 @@ import { getSessionStorage } from '../utils/webStorage';
 const actions = {
   // 로그인
   async LOGIN({ commit }, userData) {
+    // 에러처리 : LoginForm.vue, SignupForm.vue
     const { data } = await authApi.loginUser(userData);
     commit('setUserToken', data.data.token);
     commit('setUser', data.data);
   },
   SOCIAL_LOGIN(_, userId) {
+    // 에러처리 : utils/social/index.js
     return authApi.apiSocialLogin(userId);
   },
   async LOGOUT({ commit }) {
-    await authApi.logoutUser();
-    commit('logout');
+    try {
+      await authApi.logoutUser();
+      commit('logout');
+    } catch (error) {
+      console.log(error);
+      alert('로그아웃 처리되지 않았습니다.');
+    }
   },
 
   // user
   async VALID_ID(_, userId) {
-    console.log(userId);
+    // 에러처리 : SignupForm.vue
     return await authApi.validId(userId);
   },
   READ_IS_INVITE_USER(_, userId) {
+    // 에러처리 :InviteModal.vue
     return authApi.readIsInviteUser(userId);
   },
-  READ_INVITED_USER(_, userList) {
-    return authApi.readInvitedUser(userList);
+  READ_INVITED_USER_FOR_BOARD_PAGE(_, userList) {
+    // 에러처리 BoardPage.vue
+    return authApi.readInvitedUserForBoardPage(userList);
   },
-  async SIGNUP(_, userData) {
-    return await authApi.signup(userData);
+  SIGNUP(_, userData) {
+    // 에러처리 SignupForm.vue
+    return authApi.signup(userData);
   },
   SIGNOUT({ commit }, password) {
+    // 에러처리 : SignoutUser.vue
     return authApi.signout(password).then(() => {
       commit('logout');
     });
   },
   READ_USER({ commit }, userId) {
-    return authApi.readUser(userId).then(({ data }) => {
-      commit('setUser', data.data);
-    });
+    return authApi
+      .readUser(userId)
+      .catch(() => {
+        console.log(response);
+        alert('알 수 없는 오류가 발생했습니다.');
+      })
+      .then(({ data }) => {
+        commit('setUser', data.data);
+      });
   },
   async UPDATE_USER(
     { dispatch, state },
     { id, email, name, password, bio, picture, recentBoard, invitedBoard },
   ) {
-    await authApi.updateUser({
-      id,
-      email,
-      name,
-      password,
-      bio,
-      picture,
-      recentBoard,
-      invitedBoard,
-    });
-    await dispatch('READ_USER', state.user.id);
+    try {
+      await authApi.updateUser({
+        id,
+        email,
+        name,
+        password,
+        bio,
+        picture,
+        recentBoard,
+        invitedBoard,
+      });
+      await dispatch('READ_USER', state.user.id);
+    } catch (error) {
+      console.log(error);
+      alert('유저정보 수정 실패');
+    }
   },
   CHANGE_PASSWORD({ dispatch, state }, { currentPw, newPw }) {
-    return authApi.changePassword({ currentPw, newPw }).then(() => {
-      dispatch('READ_USER', state.user.id);
-      bus.$emit('end:spinner');
-    });
+    return authApi
+      .changePassword({ currentPw, newPw })
+      .catch(error => {
+        console.log(error);
+        alert('비밀번호 수정 실패');
+      })
+      .then(() => {
+        dispatch('READ_USER', state.user.id);
+        bus.$emit('end:spinner');
+        alert('비밀번호 변경 완료');
+      });
   },
 
   // board
   READ_BOARD_ONE(_, { boardId }) {
-    return boardApi.readBoardOne({ boardId });
-  },
-  READ_PERSONAL_BOARD({ commit }, { lastCreatedAt }) {
-    return boardApi.readPersonalBoard({ lastCreatedAt }).then(({ data }) => {
-      if (data.data === null) {
-        commit('setIsInfinity', 'N');
-        return;
-      }
-      commit('pushPersonalBoard', data.data);
+    return boardApi.readBoardOne({ boardId }).catch(error => {
+      console.log(error);
+      alert('보드 정보를 가져오지 못했습니다.');
     });
+  },
+  READ_PERSONAL_BOARD(_, { lastCreatedAt }) {
+    // 에러처리 : PersonalSection.vue
+    return boardApi.readPersonalBoard({ lastCreatedAt });
   },
   // personal 탭에서 Recently Viewed와 My Boards의
   // 좋아요 표시 연동 때문에 RERENDER_BOARD 액션이 필요함.
   RERENDER_BOARD({ commit, dispatch, state }, { count }) {
-    if (count !== null) {
-      boardApi
-        .rerenderBoard({ count })
-        .then(({ data }) => {
-          commit('rerenderBoard', data.data);
-        })
-        .then(() => {
-          if (
-            state.user.recentBoard !== null &&
-            state.user.recentBoard !== 'null'
-          ) {
-            dispatch('READ_RECENT_BOARD', {
-              recentLists: JSON.parse(state.user.recentBoard),
-            });
-          }
-        });
-    } else {
-      if (
-        state.user.invitedBoard !== null &&
-        state.user.invitedBoard !== 'null'
-      ) {
-        dispatch('READ_INVITED_BOARD', {
-          invitedLists: JSON.parse(state.user.invitedBoard),
-        });
-      }
-    }
+    boardApi
+      .rerenderBoard({ count })
+      .catch(error => {
+        console.log(error);
+        alert('Board 리렌더링 실패');
+      })
+      .then(({ data }) => {
+        console.log(data);
+        commit('rerenderBoard', data.data);
+      })
+      .then(() => {
+        if (state.user.recentBoard !== null) {
+          dispatch('READ_RECENT_BOARD', {
+            recentLists: JSON.parse(state.user.recentBoard),
+          });
+        }
+      });
   },
   READ_RECENT_BOARD({ commit }, { recentLists }) {
     return boardApi.readRecentBoard({ recentLists }).then(({ data }) => {
@@ -132,14 +150,14 @@ const actions = {
   READ_BOARD_DETAIL({ commit }, boardId) {
     return boardApi
       .readBoardDetail(boardId)
-      .then(({ data }) => {
-        commit('setBoardDetail', data.data);
-      })
       .catch(({ response }) => {
         if (response.data.status === 'BAD_REQUEST') {
           alert('해당 보드가 없습니다.');
           router.push('/main');
         }
+      })
+      .then(({ data }) => {
+        commit('setBoardDetail', data.data);
       });
   },
   CREATE_BOARD(_, { title, publicYn, hashtag, bgColor }) {
@@ -367,14 +385,12 @@ const actions = {
 
   // like
   CREATE_LIKE({ dispatch, state }, { boardId, likeCount }) {
-    console.log('여기 오늘거 아냐?');
     return boardHasLikeApi
       .createBoardHasLike({ boardId, likeCount })
       .then(() => {
+        // 리렌더링은 personal Section에서 만 필요한데 mainTabid 필요없다 체크해라.
         if (getSessionStorage('mainTabId') === 0) {
           dispatch('RERENDER_BOARD', { count: state.personalBoard.length });
-        } else {
-          dispatch('RERENDER_BOARD', { count: null });
         }
       });
   },
@@ -384,26 +400,18 @@ const actions = {
       .then(() => {
         if (getSessionStorage('mainTabId') === 0) {
           dispatch('RERENDER_BOARD', { count: state.personalBoard.length });
-        } else {
-          dispatch('RERENDER_BOARD', { count: null });
         }
       });
   },
 
   // hashtag
-  READ_BOARD_BY_HASHTAG(
-    { commit },
-    { hashtagName, lastLikeCount, lastCreatedAt },
-  ) {
-    return hashtagApi
-      .readBoardByHashtag({ hashtagName, lastLikeCount, lastCreatedAt })
-      .then(({ data }) => {
-        if (data.data === null) {
-          commit('setIsInfinity', 'N');
-          return;
-        }
-        commit('setHashtagBoards', data.data);
-      });
+  READ_BOARD_BY_HASHTAG(_, { hashtagName, lastLikeCount, lastCreatedAt }) {
+    // 에러처리 : PublicSection.vue
+    return hashtagApi.readBoardByHashtag({
+      hashtagName,
+      lastLikeCount,
+      lastCreatedAt,
+    });
   },
   READ_HASH_ORDER_BY_COUNT({ commit }) {
     return hashtagApi.readOrderByCount().then(({ data }) => {

@@ -27,7 +27,7 @@ const authApi = {
       },
     });
   },
-  readInvitedUser(userList) {
+  readInvitedUserForBoardPage(userList) {
     return instance.get(`user/invited/${userList}`, {
       headers: {
         Authorization: store.state.token,

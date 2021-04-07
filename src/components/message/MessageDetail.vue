@@ -91,7 +91,7 @@ export default {
           invitedBoard: pushInvitedBoard,
         });
         await this.DELETE_PUSH_MESSAGE({ id: this.message.id });
-        await this.$emit('close');
+        this.$emit('close');
         await this.$router.push(`/board/${this.message.boardId}`);
       } else alert('이미 초대되어 있습니다.');
     },

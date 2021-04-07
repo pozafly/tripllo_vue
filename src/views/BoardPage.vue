@@ -170,7 +170,7 @@ export default {
       'READ_BOARD_DETAIL',
       'UPDATE_BOARD',
       'UPDATE_USER',
-      'READ_INVITED_USER',
+      'READ_INVITED_USER_FOR_BOARD_PAGE',
     ]),
     ...mapMutations(['setTheme']),
     setOverflowStyle(type) {
@@ -241,11 +241,14 @@ export default {
       if (!this.board.invitedUser) {
         return;
       }
-      this.READ_INVITED_USER(JSON.parse(this.board.invitedUser)).then(
-        ({ data }) => {
+      this.READ_INVITED_USER_FOR_BOARD_PAGE(JSON.parse(this.board.invitedUser))
+        .catch(({ response }) => {
+          console.log(response);
+          alert('초대된 유저 정보를 가져오는데 오류가 발생했습니다.');
+        })
+        .then(({ data }) => {
           this.invitedUser = data.data;
-        },
-      );
+        });
     },
     openInviteModal(e) {
       if (e.target.nodeName === 'SPAN') {

@@ -7,7 +7,6 @@ import {
 const state = {
   token: getTokenFromLocalStorage() || '',
   user: getUserFromLocalStorage() || '',
-  isInfinity: 'Y',
   personalBoard: [],
   recentBoard: [],
   invitedBoard: [],

@@ -24,6 +24,7 @@
           <!-- 위의 v-if는 자신의 id, 또 이미 이 보드에 초대 된 사람의 id가 조회되지 못하게 막은 것임 -->
         </ul>
       </div>
+      <div v-if="errorMessage" class="error-message">{{ errorMessage }}</div>
     </div>
   </MiniModal>
 </template>
@@ -42,6 +43,7 @@ export default {
     return {
       inputId: '',
       memberList: [],
+      errorMessage: '',
     };
   },
 
@@ -51,16 +53,24 @@ export default {
 
   watch: {
     inputId: _.debounce(function(id) {
+      this.errorMessage = '';
+
       if (id === '') {
         this.memberList = [];
+      } else {
+        this.READ_IS_INVITE_USER(id)
+          .catch(({ response }) => {
+            if (response.status === 404) {
+              this.errorMessage = '해당 유저가 없습니다.';
+              this.memberList = [];
+            } else {
+              alert('알 수 없는 오류 발생');
+            }
+          })
+          .then(({ data }) => {
+            this.memberList = data.data;
+          });
       }
-      this.READ_IS_INVITE_USER(id)
-        .then(({ data }) => {
-          this.memberList = data.data;
-        })
-        .catch(e => {
-          this.memberList = [];
-        });
     }, 750),
   },
 
@@ -93,5 +103,8 @@ export default {
   &:hover {
     filter: brightness(90%);
   }
+}
+.error-message {
+  color: red;
 }
 </style>

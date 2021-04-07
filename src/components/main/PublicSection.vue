@@ -109,13 +109,13 @@ export default {
       searchHashValue: '',
       lastLikeCount: '',
       lastCreatedAt: '',
-      state: '',
       infiniteId: +new Date(),
+      isInfinity: true,
     };
   },
 
   computed: {
-    ...mapState(['hashtagBoards', 'isInfinity', 'hashtags']),
+    ...mapState(['hashtagBoards', 'hashtags']),
   },
 
   watch: {
@@ -135,7 +135,7 @@ export default {
 
   methods: {
     ...mapActions(['READ_BOARD_BY_HASHTAG', 'READ_HASH_ORDER_BY_COUNT']),
-    ...mapMutations(['resetHashtagBoards', 'setIsInfinity']),
+    ...mapMutations(['resetHashtagBoards', 'setHashtagBoards']),
 
     readHash() {
       this.READ_HASH_ORDER_BY_COUNT();
@@ -148,36 +148,42 @@ export default {
     }, 750),
 
     infiniteHandler($state) {
-      this.state = $state;
       const hashtagName = this.searchHashValue;
       const lastLikeCount = this.lastLikeCount;
       const lastCreatedAt = this.lastCreatedAt;
-      this.READ_BOARD_BY_HASHTAG({ hashtagName, lastLikeCount, lastCreatedAt });
+
+      this.READ_BOARD_BY_HASHTAG({ hashtagName, lastLikeCount, lastCreatedAt })
+        .catch(error => {
+          console.log(error);
+          alert('HashTag 보드를 가져오지 못했습니다.');
+        })
+        .then(({ data }) => {
+          if (data.data === null) {
+            this.isInfinity = false;
+            $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
+          } else {
+            this.setHashtagBoards(data.data);
+          }
+        });
 
       setTimeout(() => {
-        // isInfinity는 state에 올라가 있다. 초기 값은 Y
-        if (this.isInfinity === 'Y') {
-          if (this.$refs.boardItem) {
-            this.lastLikeCount = this.$refs.boardItem.lastChild.getAttribute(
-              'lastLikeCount',
-            );
-            this.lastCreatedAt = this.$refs.boardItem.lastChild.getAttribute(
-              'lastCreatedAt',
-            );
-          }
+        if (this.isInfinity === true || this.$refs.boardItem) {
+          this.lastLikeCount = this.$refs.boardItem.lastChild.getAttribute(
+            'lastLikeCount',
+          );
+          this.lastCreatedAt = this.$refs.boardItem.lastChild.getAttribute(
+            'lastCreatedAt',
+          );
           $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
-        } else {
-          this.setIsInfinity('N');
-          $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
         }
-      }, 1200);
+      }, 1000);
     },
 
     reset() {
       this.lastLikeCount = '';
       this.lastCreatedAt = '';
       this.resetHashtagBoards();
-      this.setIsInfinity('Y');
+      this.isInfinity = true;
     },
 
     selectHash(value) {
