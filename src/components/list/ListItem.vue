@@ -53,9 +53,8 @@ export default {
   props: {
     list: {
       type: Object,
-      require: false,
+      require: true,
       default: () => ({
-        boardId: 0,
         cards: Array,
         id: 0,
         pos: 0,

@@ -38,7 +38,7 @@ export default {
     },
     board: {
       type: Object,
-      require: true,
+      require: false,
       default: null,
     },
   },

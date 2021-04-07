@@ -32,7 +32,7 @@
       </div>
     </div>
     <div class="content-wrap">
-      <h1 class="manual-title">🎯 간단 메뉴얼 v2.2</h1>
+      <h1 class="manual-title">🎯 간단 메뉴얼 v2.0</h1>
       <div class="content">
         <h2 class="content-title">💼 Board 생성</h2>
         <ul class="content-item">

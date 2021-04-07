@@ -13,7 +13,6 @@ export default {
       type: Object,
       require: true,
       default: () => ({
-        cardId: 0,
         title: '',
         x: 0,
         y: 0,

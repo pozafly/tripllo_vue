@@ -55,7 +55,6 @@
     </button>
     <span v-else>
       <input
-        ref="addItemInput"
         v-model="inputItem"
         v-focus
         type="text"
@@ -94,14 +93,9 @@ export default {
       require: false,
       default: () => ({
         cardId: 0,
-        createdAt: '',
-        createdBy: '',
         id: 0,
         items: Array,
         title: '',
-        updatedAt: '',
-        updatedBy: '',
-        userId: '',
       }),
     },
   },
@@ -160,7 +154,6 @@ export default {
     },
     isAddItem() {
       this.isItem = true;
-      this.$refs.addItemInput.focus();
     },
     onSubmitItem({ relatedTarget }) {
       this.isItem = false;

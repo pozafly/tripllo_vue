@@ -16,7 +16,6 @@
             {{ board.likeCount }}
           </span>
         </span>
-
         <div v-if="board.hashtag" class="hash-wrap">
           <span v-for="hash in hashtag" :key="hash" class="hashtag">
             {{ hash }}
@@ -36,19 +35,13 @@ export default {
       type: Object,
       require: true,
       default: () => ({
-        bgColor: '#4AC06A',
-        createdAt: '',
-        createdBy: '',
+        bgColor: '',
         hashtag: '[]',
-        id: 0,
-        invitedUser: null,
         likeCount: 0,
         ownLike: 0,
-        publicYn: 'Y',
+        publicYn: 'N',
         title: '',
-        updatedAt: null,
-        updatedBy: null,
-        userId: null,
+        userId: '',
       }),
     },
   },
