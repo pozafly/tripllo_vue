@@ -11,6 +11,7 @@ const state = {
   personalBoard: [],
   recentBoard: [],
   invitedBoard: [],
+  hashtagBoards: [],
   board: getSessionStorage('board') || {},
   card: getSessionStorage('card') || {},
   checklists: getSessionStorage('checklists') || [],
@@ -19,7 +20,6 @@ const state = {
   socket: null,
   pushMessage: '',
   file: [],
-  hashtagBoards: [],
   hashtags: [],
 };
 

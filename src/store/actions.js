@@ -12,6 +12,7 @@ import boardHasLikeApi from '@/api/boardHasLike';
 import hashtagApi from '@/api/hashtag';
 import router from '@/routes';
 import bus from '@/utils/bus';
+import { getSessionStorage } from '../utils/webStorage';
 
 const actions = {
   // 로그인
@@ -88,6 +89,8 @@ const actions = {
       commit('pushPersonalBoard', data.data);
     });
   },
+  // personal 탭에서 Recently Viewed와 My Boards의
+  // 좋아요 표시 연동 때문에 RERENDER_BOARD 액션이 필요함.
   RERENDER_BOARD({ commit, dispatch, state }, { count }) {
     if (count !== null) {
       boardApi
@@ -105,14 +108,15 @@ const actions = {
             });
           }
         });
-    }
-    if (
-      state.user.invitedBoard !== null &&
-      state.user.invitedBoard !== 'null'
-    ) {
-      dispatch('READ_INVITED_BOARD', {
-        invitedLists: JSON.parse(state.user.invitedBoard),
-      });
+    } else {
+      if (
+        state.user.invitedBoard !== null &&
+        state.user.invitedBoard !== 'null'
+      ) {
+        dispatch('READ_INVITED_BOARD', {
+          invitedLists: JSON.parse(state.user.invitedBoard),
+        });
+      }
     }
   },
   READ_RECENT_BOARD({ commit }, { recentLists }) {
@@ -125,7 +129,6 @@ const actions = {
       commit('setInvitedBoard', data.data);
     });
   },
-
   READ_BOARD_DETAIL({ commit }, boardId) {
     return boardApi
       .readBoardDetail(boardId)
@@ -364,23 +367,26 @@ const actions = {
 
   // like
   CREATE_LIKE({ dispatch, state }, { boardId, likeCount }) {
+    console.log('여기 오늘거 아냐?');
     return boardHasLikeApi
       .createBoardHasLike({ boardId, likeCount })
       .then(() => {
-        if (state.mainTabId === 0) {
+        if (getSessionStorage('mainTabId') === 0) {
           dispatch('RERENDER_BOARD', { count: state.personalBoard.length });
+        } else {
+          dispatch('RERENDER_BOARD', { count: null });
         }
-        dispatch('RERENDER_BOARD', { count: null });
       });
   },
   DELETE_LIKE({ dispatch, state }, { boardId, likeCount }) {
     return boardHasLikeApi
       .deleteBoardHasLike({ boardId, likeCount })
       .then(() => {
-        if (state.mainTabId === 0) {
+        if (getSessionStorage('mainTabId') === 0) {
           dispatch('RERENDER_BOARD', { count: state.personalBoard.length });
+        } else {
+          dispatch('RERENDER_BOARD', { count: null });
         }
-        dispatch('RERENDER_BOARD', { count: null });
       });
   },
 

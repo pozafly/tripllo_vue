@@ -41,7 +41,7 @@
           </a>
           <MessageModal
             v-if="isMessageModal"
-            v-click-outside="closeMessageModal"
+            v-click-outside="() => (isMessageModal = false)"
             class="message-modal"
             @close="isMessageModal = false"
           />
@@ -69,7 +69,11 @@
       </ul>
     </div>
 
-    <div v-if="isMenuShow" v-click-outside="closeProfileModal" class="menu">
+    <div
+      v-if="isMenuShow"
+      v-click-outside="() => (isMenuShow = false)"
+      class="menu"
+    >
       <div
         v-if="user.picture !== null && user.picture !== 'null'"
         class="menu-item img"
@@ -197,12 +201,6 @@ export default {
           text: `${message.content}`,
         });
       });
-    },
-    closeMessageModal() {
-      this.isMessageModal = false;
-    },
-    closeProfileModal() {
-      this.isMenuShow = false;
     },
   },
 };
