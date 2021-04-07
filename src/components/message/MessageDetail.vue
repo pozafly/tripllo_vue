@@ -52,10 +52,9 @@ export default {
       'READ_BOARD_ONE',
     ]),
     setMessage() {
-      if (this.message.isRead === 'Y') {
-        return;
+      if (this.message.isRead === 'N') {
+        this.UPDATE_PUSH_MESSAGE({ id: this.message.id, isRead: 'Y' });
       }
-      this.UPDATE_PUSH_MESSAGE({ id: this.message.id, isRead: 'Y' });
     },
     async acceptMessage() {
       const { data } = await this.READ_BOARD_ONE({
@@ -64,15 +63,12 @@ export default {
       const preInviteUser = data.data.invitedUser;
 
       let invitedUser = [];
-      if (preInviteUser !== 'null' && preInviteUser !== null) {
+      if (preInviteUser !== null) {
         invitedUser = JSON.parse(preInviteUser);
       }
 
       let invitedBoard = [];
-      if (
-        this.user.invitedBoard !== 'null' &&
-        this.user.invitedBoard !== null
-      ) {
+      if (this.user.invitedBoard !== null) {
         invitedBoard = JSON.parse(this.user.invitedBoard);
       }
       invitedBoard.push(this.message.boardId);
@@ -93,11 +89,12 @@ export default {
         await this.DELETE_PUSH_MESSAGE({ id: this.message.id });
         this.$emit('close');
         await this.$router.push(`/board/${this.message.boardId}`);
-      } else alert('이미 초대되어 있습니다.');
+      } else {
+        alert('이미 초대되어 있습니다.');
+      }
     },
     rejectMessage() {
-      let confirm = window.confirm('해당 메세지를 삭제하시겠습니까?');
-      if (confirm) {
+      if (window.confirm('해당 메세지를 삭제하시겠습니까?')) {
         this.DELETE_PUSH_MESSAGE({ id: this.message.id });
       }
     },

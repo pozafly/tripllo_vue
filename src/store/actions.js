@@ -12,7 +12,6 @@ import boardHasLikeApi from '@/api/boardHasLike';
 import hashtagApi from '@/api/hashtag';
 import router from '@/routes';
 import bus from '@/utils/bus';
-import { getSessionStorage } from '../utils/webStorage';
 
 const actions = {
   // 로그인
@@ -32,7 +31,7 @@ const actions = {
       commit('logout');
     } catch (error) {
       console.log(error);
-      alert('로그아웃 처리되지 않았습니다.');
+      alert('로그아웃 실패');
     }
   },
 
@@ -119,49 +118,67 @@ const actions = {
   // personal 탭에서 Recently Viewed와 My Boards의
   // 좋아요 표시 연동 때문에 RERENDER_BOARD 액션이 필요함.
   RERENDER_BOARD({ commit, dispatch, state }, { count }) {
-    boardApi
-      .rerenderBoard({ count })
-      .catch(error => {
-        console.log(error);
-        alert('Board 리렌더링 실패');
-      })
-      .then(({ data }) => {
-        console.log(data);
+    if (count !== null) {
+      boardApi.rerenderBoard({ count }).then(({ data }) => {
         commit('rerenderBoard', data.data);
-      })
-      .then(() => {
         if (state.user.recentBoard !== null) {
           dispatch('READ_RECENT_BOARD', {
             recentLists: JSON.parse(state.user.recentBoard),
           });
         }
       });
+    }
+    if (state.user.invitedBoard !== null) {
+      dispatch('READ_INVITED_BOARD', {
+        invitedLists: JSON.parse(state.user.invitedBoard),
+      });
+    }
   },
   READ_RECENT_BOARD({ commit }, { recentLists }) {
-    return boardApi.readRecentBoard({ recentLists }).then(({ data }) => {
-      commit('setRecentBoard', data.data);
-    });
+    return boardApi
+      .readRecentBoard({ recentLists })
+      .catch(error => {
+        console.log(error);
+        alert('최근 Board 정보를 가져오지 못했습니다.');
+      })
+      .then(({ data }) => {
+        commit('setRecentBoard', data.data);
+      });
   },
   READ_INVITED_BOARD({ commit }, { invitedLists }) {
-    return boardApi.readInvitedBoard({ invitedLists }).then(({ data }) => {
-      commit('setInvitedBoard', data.data);
-    });
+    return boardApi
+      .readInvitedBoard({ invitedLists })
+      .catch(error => {
+        console.log(error);
+        alert('초대된 Board 목록을 가져오지 못했습니다.');
+      })
+      .then(({ data }) => {
+        commit('setInvitedBoard', data.data);
+      });
   },
   READ_BOARD_DETAIL({ commit }, boardId) {
     return boardApi
       .readBoardDetail(boardId)
       .catch(({ response }) => {
-        if (response.data.status === 'BAD_REQUEST') {
+        console.log(response);
+        if (response.status === 400) {
+          alert('잘못된 요청입니다.');
+        } else if (response.status === 404) {
           alert('해당 보드가 없습니다.');
-          router.push('/main');
         }
+        router.push('/main');
       })
       .then(({ data }) => {
         commit('setBoardDetail', data.data);
       });
   },
   CREATE_BOARD(_, { title, publicYn, hashtag, bgColor }) {
-    return boardApi.createBoard({ title, publicYn, hashtag, bgColor });
+    return boardApi
+      .createBoard({ title, publicYn, hashtag, bgColor })
+      .catch(error => {
+        console.log(error);
+        alert('보드 생성 실패');
+      });
   },
   UPDATE_BOARD(
     { dispatch, state },
@@ -169,6 +186,10 @@ const actions = {
   ) {
     return boardApi
       .updateBoard(id, { title, bgColor, invitedUser, hashtag, publicYn })
+      .catch(error => {
+        console.log(error);
+        alert('유저 정보를 업데이트 하지 못했습니다.');
+      })
       .then(({ data }) => {
         if (data.data.invitedUser) {
           return;
@@ -221,7 +242,6 @@ const actions = {
       dueDate,
       listId,
     });
-    // CardModal의 listTitle을 불러오기위해 동기 형식 택함.
     await dispatch('READ_BOARD_DETAIL', state.board.id);
     await dispatch('READ_CARD', { id });
   },
@@ -384,23 +404,26 @@ const actions = {
   },
 
   // like
-  CREATE_LIKE({ dispatch, state }, { boardId, likeCount }) {
+  CREATE_LIKE({ dispatch, state }, { boardId, likeCount, limitCount }) {
     return boardHasLikeApi
       .createBoardHasLike({ boardId, likeCount })
+      .catch(error => {
+        console.log(error);
+        alert('좋아요가 등록 되지 않았습니다.');
+      })
       .then(() => {
-        // 리렌더링은 personal Section에서 만 필요한데 mainTabid 필요없다 체크해라.
-        if (getSessionStorage('mainTabId') === 0) {
-          dispatch('RERENDER_BOARD', { count: state.personalBoard.length });
-        }
+        dispatch('RERENDER_BOARD', { count: limitCount });
       });
   },
-  DELETE_LIKE({ dispatch, state }, { boardId, likeCount }) {
+  DELETE_LIKE({ dispatch, state }, { boardId, likeCount, limitCount }) {
     return boardHasLikeApi
       .deleteBoardHasLike({ boardId, likeCount })
+      .catch(error => {
+        console.log(error);
+        alert('좋아요가 삭제 되지 않았습니다.');
+      })
       .then(() => {
-        if (getSessionStorage('mainTabId') === 0) {
-          dispatch('RERENDER_BOARD', { count: state.personalBoard.length });
-        }
+        dispatch('RERENDER_BOARD', { count: limitCount });
       });
   },
 

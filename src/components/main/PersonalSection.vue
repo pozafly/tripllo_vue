@@ -91,7 +91,6 @@ export default {
     },
 
     getRecentBoard() {
-      console.log('dddddd');
       if (this.user.recentBoard === null || this.user.recentBoard === 'null') {
         return;
       }
@@ -99,7 +98,6 @@ export default {
       if (this.user.recentBoard) {
         recentLists = JSON.parse(this.user.recentBoard);
       }
-      console.log(recentLists);
       this.READ_RECENT_BOARD({ recentLists });
     },
 
