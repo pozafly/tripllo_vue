@@ -6,7 +6,6 @@
         <div class="auth-items">
           <span
             v-if="userInfo.picture !== null && userInfo.picture !== 'null'"
-            href=""
             class="auth-item img"
             :style="{ backgroundImage: `url(${userInfo.picture})` }"
             @click.prevent="menuShow"
@@ -55,7 +54,7 @@
 import Header from '@/components/common/Header.vue';
 import BoardItem from '@/components/board/BoardItem.vue';
 import boardApi from '@/api/board';
-import authApi from '@/api/auth';
+import userApi from '@/api/user';
 
 export default {
   components: {
@@ -78,7 +77,7 @@ export default {
 
   methods: {
     readUser() {
-      authApi
+      userApi
         .readUser(this.$route.params.userId)
         .catch(error => {
           console.log(error);

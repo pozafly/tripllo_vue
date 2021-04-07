@@ -134,11 +134,11 @@ export default {
   },
 
   methods: {
-    ...mapActions(['READ_BOARD_BY_HASHTAG', 'READ_HASH_ORDER_BY_COUNT']),
+    ...mapActions(['READ_BOARD_BY_HASHTAG', 'READ_HASH_ORDER_BY_LIKE_COUNT']),
     ...mapMutations(['resetHashtagBoards', 'setHashtagBoards']),
 
     readHash() {
-      this.READ_HASH_ORDER_BY_COUNT();
+      this.READ_HASH_ORDER_BY_LIKE_COUNT();
     },
 
     searchHash: _.debounce(function({ target }) {
@@ -153,10 +153,6 @@ export default {
       const lastCreatedAt = this.lastCreatedAt;
 
       this.READ_BOARD_BY_HASHTAG({ hashtagName, lastLikeCount, lastCreatedAt })
-        .catch(error => {
-          console.log(error);
-          alert('HashTag 보드를 가져오지 못했습니다.');
-        })
         .then(({ data }) => {
           if (data.data === null) {
             this.isInfinity = false;
@@ -164,6 +160,10 @@ export default {
           } else {
             this.setHashtagBoards(data.data);
           }
+        })
+        .catch(error => {
+          console.log(error);
+          alert('HashTag 보드를 가져오지 못했습니다.');
         });
 
       setTimeout(() => {

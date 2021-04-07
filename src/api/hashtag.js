@@ -7,7 +7,7 @@ const hashtagApi = {
     );
   },
 
-  readOrderByCount() {
+  readOrderByLikeCount() {
     return hashtag.get('/orderByCount');
   },
 };

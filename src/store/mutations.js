@@ -102,7 +102,7 @@ const mutations = {
   resetHashtagBoards(state) {
     state.hashtagBoards = [];
   },
-  setHashOrderByCount(state, data) {
+  setHashOrderByLikeCount(state, data) {
     state.hashtags = data;
   },
 };

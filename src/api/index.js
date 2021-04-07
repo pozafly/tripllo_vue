@@ -5,7 +5,6 @@ import { setInterceptors } from './common/interceptors';
 const createInstance = () => {
   return axios.create({
     baseURL: `${process.env.VUE_APP_API_URL}/api/`,
-    // withCredentials: true,
   });
 };
 
@@ -13,8 +12,6 @@ const createInstance = () => {
 const createInstanceWithAuth = url => {
   const instance = axios.create({
     baseURL: `${process.env.VUE_APP_API_URL}/api/${url}`,
-    // withCredentials: true,
-    // timeout: 0,
   });
   return setInterceptors(instance);
 };
@@ -31,3 +28,4 @@ export const upload = createInstanceWithAuth('upload');
 export const email = createInstanceWithAuth('email');
 export const boardHasLike = createInstanceWithAuth('boardHasLike');
 export const hashtag = createInstanceWithAuth('hashtag');
+export const user = createInstanceWithAuth('user');
