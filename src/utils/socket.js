@@ -3,8 +3,12 @@ import store from '@/store';
 import bus from '@/utils/bus';
 
 const socketConnect = () => {
+  const baseURL =
+    process.env.NODE_ENV === 'production' ? process.env.VUE_APP_API_URL : '';
+
   if (store.state.socket === null) {
-    const serverURL = `${process.env.VUE_APP_API_URL}/websocket?m_id=${store.state.user.id}`;
+    const serverURL = `${baseURL}/websocket?m_id=${store.state.user.id}`;
+
     console.log(`서버 연결 시도 --- ${serverURL}`);
     let newSocket = new SockJS(serverURL);
 

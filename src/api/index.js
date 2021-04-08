@@ -1,17 +1,21 @@
 import axios from 'axios';
 import { setInterceptors } from './common/interceptors';
 
+const environmentURL =
+  process.env.NODE_ENV === 'production' ? process.env.VUE_APP_API_URL : '';
+
 // header 붙이지 않음. login시 사용됨.
 const createInstance = () => {
   return axios.create({
-    baseURL: `${process.env.VUE_APP_API_URL}/api/`,
+    baseURL: `${environmentURL}/api/`,
   });
 };
 
 // axios interceptor를 통해 header에 token 넣어주고 return
 const createInstanceWithAuth = url => {
   const instance = axios.create({
-    baseURL: `${process.env.VUE_APP_API_URL}/api/${url}`,
+    // baseURL: `${process.env.VUE_APP_API_URL}/api/${url}`,
+    baseURL: `${environmentURL}/api/${url}`,
   });
   return setInterceptors(instance);
 };

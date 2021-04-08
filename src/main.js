@@ -6,6 +6,7 @@ import { usePlugin } from '@/features/plugin';
 import { useDirective } from '@/features/directive';
 import { useFilter } from '@/features/filter';
 import '@/utils/fontAwesomeIcon.js';
+import '@/utils/sentry';
 
 Vue.config.productionTip = false;
 

@@ -15,6 +15,8 @@
     "@fortawesome/vue-fontawesome": "^2.0.2",
     "@googlemaps/js-api-loader": "^1.11.1",
     "@googlemaps/markerclustererplus": "^1.0.3",
+    "@sentry/tracing": "^6.2.5",
+    "@sentry/vue": "^6.2.5",
     "axios": "^0.21.0",
     "core-js": "^3.6.5",
     "dragula": "^3.7.3",
