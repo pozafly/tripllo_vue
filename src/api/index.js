@@ -14,7 +14,6 @@ const createInstance = () => {
 // axios interceptor를 통해 header에 token 넣어주고 return
 const createInstanceWithAuth = url => {
   const instance = axios.create({
-    // baseURL: `${process.env.VUE_APP_API_URL}/api/${url}`,
     baseURL: `${environmentURL}/api/${url}`,
   });
   return setInterceptors(instance);

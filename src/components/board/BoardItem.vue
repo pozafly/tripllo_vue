@@ -28,7 +28,6 @@
 
 <script>
 import { mapActions, mapState } from 'vuex';
-import { getSessionStorage } from '@/utils/webStorage';
 
 export default {
   props: {
@@ -73,19 +72,14 @@ export default {
       const boardId = this.board.id;
       const likeCount = this.board.likeCount;
 
-      let limitCount = null;
-      if (getSessionStorage('mainTabId') === 0) {
-        limitCount = this.personalBoard.length;
-      }
-
       if (this.board.ownLike === 0) {
         this.board.ownLike = this.board.ownLike + 1;
         this.board.likeCount = this.board.likeCount + 1;
-        this.CREATE_LIKE({ boardId, likeCount: likeCount + 1, limitCount });
+        this.CREATE_LIKE({ boardId, likeCount: likeCount + 1 });
       } else {
         this.board.ownLike = this.board.ownLike - 1;
         this.board.likeCount = this.board.likeCount - 1;
-        this.DELETE_LIKE({ boardId, likeCount: likeCount - 1, limitCount });
+        this.DELETE_LIKE({ boardId, likeCount: likeCount - 1 });
       }
     },
     goBoardPage(e) {

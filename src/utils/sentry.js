@@ -4,7 +4,7 @@ import { Integrations } from '@sentry/tracing';
 
 export default Sentry.init({
   Vue,
-  dsn: process.env.VUE_APP_SENTRY_DNS,
+  dsn: process.env.VUE_APP_SENTRY_DSN,
   integrations: [new Integrations.BrowserTracing()],
   attachProps: true,
   logErrors: false,

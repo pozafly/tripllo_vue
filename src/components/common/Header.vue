@@ -3,7 +3,7 @@
     <div class="header-home">
       <ul class="home-wrap">
         <li class="home-items">
-          <a href="" class="home-item" @click.prevent="$router.push('/main')">
+          <a href="" class="home-item" @click.prevent="goToMain">
             <awesome icon="home" class="fas fa-home"></awesome>
           </a>
         </li>
@@ -170,6 +170,12 @@ export default {
     },
     menuShow() {
       this.isMenuShow = !this.isMenuShow;
+    },
+    goToMain() {
+      if (this.$route.path === '/main') {
+        return;
+      }
+      this.$router.push('/main');
     },
     updateTheme() {
       if (this.$route.path.includes('board')) {

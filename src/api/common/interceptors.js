@@ -19,15 +19,15 @@ export const setInterceptors = instance => {
     response => {
       return response;
     },
-    ({ response }) => {
+    error => {
       console.log('error interceptor');
       console.log(response);
-      if (response.status === 401) {
+      if (error.response.status === 401) {
         alert('권한이 없습니다.');
         return;
         // if (router.history.current.fullPath.includes('card')) return;
         // router.push('/main');
-      } else if (response.state === 400) {
+      } else if (error.response.state === 400) {
         alert('잘못된 요청입니다.');
         return;
       }
