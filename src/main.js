@@ -20,4 +20,4 @@ new Vue({
   store,
 }).$mount('#app');
 
-throw new Error('에러발생!');
+throw new Error('sentry test 에러발생!');
