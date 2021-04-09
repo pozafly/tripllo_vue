@@ -68,11 +68,11 @@ export default {
     ...mapState(['personalBoard', 'recentBoard', 'user']),
   },
 
-  watch: {
-    'user.recentBoard'() {
-      this.getRecentBoard();
-    },
-  },
+  // watch: {
+  //   'user.recentBoard'() {
+  //     this.getRecentBoard();
+  //   },
+  // },
 
   mounted() {
     this.getRecentBoard();
@@ -91,14 +91,10 @@ export default {
     },
 
     getRecentBoard() {
-      if (this.user.recentBoard === null || this.user.recentBoard === 'null') {
-        return;
+      if (!!this.user.recentBoard) {
+        const recentLists = JSON.parse(this.user.recentBoard);
+        this.READ_RECENT_BOARD({ recentLists });
       }
-      let recentLists = null;
-      if (this.user.recentBoard) {
-        recentLists = JSON.parse(this.user.recentBoard);
-      }
-      this.READ_RECENT_BOARD({ recentLists });
     },
 
     infiniteHandler($state) {

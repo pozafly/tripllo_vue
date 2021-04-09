@@ -154,6 +154,7 @@ export default {
 
   mounted() {
     this.setOverflowStyle('hidden');
+    this.makeRecent();
   },
 
   updated() {
@@ -162,7 +163,6 @@ export default {
 
   beforeDestroy() {
     this.setOverflowStyle('scroll');
-    this.makeRecent();
   },
 
   methods: {
@@ -220,11 +220,13 @@ export default {
     // 3개의 recent board만 허락함.
     makeRecent() {
       let recentArray = [];
-      if (this.user.recentBoard !== 'null' && this.user.recentBoard !== null) {
+      const boardId = this.$route.params.boardId;
+
+      if (!!this.user.recentBoard) {
         recentArray = JSON.parse(this.user.recentBoard);
       }
-      recentArray.forEach((el, idx) => {
-        if (el === this.board.id) {
+      recentArray.filter((el, idx) => {
+        if (el === boardId) {
           recentArray.splice(idx, 1);
         }
       });
@@ -232,7 +234,7 @@ export default {
       if (recentArray.length >= 3) {
         recentArray.pop();
       }
-      recentArray.unshift(this.board.id);
+      recentArray.unshift(boardId);
 
       const recentBoard = JSON.stringify(recentArray);
       this.UPDATE_USER({ id: this.user.id, recentBoard });

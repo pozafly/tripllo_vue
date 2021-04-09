@@ -19,5 +19,3 @@ new Vue({
   router,
   store,
 }).$mount('#app');
-
-throw new Error('sentry test 에러발생!');
