@@ -14,13 +14,10 @@ Vue.use(usePlugin);
 Vue.use(useDirective);
 Vue.use(useFilter);
 
-const a = 0;
-a = 1;
-console.log(a);
-console.log(b);
-
 new Vue({
   render: h => h(App),
   router,
   store,
 }).$mount('#app');
+
+throw new Error('에러발생!');
