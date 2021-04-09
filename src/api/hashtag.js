@@ -1,15 +1,10 @@
 import { hashtag } from '@/api';
 
-const hashtagApi = {
-  readBoardByHashtag({ hashtagName, lastLikeCount, lastCreatedAt }) {
-    return hashtag.get(
-      `/?hashtagName=${hashtagName}&lastLikeCount=${lastLikeCount}&lastCreatedAt=${lastCreatedAt}`,
-    );
-  },
+const readBoardByHashtag = ({ hashtagName, lastLikeCount, lastCreatedAt }) =>
+  hashtag.get(
+    `/?hashtagName=${hashtagName}&lastLikeCount=${lastLikeCount}&lastCreatedAt=${lastCreatedAt}`,
+  );
 
-  readOrderByLikeCount() {
-    return hashtag.get('/orderByCount');
-  },
-};
+const readRankingByLikeCount = () => hashtag.get('/orderByCount');
 
-export default hashtagApi;
+export { readBoardByHashtag, readRankingByLikeCount };

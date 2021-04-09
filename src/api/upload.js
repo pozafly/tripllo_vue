@@ -1,18 +1,8 @@
 import { upload } from '@/api';
 
-const uploadApi = {
-  readFile(cardId) {
-    return upload.get(`/${cardId}`);
-  },
-  upload(formData) {
-    return upload.post(`/`, formData);
-  },
-  uploadImage(imageData) {
-    return upload.post('/image', imageData);
-  },
-  deleteFile(fileId) {
-    return upload.delete(`/${fileId}`);
-  },
-};
+const readFile = cardId => upload.get(`/${cardId}`);
+const uploadFile = formData => upload.post(`/`, formData);
+const uploadImage = imageData => upload.post('/image', imageData);
+const deleteFile = fileId => upload.delete(`/${fileId}`);
 
-export default uploadApi;
+export { readFile, uploadFile, uploadImage, deleteFile };

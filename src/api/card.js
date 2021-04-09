@@ -1,21 +1,11 @@
 import { card } from '@/api';
 
-const cardApi = {
-  createCard(payload) {
-    return card.post('/', payload);
-  },
+const createCard = payload => card.post('/', payload);
 
-  readCard(id) {
-    return card.get(`/${id}`);
-  },
+const readCard = id => card.get(`/${id}`);
 
-  updateCard(id, payload) {
-    return card.put(`/${id}`, payload);
-  },
+const updateCard = (id, payload) => card.put(`/${id}`, payload);
 
-  deleteCard(id) {
-    return card.delete(`/${id}`);
-  },
-};
+const deleteCard = id => card.delete(`/${id}`);
 
-export default cardApi;
+export { createCard, readCard, updateCard, deleteCard };

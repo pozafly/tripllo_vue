@@ -1,21 +1,13 @@
 import { comments } from '@/api';
 
-const commentApi = {
-  createComment({ cardId, userId, comment, dept, groupNum }) {
-    return comments.post(`/`, { cardId, userId, comment, dept, groupNum });
-  },
+const createComment = ({ cardId, userId, comment, dept, groupNum }) =>
+  comments.post(`/`, { cardId, userId, comment, dept, groupNum });
 
-  readComment(cardId) {
-    return comments.get(`/${cardId}`);
-  },
+const readComment = cardId => comments.get(`/${cardId}`);
 
-  updateComment({ id, userId, comment }) {
-    return comments.put(`/`, { id, userId, comment });
-  },
+const updateComment = ({ id, userId, comment }) =>
+  comments.put(`/`, { id, userId, comment });
 
-  deleteComment(id) {
-    return comments.delete(`/${id}`);
-  },
-};
+const deleteComment = id => comments.delete(`/${id}`);
 
-export default commentApi;
+export { createComment, readComment, updateComment, deleteComment };

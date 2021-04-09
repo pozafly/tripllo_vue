@@ -1,17 +1,8 @@
 import { pushMessage } from '@/api';
 
-const pushMessageApi = {
-  readPushMessage(targetId) {
-    return pushMessage.get(`/${targetId}`);
-  },
+const readPushMessage = targetId => pushMessage.get(`/${targetId}`);
+const updatePushMessage = ({ id, isRead }) =>
+  pushMessage.put('/', { id, isRead });
+const deletePushMessage = id => pushMessage.delete(`/${id}`);
 
-  updatePushMessage({ id, isRead }) {
-    return pushMessage.put('/', { id, isRead });
-  },
-
-  deletePushMessage(id) {
-    return pushMessage.delete(`/${id}`);
-  },
-};
-
-export default pushMessageApi;
+export { readPushMessage, updatePushMessage, deletePushMessage };

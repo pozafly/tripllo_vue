@@ -1,16 +1,58 @@
-import authApi from '@/api/auth';
-import boardApi from '@/api/board';
-import listApi from '@/api/list';
-import cardApi from '@/api/card';
-import checklistApi from '@/api/checklist';
-import checklistItemApi from '@/api/checklistItem';
-import commentApi from '@/api/comment';
-import pushMessageApi from '@/api/pushMessage';
-import uploadApi from '@/api/upload';
-import emailApi from '@/api/email';
-import boardHasLikeApi from '@/api/boardHasLike';
-import hashtagApi from '@/api/hashtag';
-import userApi from '@/api/user';
+import {
+  loginUser,
+  apiSocialLogin,
+  logoutUser,
+  signup,
+  validId,
+} from '@/api/auth';
+import {
+  readBoardOne,
+  readPersonalBoard,
+  rerenderBoard,
+  readRecentBoard,
+  readInvitedBoard,
+  readBoardDetail,
+  createBoard,
+  updateBoard,
+  deleteBoard,
+} from '@/api/board';
+import { createList, updateList, deleteList } from '@/api/list';
+import { createCard, readCard, updateCard, deleteCard } from '@/api/card';
+import {
+  createChecklist,
+  readChecklist,
+  updateChecklist,
+  deleteChecklist,
+} from '@/api/checklist';
+import {
+  createChecklistItem,
+  updateChecklistItem,
+  deleteChecklistItem,
+} from '@/api/checklistItem';
+import {
+  createComment,
+  readComment,
+  updateComment,
+  deleteComment,
+} from '@/api/comment';
+import {
+  readPushMessage,
+  updatePushMessage,
+  deletePushMessage,
+} from '@/api/pushMessage';
+import { readFile, uploadFile, uploadImage, deleteFile } from '@/api/upload';
+import { sendEmail } from '@/api/email';
+import { createBoardHasLike, deleteBoardHasLike } from '@/api/boardHasLike';
+import { readBoardByHashtag, readRankingByLikeCount } from '@/api/hashtag';
+import {
+  readIsInviteUser,
+  readInvitedUserForBoardPage,
+  signout,
+  readUser,
+  updateUser,
+  changePassword,
+} from '@/api/user';
+
 import router from '@/routes';
 import bus from '@/utils/bus';
 import { getSessionStorage } from '@/utils/webStorage';
@@ -19,17 +61,17 @@ const actions = {
   // auth
   async LOGIN({ commit }, userData) {
     // 에러처리 : LoginForm.vue, SignupForm.vue
-    const { data } = await authApi.loginUser(userData);
+    const { data } = await loginUser(userData);
     commit('setUserToken', data.data.token);
     commit('setUser', data.data);
   },
   SOCIAL_LOGIN(_, userId) {
     // 에러처리 : utils/social/index.js
-    return authApi.apiSocialLogin(userId);
+    return apiSocialLogin(userId);
   },
   async LOGOUT({ commit }) {
     try {
-      await authApi.logoutUser();
+      await logoutUser();
       commit('logout');
     } catch (error) {
       console.log(error);
@@ -38,31 +80,30 @@ const actions = {
   },
   SIGNUP(_, userData) {
     // 에러처리 SignupForm.vue
-    return authApi.signup(userData);
+    return signup(userData);
   },
   VALID_ID(_, userId) {
     // 에러처리 : SignupForm.vue
-    return authApi.validId(userId);
+    return validId(userId);
   },
 
   // user
   READ_IS_INVITE_USER(_, userId) {
     // 에러처리 :InviteModal.vue
-    return userApi.readIsInviteUser(userId);
+    return readIsInviteUser(userId);
   },
   READ_INVITED_USER_FOR_BOARD_PAGE(_, userList) {
     // 에러처리 BoardPage.vue
-    return userApi.readInvitedUserForBoardPage(userList);
+    return readInvitedUserForBoardPage(userList);
   },
   SIGNOUT({ commit }, password) {
     // 에러처리 : SignoutUser.vue
-    return userApi.signout(password).then(() => {
+    return signout(password).then(() => {
       commit('logout');
     });
   },
   READ_USER({ commit }, userId) {
-    return userApi
-      .readUser(userId)
+    return readUser(userId)
       .then(({ data }) => {
         commit('setUser', data.data);
       })
@@ -76,7 +117,7 @@ const actions = {
     { id, email, name, password, bio, picture, recentBoard, invitedBoard },
   ) {
     try {
-      await userApi.updateUser({
+      await updateUser({
         id,
         email,
         name,
@@ -93,35 +134,27 @@ const actions = {
     }
   },
   CHANGE_PASSWORD({ dispatch, state }, { currentPw, newPw }) {
-    return userApi
-      .changePassword({ currentPw, newPw })
-      .then(() => {
-        dispatch('READ_USER', state.user.id);
-        alert('비밀번호 변경 완료');
-      })
-      .catch(error => {
-        console.log(error);
-        alert('비밀번호 수정 실패');
-      })
-      .finally(() => bus.$emit('end:spinner'));
+    // 에러처리 : PasswordChange.vue
+    return changePassword({ currentPw, newPw }).then(() => {
+      dispatch('READ_USER', state.user.id);
+    });
   },
 
   // board
   READ_BOARD_ONE(_, { boardId }) {
-    return boardApi.readBoardOne({ boardId }).catch(error => {
+    return readBoardOne({ boardId }).catch(error => {
       console.log(error);
       alert('보드 정보를 가져오지 못했습니다.');
     });
   },
   READ_PERSONAL_BOARD(_, { lastCreatedAt }) {
     // 에러처리 : PersonalSection.vue
-    return boardApi.readPersonalBoard({ lastCreatedAt });
+    return readPersonalBoard({ lastCreatedAt });
   },
   // personal 탭에서 Recently Viewed와 My Boards의
   // 좋아요 표시 연동 때문에 RERENDER_BOARD 액션이 필요함.
   RERENDER_BOARD({ commit, dispatch, state }, { count }) {
-    boardApi
-      .rerenderBoard({ count })
+    rerenderBoard({ count })
       .then(({ data }) => {
         commit('rerenderBoard', data.data);
         if (state.user.recentBoard !== null) {
@@ -136,8 +169,7 @@ const actions = {
       });
   },
   READ_RECENT_BOARD({ commit }, { recentLists }) {
-    return boardApi
-      .readRecentBoard({ recentLists })
+    return readRecentBoard({ recentLists })
       .then(({ data }) => {
         commit('setRecentBoard', data.data);
       })
@@ -147,8 +179,7 @@ const actions = {
       });
   },
   READ_INVITED_BOARD({ commit }, { invitedLists }) {
-    return boardApi
-      .readInvitedBoard({ invitedLists })
+    return readInvitedBoard({ invitedLists })
       .then(({ data }) => {
         commit('setInvitedBoard', data.data);
       })
@@ -158,8 +189,7 @@ const actions = {
       });
   },
   READ_BOARD_DETAIL({ commit }, boardId) {
-    return boardApi
-      .readBoardDetail(boardId)
+    return readBoardDetail(boardId)
       .then(({ data }) => {
         commit('setBoardDetail', data.data);
       })
@@ -170,19 +200,16 @@ const actions = {
       });
   },
   CREATE_BOARD(_, { title, publicYn, hashtag, bgColor }) {
-    return boardApi
-      .createBoard({ title, publicYn, hashtag, bgColor })
-      .catch(error => {
-        console.log(error);
-        alert('보드 생성 실패');
-      });
+    return createBoard({ title, publicYn, hashtag, bgColor }).catch(error => {
+      console.log(error);
+      alert('보드 생성 실패');
+    });
   },
   UPDATE_BOARD(
     { dispatch, state },
     { id, title, bgColor, invitedUser, hashtag, publicYn },
   ) {
-    return boardApi
-      .updateBoard(id, { title, bgColor, invitedUser, hashtag, publicYn })
+    return updateBoard(id, { title, bgColor, invitedUser, hashtag, publicYn })
       .then(({ data }) => {
         if (data.data.invitedUser) {
           return;
@@ -195,7 +222,7 @@ const actions = {
       });
   },
   DELETE_BOARD(_, { id }) {
-    return boardApi.deleteBoard(id).catch(error => {
+    return deleteBoard(id).catch(error => {
       console.log(error);
       alert('해당 Board를 삭제하지 못했습니다.');
     });
@@ -203,8 +230,7 @@ const actions = {
 
   // list
   CREATE_LIST({ dispatch, state }, { title, boardId, pos }) {
-    return listApi
-      .createList({ title, boardId, pos })
+    return createList({ title, boardId, pos })
       .then(() => {
         dispatch('READ_BOARD_DETAIL', state.board.id);
       })
@@ -214,8 +240,7 @@ const actions = {
       });
   },
   UPDATE_LIST({ dispatch, state }, { id, pos, title }) {
-    return listApi
-      .updateList(id, { pos, title })
+    return updateList(id, { pos, title })
       .then(() => {
         dispatch('READ_BOARD_DETAIL', state.board.id);
       })
@@ -225,8 +250,7 @@ const actions = {
       });
   },
   DELETE_LIST({ dispatch, state }, { id }) {
-    return listApi
-      .deleteList(id)
+    return deleteList(id)
       .then(() => {
         dispatch('READ_BOARD_DETAIL', state.board.id);
       })
@@ -238,8 +262,7 @@ const actions = {
 
   // card
   CREATE_CARD({ dispatch, state }, { title, listId, pos }) {
-    return cardApi
-      .createCard({ title, listId, pos })
+    return createCard({ title, listId, pos })
       .then(() => {
         dispatch('READ_BOARD_DETAIL', state.board.id);
       })
@@ -250,7 +273,7 @@ const actions = {
   },
   async READ_CARD({ commit }, { id }) {
     try {
-      const { data } = await cardApi.readCard(id);
+      const { data } = await readCard(id);
       await commit('setCard', data.data);
       return data.data;
     } catch (error) {
@@ -263,7 +286,7 @@ const actions = {
     { id, title, pos, description, labelColor, location, dueDate, listId },
   ) {
     try {
-      await cardApi.updateCard(id, {
+      await updateCard(id, {
         title,
         pos,
         description,
@@ -280,8 +303,7 @@ const actions = {
     }
   },
   DELETE_CARD({ dispatch, state }, { id }) {
-    return cardApi
-      .deleteCard(id)
+    return deleteCard(id)
       .then(() => {
         dispatch('READ_BOARD_DETAIL', state.board.id);
       })
@@ -293,8 +315,7 @@ const actions = {
 
   // checklist
   CREATE_CHECKLIST({ dispatch, state }, { title, cardId }) {
-    checklistApi
-      .createChecklist({ title, cardId })
+    createChecklist({ title, cardId })
       .then(() => {
         dispatch('READ_CHECKLIST', { id: state.card.id });
         dispatch('READ_BOARD_DETAIL', state.board.id);
@@ -306,7 +327,7 @@ const actions = {
   },
   async READ_CHECKLIST({ commit }, { id }) {
     try {
-      const { data } = await checklistApi.readChecklist(id);
+      const { data } = await readChecklist(id);
       if (data.status === 'NOT_FOUND') {
         commit('deleteChecklists');
         return;
@@ -319,7 +340,7 @@ const actions = {
   },
   async UPDATE_CHECKLIST({ dispatch, state }, { id, title }) {
     try {
-      await checklistApi.updateChecklist(id, { title });
+      await updateChecklist(id, { title });
       await dispatch('READ_CHECKLIST', { id: state.card.id });
     } catch (error) {
       console.log(error);
@@ -327,8 +348,7 @@ const actions = {
     }
   },
   DELETE_CHECKLIST({ dispatch, state }, { checklistId, cardId }) {
-    return checklistApi
-      .deleteChecklist({ checklistId, cardId })
+    return deleteChecklist({ checklistId, cardId })
       .then(() => {
         dispatch('READ_CHECKLIST', { id: state.card.id });
         dispatch('READ_BOARD_DETAIL', state.board.id);
@@ -341,8 +361,7 @@ const actions = {
 
   // checklist item
   CREATE_CHECKLIST_ITEM({ dispatch, state }, { checklistId, item }) {
-    return checklistItemApi
-      .createChecklistItem({ checklistId, item })
+    return createChecklistItem({ checklistId, item })
       .then(() => {
         dispatch('READ_CHECKLIST', { id: state.card.id });
       })
@@ -351,12 +370,11 @@ const actions = {
         alert('체크리스트 아이템을 생성하지 못했습니다.');
       });
   },
-  DELETE_CHECKLIST_ITEM(
+  UPDATE_CHECKLIST_ITEM(
     { dispatch, state },
     { checklistItemId, isChecked, item },
   ) {
-    return checklistItemApi
-      .updateChecklistItem(checklistItemId, { isChecked, item })
+    return updateChecklistItem(checklistItemId, { isChecked, item })
       .then(() => {
         dispatch('READ_CHECKLIST', { id: state.card.id });
       })
@@ -366,8 +384,7 @@ const actions = {
       });
   },
   DELETE_CHECKLIST_ITEM({ dispatch, state }, { checklistItemId }) {
-    return checklistItemApi
-      .deleteChecklistItem({ checklistItemId })
+    return deleteChecklistItem({ checklistItemId })
       .then(() => {
         dispatch('READ_CHECKLIST', { id: state.card.id });
       })
@@ -382,8 +399,7 @@ const actions = {
     { dispatch, state },
     { cardId, userId, comment, dept, groupNum },
   ) {
-    return commentApi
-      .createComment({ cardId, userId, comment, dept, groupNum })
+    return createComment({ cardId, userId, comment, dept, groupNum })
       .then(() => {
         dispatch('READ_COMMENT', state.card.id);
         dispatch('READ_BOARD_DETAIL', state.board.id);
@@ -394,8 +410,7 @@ const actions = {
       });
   },
   READ_COMMENT({ commit }, cardId) {
-    return commentApi
-      .readComment(cardId)
+    return readComment(cardId)
       .then(({ data }) => {
         commit('setComment', data.data);
       })
@@ -405,8 +420,7 @@ const actions = {
       });
   },
   UPDATE_COMMENT({ dispatch, state }, { id, userId, comment }) {
-    return commentApi
-      .updateComment({ id, userId, comment })
+    return updateComment({ id, userId, comment })
       .then(() => {
         dispatch('READ_COMMENT', state.card.id);
       })
@@ -416,8 +430,7 @@ const actions = {
       });
   },
   DELETE_COMMENT({ dispatch, state }, id) {
-    return commentApi
-      .deleteComment(id)
+    return deleteComment(id)
       .then(() => {
         dispatch('READ_COMMENT', state.card.id);
         dispatch('READ_BOARD_DETAIL', state.board.id);
@@ -430,8 +443,7 @@ const actions = {
 
   // pushMessage
   READ_PUSH_MESSAGE({ commit }, targetId) {
-    return pushMessageApi
-      .readPushMessage(targetId)
+    return readPushMessage(targetId)
       .then(({ data }) => {
         commit('setPushMessage', data.data);
       })
@@ -441,8 +453,7 @@ const actions = {
       });
   },
   UPDATE_PUSH_MESSAGE({ dispatch, state }, { id, isRead }) {
-    return pushMessageApi
-      .updatePushMessage({ id, isRead })
+    return updatePushMessage({ id, isRead })
       .then(() => {
         dispatch('READ_PUSH_MESSAGE', state.user.id);
       })
@@ -452,8 +463,7 @@ const actions = {
       });
   },
   DELETE_PUSH_MESSAGE({ dispatch, state }, { id }) {
-    return pushMessageApi
-      .deletePushMessage(id)
+    return deletePushMessage(id)
       .then(() => {
         dispatch('READ_PUSH_MESSAGE', state.user.id);
       })
@@ -465,8 +475,7 @@ const actions = {
 
   // upload
   READ_FILE({ commit, state, dispatch }, cardId) {
-    return uploadApi
-      .readFile(cardId)
+    return readFile(cardId)
       .then(({ data }) => {
         commit('setFile', data.data);
         dispatch('READ_BOARD_DETAIL', state.board.id);
@@ -477,8 +486,7 @@ const actions = {
       });
   },
   UPLOAD({ dispatch, state }, formData) {
-    return uploadApi
-      .upload(formData)
+    return uploadFile(formData)
       .then(({ data }) => {
         if (data !== 'FAIL') {
           setTimeout(() => {
@@ -497,8 +505,7 @@ const actions = {
       });
   },
   UPLOAD_IMAGE({ dispatch, state }, imageData) {
-    return uploadApi
-      .uploadImage(imageData)
+    return uploadImage(imageData)
       .then(({ data }) => {
         if (data !== 'FAIL') {
           setTimeout(() => {
@@ -517,8 +524,7 @@ const actions = {
       });
   },
   DELETE_FILE({ dispatch, state }, fileId) {
-    return uploadApi
-      .deleteFile(fileId)
+    return deleteFile(fileId)
       .then(() => {
         dispatch('READ_FILE', state.card.id);
         dispatch('READ_BOARD_DETAIL', state.board.id);
@@ -531,8 +537,7 @@ const actions = {
 
   // email
   SEND_EMAIL(_, { userId, userEmail }) {
-    return emailApi
-      .sendEmail({ userId, userEmail })
+    return sendEmail({ userId, userEmail })
       .then(data => {
         bus.$emit('end:spinner');
         alert(data.data.message);
@@ -545,8 +550,7 @@ const actions = {
 
   // like
   CREATE_LIKE({ dispatch, state }, { boardId, likeCount }) {
-    return boardHasLikeApi
-      .createBoardHasLike({ boardId, likeCount })
+    return createBoardHasLike({ boardId, likeCount })
       .then(() => {
         if (getSessionStorage('mainTabId') === 0) {
           dispatch('RERENDER_BOARD', { count: state.personalBoard.length });
@@ -558,8 +562,7 @@ const actions = {
       });
   },
   DELETE_LIKE({ dispatch, state }, { boardId, likeCount }) {
-    return boardHasLikeApi
-      .deleteBoardHasLike({ boardId, likeCount })
+    return deleteBoardHasLike({ boardId, likeCount })
       .then(() => {
         if (getSessionStorage('mainTabId') === 0) {
           dispatch('RERENDER_BOARD', { count: state.personalBoard.length });
@@ -574,15 +577,14 @@ const actions = {
   // hashtag
   READ_BOARD_BY_HASHTAG(_, { hashtagName, lastLikeCount, lastCreatedAt }) {
     // 에러처리 : PublicSection.vue
-    return hashtagApi.readBoardByHashtag({
+    return readBoardByHashtag({
       hashtagName,
       lastLikeCount,
       lastCreatedAt,
     });
   },
-  READ_HASH_ORDER_BY_LIKE_COUNT({ commit }) {
-    return hashtagApi
-      .readOrderByLikeCount()
+  READ_RANKING_BY_LIKE_COUNT({ commit }) {
+    return readRankingByLikeCount()
       .then(({ data }) => {
         commit('setHashOrderByLikeCount', data.data);
       })

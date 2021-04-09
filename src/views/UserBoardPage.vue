@@ -53,8 +53,8 @@
 <script>
 import Header from '@/components/common/Header.vue';
 import BoardItem from '@/components/board/BoardItem.vue';
-import boardApi from '@/api/board';
-import userApi from '@/api/user';
+import { readSearchUserBoard } from '@/api/board';
+import { readUser } from '@/api/user';
 
 export default {
   components: {
@@ -77,8 +77,7 @@ export default {
 
   methods: {
     readUser() {
-      userApi
-        .readUser(this.$route.params.userId)
+      readUser(this.$route.params.userId)
         .catch(error => {
           console.log(error);
           alert('유저 정보를 가져오지 못했습니다.');
@@ -89,11 +88,10 @@ export default {
     },
 
     searchBoard($state) {
-      boardApi
-        .readSearchUserBoard({
-          searchUser: this.$route.params.userId,
-          lastCreatedAt: this.lastCreatedAt,
-        })
+      readSearchUserBoard({
+        searchUser: this.$route.params.userId,
+        lastCreatedAt: this.lastCreatedAt,
+      })
         .catch(error => {
           console.log(error);
           alert('유저 보드를 가져오지 못했습니다.');

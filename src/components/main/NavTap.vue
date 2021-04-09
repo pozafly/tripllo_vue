@@ -31,12 +31,12 @@
 </template>
 
 <script>
-import { saveSessionStorage } from '@/utils/webStorage';
+import { saveSessionStorage, getSessionStorage } from '@/utils/webStorage';
 
 export default {
   data() {
     return {
-      mainTabId: 0,
+      mainTabId: getSessionStorage('mainTabId'),
     };
   },
 

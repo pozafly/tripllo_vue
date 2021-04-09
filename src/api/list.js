@@ -1,17 +1,7 @@
 import { list } from '@/api';
 
-const listApi = {
-  createList(payload) {
-    return list.post('/', payload);
-  },
+const createList = payload => list.post('/', payload);
+const updateList = (id, payload) => list.put(`/${id}`, payload);
+const deleteList = id => list.delete(`/${id}`);
 
-  updateList(id, payload) {
-    return list.put(`/${id}`, payload);
-  },
-
-  deleteList(id) {
-    return list.delete(`/${id}`);
-  },
-};
-
-export default listApi;
+export { createList, updateList, deleteList };

@@ -134,11 +134,11 @@ export default {
   },
 
   methods: {
-    ...mapActions(['READ_BOARD_BY_HASHTAG', 'READ_HASH_ORDER_BY_LIKE_COUNT']),
+    ...mapActions(['READ_BOARD_BY_HASHTAG', 'READ_RANKING_BY_LIKE_COUNT']),
     ...mapMutations(['resetHashtagBoards', 'setHashtagBoards']),
 
     readHash() {
-      this.READ_HASH_ORDER_BY_LIKE_COUNT();
+      this.READ_RANKING_BY_LIKE_COUNT();
     },
 
     searchHash: _.debounce(function({ target }) {

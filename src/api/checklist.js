@@ -1,21 +1,12 @@
 import { checklist } from '@/api';
 
-const checklistApi = {
-  createChecklist(payload) {
-    return checklist.post('/', payload);
-  },
+const createChecklist = payload => checklist.post('/', payload);
 
-  readChecklist(id) {
-    return checklist.get(`/${id}`);
-  },
+const readChecklist = id => checklist.get(`/${id}`);
 
-  updateChecklist(id, payload) {
-    return checklist.put(`/${id}`, payload);
-  },
+const updateChecklist = (id, payload) => checklist.put(`/${id}`, payload);
 
-  deleteChecklist({ checklistId, cardId }) {
-    return checklist.delete(`/${checklistId}/${cardId}`);
-  },
-};
+const deleteChecklist = ({ checklistId, cardId }) =>
+  checklist.delete(`/${checklistId}/${cardId}`);
 
-export default checklistApi;
+export { createChecklist, readChecklist, updateChecklist, deleteChecklist };

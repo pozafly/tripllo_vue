@@ -1,9 +1,6 @@
 import { email } from '@/api';
 
-const emailApi = {
-  sendEmail({ userId, userEmail }) {
-    return email.post(`/`, { userId, userEmail });
-  },
-};
+const sendEmail = ({ userId, userEmail }) =>
+  email.post(`/`, { userId, userEmail });
 
-export default emailApi;
+export { sendEmail };

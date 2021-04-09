@@ -22,6 +22,7 @@ import NavTap from '@/components/main/NavTap.vue';
 import PersonalSection from '@/components/main/PersonalSection.vue';
 import InvitedSection from '@/components/main/InvitedSection.vue';
 import PublicSection from '@/components/main/PublicSection.vue';
+import { getSessionStorage } from '@/utils/webStorage';
 
 export default {
   components: {
@@ -34,7 +35,7 @@ export default {
 
   data() {
     return {
-      mainTabId: 0,
+      mainTabId: getSessionStorage('mainTabId'),
     };
   },
 

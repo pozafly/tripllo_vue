@@ -33,7 +33,6 @@
 import bus from '@/utils/bus.js';
 import { validatePw } from '@/utils/validation';
 import { mapActions, mapState } from 'vuex';
-
 export default {
   data() {
     return {
@@ -42,11 +41,9 @@ export default {
       againPw: '',
     };
   },
-
   computed: {
     ...mapState(['user']),
   },
-
   methods: {
     ...mapActions(['CHANGE_PASSWORD']),
     change() {
@@ -63,10 +60,7 @@ export default {
         bus.$emit('end:spinner');
         return;
       }
-
-      if (this.validatePw(this.newPw)) {
-        return;
-      }
+      this.validatePw(this.newPw);
       if (this.currentPw === this.newPw) {
         alert(
           '현재 비밀번호와 새로운 비밀번호가 일치합니다. 다른 비밀번호를 입력해주세요.',
@@ -74,11 +68,18 @@ export default {
         bus.$emit('end:spinner');
         return;
       }
-
       this.CHANGE_PASSWORD({
         currentPw: this.currentPw,
         newPw: this.newPw,
-      });
+      })
+        .then(() => {
+          alert('비밀번호 변경 완료');
+        })
+        .catch(error => {
+          console.log(error);
+          alert('비밀번호 수정 실패');
+        })
+        .finally(() => bus.$emit('end:spinner'));
     },
     validatePw(pw) {
       let pwValid = validatePw(pw);
@@ -87,9 +88,7 @@ export default {
         this.newPw = '';
         this.againPw = '';
         bus.$emit('end:spinner');
-        return false;
       }
-      return true;
     },
   },
 };

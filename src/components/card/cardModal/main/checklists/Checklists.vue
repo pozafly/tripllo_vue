@@ -16,7 +16,6 @@
     </span>
     <span v-else>
       <input
-        ref="inputTitle"
         v-model="inputTitle"
         v-focus
         type="text"
@@ -154,6 +153,7 @@ export default {
     },
     isAddItem() {
       this.isItem = true;
+      this.$el.querySelector(`.checkbox-input-title`).focus();
     },
     onSubmitItem({ relatedTarget }) {
       this.isItem = false;

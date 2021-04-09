@@ -1,51 +1,45 @@
 import { board } from '@/api';
 
-const boardApi = {
-  readBoardOne({ boardId }) {
-    return board.get(`/${boardId}`);
-  },
+const readBoardOne = ({ boardId }) => board.get(`/${boardId}`);
 
-  readPersonalBoard({ lastCreatedAt }) {
-    return board.get(`/personal/${lastCreatedAt}`);
-  },
+const readPersonalBoard = ({ lastCreatedAt }) =>
+  board.get(`/personal/${lastCreatedAt}`);
 
-  readSearchUserBoard({ searchUser, lastCreatedAt }) {
-    return board.get(`/${searchUser}/${lastCreatedAt}`);
-  },
+const readSearchUserBoard = ({ searchUser, lastCreatedAt }) =>
+  board.get(`/${searchUser}/${lastCreatedAt}`);
 
-  rerenderBoard({ count }) {
-    return board.get(`/rerender/${count}`);
-  },
+const rerenderBoard = ({ count }) => board.get(`/rerender/${count}`);
 
-  readRecentBoard({ recentLists }) {
-    return board.get(`/recent/${recentLists}`);
-  },
+const readRecentBoard = ({ recentLists }) =>
+  board.get(`/recent/${recentLists}`);
 
-  readInvitedBoard({ invitedLists }) {
-    return board.get(`/invited/${invitedLists}`);
-  },
+const readInvitedBoard = ({ invitedLists }) =>
+  board.get(`/invited/${invitedLists}`);
 
-  readBoardDetail(boardId) {
-    return board.get(`detail/${boardId}`);
-  },
+const readBoardDetail = boardId => board.get(`detail/${boardId}`);
 
-  createBoard({ title, publicYn, hashtag, bgColor }) {
-    return board.post('/', { title, publicYn, hashtag, bgColor });
-  },
+const createBoard = ({ title, publicYn, hashtag, bgColor }) =>
+  board.post('/', { title, publicYn, hashtag, bgColor });
 
-  updateBoard(id, { title, bgColor, invitedUser, hashtag, publicYn }) {
-    return board.put(`/${id}`, {
-      title,
-      bgColor,
-      invitedUser,
-      hashtag,
-      publicYn,
-    });
-  },
+const updateBoard = (id, { title, bgColor, invitedUser, hashtag, publicYn }) =>
+  board.put(`/${id}`, {
+    title,
+    bgColor,
+    invitedUser,
+    hashtag,
+    publicYn,
+  });
+const deleteBoard = id => board.delete(`/${id}`);
 
-  deleteBoard(id) {
-    return board.delete(`/${id}`);
-  },
+export {
+  readBoardOne,
+  readPersonalBoard,
+  readSearchUserBoard,
+  rerenderBoard,
+  readRecentBoard,
+  readInvitedBoard,
+  readBoardDetail,
+  createBoard,
+  updateBoard,
+  deleteBoard,
 };
-
-export default boardApi;

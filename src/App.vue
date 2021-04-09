@@ -10,6 +10,7 @@
 import LoadingSpinner from '@/components/common/LoadingSpinner.vue';
 import AlertNotification from '@/components/common/AlertNotification.vue';
 import bus from '@/utils/bus.js';
+import { saveSessionStorage } from '@/utils/webStorage';
 
 export default {
   components: {
@@ -27,6 +28,7 @@ export default {
     console.log(process.env.VUE_APP_API_URL);
     bus.$on('start:spinner', this.startSpinner);
     bus.$on('end:spinner', this.endSpinner);
+    saveSessionStorage('mainTabId', 0);
   },
 
   beforeDestroy() {

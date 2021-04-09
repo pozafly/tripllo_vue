@@ -1,20 +1,20 @@
 import { user } from '@/api';
 
-const userApi = {
-  readIsInviteUser(userId) {
-    return user.get(`isInvite/${userId}`);
-  },
-  readInvitedUserForBoardPage(userList) {
-    return user.get(`invited/${userList}`);
-  },
-
-  signout(password) {
-    return user.delete(`${password}`);
-  },
-  readUser(userId) {
-    return user.get(`${userId}`);
-  },
-  updateUser({
+const readIsInviteUser = userId => user.get(`isInvite/${userId}`);
+const readInvitedUserForBoardPage = userList => user.get(`invited/${userList}`);
+const signout = password => user.delete(`${password}`);
+const readUser = userId => user.get(`${userId}`);
+const updateUser = ({
+  id,
+  email,
+  name,
+  password,
+  bio,
+  picture,
+  recentBoard,
+  invitedBoard,
+}) =>
+  user.put('', {
     id,
     email,
     name,
@@ -23,21 +23,15 @@ const userApi = {
     picture,
     recentBoard,
     invitedBoard,
-  }) {
-    return user.put('', {
-      id,
-      email,
-      name,
-      password,
-      bio,
-      picture,
-      recentBoard,
-      invitedBoard,
-    });
-  },
-  changePassword({ currentPw, newPw }) {
-    return user.post('changePw', { currentPw, newPw });
-  },
-};
+  });
+const changePassword = ({ currentPw, newPw }) =>
+  user.post('changePw', { currentPw, newPw });
 
-export default userApi;
+export {
+  readIsInviteUser,
+  readInvitedUserForBoardPage,
+  signout,
+  readUser,
+  updateUser,
+  changePassword,
+};
