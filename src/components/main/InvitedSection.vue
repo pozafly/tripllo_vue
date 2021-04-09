@@ -38,18 +38,10 @@ export default {
   methods: {
     ...mapActions(['READ_INVITED_BOARD']),
     getInvitedBoard() {
-      if (
-        this.user.invitedBoard === null ||
-        this.user.invitedBoard === 'null'
-      ) {
+      if (!this.user.invitedBoard) {
         return;
       }
-
-      let invitedLists = null;
-      if (this.user.invitedBoard) {
-        invitedLists = JSON.parse(this.user.invitedBoard);
-      }
-      this.READ_INVITED_BOARD({ invitedLists });
+      this.READ_INVITED_BOARD(JSON.parse(this.user.invitedBoard));
     },
   },
 };

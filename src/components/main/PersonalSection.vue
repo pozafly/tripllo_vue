@@ -92,15 +92,12 @@ export default {
 
     getRecentBoard() {
       if (!!this.user.recentBoard) {
-        const recentLists = JSON.parse(this.user.recentBoard);
-        this.READ_RECENT_BOARD({ recentLists });
+        this.READ_RECENT_BOARD(JSON.parse(this.user.recentBoard));
       }
     },
 
     infiniteHandler($state) {
-      this.READ_PERSONAL_BOARD({
-        lastCreatedAt: this.lastCreatedAt,
-      })
+      this.READ_PERSONAL_BOARD(this.lastCreatedAt)
         .catch(error => {
           console.log(error);
           alert('Personal 보드를 가져오지 못했습니다.');

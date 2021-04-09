@@ -1,20 +1,20 @@
 import {
   loginUser,
-  apiSocialLogin,
+  socialLogin,
   logoutUser,
   signup,
   validId,
 } from '@/api/auth';
 import {
-  readBoardOne,
   readPersonalBoard,
-  rerenderBoard,
+  readPersonalBoardLimitCount,
   readRecentBoard,
   readInvitedBoard,
   readBoardDetail,
   createBoard,
   updateBoard,
   deleteBoard,
+  readBoardForAcceptMessage,
 } from '@/api/board';
 import { createList, updateList, deleteList } from '@/api/list';
 import { createCard, readCard, updateCard, deleteCard } from '@/api/card';
@@ -59,15 +59,15 @@ import { getSessionStorage } from '@/utils/webStorage';
 
 const actions = {
   // auth
-  async LOGIN({ commit }, userData) {
+  async LOGIN({ commit }, loginData) {
     // 에러처리 : LoginForm.vue, SignupForm.vue
-    const { data } = await loginUser(userData);
+    const { data } = await loginUser(loginData);
     commit('setUserToken', data.data.token);
     commit('setUser', data.data);
   },
   SOCIAL_LOGIN(_, userId) {
     // 에러처리 : utils/social/index.js
-    return apiSocialLogin(userId);
+    return socialLogin(userId);
   },
   async LOGOUT({ commit }) {
     try {
@@ -141,26 +141,18 @@ const actions = {
   },
 
   // board
-  READ_BOARD_ONE(_, { boardId }) {
-    return readBoardOne({ boardId }).catch(error => {
-      console.log(error);
-      alert('보드 정보를 가져오지 못했습니다.');
-    });
-  },
-  READ_PERSONAL_BOARD(_, { lastCreatedAt }) {
+  READ_PERSONAL_BOARD(_, lastCreatedAt) {
     // 에러처리 : PersonalSection.vue
-    return readPersonalBoard({ lastCreatedAt });
+    return readPersonalBoard(lastCreatedAt);
   },
   // personal 탭에서 Recently Viewed와 My Boards의
-  // 좋아요 표시 연동 때문에 RERENDER_BOARD 액션이 필요함.
-  RERENDER_BOARD({ commit, dispatch, state }, { count }) {
-    rerenderBoard({ count })
+  // 좋아요 표시 연동 때문에 READ_PERSONAL_BOARD_LIMIT_COUNT 액션이 필요함.
+  READ_PERSONAL_BOARD_LIMIT_COUNT({ commit, dispatch, state }, count) {
+    readPersonalBoardLimitCount(count)
       .then(({ data }) => {
-        commit('rerenderBoard', data.data);
+        commit('readPersonalBoardLimitCount', data.data);
         if (state.user.recentBoard !== null) {
-          dispatch('READ_RECENT_BOARD', {
-            recentLists: JSON.parse(state.user.recentBoard),
-          });
+          dispatch('READ_RECENT_BOARD', JSON.parse(state.user.recentBoard));
         }
       })
       .catch(error => {
@@ -168,8 +160,8 @@ const actions = {
         alert('Board 리렌더링 실패');
       });
   },
-  READ_RECENT_BOARD({ commit }, { recentLists }) {
-    return readRecentBoard({ recentLists })
+  READ_RECENT_BOARD({ commit }, recentLists) {
+    return readRecentBoard(recentLists)
       .then(({ data }) => {
         commit('setRecentBoard', data.data);
       })
@@ -178,8 +170,8 @@ const actions = {
         alert('최근 Board 정보를 가져오지 못했습니다.');
       });
   },
-  READ_INVITED_BOARD({ commit }, { invitedLists }) {
-    return readInvitedBoard({ invitedLists })
+  READ_INVITED_BOARD({ commit }, invitedLists) {
+    return readInvitedBoard(invitedLists)
       .then(({ data }) => {
         commit('setInvitedBoard', data.data);
       })
@@ -225,6 +217,12 @@ const actions = {
     return deleteBoard(id).catch(error => {
       console.log(error);
       alert('해당 Board를 삭제하지 못했습니다.');
+    });
+  },
+  READ_BOARD_FOR_ACCEPT_MESSAGE(_, boardId) {
+    return readBoardForAcceptMessage(boardId).catch(error => {
+      console.log(error);
+      alert('보드 정보를 가져오지 못했습니다.');
     });
   },
 
@@ -553,7 +551,10 @@ const actions = {
     return createBoardHasLike({ boardId, likeCount })
       .then(() => {
         if (getSessionStorage('mainTabId') === 0) {
-          dispatch('RERENDER_BOARD', { count: state.personalBoard.length });
+          dispatch(
+            'READ_PERSONAL_BOARD_LIMIT_COUNT',
+            state.personalBoard.length,
+          );
         }
       })
       .catch(error => {
@@ -565,7 +566,10 @@ const actions = {
     return deleteBoardHasLike({ boardId, likeCount })
       .then(() => {
         if (getSessionStorage('mainTabId') === 0) {
-          dispatch('RERENDER_BOARD', { count: state.personalBoard.length });
+          dispatch(
+            'READ_PERSONAL_BOARD_LIMIT_COUNT',
+            state.personalBoard.length,
+          );
         }
       })
       .catch(error => {

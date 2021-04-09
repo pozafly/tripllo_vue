@@ -29,7 +29,7 @@ const mutations = {
   resetPersonalBoard(state) {
     state.personalBoard = [];
   },
-  rerenderBoard(state, data) {
+  readPersonalBoardLimitCount(state, data) {
     state.personalBoard = data;
   },
   setRecentBoard(state, recentBoard) {

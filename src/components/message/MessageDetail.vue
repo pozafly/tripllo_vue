@@ -49,7 +49,7 @@ export default {
       'DELETE_PUSH_MESSAGE',
       'UPDATE_BOARD',
       'UPDATE_USER',
-      'READ_BOARD_ONE',
+      'READ_BOARD_FOR_ACCEPT_MESSAGE',
     ]),
     setMessage() {
       if (this.message.isRead === 'N') {
@@ -57,9 +57,9 @@ export default {
       }
     },
     async acceptMessage() {
-      const { data } = await this.READ_BOARD_ONE({
-        boardId: this.message.boardId,
-      });
+      const { data } = await this.READ_BOARD_FOR_ACCEPT_MESSAGE(
+        this.message.boardId,
+      );
       const preInviteUser = data.data.invitedUser;
 
       let invitedUser = [];

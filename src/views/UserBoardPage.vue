@@ -88,10 +88,9 @@ export default {
     },
 
     searchBoard($state) {
-      readSearchUserBoard({
-        searchUser: this.$route.params.userId,
-        lastCreatedAt: this.lastCreatedAt,
-      })
+      const searchUserId = this.$route.params.userId;
+      const lastCreatedAt = this.lastCreatedAt;
+      readSearchUserBoard(searchUserId, lastCreatedAt)
         .catch(error => {
           console.log(error);
           alert('유저 보드를 가져오지 못했습니다.');

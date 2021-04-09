@@ -159,12 +159,16 @@ export default {
       }
 
       try {
-        await this.SIGNUP(this.userData);
-        await this.LOGIN({
-          id: this.userData.id,
-          password: this.userData.password,
-        });
-        this.$router.push('/main');
+        const isSignup = await this.SIGNUP(this.userData);
+        if (isSignup) {
+          await this.LOGIN({
+            id: this.userData.id,
+            password: this.userData.password,
+          });
+          this.$router.push('/main');
+        } else {
+          alert('회원가입 실패');
+        }
       } catch ({ response }) {
         this.pushInsert(response.data.message);
       }
