@@ -112,21 +112,9 @@ const actions = {
         alert('유저 정보를 읽어오지 못했습니다.');
       });
   },
-  async UPDATE_USER(
-    { dispatch, state },
-    { id, email, name, password, bio, picture, recentBoard, invitedBoard },
-  ) {
+  async UPDATE_USER({ dispatch, state }, updateUserInfo) {
     try {
-      await updateUser({
-        id,
-        email,
-        name,
-        password,
-        bio,
-        picture,
-        recentBoard,
-        invitedBoard,
-      });
+      await updateUser(updateUserInfo);
       await dispatch('READ_USER', state.user.id);
     } catch (error) {
       console.log(error);
@@ -414,8 +402,8 @@ const actions = {
         alert('코멘트를 읽어오지 못했습니다.');
       });
   },
-  UPDATE_COMMENT({ dispatch, state }, { id, comment }) {
-    return updateComment(id, comment)
+  UPDATE_COMMENT({ dispatch, state }, updateCommentInfo) {
+    return updateComment(updateCommentInfo)
       .then(() => {
         dispatch('READ_COMMENT', state.card.id);
       })

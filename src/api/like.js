@@ -19,6 +19,7 @@ const createLike = likeInfo => boardHasLike.post('/', likeInfo);
  * @returns {Promise<string>} statusCode - 상태코드
  */
 const deleteLike = ({ boardId, likeCount }) =>
+  // SpringBoot의 DeleteMapping에서 @PathVariable 때문에 payload(객체 전달) 불가
   boardHasLike.delete(`/${boardId}/${likeCount}`);
 
 export { createLike, deleteLike };

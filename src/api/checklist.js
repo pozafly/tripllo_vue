@@ -60,6 +60,7 @@ const updateChecklist = (id, title) => checklist.put(`/${id}`, title);
  * @returns {Promise<string>} statusCode - 상태코드
  */
 const deleteChecklist = ({ checklistId, cardId }) =>
+  // SpringBoot의 DeleteMapping에서 @PathVariable 때문에 payload(객체 전달) 불가
   checklist.delete(`/${checklistId}/${cardId}`);
 
 export { createChecklist, readChecklist, updateChecklist, deleteChecklist };

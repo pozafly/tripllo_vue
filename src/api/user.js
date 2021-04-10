@@ -18,6 +18,18 @@ import { user } from '@/api';
  */
 
 /**
+ * @typedef {object} UpdateUserInfo
+ * @property {string} id - 유저 ID
+ * @property {string} email - 이메일
+ * @property {string} name - 이름
+ * @property {string} password - 비밀번호
+ * @property {string} bio - 소개
+ * @property {string} picture - 프로필 이미지 경로
+ * @property {number[]} recentBoard - 최근 본 Board
+ * @property {number[]} invitedBoard - 초대된 Board
+ */
+
+/**
  * @typedef {object} ChangePasswordInfo
  * @property {string} currentPw - 현재 비밀번호
  * @property {string} newPw - 변경 될 비밀번호
@@ -53,32 +65,13 @@ const readUser = userId => user.get(`${userId}`);
 
 /**
  * 유저 수정
- * @param {object} updateUserInfo
+ * @param {UpdateUserInfo} updateUserInfo
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const updateUser = ({
-  id,
-  email,
-  name,
-  password,
-  bio,
-  picture,
-  recentBoard,
-  invitedBoard,
-}) =>
-  user.put('', {
-    id,
-    email,
-    name,
-    password,
-    bio,
-    picture,
-    recentBoard,
-    invitedBoard,
-  });
+const updateUser = updateUserInfo => user.put('', updateUserInfo);
 
 /**
- *
+ * 비밀번호 변경
  * @param {ChangePasswordInfo} changePasswordInfo
  * @returns {Promise<string>} statusCode - 상태코드
  */

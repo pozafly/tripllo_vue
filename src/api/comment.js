@@ -25,6 +25,12 @@ import { comments } from '@/api';
  */
 
 /**
+ * @typedef {object} UpdateCommentInfo
+ * @property {number} id - Comment ID
+ * @property {string} comment - 수정될 코멘트
+ */
+
+/**
  * 코멘트 생성
  * @param {CreateCommentInfo} createCommentInfo
  * @returns {Promise<string>} statusCode - 상태코드
@@ -41,11 +47,10 @@ const readComment = cardId => comments.get(`/${cardId}`);
 
 /**
  * 코멘트 수정
- * @param {number} id - Comment ID
- * @param {string} comment - 수정될 코멘트
+ * @param {UpdateCommentInfo} updateCommentInfo
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const updateComment = (id, comment) => comments.put(`/`, { id, comment });
+const updateComment = updateCommentInfo => comments.put(`/`, updateCommentInfo);
 
 /**
  * 코멘트 삭제

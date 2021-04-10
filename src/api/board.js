@@ -88,6 +88,7 @@ const readPersonalBoard = lastCreatedAt =>
  * @returns {Promise<Board[]>}
  */
 const readSearchUserBoard = (searchUserId, lastCreatedAt) =>
+  // SpringBoot의 GetMapping에서 @PathVariable 때문에 payload(객체 전달) 불가
   board.get(`/${searchUserId}/${lastCreatedAt}`);
 
 /**
