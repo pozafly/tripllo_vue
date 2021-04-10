@@ -7,6 +7,7 @@
           <input
             ref="id"
             v-model="userData.id"
+            v-focus
             class="submit-item"
             type="text"
             placeholder="Enter id"

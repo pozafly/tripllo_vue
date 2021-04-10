@@ -190,7 +190,6 @@ export default {
       dragger.cardDragger();
     },
     onClickTitle() {
-      console.log('onClickTitle');
       this.isEditTitle = true;
       this.inputTitle = this.board.title;
     },

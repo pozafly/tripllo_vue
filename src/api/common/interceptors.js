@@ -21,7 +21,7 @@ export const setInterceptors = instance => {
     },
     error => {
       console.log('error interceptor');
-      console.log(response);
+      console.log(error);
       if (error.response.status === 401) {
         alert('권한이 없습니다.');
         return;

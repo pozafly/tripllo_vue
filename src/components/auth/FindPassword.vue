@@ -12,6 +12,7 @@
       <div class="submit-items">
         <input
           v-model="userData.id"
+          v-focus
           class="submit-item"
           type="text"
           placeholder="등록 되어있는 ID를 입력해주세요"
@@ -67,10 +68,20 @@ export default {
     ...mapActions(['SEND_EMAIL']),
     async submitForm() {
       bus.$emit('start:spinner');
+      const { id, email } = this.userData;
       this.SEND_EMAIL({
-        userId: this.userData.id,
-        userEmail: this.userData.email,
-      });
+        userId: id,
+        userEmail: email,
+      })
+        .then(data => {
+          bus.$emit('end:spinner');
+          alert(data.data.message);
+          this.$router.push({ name: 'login', params: { id } });
+        })
+        .catch(({ response }) => {
+          bus.$emit('end:spinner');
+          alert(response.data.message);
+        });
     },
   },
 };

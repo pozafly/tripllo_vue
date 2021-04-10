@@ -92,24 +92,18 @@ export default {
       this.isDelete = false;
       this.DELETE_COMMENT(item.id);
     },
-    onKeyupEnter() {
+    onKeyupEnter(event) {
       event.target.blur();
     },
     onSubmitComment() {
       this.isEditComment = false;
-
-      if (this.commentText === '') {
+      if (this.commentText === this.item.comment || this.commentText === '') {
         return;
       }
-      if (this.commentText === this.item.comment) {
-        return;
-      }
-
-      const id = this.item.id;
-      const userId = this.user.id;
-      const comment = this.commentText;
-
-      this.UPDATE_COMMENT({ id, userId, comment });
+      this.UPDATE_COMMENT({
+        id: this.item.id,
+        comment: this.commentText,
+      });
     },
     onSubmitNestedComment() {
       this.isEditNestedComment = false;
@@ -119,13 +113,12 @@ export default {
       }
 
       const cardId = this.card.id;
-      const userId = this.user.id;
       const comment = this.nestedComment;
       // 대댓글은 무조건 dept가 1임.
       const dept = '1';
       const groupNum = this.item.id;
 
-      this.CREATE_COMMENT({ cardId, userId, comment, dept, groupNum });
+      this.CREATE_COMMENT({ cardId, comment, dept, groupNum });
       this.nestedComment = '';
     },
     onEditComment() {

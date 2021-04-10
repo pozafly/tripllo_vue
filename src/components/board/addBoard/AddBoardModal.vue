@@ -170,13 +170,14 @@ export default {
       const bgColor = this.selectColor;
       const publicYn = this.publicYn;
       const hashtag = JSON.stringify(this.hashList);
-
-      const { data } = await this.CREATE_BOARD({
+      const createBoardInfo = {
         title,
         bgColor,
         publicYn,
         hashtag,
-      });
+      };
+
+      const { data } = await this.CREATE_BOARD(createBoardInfo);
       await this.$notify({
         group: 'custom-template',
         duration: 5000,

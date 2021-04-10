@@ -148,11 +148,11 @@ export default {
     }, 750),
 
     infiniteHandler($state) {
-      const hashtagName = this.searchHashValue;
-      const lastLikeCount = this.lastLikeCount;
-      const lastCreatedAt = this.lastCreatedAt;
-
-      this.READ_BOARD_BY_HASHTAG({ hashtagName, lastLikeCount, lastCreatedAt })
+      this.READ_BOARD_BY_HASHTAG({
+        hashtagName: this.searchHashValue,
+        lastLikeCount: this.lastLikeCount,
+        lastCreatedAt: this.lastCreatedAt,
+      })
         .then(({ data }) => {
           if (data.data === null) {
             this.isInfinity = false;

@@ -10,6 +10,7 @@
       <div class="submit-items">
         <input
           v-model="userData.id"
+          v-focus
           class="submit-item"
           type="text"
           placeholder="Enter id"
@@ -25,7 +26,7 @@
         </button>
       </div>
     </form>
-    <template v-if="isSocialForm">
+    <template v-show="isSocialForm">
       <div class="text">OR</div>
       <div class="external-items">
         <div id="loginBtn">
@@ -90,6 +91,12 @@ export default {
       },
       deep: true,
     },
+  },
+
+  mounted() {
+    if (this.$route.params) {
+      this.userData.id = this.$route.params.id;
+    }
   },
 
   methods: {

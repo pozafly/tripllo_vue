@@ -48,47 +48,64 @@ export default {
     ...mapActions(['CHANGE_PASSWORD']),
     change() {
       bus.$emit('start:spinner');
+
+      console.log(!this.validate());
+      if (!this.validate()) {
+        console.log(3);
+        return;
+      }
+
+      const changePasswordInfo = {
+        currentPw: this.currentPw,
+        newPw: this.newPw,
+      };
+      this.CHANGE_PASSWORD(changePasswordInfo)
+        .then(() => {
+          alert('비밀번호 변경 완료');
+        })
+        .catch(({ response }) => {
+          console.log(response);
+          if (response.status === 404) {
+            alert(response.data.message);
+          } else {
+            alert('비밀번호 수정 실패');
+          }
+        })
+        .finally(() => bus.$emit('end:spinner'));
+    },
+
+    validate() {
+      console.log(1);
+      let pwValid = validatePw(this.newPw);
+      if (!pwValid[0]) {
+        alert(pwValid[1]);
+        this.newPw = '';
+        this.againPw = '';
+        bus.$emit('end:spinner');
+        return false;
+      }
+
       if (this.user.id === 'test') {
         alert('test 아이디는 비밀변호 변경이 불가능 합니다.');
         bus.$emit('end:spinner');
-        return;
+        return false;
       }
       if (this.newPw !== this.againPw) {
         alert(
           '입력하신 새로운 비밀번호와 재입력 비밀번호가 일치하지 않습니다.',
         );
         bus.$emit('end:spinner');
-        return;
+        return false;
       }
-      this.validatePw(this.newPw);
       if (this.currentPw === this.newPw) {
         alert(
           '현재 비밀번호와 새로운 비밀번호가 일치합니다. 다른 비밀번호를 입력해주세요.',
         );
         bus.$emit('end:spinner');
-        return;
+        return false;
       }
-      this.CHANGE_PASSWORD({
-        currentPw: this.currentPw,
-        newPw: this.newPw,
-      })
-        .then(() => {
-          alert('비밀번호 변경 완료');
-        })
-        .catch(error => {
-          console.log(error);
-          alert('비밀번호 수정 실패');
-        })
-        .finally(() => bus.$emit('end:spinner'));
-    },
-    validatePw(pw) {
-      let pwValid = validatePw(pw);
-      if (!pwValid[0]) {
-        alert(pwValid[1]);
-        this.newPw = '';
-        this.againPw = '';
-        bus.$emit('end:spinner');
-      }
+      console.log(2);
+      return true;
     },
   },
 };

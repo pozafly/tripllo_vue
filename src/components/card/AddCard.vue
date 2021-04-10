@@ -57,8 +57,9 @@ export default {
       }
       const { inputTitle, listId } = this;
       const pos = this.newCardPos();
+      const createCardInfo = { title: inputTitle, listId, pos };
 
-      this.CREATE_CARD({ title: inputTitle, listId, pos }).finally(() => {
+      this.CREATE_CARD(createCardInfo).finally(() => {
         this.inputTitle = '';
         this.$refs.inputTitle.focus();
         this.$emit('cardFocus');

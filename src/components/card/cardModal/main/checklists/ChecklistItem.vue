@@ -82,8 +82,7 @@ export default {
       this.UPDATE_CHECKLIST_ITEM({ checklistItemId: this.items.id, isChecked });
     },
     onDeleteItem() {
-      const checklistItemId = this.items.id;
-      this.DELETE_CHECKLIST_ITEM({ checklistItemId });
+      this.DELETE_CHECKLIST_ITEM(this.items.id);
     },
     isCheckChange(e) {
       let isChecked = '';

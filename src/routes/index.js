@@ -52,6 +52,7 @@ const router = new VueRouter({
       children: [
         {
           path: 'login',
+          name: 'login',
           component: () => import('@/components/auth/LoginForm.vue'),
         },
         {

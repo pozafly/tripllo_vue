@@ -93,7 +93,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['card', 'comment', 'user']),
+    ...mapState(['card', 'comment']),
   },
 
   methods: {
@@ -110,9 +110,8 @@ export default {
         return;
       }
       const cardId = this.card.id;
-      const userId = this.user.id;
       const comment = this.commentText;
-      this.CREATE_COMMENT({ cardId, userId, comment });
+      this.CREATE_COMMENT({ cardId, comment });
       this.commentText = '';
       this.scrollAction();
     },

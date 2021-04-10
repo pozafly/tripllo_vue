@@ -58,7 +58,7 @@ export default {
       if (id === '') {
         this.memberList = [];
       } else {
-        this.READ_IS_INVITE_USER(id)
+        this.READ_IS_INVITE_USER_FOR_INVITE_MODAL(id)
           .catch(({ response }) => {
             if (response.status === 404) {
               this.errorMessage = '해당 유저가 없습니다.';
@@ -75,7 +75,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['READ_IS_INVITE_USER']),
+    ...mapActions(['READ_IS_INVITE_USER_FOR_INVITE_MODAL']),
 
     invitedUserFiler(member) {
       if (this.board.invitedUser) {

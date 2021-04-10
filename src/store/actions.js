@@ -42,10 +42,10 @@ import {
 } from '@/api/pushMessage';
 import { readFile, uploadFile, uploadImage, deleteFile } from '@/api/upload';
 import { sendEmail } from '@/api/email';
-import { createBoardHasLike, deleteBoardHasLike } from '@/api/boardHasLike';
+import { createLike, deleteLike } from '@/api/like';
 import { readBoardByHashtag, readRankingByLikeCount } from '@/api/hashtag';
 import {
-  readIsInviteUser,
+  readIsInviteUserForModal,
   readInvitedUserForBoardPage,
   signout,
   readUser,
@@ -88,9 +88,9 @@ const actions = {
   },
 
   // user
-  READ_IS_INVITE_USER(_, userId) {
+  READ_IS_INVITE_USER_FOR_INVITE_MODAL(_, userId) {
     // 에러처리 :InviteModal.vue
-    return readIsInviteUser(userId);
+    return readIsInviteUserForModal(userId);
   },
   READ_INVITED_USER_FOR_BOARD_PAGE(_, userList) {
     // 에러처리 BoardPage.vue
@@ -133,9 +133,9 @@ const actions = {
       alert('유저정보 수정 실패');
     }
   },
-  CHANGE_PASSWORD({ dispatch, state }, { currentPw, newPw }) {
+  CHANGE_PASSWORD({ dispatch, state }, changePasswordInfo) {
     // 에러처리 : PasswordChange.vue
-    return changePassword({ currentPw, newPw }).then(() => {
+    return changePassword(changePasswordInfo).then(() => {
       dispatch('READ_USER', state.user.id);
     });
   },
@@ -191,8 +191,8 @@ const actions = {
         router.push('/main');
       });
   },
-  CREATE_BOARD(_, { title, publicYn, hashtag, bgColor }) {
-    return createBoard({ title, publicYn, hashtag, bgColor }).catch(error => {
+  CREATE_BOARD(_, createBoardInfo) {
+    return createBoard(createBoardInfo).catch(error => {
       console.log(error);
       alert('보드 생성 실패');
     });
@@ -227,8 +227,8 @@ const actions = {
   },
 
   // list
-  CREATE_LIST({ dispatch, state }, { title, boardId, pos }) {
-    return createList({ title, boardId, pos })
+  CREATE_LIST({ dispatch, state }, createListInfo) {
+    return createList(createListInfo)
       .then(() => {
         dispatch('READ_BOARD_DETAIL', state.board.id);
       })
@@ -259,8 +259,8 @@ const actions = {
   },
 
   // card
-  CREATE_CARD({ dispatch, state }, { title, listId, pos }) {
-    return createCard({ title, listId, pos })
+  CREATE_CARD({ dispatch, state }, createCardInfo) {
+    return createCard(createCardInfo)
       .then(() => {
         dispatch('READ_BOARD_DETAIL', state.board.id);
       })
@@ -381,8 +381,8 @@ const actions = {
         alert('체크리스트 아이템을 수정하지 못했습니다.');
       });
   },
-  DELETE_CHECKLIST_ITEM({ dispatch, state }, { checklistItemId }) {
-    return deleteChecklistItem({ checklistItemId })
+  DELETE_CHECKLIST_ITEM({ dispatch, state }, checklistItemId) {
+    return deleteChecklistItem(checklistItemId)
       .then(() => {
         dispatch('READ_CHECKLIST', { id: state.card.id });
       })
@@ -393,11 +393,8 @@ const actions = {
   },
 
   // comment
-  CREATE_COMMENT(
-    { dispatch, state },
-    { cardId, userId, comment, dept, groupNum },
-  ) {
-    return createComment({ cardId, userId, comment, dept, groupNum })
+  CREATE_COMMENT({ dispatch, state }, { cardId, comment, dept, groupNum }) {
+    return createComment({ cardId, comment, dept, groupNum })
       .then(() => {
         dispatch('READ_COMMENT', state.card.id);
         dispatch('READ_BOARD_DETAIL', state.board.id);
@@ -417,8 +414,8 @@ const actions = {
         alert('코멘트를 읽어오지 못했습니다.');
       });
   },
-  UPDATE_COMMENT({ dispatch, state }, { id, userId, comment }) {
-    return updateComment({ id, userId, comment })
+  UPDATE_COMMENT({ dispatch, state }, { id, comment }) {
+    return updateComment(id, comment)
       .then(() => {
         dispatch('READ_COMMENT', state.card.id);
       })
@@ -450,8 +447,8 @@ const actions = {
         alert('푸시 메세지를 읽어오지 못했습니다.');
       });
   },
-  UPDATE_PUSH_MESSAGE({ dispatch, state }, { id, isRead }) {
-    return updatePushMessage({ id, isRead })
+  UPDATE_PUSH_MESSAGE({ dispatch, state }, updateMessageInfo) {
+    return updatePushMessage(updateMessageInfo)
       .then(() => {
         dispatch('READ_PUSH_MESSAGE', state.user.id);
       })
@@ -534,21 +531,14 @@ const actions = {
   },
 
   // email
-  SEND_EMAIL(_, { userId, userEmail }) {
-    return sendEmail({ userId, userEmail })
-      .then(data => {
-        bus.$emit('end:spinner');
-        alert(data.data.message);
-      })
-      .catch(({ response }) => {
-        bus.$emit('end:spinner');
-        alert(response.data.message);
-      });
+  SEND_EMAIL(_, emailInfo) {
+    // 에러처리 : FindPassword.vue
+    return sendEmail(emailInfo);
   },
 
   // like
-  CREATE_LIKE({ dispatch, state }, { boardId, likeCount }) {
-    return createBoardHasLike({ boardId, likeCount })
+  CREATE_LIKE({ dispatch, state }, likeInfo) {
+    return createLike(likeInfo)
       .then(() => {
         if (getSessionStorage('mainTabId') === 0) {
           dispatch(
@@ -563,7 +553,7 @@ const actions = {
       });
   },
   DELETE_LIKE({ dispatch, state }, { boardId, likeCount }) {
-    return deleteBoardHasLike({ boardId, likeCount })
+    return deleteLike({ boardId, likeCount })
       .then(() => {
         if (getSessionStorage('mainTabId') === 0) {
           dispatch(
@@ -579,13 +569,9 @@ const actions = {
   },
 
   // hashtag
-  READ_BOARD_BY_HASHTAG(_, { hashtagName, lastLikeCount, lastCreatedAt }) {
+  READ_BOARD_BY_HASHTAG(_, hashtagBoardInfo) {
     // 에러처리 : PublicSection.vue
-    return readBoardByHashtag({
-      hashtagName,
-      lastLikeCount,
-      lastCreatedAt,
-    });
+    return readBoardByHashtag(hashtagBoardInfo);
   },
   READ_RANKING_BY_LIKE_COUNT({ commit }) {
     return readRankingByLikeCount()
