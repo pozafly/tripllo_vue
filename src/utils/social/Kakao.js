@@ -26,6 +26,7 @@ const Kakao = {
       },
       fail: error => {
         console.log(error);
+        alert('카카오 로그인 사용자 정보를 가져오지 못했습니다.');
       },
     });
   },
@@ -36,7 +37,10 @@ const Kakao = {
       success: authObj => {
         this.getInfo(authObj, 'login');
       },
-      fail: error => console.log(error),
+      fail: error => {
+        console.log(error);
+        alert('카카오로 로그인 실패');
+      },
     });
   },
 
@@ -46,7 +50,10 @@ const Kakao = {
       success: authObj => {
         this.getInfo(authObj, 'signup');
       },
-      fail: error => console.log(error),
+      fail: error => {
+        console.log(error);
+        alert('카카오로 회원가입 실패');
+      },
     });
   },
 

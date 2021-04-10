@@ -112,7 +112,7 @@ export default {
         });
 
       setTimeout(() => {
-        if (this.isInfinity === true || this.$refs.boardItem) {
+        if (this.isInfinity === true && this.$refs.boardItem) {
           this.lastCreatedAt = this.$refs.boardItem.lastChild.getAttribute(
             'lastCreatedAt',
           );

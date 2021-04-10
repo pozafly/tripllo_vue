@@ -167,7 +167,7 @@ export default {
         });
 
       setTimeout(() => {
-        if (this.isInfinity === true || this.$refs.boardItem) {
+        if (this.isInfinity === true && this.$refs.boardItem) {
           this.lastLikeCount = this.$refs.boardItem.lastChild.getAttribute(
             'lastLikeCount',
           );

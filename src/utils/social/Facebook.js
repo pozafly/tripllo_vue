@@ -47,7 +47,7 @@ const Facebook = {
                 { fields: 'id, name, email, picture' },
                 res => {
                   if (!res) {
-                    LoginFailure();
+                    this.LoginFailure();
                   }
                   const req_body = {
                     id: res.id,
@@ -60,13 +60,16 @@ const Facebook = {
                 },
               );
             } else {
-              LoginFailure();
+              this.LoginFailure();
             }
           },
           { scope: 'public_profile, email' },
         );
       });
     });
+  },
+  LoginFailure() {
+    alert('페이스북 로그인 실패');
   },
 };
 
