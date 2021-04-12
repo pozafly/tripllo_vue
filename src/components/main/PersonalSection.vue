@@ -17,17 +17,12 @@
         <awesome icon="layer-group" class="icon"></awesome>
         <span class="title-text">My Boards</span>
       </div>
-      <div ref="boardItem" class="list-wrap">
+      <div class="list-wrap">
         <a class="add-board" href="" @click.prevent="showAddBoard">
           <span class="add-board-title">Create new board...</span>
         </a>
         <AddBoardModal v-if="isShowAddBoard" @close="showAddBoard" />
-        <div
-          v-for="board in personalBoard"
-          :key="board.id"
-          class="board-list"
-          :lastCreatedAt="board.createdAt"
-        >
+        <div v-for="board in personalBoard" :key="board.id" class="board-list">
           <BoardItem :board="board" />
         </div>
       </div>
@@ -98,27 +93,25 @@ export default {
 
     infiniteHandler($state) {
       this.READ_PERSONAL_BOARD(this.lastCreatedAt)
-        .catch(error => {
-          console.log(error);
-          alert('Personal 보드를 가져오지 못했습니다.');
-        })
         .then(({ data }) => {
           if (data.data === null) {
             this.isInfinity = false;
             $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
           } else {
             this.pushPersonalBoard(data.data);
-          }
-        });
 
-      setTimeout(() => {
-        if (this.isInfinity === true && this.$refs.boardItem) {
-          this.lastCreatedAt = this.$refs.boardItem.lastChild.getAttribute(
-            'lastCreatedAt',
-          );
-          $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
-        }
-      }, 1000);
+            setTimeout(() => {
+              const boardItem = data.data;
+              const lastCreatedAt = boardItem[boardItem.length - 1].createdAt;
+              this.lastCreatedAt = lastCreatedAt;
+              $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
+            }, 1000);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          alert('Personal 보드를 가져오지 못했습니다.');
+        });
     },
   },
 };

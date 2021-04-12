@@ -56,7 +56,7 @@ export default {
         this.$emit('listFocus');
       });
     },
-    onKeyupEnter() {
+    onKeyupEnter(event) {
       event.target.blur();
     },
   },

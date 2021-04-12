@@ -103,7 +103,7 @@ export default {
       this.isItem = true;
       this.inputItem = this.items.item;
     },
-    onKeyupEnter() {
+    onKeyupEnter(event) {
       event.target.blur();
     },
   },

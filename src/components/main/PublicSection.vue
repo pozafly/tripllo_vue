@@ -43,13 +43,11 @@
           <span class="title-text">Public Boards</span>
           <span class="side-text"> - order by like</span>
         </div>
-        <div ref="boardItem" class="list-wrap">
+        <div class="list-wrap">
           <div
             v-for="board in hashtagBoards"
             :key="board.id"
             class="board-list"
-            :lastCreatedAt="board.createdAt"
-            :lastLikeCount="board.likeCount"
           >
             <BoardItem :board="board" />
             <div
@@ -159,24 +157,22 @@ export default {
             $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
           } else {
             this.setHashtagBoards(data.data);
+
+            setTimeout(() => {
+              const boardItem = data.data;
+              const lastEl = boardItem[boardItem.length - 1];
+
+              this.lastLikeCount = lastEl.likeCount;
+              this.lastCreatedAt = lastEl.createdAt;
+
+              $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
+            }, 1000);
           }
         })
         .catch(error => {
           console.log(error);
           alert('HashTag 보드를 가져오지 못했습니다.');
         });
-
-      setTimeout(() => {
-        if (this.isInfinity === true && this.$refs.boardItem) {
-          this.lastLikeCount = this.$refs.boardItem.lastChild.getAttribute(
-            'lastLikeCount',
-          );
-          this.lastCreatedAt = this.$refs.boardItem.lastChild.getAttribute(
-            'lastCreatedAt',
-          );
-          $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
-        }
-      }, 1000);
     },
 
     reset() {
