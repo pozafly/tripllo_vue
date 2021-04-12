@@ -63,12 +63,6 @@ export default {
     ...mapState(['personalBoard', 'recentBoard', 'user']),
   },
 
-  // watch: {
-  //   'user.recentBoard'() {
-  //     this.getRecentBoard();
-  //   },
-  // },
-
   mounted() {
     this.getRecentBoard();
   },

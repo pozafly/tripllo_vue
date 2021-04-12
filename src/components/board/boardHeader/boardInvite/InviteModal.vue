@@ -17,8 +17,7 @@
             v-if="invitedUserFiler(member)"
             :member="member"
             @close="
-              ({ memberId, boardTitle }) =>
-                $emit('close', { memberId, boardTitle })
+              ({ memberId, boardTitle }) => inviteUser({ memberId, boardTitle })
             "
           />
           <!-- 위의 v-if는 자신의 id, 또 이미 이 보드에 초대 된 사람의 id가 조회되지 못하게 막은 것임 -->
@@ -30,7 +29,7 @@
 </template>
 
 <script>
-import InviteModalList from '@/components/board/invite/InviteModalList.vue';
+import InviteModalList from '@/components/board/boardHeader/boardInvite/InviteModalList.vue';
 import _ from 'lodash';
 import { mapActions, mapState } from 'vuex';
 
@@ -87,6 +86,17 @@ export default {
       } else {
         return this.user.id !== member.id;
       }
+    },
+
+    inviteUser({ memberId, boardTitle }) {
+      this.$emit('close');
+      this.$notify({
+        group: 'custom-template',
+        duration: 5000,
+        title: '초대 완료!',
+        closeOnClick: true,
+        text: `${memberId}님에게 ${boardTitle} 보드를 초대했습니다.`,
+      });
     },
   },
 };

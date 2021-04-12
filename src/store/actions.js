@@ -198,7 +198,7 @@ const actions = {
       })
       .catch(error => {
         console.log(error);
-        alert('유저 정보를 업데이트 하지 못했습니다.');
+        alert('보드 정보를 업데이트 하지 못했습니다.');
       });
   },
   DELETE_BOARD(_, { id }) {

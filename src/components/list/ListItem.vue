@@ -71,7 +71,9 @@ export default {
     };
   },
 
-  computed: { ...mapState(['board']) },
+  computed: {
+    ...mapState(['board']),
+  },
 
   created() {
     this.insertListTitle();

@@ -61,7 +61,7 @@
 
 <script>
 import { mapMutations, mapActions, mapState } from 'vuex';
-import ColorPicker from '@/components/board/boardMenu/ColorPicker.vue';
+import ColorPicker from '@/components/board/boardHeader/boardMenu/ColorPicker.vue';
 
 export default {
   components: {
@@ -142,8 +142,8 @@ export default {
 .board-menu {
   position: absolute;
   right: 0;
-  top: 0;
-  height: 93.945%;
+  top: -35px;
+  height: 97%;
   border-radius: 9px;
   background-color: #edeff0;
   width: 350px;
@@ -210,7 +210,7 @@ export default {
           color: white;
           .new-pick-text {
             font-size: 14px;
-            padding-top: 21px;
+            padding-top: 15px;
           }
         }
       }

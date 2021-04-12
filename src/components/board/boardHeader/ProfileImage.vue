@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <span @click="$router.push(`/user/${board.createdBy}`)">
     <span v-if="board" class="profile-wrap">
       <span
         v-if="
