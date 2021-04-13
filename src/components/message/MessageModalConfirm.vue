@@ -51,11 +51,13 @@ export default {
       'UPDATE_USER',
       'READ_BOARD_FOR_ACCEPT_MESSAGE',
     ]),
+
     setMessage() {
       if (this.message.isRead === 'N') {
         this.UPDATE_PUSH_MESSAGE({ id: this.message.id, isRead: 'Y' });
       }
     },
+
     async acceptMessage() {
       const { data } = await this.READ_BOARD_FOR_ACCEPT_MESSAGE(
         this.message.boardId,
@@ -93,6 +95,7 @@ export default {
         alert('이미 초대되어 있습니다.');
       }
     },
+
     rejectMessage() {
       if (window.confirm('해당 메세지를 삭제하시겠습니까?')) {
         this.DELETE_PUSH_MESSAGE({ id: this.message.id });

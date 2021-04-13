@@ -101,6 +101,7 @@ export default {
 
   methods: {
     ...mapActions(['LOGIN']),
+
     async submitForm() {
       try {
         await this.LOGIN(this.userData);
@@ -110,6 +111,7 @@ export default {
         this.push.message = response.data.message;
       }
     },
+
     facebookLogin() {
       if (getUserFromLocalStorage()) {
         alert('이미 로그인 되어 있습니다.');
@@ -118,6 +120,7 @@ export default {
         this.$_Facebook.login();
       }
     },
+
     kakaoLogin() {
       if (getUserFromLocalStorage()) {
         alert('이미 로그인 되어 있습니다.');

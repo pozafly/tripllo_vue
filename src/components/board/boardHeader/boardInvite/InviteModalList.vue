@@ -43,6 +43,7 @@ export default {
         this.$refs.img.src = this.member.picture;
       }
     },
+
     inviteMember() {
       let push = confirm(
         `@${this.member.id} 님에게 ${this.board.title} 보드로 초대하시겠습니까?`,

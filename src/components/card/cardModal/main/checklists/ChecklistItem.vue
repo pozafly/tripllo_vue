@@ -64,6 +64,7 @@ export default {
 
   methods: {
     ...mapActions(['DELETE_CHECKLIST_ITEM', 'UPDATE_CHECKLIST_ITEM']),
+
     onCheckChange({ target }) {
       if (
         target.localName === 'path' ||
@@ -81,14 +82,17 @@ export default {
       }
       this.UPDATE_CHECKLIST_ITEM({ checklistItemId: this.items.id, isChecked });
     },
+
     onDeleteItem() {
       this.DELETE_CHECKLIST_ITEM(this.items.id);
     },
+
     isCheckChange(e) {
       let isChecked = '';
       e.target.checked === true ? (isChecked = 'Y') : (isChecked = 'N');
       this.UPDATE_CHECKLIST_ITEM({ checklistItemId: this.items.id, isChecked });
     },
+
     onSubmitItem() {
       this.isItem = false;
       if (this.inputItem.trim() === this.items.item) {
@@ -99,10 +103,12 @@ export default {
         item: this.inputItem,
       });
     },
+
     onEditItem() {
       this.isItem = true;
       this.inputItem = this.items.item;
     },
+
     onKeyupEnter(event) {
       event.target.blur();
     },

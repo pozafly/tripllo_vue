@@ -33,9 +33,11 @@ export default {
 
   methods: {
     ...mapActions(['CREATE_LIST']),
+
     onAddList() {
       this.isAddList = true;
     },
+
     onSubmitTitle() {
       this.inputTitle = this.inputTitle.trim();
       if (!this.inputTitle) {
@@ -56,6 +58,7 @@ export default {
         this.$emit('listFocus');
       });
     },
+
     onKeyupEnter(event) {
       event.target.blur();
     },

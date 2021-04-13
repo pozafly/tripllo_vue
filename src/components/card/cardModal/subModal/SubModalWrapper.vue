@@ -92,6 +92,7 @@ export default {
       const name = `is${item}`;
       this.toggle === name ? (this.toggle = '') : (this.toggle = name);
     },
+
     modalSideIcon(item) {
       switch (item) {
         case 'Labels':
@@ -109,9 +110,11 @@ export default {
       }
       return null;
     },
+
     onClose() {
       this.toggle = '';
     },
+
     onCloseModal() {
       this.$router.push(`/board/${this.board.id}`);
     },

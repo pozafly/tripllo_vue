@@ -36,6 +36,7 @@ export default {
 
   methods: {
     ...mapActions(['LOGOUT']),
+
     logoutUser() {
       this.LOGOUT();
       this.$router.push('/auth/login');

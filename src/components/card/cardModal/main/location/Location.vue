@@ -77,6 +77,7 @@ export default {
 
   methods: {
     ...mapActions(['UPDATE_CARD']),
+
     setImg() {
       if (!this.card.location) {
         return;
@@ -89,16 +90,19 @@ export default {
         &zoom=15&size=560x190&markers=color:red|${location.lat},${location.lng}
         &key=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}&region=kr`;
     },
+
     openMap(e) {
       if (e.target.className === 'location-control') {
         return;
       }
       this.isLocationMap = true;
     },
+
     gotoGoogle() {
       const url = `https://www.google.com/maps/search/?api=1&query=${this.location.lat}%2C${this.location.lng}`;
       window.open(url, '_blank');
     },
+
     deleteLocation() {
       this.isDelete = false;
       this.UPDATE_CARD({ id: this.card.id, location: '' });

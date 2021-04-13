@@ -88,6 +88,7 @@ export default {
 
   computed: {
     ...mapState(['user']),
+
     isSocial() {
       if (this.user.social !== null) {
         return true;
@@ -99,10 +100,12 @@ export default {
 
   methods: {
     ...mapActions(['SIGNOUT']),
+
     modalClose() {
       this.password = '';
       this.isDelete = false;
     },
+
     deleteUser() {
       if (this.password === '') {
         return;
@@ -121,6 +124,7 @@ export default {
           }
         });
     },
+
     validId({ target }) {
       if (target.value === this.user.id) {
         this.btnDisabled = false;

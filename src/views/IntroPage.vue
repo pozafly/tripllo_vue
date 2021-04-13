@@ -190,9 +190,11 @@ export default {
     addEvent() {
       window.addEventListener('scroll', this.handleScroll);
     },
+
     removeEvent() {
       window.removeEventListener('scroll', this.handleScroll);
     },
+
     handleScroll() {
       if (window.scrollY === 0) {
         this.$refs.header.style.background = 'none';
@@ -200,6 +202,7 @@ export default {
         this.$refs.header.style.background = 'rgba(0,0,0,0.4)';
       }
     },
+
     goPage(url) {
       window.open(url);
     },

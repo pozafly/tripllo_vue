@@ -64,6 +64,7 @@ export default {
 
   methods: {
     ...mapActions(['UPDATE_CARD']),
+
     setLoader() {
       const loader = new Loader({
         apiKey: process.env.VUE_APP_GOOGLE_MAP_API_KEY,
@@ -75,6 +76,7 @@ export default {
         this.searchControl();
       });
     },
+
     mapDraw() {
       this.map = new google.maps.Map(
         this.$el.querySelector('.google-map-display'),
@@ -92,7 +94,6 @@ export default {
           this.isCardAbout = false;
         });
       });
-
       this.makeMarkers();
     },
 

@@ -36,6 +36,7 @@ export default {
 
   methods: {
     ...mapActions(['DELETE_FILE']),
+
     download(e) {
       if (!this.permission()) {
         alert('권한이 없습니다.');
@@ -51,6 +52,7 @@ export default {
         location.href = `${this.item.link}`;
       }
     },
+
     deleteFile() {
       if (!this.permission()) {
         alert('권한이 없습니다.');
@@ -63,6 +65,7 @@ export default {
         this.DELETE_FILE(this.item.id);
       }
     },
+
     permission() {
       if (this.board.createdBy === this.user.id) {
         return true;

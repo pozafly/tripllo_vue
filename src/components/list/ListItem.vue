@@ -40,9 +40,9 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
 import AddCard from '@/components/card/AddCard.vue';
 import CardItem from '@/components/card/CardItem.vue';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   components: {
@@ -81,16 +81,20 @@ export default {
 
   methods: {
     ...mapActions(['UPDATE_LIST', 'DELETE_LIST']),
+
     insertListTitle() {
       this.inputTitle = this.list.title;
     },
+
     onClickTitle() {
       this.isEditTitle = true;
       this.$refs.inputTitle.value = this.list.title;
     },
+
     onKeyupEnter(event) {
       event.target.blur();
     },
+
     onSubmitTitle() {
       this.isEditTitle = false;
 
@@ -107,11 +111,13 @@ export default {
 
       this.UPDATE_LIST({ id, title });
     },
+
     onDeleteList() {
       // if (!window.confirm(`${this.list.title} 리스트를 삭제하시겠습니까?`))
       //   return;
       this.DELETE_LIST({ id: this.list.id });
     },
+
     cardFocus() {
       setTimeout(() => {
         this.$el.querySelector('.card-list').lastChild.scrollIntoView();

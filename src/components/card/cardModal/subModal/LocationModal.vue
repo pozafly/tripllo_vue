@@ -49,6 +49,7 @@ export default {
         this.autocomplete.addListener('place_changed', this.fillInAddress);
       });
     },
+
     fillInAddress() {
       const place = this.autocomplete.getPlace();
       const geometry = {

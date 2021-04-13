@@ -56,10 +56,12 @@ export default {
 
   methods: {
     ...mapActions(['UPDATE_CARD']),
+
     onEditDesc() {
       this.isEditDesc = true;
       this.description = this.cardDescription;
     },
+
     // relatedTarget: 이벤트 발생 타겟을 의미함.
     onSubmitDesc({ relatedTarget }) {
       this.isEditDesc = false;
@@ -75,6 +77,7 @@ export default {
       }
       this.UPDATE_CARD({ id: this.cardId, description: this.description });
     },
+
     onKeyupEnter(event) {
       event.target.blur();
     },

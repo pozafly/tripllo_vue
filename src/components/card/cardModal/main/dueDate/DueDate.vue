@@ -42,6 +42,7 @@ export default {
 
   methods: {
     ...mapActions(['UPDATE_CARD']),
+
     deleteDueDate() {
       this.isDelete = false;
       this.UPDATE_CARD({ id: this.card.id, dueDate: '' });

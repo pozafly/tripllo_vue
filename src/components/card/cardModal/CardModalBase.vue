@@ -47,6 +47,7 @@ export default {
   computed: {
     ...mapState(['board']),
   },
+
   methods: {
     exit(e) {
       if (e.target.className === 'modal-wrapper') {

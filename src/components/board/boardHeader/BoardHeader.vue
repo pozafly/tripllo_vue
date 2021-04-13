@@ -120,7 +120,9 @@ export default {
       this.isEditTitle = true;
       this.inputTitle = this.board.title;
     },
+
     onSubmitTitle() {
+      this.isEditTitle = false;
       this.inputTitle = this.inputTitle.trim();
       if (!this.inputTitle) {
         return;
@@ -132,7 +134,6 @@ export default {
         return;
       }
       this.UPDATE_BOARD({ id, title });
-      this.isEditTitle = false;
     },
 
     onKeyupEnter(event) {

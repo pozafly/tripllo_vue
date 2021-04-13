@@ -139,6 +139,7 @@ export default {
 
   methods: {
     ...mapActions(['SIGNUP', 'LOGIN', 'VALID_ID']),
+
     async submitForm() {
       const valid = this.valid;
       if (valid.id === false) {
@@ -174,6 +175,7 @@ export default {
         this.pushInsert(response.data.message);
       }
     },
+
     async validUserId(id) {
       // lodash logic
       if (!validateId(id)) {
@@ -190,6 +192,7 @@ export default {
         }
       }
     },
+
     validatePw(pw) {
       let pwValid = validatePw(pw);
       if (!pwValid[0]) {
@@ -199,6 +202,7 @@ export default {
         this.valid.password = true;
       }
     },
+
     validateAgainPw() {
       const realPw = this.userData.password;
       const againPw = this.againPassword;
@@ -209,6 +213,7 @@ export default {
         this.valid.againPassword = true;
       }
     },
+
     validateEmail(email) {
       if (!validateEmail(email)) {
         this.pushInsert('이메일 유형에 맞지 않습니다.');
@@ -217,10 +222,12 @@ export default {
         this.valid.email = true;
       }
     },
+
     pushInsert(message) {
       this.push.pushYn = true;
       this.push.message = message;
     },
+
     facebookSignup() {
       if (getUserFromLocalStorage()) {
         alert('이미 로그인 되어 있습니다.');
@@ -229,6 +236,7 @@ export default {
         this.$_Facebook.signup();
       }
     },
+
     kakaoSignup() {
       if (getUserFromLocalStorage()) {
         alert('이미 로그인 되어 있습니다.');

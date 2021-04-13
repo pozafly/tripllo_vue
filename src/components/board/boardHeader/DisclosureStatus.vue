@@ -32,6 +32,7 @@ export default {
 
   methods: {
     ...mapActions(['UPDATE_BOARD']),
+
     changePublic() {
       let status;
       let sentense;

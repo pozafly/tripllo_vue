@@ -46,6 +46,7 @@ export default {
 
   methods: {
     ...mapActions(['UPDATE_CARD']),
+
     cardDueDateSync() {
       if (this.card.dueDate === null) {
         return;
@@ -54,6 +55,7 @@ export default {
       this.date = new Date(dueDate);
       this.$refs.datePicker.move(dueDate);
     },
+
     onSave() {
       this.$emit('close');
 
@@ -66,9 +68,11 @@ export default {
 
       this.UPDATE_CARD({ id: this.card.id, dueDate });
     },
+
     plusZero(value) {
       return (value = value > 9 ? value : `0${value}`);
     },
+
     onRemove() {
       this.$emit('close');
       this.UPDATE_CARD({ id: this.card.id, dueDate: '' });

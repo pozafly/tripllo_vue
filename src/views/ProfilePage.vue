@@ -77,6 +77,7 @@ export default {
 
   computed: {
     ...mapState(['user']),
+
     current() {
       return this.tapList.find(el => el.id === this.currentId) || {};
     },

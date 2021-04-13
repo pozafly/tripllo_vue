@@ -40,11 +40,13 @@ export default {
     goMain() {
       this.$router.push('/main');
     },
+
     googleLoad() {
       this.$loadScript(`https://apis.google.com/js/api:client.js`).then(() => {
         this.$_Google.init();
       });
     },
+
     kakaoLoad() {
       this.$loadScript(`https://developers.kakao.com/sdk/js/kakao.js`).then(
         () => {
@@ -54,6 +56,7 @@ export default {
         },
       );
     },
+
     facebookLoad() {
       this.$_Facebook.init();
     },

@@ -19,6 +19,7 @@ export default {
 
   methods: {
     ...mapActions(['DELETE_CARD']),
+
     onDelete() {
       this.DELETE_CARD({ id: this.card.id });
       this.$router.push(`/board/${this.board.id}`);

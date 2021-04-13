@@ -33,6 +33,7 @@
 import bus from '@/utils/bus.js';
 import { validatePw } from '@/utils/validation';
 import { mapActions, mapState } from 'vuex';
+
 export default {
   data() {
     return {
@@ -41,15 +42,17 @@ export default {
       againPw: '',
     };
   },
+
   computed: {
     ...mapState(['user']),
   },
+
   methods: {
     ...mapActions(['CHANGE_PASSWORD']),
+
     change() {
       bus.$emit('start:spinner');
 
-      console.log(!this.validate());
       if (!this.validate()) {
         return;
       }
@@ -74,7 +77,6 @@ export default {
     },
 
     validate() {
-      console.log(1);
       let pwValid = validatePw(this.newPw);
       if (!pwValid[0]) {
         alert(pwValid[1]);
@@ -103,7 +105,6 @@ export default {
         bus.$emit('end:spinner');
         return false;
       }
-      console.log(2);
       return true;
     },
   },

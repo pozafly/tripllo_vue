@@ -147,12 +147,14 @@ export default {
     title(value) {
       this.valid = value.trim().length > 0;
     },
+
     hashItem() {
       if (this.hashItem.trim().length > 14) {
         alert('해시태그는 15자를 넘길 수 없습니다.');
         return;
       }
     },
+
     publicYn() {
       if (this.publicYn === 'N') {
         this.isHashtag = false;
@@ -187,6 +189,7 @@ export default {
       });
       await this.$router.push(`/board/${data.data.id}`);
     },
+
     pushHash() {
       if (this.hashList.includes(this.hashItem)) {
         alert('같은 이름의 해시태그는 동일한 보드에 입력 불가능합니다.');
@@ -201,13 +204,16 @@ export default {
       this.hashList.push(this.hashItem.replace(/(\s*)/g, '').trim());
       this.hashItem = '';
     },
+
     deleteHash(hash) {
       let pos = this.hashList.indexOf(hash);
       this.hashList.splice(pos, 1);
     },
+
     clickColor(color) {
       this.selectColor = color;
     },
+
     closeModal() {
       this.$emit('close');
     },

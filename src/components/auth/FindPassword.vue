@@ -66,6 +66,7 @@ export default {
 
   methods: {
     ...mapActions(['SEND_EMAIL']),
+
     async submitForm() {
       bus.$emit('start:spinner');
       const { id, email } = this.userData;

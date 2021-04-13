@@ -37,6 +37,7 @@ export default {
 
   methods: {
     ...mapActions(['READ_INVITED_BOARD']),
+
     getInvitedBoard() {
       if (!this.user.invitedBoard) {
         return;

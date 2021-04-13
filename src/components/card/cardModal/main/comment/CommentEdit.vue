@@ -88,13 +88,16 @@ export default {
 
   methods: {
     ...mapActions(['UPDATE_COMMENT', 'DELETE_COMMENT', 'CREATE_COMMENT']),
+
     deleteComment(item) {
       this.isDelete = false;
       this.DELETE_COMMENT(item.id);
     },
+
     onKeyupEnter(event) {
       event.target.blur();
     },
+
     onSubmitComment() {
       this.isEditComment = false;
       if (this.commentText === this.item.comment || this.commentText === '') {
@@ -105,6 +108,7 @@ export default {
         comment: this.commentText,
       });
     },
+
     onSubmitNestedComment() {
       this.isEditNestedComment = false;
 
@@ -121,10 +125,12 @@ export default {
       this.CREATE_COMMENT({ cardId, comment, dept, groupNum });
       this.nestedComment = '';
     },
+
     onEditComment() {
       this.isEditComment = true;
       this.commentText = this.item.comment;
     },
+
     onEditNestedComment() {
       this.isEditNestedComment = true;
     },

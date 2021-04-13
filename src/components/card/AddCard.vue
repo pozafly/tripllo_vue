@@ -44,6 +44,7 @@ export default {
     invalidInput() {
       return !this.inputTitle.trim();
     },
+
     ...mapState(['board']),
   },
 
@@ -65,6 +66,7 @@ export default {
         this.$emit('cardFocus');
       });
     },
+
     newCardPos() {
       // 맨 마지막(최근) 카드를 가져온다.
       const curList = this.board.lists.filter(l => l.id === this.listId)[0];
@@ -81,8 +83,8 @@ export default {
       // 맨 마지막에 있는 카드의 pos의 정보를 가져와서 * 2
       return cards[cards.length - 1].pos * 2;
     },
+
     onKeyupEnter(event) {
-      // 이벤트 트리거. onSubmitTitle이 두번 실행되는 것을 방지. https://velog.io/@kyh196201/1025
       event.target.blur();
     },
   },

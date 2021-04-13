@@ -48,6 +48,7 @@ export default {
 
   computed: {
     ...mapState(['personalBoard']),
+
     hashtag() {
       return JSON.parse(this.board.hashtag);
     },
@@ -65,9 +66,11 @@ export default {
 
   methods: {
     ...mapActions(['CREATE_LIKE', 'DELETE_LIKE']),
+
     setboardItemTheme() {
       this.$refs.boardItem.style.backgroundColor = this.board.bgColor;
     },
+
     countHeart() {
       const boardId = this.board.id;
       const likeCount = this.board.likeCount;
@@ -83,6 +86,7 @@ export default {
         this.DELETE_LIKE({ boardId, likeCount: this.board.likeCount });
       }
     },
+
     goBoardPage(e) {
       if (
         e.target.nodeName === 'svg' ||

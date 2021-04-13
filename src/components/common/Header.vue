@@ -87,6 +87,7 @@ export default {
       }
       this.$router.push('/main');
     },
+
     updateTheme() {
       if (this.$route.path.includes('board')) {
         const board = document.querySelector('.board');

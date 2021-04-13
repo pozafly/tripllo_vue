@@ -53,7 +53,6 @@ export default {
   watch: {
     inputId: _.debounce(function(id) {
       this.errorMessage = '';
-
       if (id === '') {
         this.memberList = [];
       } else {

@@ -25,6 +25,7 @@ export default {
 
   methods: {
     ...mapActions(['UPLOAD']),
+
     uploadFile() {
       const file = this.$refs.file.files[0];
       const fileData = new FormData();

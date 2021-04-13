@@ -98,6 +98,7 @@ export default {
 
   methods: {
     ...mapActions(['CREATE_COMMENT']),
+
     onSubmitComment({ relatedTarget }) {
       this.isComment = false;
       // body를 눌렀을 때, 이벤트 타겟이 null로 나오므로 그냥 통과(저장된단 말임.)
@@ -115,12 +116,15 @@ export default {
       this.commentText = '';
       this.scrollAction();
     },
+
     onKeyupEnter(event) {
       event.target.blur();
     },
+
     onEditComment() {
       this.isComment = true;
     },
+
     scrollAction() {
       setTimeout(() => {
         this.$el.scrollIntoView(false);

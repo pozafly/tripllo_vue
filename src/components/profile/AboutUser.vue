@@ -85,6 +85,7 @@ export default {
 
   methods: {
     ...mapActions(['UPDATE_USER', 'UPLOAD_IMAGE']),
+
     setUser() {
       this.userData.id = this.user.id !== 'null' ? this.user.id : '';
       this.userData.name = this.user.name !== 'null' ? this.user.name : '';
@@ -92,11 +93,13 @@ export default {
       this.userData.bio = this.user.bio !== 'null' ? this.user.bio : '';
       this.userData.picture = this.user.picture;
     },
+
     updateUser() {
       this.UPDATE_USER(this.userData).then(() => {
         alert('회원정보 수정 완료');
       });
     },
+
     uploadFile() {
       const file = this.$refs.file.files[0];
       const imageData = new FormData();

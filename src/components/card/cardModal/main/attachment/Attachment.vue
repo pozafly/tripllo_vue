@@ -20,6 +20,7 @@ export default {
   components: {
     AttachmentList,
   },
+
   computed: {
     ...mapState(['file']),
   },

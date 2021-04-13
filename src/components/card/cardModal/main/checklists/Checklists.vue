@@ -125,16 +125,19 @@ export default {
       'UPDATE_CHECKLIST',
       'CREATE_CHECKLIST_ITEM',
     ]),
+
     editTitle() {
       this.isTitle = true;
       this.inputTitle = this.checklist.title;
     },
+
     deleteChecklist() {
       this.DELETE_CHECKLIST({
         checklistId: this.checklist.id,
         cardId: this.checklist.cardId,
       });
     },
+
     onSubmitTitle({ relatedTarget }) {
       this.isTitle = false;
       if (relatedTarget) {
@@ -151,10 +154,12 @@ export default {
         title: this.inputTitle,
       });
     },
+
     isAddItem() {
       this.isItem = true;
       this.$el.querySelector(`.checkbox-input-title`).focus();
     },
+
     onSubmitItem({ relatedTarget }) {
       this.isItem = false;
       if (relatedTarget) {
@@ -176,6 +181,7 @@ export default {
       this.inputItem = '';
       this.isAddItem();
     },
+
     onProgress() {
       let count = 0;
       if (this.checklist.items.length === 0) {
@@ -193,6 +199,7 @@ export default {
         ? (this.status = 'success')
         : (this.status = 'error');
     },
+
     onKeyupEnter(event) {
       event.target.blur();
     },
