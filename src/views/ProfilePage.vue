@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <Header />
+    <CommonHeader />
     <div class="content">
       <div class="user-header">
         <div class="auth-items">
@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import Header from '@/components/common/Header.vue';
+import CommonHeader from '@/components/common/header/CommonHeader.vue';
 import AboutUser from '@/components/profile/AboutUser.vue';
 import SignoutUser from '@/components/profile/SignoutUser.vue';
 import TabItem from '@/components/profile/TapItem.vue';
@@ -58,7 +58,7 @@ import { mapState } from 'vuex';
 
 export default {
   components: {
-    Header,
+    CommonHeader,
     AboutUser,
     SignoutUser,
     TabItem,

@@ -1,6 +1,6 @@
 <template>
   <div class="page">
-    <Header />
+    <CommonHeader />
     <div class="main-wrap">
       <NavTap @changeTab="changeTab" />
       <template v-if="mainTabId === 0">
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import Header from '@/components/common/Header.vue';
+import CommonHeader from '@/components/common/header/CommonHeader.vue';
 import NavTap from '@/components/main/NavTap.vue';
 import PersonalSection from '@/components/main/PersonalSection.vue';
 import InvitedSection from '@/components/main/InvitedSection.vue';
@@ -26,7 +26,7 @@ import { getSessionStorage } from '@/utils/webStorage';
 
 export default {
   components: {
-    Header,
+    CommonHeader,
     NavTap,
     PersonalSection,
     InvitedSection,

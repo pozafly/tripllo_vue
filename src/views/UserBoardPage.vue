@@ -1,6 +1,6 @@
 <template>
   <div class="wrap">
-    <Header />
+    <CommonHeader />
     <div class="content">
       <div class="user-header">
         <div class="auth-items">
@@ -51,14 +51,14 @@
 </template>
 
 <script>
-import Header from '@/components/common/Header.vue';
+import CommonHeader from '@/components/common/header/CommonHeader.vue';
 import BoardItem from '@/components/board/BoardItem.vue';
 import { readSearchUserBoard } from '@/api/board';
 import { readUser } from '@/api/user';
 
 export default {
   components: {
-    Header,
+    CommonHeader,
     BoardItem,
   },
 

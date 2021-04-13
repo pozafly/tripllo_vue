@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Header />
+    <CommonHeader />
     <div class="notfound-wrap">
       <awesome icon="skull" class="notfound-icon" />
       <span class="notfound-text">해당 페이지를 찾을 수 없습니다.</span>
@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import Header from '@/components/common/Header.vue';
+import Header from '@/components/common/header/CommonHeader.vue';
 
 export default {
   components: {
-    Header,
+    CommonHeader,
   },
 
   methods: {

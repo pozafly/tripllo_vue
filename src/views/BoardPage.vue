@@ -1,6 +1,6 @@
 <template class="container">
   <div class="board-page">
-    <Header />
+    <CommonHeader />
     <div class="board-section">
       <div class="board-wrapper">
         <div class="board">
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import Header from '@/components/common/Header.vue';
+import CommonHeader from '@/components/common/header/CommonHeader.vue';
 import ListItem from '@/components/list/ListItem.vue';
 import AddList from '@/components/list/AddList.vue';
 import BoardHeader from '@/components/board/boardHeader/BoardHeader.vue';
@@ -37,7 +37,7 @@ import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
   components: {
-    Header,
+    CommonHeader,
     ListItem,
     AddList,
     BoardHeader,

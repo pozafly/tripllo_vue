@@ -42,7 +42,7 @@
         </li>
       </ul>
     </div>
-    <HeaderUserMenu
+    <CommonHeaderMenu
       v-if="isMenuShow"
       v-click-outside="() => (isMenuShow = false)"
     />
@@ -50,14 +50,14 @@
 </template>
 
 <script>
-import Message from '@/components/message/Message.vue';
-import HeaderUserMenu from '@/components/common/HeaderUserMenu.vue';
+import Message from '@/components/common/header/message/HeaderMessage.vue';
+import CommonHeaderMenu from '@/components/common/header/CommonHeaderMenu.vue';
 import { mapState } from 'vuex';
 
 export default {
   components: {
     Message,
-    HeaderUserMenu,
+    CommonHeaderMenu,
   },
 
   data() {

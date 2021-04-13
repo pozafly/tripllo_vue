@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import MessageModal from '@/components/message/MessageModal.vue';
+import MessageModal from '@/components/common/header/message/HeaderMessageModal.vue';
 import { socketConnect } from '@/utils/socket';
 import bus from '@/utils/bus';
 import { mapActions, mapState } from 'vuex';
@@ -42,7 +42,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['pushMessage']),
+    ...mapState(['pushMessage', 'user']),
   },
 
   watch: {

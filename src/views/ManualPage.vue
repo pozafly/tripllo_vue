@@ -237,7 +237,7 @@
 </template>
 
 <script>
-import Footer from '@/components/common/Footer.vue';
+import Footer from '@/components/common/CommonFooter.vue';
 import { mapGetters } from 'vuex';
 
 export default {

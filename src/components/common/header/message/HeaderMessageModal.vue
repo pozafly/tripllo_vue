@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import MessageModalConfirm from '@/components/message/MessageModalConfirm.vue';
+import MessageModalConfirm from '@/components/common/header/message/HeaderMessageModalConfirm.vue';
 import { mapState } from 'vuex';
 
 export default {
