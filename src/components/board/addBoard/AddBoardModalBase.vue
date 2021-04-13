@@ -3,7 +3,10 @@
   <transition name="modal">
     <div class="modal-mask-addBoard">
       <div class="modal-wrapper-addBoard">
-        <div v-click-outside="closeModal" class="modal-container-addBoard">
+        <div
+          v-click-outside="() => $emit('close')"
+          class="modal-container-addBoard"
+        >
           <div class="modal-header-addBoard">
             <slot name="header">
               default header
@@ -33,16 +36,6 @@
     </div>
   </transition>
 </template>
-
-<script>
-export default {
-  methods: {
-    closeModal() {
-      this.$emit('close');
-    },
-  },
-};
-</script>
 
 <style scoped lang="scss">
 .modal-mask-addBoard {

@@ -51,7 +51,6 @@ export default {
 
       console.log(!this.validate());
       if (!this.validate()) {
-        console.log(3);
         return;
       }
 

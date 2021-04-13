@@ -19,8 +19,8 @@
       <ProfileImage :board="board" />
     </span>
 
-    <span v-if="isOwner" class="board-item" @click="changePublic">
-      {{ publicYn }}
+    <span v-if="isOwner" class="board-item">
+      <DisclosureStatus :board-id="board.id" :public-yn="board.publicYn" />
     </span>
 
     <span
@@ -58,7 +58,7 @@
     </a>
     <BoardMenu
       v-if="isBoardMenu"
-      v-click-outside="menuClose"
+      v-click-outside="() => (isBoardMenu = false)"
       @close="isBoardMenu = false"
     />
   </div>
@@ -69,6 +69,7 @@ import InviteModal from '@/components/board/boardHeader/boardInvite/InviteModal.
 import ProfileImage from '@/components/board/boardHeader/ProfileImage.vue';
 import HashtagModal from '@/components/board/boardHeader/HashtagModal.vue';
 import BoardMenu from '@/components/board/boardHeader/boardMenu/BoardMenu.vue';
+import DisclosureStatus from '@/components/board/boardHeader/DisclosureStatus.vue';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -77,6 +78,7 @@ export default {
     ProfileImage,
     HashtagModal,
     BoardMenu,
+    DisclosureStatus,
   },
 
   props: {
@@ -100,13 +102,6 @@ export default {
 
   computed: {
     ...mapState(['board']),
-    publicYn() {
-      if (this.board.publicYn === 'Y') {
-        return 'Public';
-      } else {
-        return 'Private';
-      }
-    },
   },
 
   watch: {
@@ -120,9 +115,7 @@ export default {
 
   methods: {
     ...mapActions(['UPDATE_BOARD', 'READ_INVITED_USER_FOR_BOARD_PAGE']),
-    menuClose() {
-      this.isBoardMenu = false;
-    },
+
     onClickTitle() {
       this.isEditTitle = true;
       this.inputTitle = this.board.title;
@@ -148,26 +141,6 @@ export default {
 
     menuOpen() {
       this.isBoardMenu = true;
-    },
-
-    changePublic() {
-      let status;
-      let sentense;
-
-      if (this.board.publicYn === 'Y') {
-        status = 'N';
-        sentense =
-          '공개여부를 Private으로 바꾸시면 초대된 사람은 유지되지만 \n해시태그를 통한 노출이 불가능 합니다. 그래도 바꾸시겠습니까?';
-      } else {
-        status = 'Y';
-        sentense =
-          '공개여부를 Public으로 바꾸시면 해시태그를 통해 노출이 가능합니다.';
-      }
-
-      let change = window.confirm(sentense);
-      if (change) {
-        this.UPDATE_BOARD({ id: this.board.id, publicYn: status });
-      }
     },
 
     setInvitedUserImage() {

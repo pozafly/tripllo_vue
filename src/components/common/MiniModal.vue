@@ -1,24 +1,16 @@
 <template>
-  <div v-click-outside="close" class="base-wrap">
+  <div v-click-outside="() => $emit('close')" class="base-wrap">
     <div class="header">
       <slot name="header" class="header-text">header</slot>
-      <a href="" class="header-cancel" @click.prevent="close">&times;</a>
+      <a href="" class="header-cancel" @click.prevent="() => $emit('close')">
+        &times;
+      </a>
     </div>
     <div class="content">
       <slot name="content">content</slot>
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  methods: {
-    close() {
-      this.$emit('close');
-    },
-  },
-};
-</script>
 
 <style lang="scss">
 .base-wrap {

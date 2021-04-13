@@ -6,7 +6,7 @@
       <div v-if="pushMessage">
         <div v-for="message in pushMessage" :key="message.id">
           <ul>
-            <MessageDetail :message="message" @close="$emit('close')" />
+            <MessageModalConfirm :message="message" @close="$emit('close')" />
           </ul>
         </div>
       </div>
@@ -16,12 +16,12 @@
 </template>
 
 <script>
-import MessageDetail from '@/components/message/MessageDetail.vue';
+import MessageModalConfirm from '@/components/message/MessageModalConfirm.vue';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    MessageDetail,
+    MessageModalConfirm,
   },
 
   computed: {
