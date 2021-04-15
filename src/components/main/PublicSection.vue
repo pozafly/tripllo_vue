@@ -25,13 +25,13 @@
           <span class="side-text"> - Top 5</span>
           <div class="hashtag">
             <span
-              v-for="item in hashtags"
-              :key="item.name"
+              v-for="hashtag in hashtags"
+              :key="hashtag.name"
               class="hashtag-item"
-              @click="selectHash(item.name)"
+              @click="selectHash(hashtag.name)"
             >
-              <span class="hashtag-text"># {{ item.name }}</span>
-              <span class="hashtag-count">({{ item.count }})</span>
+              <span class="hashtag-text"># {{ hashtag.name }}</span>
+              <span class="hashtag-count">({{ hashtag.count }})</span>
             </span>
           </div>
         </div>
@@ -95,6 +95,7 @@
 <script>
 import BoardItem from '@/components/board/BoardItem.vue';
 import _ from 'lodash';
+import { readRankingByLikeCount } from '@/api/hashtag';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
@@ -109,11 +110,12 @@ export default {
       lastCreatedAt: '',
       infiniteId: +new Date(),
       isInfinity: true,
+      hashtags: {},
     };
   },
 
   computed: {
-    ...mapState(['hashtagBoards', 'hashtags']),
+    ...mapState(['hashtagBoards']),
   },
 
   watch: {
@@ -123,7 +125,7 @@ export default {
   },
 
   created() {
-    this.readHash();
+    this.readHashtagRanking();
   },
 
   beforeDestroy() {
@@ -135,8 +137,15 @@ export default {
     ...mapActions(['READ_BOARD_BY_HASHTAG', 'READ_RANKING_BY_LIKE_COUNT']),
     ...mapMutations(['resetHashtagBoards', 'setHashtagBoards']),
 
-    readHash() {
-      this.READ_RANKING_BY_LIKE_COUNT();
+    readHashtagRanking() {
+      readRankingByLikeCount()
+        .then(({ data }) => {
+          this.hashtags = data.data;
+        })
+        .catch(error => {
+          console.log(error);
+          alert('해시태그 랭킹을 가져오는데 실패했습니다.');
+        });
     },
 
     searchHash: _.debounce(function({ target }) {

@@ -14,7 +14,7 @@
       <div v-for="member in memberList" :key="member.id">
         <ul>
           <InviteModalList
-            v-if="invitedUserFiler(member)"
+            v-if="invitedUserFilter(member)"
             v-bind="member"
             @close="
               ({ memberId, boardTitle }) => inviteUser({ memberId, boardTitle })
@@ -75,7 +75,7 @@ export default {
   methods: {
     ...mapActions(['READ_IS_INVITE_USER_FOR_INVITE_MODAL']),
 
-    invitedUserFiler(member) {
+    invitedUserFilter(member) {
       if (this.board.invitedUser) {
         return (
           !this.board.invitedUser.includes(member.id) &&

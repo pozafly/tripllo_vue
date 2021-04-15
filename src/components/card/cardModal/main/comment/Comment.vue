@@ -38,7 +38,7 @@
             </template>
           </div>
           <div class="side-comment">
-            <CommentEdit v-bind="item" />
+            <CommentEdit v-bind="item" :read-comment="readComment" />
           </div>
         </div>
       </div>
@@ -78,6 +78,7 @@
 
 <script>
 import CommentEdit from '@/components/card/cardModal/main/comment/CommentEdit.vue';
+import { readComment, createComment } from '@/api/comment';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -89,15 +90,33 @@ export default {
     return {
       isComment: false,
       commentText: '',
+      comment: {},
+      cardId: this.$route.params.cardId,
     };
   },
 
   computed: {
-    ...mapState(['card', 'comment']),
+    ...mapState(['board']),
+  },
+
+  created() {
+    this.readComment();
   },
 
   methods: {
-    ...mapActions(['CREATE_COMMENT']),
+    ...mapActions(['READ_BOARD_DETAIL']),
+
+    readComment() {
+      readComment(this.cardId)
+        .then(({ data }) => {
+          this.comment = data.data;
+          this.READ_BOARD_DETAIL(this.board.id);
+        })
+        .catch(error => {
+          console.log(error);
+          alert('코멘트를 읽어오지 못했습니다.');
+        });
+    },
 
     onSubmitComment({ relatedTarget }) {
       this.isComment = false;
@@ -110,9 +129,18 @@ export default {
       if (this.commentText === '') {
         return;
       }
-      const cardId = this.card.id;
+
+      const cardId = this.cardId;
       const comment = this.commentText;
-      this.CREATE_COMMENT({ cardId, comment });
+      createComment({ cardId, comment })
+        .then(() => {
+          this.readComment();
+          this.READ_BOARD_DETAIL(this.board.id);
+        })
+        .catch(error => {
+          console.log(error);
+          alert('코멘트를 생성하지 못했습니다.');
+        });
       this.commentText = '';
       this.scrollAction();
     },

@@ -48,11 +48,7 @@ export default {
   watch: {
     pushMessage() {
       this.noReadCount = 0;
-      if (
-        this.pushMessage === null ||
-        this.pushMessage === 'null' ||
-        this.pushMessage === ''
-      ) {
+      if (!this.pushMessage) {
         return;
       }
       this.pushMessage.forEach(el => {

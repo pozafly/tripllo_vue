@@ -65,14 +65,6 @@ const mutations = {
     state.checklists = {};
   },
 
-  // comment
-  setComment(state, comment) {
-    state.comment = comment;
-  },
-  deleteComment(state) {
-    state.comment = {};
-  },
-
   // socket
   setSocket(state, socket) {
     state.socket = socket;
@@ -101,9 +93,6 @@ const mutations = {
   },
   resetHashtagBoards(state) {
     state.hashtagBoards = [];
-  },
-  setHashOrderByLikeCount(state, data) {
-    state.hashtags = data;
   },
 };
 

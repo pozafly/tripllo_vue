@@ -55,7 +55,8 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { createComment, updateComment, deleteComment } from '@/api/comment';
+import { mapState } from 'vuex';
 
 export default {
   props: {
@@ -99,6 +100,14 @@ export default {
         return typeof value === 'string';
       },
     },
+    readComment: {
+      type: Function,
+      require: true,
+      default: () => {},
+      validator(value) {
+        return typeof value === 'function';
+      },
+    },
   },
 
   data() {
@@ -116,11 +125,16 @@ export default {
   },
 
   methods: {
-    ...mapActions(['UPDATE_COMMENT', 'DELETE_COMMENT', 'CREATE_COMMENT']),
-
     deleteComment() {
       this.isDelete = false;
-      this.DELETE_COMMENT(this.id);
+      deleteComment(this.id)
+        .then(() => {
+          this.readComment();
+        })
+        .catch(error => {
+          console.log(error);
+          alert('코멘트를 삭제하지 못했습니다.');
+        });
     },
 
     onKeyupEnter(event) {
@@ -132,10 +146,17 @@ export default {
       if (this.commentText === this.comment || this.commentText === '') {
         return;
       }
-      this.UPDATE_COMMENT({
-        id: this.id,
-        comment: this.commentText,
-      });
+
+      const id = this.id;
+      const comment = this.commentText;
+      updateComment({ id, comment })
+        .then(() => {
+          this.readComment();
+        })
+        .catch(error => {
+          console.log(error);
+          alert('코멘트를 수정하지 못했습니다.');
+        });
     },
 
     onSubmitNestedComment() {
@@ -151,7 +172,14 @@ export default {
       const dept = '1';
       const groupNum = this.id;
 
-      this.CREATE_COMMENT({ cardId, comment, dept, groupNum });
+      createComment({ cardId, comment, dept, groupNum })
+        .then(() => {
+          this.readComment();
+        })
+        .catch(error => {
+          console.log(error);
+          alert('답글을 생성하지 못했습니다.');
+        });
       this.nestedComment = '';
     },
 

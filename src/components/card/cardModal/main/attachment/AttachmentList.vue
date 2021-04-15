@@ -10,7 +10,6 @@
       </div>
       <span class="file-delete-btn" @click="deleteFile">&times;</span>
     </div>
-    <!-- <pre>{{ item }}</pre> -->
   </div>
 </template>
 

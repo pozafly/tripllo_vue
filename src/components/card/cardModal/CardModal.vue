@@ -51,7 +51,7 @@ import Location from '@/components/card/cardModal/main/location/Location.vue';
 import Description from '@/components/card/cardModal/main/description/Description.vue';
 import Comment from '@/components/card/cardModal/main/comment/Comment.vue';
 import Attachment from '@/components/card/cardModal/main/attachment/Attachment.vue';
-import { mapActions, mapMutations, mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   components: {
@@ -92,20 +92,11 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      'READ_CARD',
-      'UPDATE_CARD',
-      'READ_CHECKLIST',
-      'READ_COMMENT',
-      'READ_FILE',
-    ]),
-
-    ...mapMutations(['deleteComment', 'deleteFile']),
+    ...mapActions(['READ_CARD', 'UPDATE_CARD', 'READ_CHECKLIST', 'READ_FILE']),
 
     async readCardInfo() {
       await this.READ_CARD({ id: this.$route.params.cardId });
       await this.READ_CHECKLIST({ id: this.card.id });
-      await this.READ_COMMENT(this.card.id);
       await this.READ_FILE(this.card.id);
     },
 

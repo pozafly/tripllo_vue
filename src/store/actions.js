@@ -30,12 +30,6 @@ import {
   deleteChecklistItem,
 } from '@/api/checklistItem';
 import {
-  createComment,
-  readComment,
-  updateComment,
-  deleteComment,
-} from '@/api/comment';
-import {
   readPushMessage,
   updatePushMessage,
   deletePushMessage,
@@ -43,7 +37,7 @@ import {
 import { readFile, uploadFile, uploadImage, deleteFile } from '@/api/upload';
 import { sendEmail } from '@/api/email';
 import { createLike, deleteLike } from '@/api/like';
-import { readBoardByHashtag, readRankingByLikeCount } from '@/api/hashtag';
+import { readBoardByHashtag } from '@/api/hashtag';
 import {
   readIsInviteUserForModal,
   readInvitedUserForBoardPage,
@@ -380,50 +374,6 @@ const actions = {
       });
   },
 
-  // comment
-  CREATE_COMMENT({ dispatch, state }, { cardId, comment, dept, groupNum }) {
-    return createComment({ cardId, comment, dept, groupNum })
-      .then(() => {
-        dispatch('READ_COMMENT', state.card.id);
-        dispatch('READ_BOARD_DETAIL', state.board.id);
-      })
-      .catch(error => {
-        console.log(error);
-        alert('코멘트를 생성하지 못했습니다.');
-      });
-  },
-  READ_COMMENT({ commit }, cardId) {
-    return readComment(cardId)
-      .then(({ data }) => {
-        commit('setComment', data.data);
-      })
-      .catch(error => {
-        console.log(error);
-        alert('코멘트를 읽어오지 못했습니다.');
-      });
-  },
-  UPDATE_COMMENT({ dispatch, state }, updateCommentInfo) {
-    return updateComment(updateCommentInfo)
-      .then(() => {
-        dispatch('READ_COMMENT', state.card.id);
-      })
-      .catch(error => {
-        console.log(error);
-        alert('코멘트를 수정하지 못했습니다.');
-      });
-  },
-  DELETE_COMMENT({ dispatch, state }, id) {
-    return deleteComment(id)
-      .then(() => {
-        dispatch('READ_COMMENT', state.card.id);
-        dispatch('READ_BOARD_DETAIL', state.board.id);
-      })
-      .catch(error => {
-        console.log(error);
-        alert('코멘트를 삭제하지 못했습니다.');
-      });
-  },
-
   // pushMessage
   READ_PUSH_MESSAGE({ commit }, targetId) {
     return readPushMessage(targetId)
@@ -560,16 +510,6 @@ const actions = {
   READ_BOARD_BY_HASHTAG(_, hashtagBoardInfo) {
     // 에러처리 : PublicSection.vue
     return readBoardByHashtag(hashtagBoardInfo);
-  },
-  READ_RANKING_BY_LIKE_COUNT({ commit }) {
-    return readRankingByLikeCount()
-      .then(({ data }) => {
-        commit('setHashOrderByLikeCount', data.data);
-      })
-      .catch(error => {
-        console.log(error);
-        alert('해시태그 랭킹을 가져오는데 실패했습니다.');
-      });
   },
 };
 
