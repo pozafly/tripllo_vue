@@ -81,17 +81,17 @@
               <span class="skill-title">Front-end</span>
               <ul class="skill-list">
                 <li class="skill-list">Vue 2.6.11 + Vuex + Vue-router</li>
-                <li class="skill-list">scss</li>
-                <li class="skill-list">webpack</li>
-                <li class="skill-list">axios</li>
+                <li class="skill-list">Scss</li>
+                <li class="skill-list">Webpack</li>
+                <li class="skill-list">Axios</li>
                 <li class="skill-list">
-                  dragula
+                  Dragula
                   <a href="https://bevacqua.github.io/dragula/"
                     >(https://bevacqua.github.io/dragula/)</a
                   >
                 </li>
-                <li class="skill-list">sockjs-client</li>
-                <li class="skill-list">Font awesome</li>
+                <li class="skill-list">Sockjs-client</li>
+                <li class="skill-list">Sentry(Error Monitoring)</li>
               </ul>
             </div>
           </li>
@@ -129,9 +129,11 @@
                 <li class="skill-list">AWS-EC2 (Amazon Linux 2)</li>
                 <li class="skill-list">AWS-RDS</li>
                 <li class="skill-list">AWS-S3</li>
-                <li class="skill-list">CodeDeploy</li>
+                <li class="skill-list">AWS-Route 53</li>
+                <li class="skill-list">AWS-CodeDeploy</li>
                 <li class="skill-list">Travis</li>
                 <li class="skill-list">Nginx</li>
+                <li class="skill-list">Let's Encrypt(TLS)</li>
               </ul>
             </div>
           </li>
