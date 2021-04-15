@@ -13,7 +13,7 @@
                 class="list-wrapper"
                 :listId="list.id"
               >
-                <ListItem :list="list" />
+                <ListItem v-bind="list" />
               </div>
               <div class="addList-wrapper">
                 <AddList @listFocus="listFocus" />

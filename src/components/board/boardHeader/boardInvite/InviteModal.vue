@@ -15,7 +15,7 @@
         <ul>
           <InviteModalList
             v-if="invitedUserFiler(member)"
-            :member="member"
+            v-bind="member"
             @close="
               ({ memberId, boardTitle }) => inviteUser({ memberId, boardTitle })
             "

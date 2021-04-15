@@ -3,7 +3,7 @@
     <awesome icon="check-square" class="far fa-check-square"></awesome>
     <span v-if="!isTitle">
       <a href="" class="checklist-body-card-text" @click.prevent="editTitle">
-        {{ checklist.title }}
+        {{ title }}
         <awesome icon="edit" class="fas fa-edit"></awesome>
       </a>
       <button
@@ -38,11 +38,7 @@
       :status="status"
     />
 
-    <ChecklistItem
-      v-for="items in checklist.items"
-      :key="items.id"
-      :items="items"
-    />
+    <ChecklistItem v-for="item in items" :key="item.id" v-bind="item" />
 
     <button
       v-if="!isItem"
@@ -87,15 +83,41 @@ export default {
   },
 
   props: {
-    checklist: {
-      type: Object,
+    cardId: {
+      type: Number,
+      default: 0,
+      require: true,
+      validator(value) {
+        return typeof value === 'number';
+      },
+    },
+    id: {
+      type: Number,
+      default: 0,
+      require: true,
+      validator(value) {
+        return typeof value === 'number';
+      },
+    },
+    items: {
+      type: Array,
+      default: () => [],
       require: false,
-      default: () => ({
-        cardId: 0,
-        id: 0,
-        items: Array,
-        title: '',
-      }),
+      validator: prop =>
+        prop.every(
+          e =>
+            typeof e === 'string' ||
+            typeof e === 'number' ||
+            typeof e === 'object',
+        ),
+    },
+    title: {
+      type: String,
+      require: true,
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
     },
   },
 
@@ -111,11 +133,8 @@ export default {
   },
 
   watch: {
-    checklist: {
-      immediate: true,
-      handler() {
-        this.onProgress();
-      },
+    items() {
+      this.onProgress();
     },
   },
 
@@ -128,13 +147,13 @@ export default {
 
     editTitle() {
       this.isTitle = true;
-      this.inputTitle = this.checklist.title;
+      this.inputTitle = this.title;
     },
 
     deleteChecklist() {
       this.DELETE_CHECKLIST({
-        checklistId: this.checklist.id,
-        cardId: this.checklist.cardId,
+        checklistId: this.id,
+        cardId: this.cardId,
       });
     },
 
@@ -145,12 +164,12 @@ export default {
           return;
         }
       }
-      if (this.inputTitle.trim() === this.checklist.title) {
+      if (this.inputTitle.trim() === this.title) {
         return;
       }
 
       this.UPDATE_CHECKLIST({
-        id: this.checklist.id,
+        id: this.id,
         title: this.inputTitle,
       });
     },
@@ -175,7 +194,7 @@ export default {
       }
 
       this.CREATE_CHECKLIST_ITEM({
-        checklistId: this.checklist.id,
+        checklistId: this.id,
         item: this.inputItem,
       });
       this.inputItem = '';
@@ -184,15 +203,17 @@ export default {
 
     onProgress() {
       let count = 0;
-      if (this.checklist.items.length === 0) {
+      if (this.items.length === 0) {
         return;
       }
-      this.checklist.items.forEach(element => {
+
+      this.items.forEach(element => {
         if (element.isChecked === 'Y') {
           count += 1;
         }
       });
-      let computePercent = (count / this.checklist.items.length) * 100;
+
+      let computePercent = (count / this.items.length) * 100;
       this.percent = Math.round(computePercent, -1);
 
       computePercent === 100

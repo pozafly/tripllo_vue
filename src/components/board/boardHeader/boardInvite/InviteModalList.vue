@@ -2,7 +2,7 @@
   <div class="invite-wrap" @click="inviteMember">
     <div class="profile-wrap">
       <img
-        v-if="member.picture !== null && member.picture !== 'null'"
+        v-if="memberPicture !== null && memberPicture !== 'null'"
         ref="img"
         class="invite-img"
       />
@@ -10,7 +10,7 @@
         <awesome icon="user" class="fas fa-user svg"></awesome>
       </div>
     </div>
-    <span>@{{ member.id }}</span>
+    <span>@{{ memberId }}</span>
   </div>
 </template>
 
@@ -19,18 +19,32 @@ import { mapState } from 'vuex';
 
 export default {
   props: {
-    member: {
-      type: Object,
+    id: {
+      type: [String, Number],
       require: true,
-      default: () => ({
-        id: '',
-        picture: '',
-      }),
+      default: '',
+      validator(value) {
+        return typeof value === 'string' || typeof value === 'number';
+      },
+    },
+    picture: {
+      type: String,
+      require: true,
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
     },
   },
 
   computed: {
     ...mapState(['socket', 'board', 'user']),
+    memberId() {
+      return this.id;
+    },
+    memberPicture() {
+      return this.picture;
+    },
   },
 
   mounted() {
@@ -40,27 +54,27 @@ export default {
   methods: {
     setImage() {
       if (this.$refs.img) {
-        this.$refs.img.src = this.member.picture;
+        this.$refs.img.src = this.memberPicture;
       }
     },
 
     inviteMember() {
       let push = confirm(
-        `@${this.member.id} 님에게 ${this.board.title} 보드로 초대하시겠습니까?`,
+        `@${this.memberId} 님에게 ${this.board.title} 보드로 초대하시겠습니까?`,
       );
       if (push) {
         // 소켓으로 초대 메세지 보내기.
-        console.log(this.member.id + '초대완료');
+        console.log(this.memberId + '초대완료');
         this.socket.send(
           JSON.stringify({
             userId: this.user.id,
-            target: this.member.id,
+            target: this.memberId,
             content: `@${this.user.id}님이 '${this.board.title}' 보드에 초대합니다.`,
             boardId: this.board.id,
           }),
         );
         this.$emit('close', {
-          memberId: this.member.id,
+          memberId: this.memberId,
           boardTitle: this.board.title,
         });
       }

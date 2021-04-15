@@ -12,7 +12,7 @@
         class="form-control map-inside-input"
         placeholder="카드 location 변경"
       />
-      <LocationToCard v-if="isCardAbout" :card-info="cardInfo" />
+      <LocationToCard v-if="isCardAbout" v-bind="cardInfo" />
       <div class="google-map-display"></div>
     </div>
   </LocationMapBase>

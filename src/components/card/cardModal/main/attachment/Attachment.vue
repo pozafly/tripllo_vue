@@ -5,7 +5,7 @@
         <awesome icon="paperclip" class="far fa-paperclip"></awesome>
         <span class="body-card-text">Attachment</span>
         <div v-for="item in file" :key="item.id">
-          <AttachmentList :item="item" />
+          <AttachmentList v-bind="item" />
         </div>
       </div>
     </li>

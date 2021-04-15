@@ -1,12 +1,12 @@
 <template>
   <div class="file-wrap" @click="download">
     <div class="file-extension">
-      <span class="extension-text">{{ item.extension.toUpperCase() }}</span>
+      <span class="extension-text">{{ extension.toUpperCase() }}</span>
     </div>
     <div class="file-info-wrap">
-      <div class="file-name">{{ item.fileName }}</div>
+      <div class="file-name">{{ fileName }}</div>
       <div class="file-created-at">
-        {{ item.createdAt | timeForToday }}
+        {{ createdAt | timeForToday }}
       </div>
       <span class="file-delete-btn" @click="deleteFile">&times;</span>
     </div>
@@ -19,14 +19,45 @@ import { mapActions, mapState } from 'vuex';
 
 export default {
   props: {
-    item: {
-      type: Object,
+    id: {
+      type: Number,
+      default: 0,
+      require: false,
+      validator(value) {
+        return typeof value === 'number';
+      },
+    },
+    link: {
+      type: String,
       require: true,
-      default: () => ({
-        extension: '',
-        fileName: '',
-        createdAt: '',
-      }),
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
+    },
+    extension: {
+      type: String,
+      require: true,
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
+    },
+    fileName: {
+      type: [String, Number],
+      require: true,
+      default: '',
+      validator(value) {
+        return typeof value === 'string' || typeof value === 'number';
+      },
+    },
+    createdAt: {
+      type: String,
+      require: true,
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
     },
   },
 
@@ -46,10 +77,10 @@ export default {
         return;
       }
       let download = window.confirm(
-        `${this.item.fileName}을 다운로드 받으시겠습니까?`,
+        `${this.fileName}을 다운로드 받으시겠습니까?`,
       );
       if (download) {
-        location.href = `${this.item.link}`;
+        location.href = `${this.link}`;
       }
     },
 
@@ -59,10 +90,10 @@ export default {
         return;
       }
       let deleteFile = window.confirm(
-        `${this.item.fileName} 파일을 삭제하시겠습니까?`,
+        `${this.fileName} 파일을 삭제하시겠습니까?`,
       );
       if (deleteFile) {
-        this.DELETE_FILE(this.item.id);
+        this.DELETE_FILE(this.id);
       }
     },
 

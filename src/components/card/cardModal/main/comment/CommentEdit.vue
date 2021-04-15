@@ -9,15 +9,15 @@
       @blur="onSubmitComment"
       @keypress.enter="onKeyupEnter"
     />
-    <span v-else class="comment-comment">{{ item.comment }}</span>
+    <span v-else class="comment-comment">{{ comment }}</span>
     <div v-if="!isEditComment" class="comment-side">
-      <span v-if="user.id === item.createdBy && item.deleteYn === 'N'">
+      <span v-if="user.id === createdBy && deleteYn === 'N'">
         <span class="comment-side-item" @click="onEditComment">Edit</span>
         <span class="comment-side-item" @click="isDelete = true">Delete</span>
       </span>
 
       <!-- 대댓글(답글)은 삭제된 메세지에는 달수 없고, 대댓글 자체에도 달 수 없다. 일반 댓글에만 달 수 있음. -->
-      <template v-if="item.deleteYn === 'N' && item.dept === 0">
+      <template v-if="deleteYn === 'N' && dept === 0">
         <textarea
           v-if="isEditNestedComment"
           v-model="nestedComment"
@@ -44,7 +44,7 @@
           <button
             class="comment-delete-btn"
             type="button"
-            @click="deleteComment(item)"
+            @click="deleteComment"
           >
             Delete this Comment?
           </button>
@@ -59,16 +59,45 @@ import { mapActions, mapState } from 'vuex';
 
 export default {
   props: {
-    item: {
-      type: Object,
+    id: {
+      type: Number,
+      default: 0,
+      require: true,
+      validator(value) {
+        return typeof value === 'number';
+      },
+    },
+    comment: {
+      type: String,
+      require: true,
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
+    },
+    deleteYn: {
+      type: String,
+      require: true,
+      default: 'N',
+      validator(value) {
+        return ['Y', 'N'].indexOf(value) !== -1;
+      },
+    },
+    dept: {
+      type: Number,
+      default: 0,
       require: false,
-      default: () => ({
-        comment: '',
-        createdBy: '',
-        deleteYn: 'N',
-        dept: 0,
-        id: 0,
-      }),
+      validator(value) {
+        return [0, 1].indexOf(value) !== -1;
+      },
+    },
+    createdBy: {
+      type: String,
+      require: true,
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
     },
   },
 
@@ -89,9 +118,9 @@ export default {
   methods: {
     ...mapActions(['UPDATE_COMMENT', 'DELETE_COMMENT', 'CREATE_COMMENT']),
 
-    deleteComment(item) {
+    deleteComment() {
       this.isDelete = false;
-      this.DELETE_COMMENT(item.id);
+      this.DELETE_COMMENT(this.id);
     },
 
     onKeyupEnter(event) {
@@ -100,11 +129,11 @@ export default {
 
     onSubmitComment() {
       this.isEditComment = false;
-      if (this.commentText === this.item.comment || this.commentText === '') {
+      if (this.commentText === this.comment || this.commentText === '') {
         return;
       }
       this.UPDATE_COMMENT({
-        id: this.item.id,
+        id: this.id,
         comment: this.commentText,
       });
     },
@@ -120,7 +149,7 @@ export default {
       const comment = this.nestedComment;
       // 대댓글은 무조건 dept가 1임.
       const dept = '1';
-      const groupNum = this.item.id;
+      const groupNum = this.id;
 
       this.CREATE_COMMENT({ cardId, comment, dept, groupNum });
       this.nestedComment = '';
@@ -128,7 +157,7 @@ export default {
 
     onEditComment() {
       this.isEditComment = true;
-      this.commentText = this.item.comment;
+      this.commentText = this.comment;
     },
 
     onEditNestedComment() {

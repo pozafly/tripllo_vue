@@ -1,6 +1,6 @@
 <template>
-  <div class="card-item" :cardId="card.id" :pos="card.pos">
-    <router-link :to="`/board/${board.id}/card/${card.id}`">
+  <div class="card-item" :cardId="id" :pos="pos">
+    <router-link :to="`/board/${board.id}/card/${id}`">
       <!-- 라벨링 -->
       <div
         v-for="label in labelArray"
@@ -10,30 +10,30 @@
         :style="{ backgroundColor: label }"
       ></div>
 
-      <div class="card-title">{{ card.title }}</div>
+      <div class="card-title">{{ title }}</div>
       <div class="board-inside-icons">
         <!-- 햄버거 -->
-        <div v-if="card.description" class="board-inside-icon">
+        <div v-if="description" class="board-inside-icon">
           <awesome icon="align-left" class="fas fa-layer-group icon-item" />
         </div>
         <!-- 체크리스트 -->
-        <div v-if="card.isChecklist === 'Y'" class="board-inside-icon">
+        <div v-if="isChecklist === 'Y'" class="board-inside-icon">
           <awesome icon="check-square" class="icon-item" />
         </div>
         <!-- 시간표시 -->
-        <div v-if="card.dueDate" class="board-inside-icon">
+        <div v-if="dueDate" class="board-inside-icon">
           <awesome :icon="['far', 'clock']" class="icon-item" />
         </div>
         <!-- 첨부파일 -->
-        <div v-if="card.isAttachment === 'Y'" class="board-inside-icon">
+        <div v-if="isAttachment === 'Y'" class="board-inside-icon">
           <awesome icon="paperclip" class="icon-item" />
         </div>
         <!-- 장소 -->
-        <div v-if="card.location" class="board-inside-icon">
+        <div v-if="location" class="board-inside-icon">
           <awesome icon="map-marker-alt" class="icon-item" />
         </div>
         <!-- 코멘트 -->
-        <div v-if="card.isComment === 1" class="board-inside-icon">
+        <div v-if="isComment === 1" class="board-inside-icon">
           <awesome icon="comment" class="icon-item" />
         </div>
       </div>
@@ -46,23 +46,86 @@ import { mapState } from 'vuex';
 
 export default {
   props: {
-    card: {
-      type: Object,
+    id: {
+      type: Number,
+      default: 0,
+      require: false,
+      validator(value) {
+        return typeof value === 'number';
+      },
+    },
+    pos: {
+      type: Number,
+      default: 0,
+      require: false,
+      validator(value) {
+        return typeof value === 'number';
+      },
+    },
+    title: {
+      type: String,
       require: true,
-      default: () => ({
-        description: '',
-        dueDate: '',
-        id: 0,
-        isAttachment: 'N',
-        isChecklist: 'N',
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
+    },
+    description: {
+      type: String,
+      require: true,
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
+    },
+    isChecklist: {
+      type: String,
+      require: true,
+      default: 'N',
+      validator(value) {
+        return ['Y', 'N'].indexOf(value) !== -1;
+      },
+    },
+    dueDate: {
+      type: String,
+      require: true,
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
+    },
+    isAttachment: {
+      type: String,
+      require: true,
+      default: 'N',
+      validator(value) {
+        return ['Y', 'N'].indexOf(value) !== -1;
+      },
+    },
+    location: {
+      type: String,
+      require: true,
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
+    },
+    isComment: {
+      type: Number,
+      default: 0,
+      require: false,
+      validator(value) {
         // 0: 없음, 1: 있음
-        isComment: 0,
-        labelColor: null,
-        listId: 0,
-        location: '',
-        pos: 0,
-        title: '',
-      }),
+        return [0, 1].indexOf(value) !== -1;
+      },
+    },
+    labelColor: {
+      type: String,
+      require: true,
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
     },
   },
 
@@ -77,7 +140,7 @@ export default {
   },
 
   watch: {
-    'card.labelColor'() {
+    labelColor() {
       this.labelSetting();
     },
   },
@@ -88,11 +151,11 @@ export default {
 
   methods: {
     labelSetting() {
-      if (!this.card.labelColor) {
+      if (!this.labelColor) {
         this.labelArray = null;
         return;
       }
-      const array = this.card.labelColor.split(',');
+      const array = this.labelColor.split(',');
       this.labelArray = array;
     },
   },

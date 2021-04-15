@@ -16,7 +16,7 @@
     </span>
 
     <span class="board-item owner-user">
-      <ProfileImage :board="board" />
+      <ProfileImage v-bind="board" />
     </span>
 
     <span v-if="isOwner" class="board-item">
@@ -44,7 +44,7 @@
           :key="item.id"
           @click="$router.push(`/user/${item.id}`)"
         >
-          <ProfileImage :item="item" />
+          <ProfileImage v-bind="item" />
         </span>
       </span>
     </span>
@@ -83,9 +83,12 @@ export default {
 
   props: {
     userId: {
-      type: String,
+      type: [String, Number],
       require: true,
       default: '',
+      validator(value) {
+        return typeof value === 'string' || typeof value === 'number';
+      },
     },
   },
 

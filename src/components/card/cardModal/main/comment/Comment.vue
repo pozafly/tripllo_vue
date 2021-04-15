@@ -38,7 +38,7 @@
             </template>
           </div>
           <div class="side-comment">
-            <CommentEdit :item="item" />
+            <CommentEdit v-bind="item" />
           </div>
         </div>
       </div>

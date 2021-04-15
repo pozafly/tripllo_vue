@@ -126,7 +126,6 @@ export default {
     font-size: 18px;
     font-weight: 700;
     padding: 10px;
-
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;

@@ -12,11 +12,17 @@ export default {
       type: String,
       require: true,
       default: 'Y',
+      validator(value) {
+        return ['Y', 'N'].indexOf(value) !== -1;
+      },
     },
     boardId: {
       type: Number,
       require: true,
       default: 0,
+      validator(value) {
+        return typeof value === 'number';
+      },
     },
   },
 

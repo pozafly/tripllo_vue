@@ -1,5 +1,5 @@
 <template>
-  <div class="list" :listId="list.id" :pos="list.pos">
+  <div class="list" :listId="id" :pos="pos">
     <div class="list-header">
       <input
         v-if="isEditTitle"
@@ -13,20 +13,20 @@
         @blur="onSubmitTitle"
       />
       <div v-else class="list-header-title" @click.prevent="onClickTitle">
-        {{ list.title }} <awesome icon="edit" class="fas fa-edit"></awesome>
+        {{ title }} <awesome icon="edit" class="fas fa-edit"></awesome>
       </div>
       <a class="delete-list-btn" href="" @click.prevent="onDeleteList">
         &times;
       </a>
     </div>
 
-    <div class="card-list" :listId="list.id">
-      <CardItem v-for="card in list.cards" :key="`${card.id}`" :card="card" />
+    <div class="card-list" :listId="id">
+      <CardItem v-for="card in cards" :key="`${card.id}`" v-bind="card" />
     </div>
 
     <div v-if="isAddCard">
       <AddCard
-        :list-id="list.id"
+        :list-id="id"
         @close="isAddCard = false"
         @cardFocus="cardFocus"
       />
@@ -51,15 +51,41 @@ export default {
   },
 
   props: {
-    list: {
-      type: Object,
+    id: {
+      type: Number,
+      default: 0,
       require: true,
-      default: () => ({
-        cards: Array,
-        id: 0,
-        pos: 0,
-        title: '',
-      }),
+      validator(value) {
+        return typeof value === 'number';
+      },
+    },
+    pos: {
+      type: Number,
+      default: 0,
+      require: true,
+      validator(value) {
+        return typeof value === 'number';
+      },
+    },
+    title: {
+      type: String,
+      require: false,
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
+    },
+    cards: {
+      type: Array,
+      default: () => [],
+      require: false,
+      validator: prop =>
+        prop.every(
+          e =>
+            typeof e === 'string' ||
+            typeof e === 'number' ||
+            typeof e === 'object',
+        ),
     },
   },
 
@@ -83,12 +109,12 @@ export default {
     ...mapActions(['UPDATE_LIST', 'DELETE_LIST']),
 
     insertListTitle() {
-      this.inputTitle = this.list.title;
+      this.inputTitle = this.title;
     },
 
     onClickTitle() {
       this.isEditTitle = true;
-      this.$refs.inputTitle.value = this.list.title;
+      this.$refs.inputTitle.value = this.title;
     },
 
     onKeyupEnter(event) {
@@ -103,9 +129,9 @@ export default {
         return;
       }
 
-      const id = this.list.id;
+      const id = this.id;
       const title = this.inputTitle;
-      if (title === this.list.title) {
+      if (title === this.title) {
         return;
       }
 
@@ -113,9 +139,9 @@ export default {
     },
 
     onDeleteList() {
-      // if (!window.confirm(`${this.list.title} 리스트를 삭제하시겠습니까?`))
+      // if (!window.confirm(`${this.title} 리스트를 삭제하시겠습니까?`))
       //   return;
-      this.DELETE_LIST({ id: this.list.id });
+      this.DELETE_LIST({ id: this.id });
     },
 
     cardFocus() {

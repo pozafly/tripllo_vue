@@ -5,7 +5,7 @@
         v-for="checklist in checklists"
         :key="checklist.id"
         class="checklist"
-        :checklist="checklist"
+        v-bind="checklist"
       />
     </li>
   </div>

@@ -1,7 +1,7 @@
 const useDirective = Vue => {
   // v-focus
   Vue.directive('focus', {
-    inserted: function(el) {
+    inserted(el) {
       el.focus();
     },
   });

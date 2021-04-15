@@ -39,11 +39,17 @@ export default {
       type: String,
       require: false,
       default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
     },
     cardId: {
       type: Number,
       require: false,
       default: 0,
+      validator(value) {
+        return typeof value === 'number';
+      },
     },
   },
 

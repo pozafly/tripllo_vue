@@ -3,16 +3,16 @@
     <input
       type="checkbox"
       class="checkbox-input"
-      :checked="isChecked"
+      :checked="computedIsChecked"
       maxlength="399"
       @click="isCheckChange"
     />
     <template v-if="!isItem">
-      <span v-if="!isChecked" class="checkbox-item-text">
-        {{ items.item }}
+      <span v-if="!computedIsChecked" class="checkbox-item-text">
+        {{ item }}
       </span>
       <span v-else class="checkbox-item-text line-through">
-        {{ items.item }}
+        {{ item }}
       </span>
       <awesome icon="edit" class="fas fa-edit" @click="onEditItem"></awesome>
       <span class="checkbox-item-cancel" @click="onDeleteItem">&times;</span>
@@ -37,14 +37,29 @@ import { mapActions } from 'vuex';
 
 export default {
   props: {
-    items: {
-      type: Object,
-      require: false,
-      default: () => ({
-        id: 0,
-        isChecked: 'N',
-        item: '',
-      }),
+    id: {
+      type: Number,
+      default: 0,
+      require: true,
+      validator(value) {
+        return typeof value === 'number';
+      },
+    },
+    isChecked: {
+      type: String,
+      require: true,
+      default: 'N',
+      validator(value) {
+        return ['Y', 'N'].indexOf(value) !== -1;
+      },
+    },
+    item: {
+      type: String,
+      require: true,
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
     },
   },
 
@@ -56,8 +71,8 @@ export default {
   },
 
   computed: {
-    isChecked() {
-      const isChecked = this.items.isChecked;
+    computedIsChecked() {
+      const isChecked = this.isChecked;
       return isChecked === 'Y' ? true : false;
     },
   },
@@ -75,38 +90,38 @@ export default {
       }
 
       let isChecked = '';
-      if (this.items.isChecked === 'Y') {
+      if (this.isChecked === 'Y') {
         isChecked = 'N';
       } else {
         isChecked = 'Y';
       }
-      this.UPDATE_CHECKLIST_ITEM({ checklistItemId: this.items.id, isChecked });
+      this.UPDATE_CHECKLIST_ITEM({ checklistItemId: this.id, isChecked });
     },
 
     onDeleteItem() {
-      this.DELETE_CHECKLIST_ITEM(this.items.id);
+      this.DELETE_CHECKLIST_ITEM(this.id);
     },
 
     isCheckChange(e) {
       let isChecked = '';
       e.target.checked === true ? (isChecked = 'Y') : (isChecked = 'N');
-      this.UPDATE_CHECKLIST_ITEM({ checklistItemId: this.items.id, isChecked });
+      this.UPDATE_CHECKLIST_ITEM({ checklistItemId: this.id, isChecked });
     },
 
     onSubmitItem() {
       this.isItem = false;
-      if (this.inputItem.trim() === this.items.item) {
+      if (this.inputItem.trim() === this.item) {
         return;
       }
       this.UPDATE_CHECKLIST_ITEM({
-        checklistItemId: this.items.id,
+        checklistItemId: this.id,
         item: this.inputItem,
       });
     },
 
     onEditItem() {
       this.isItem = true;
-      this.inputItem = this.items.item;
+      this.inputItem = this.item;
     },
 
     onKeyupEnter(event) {

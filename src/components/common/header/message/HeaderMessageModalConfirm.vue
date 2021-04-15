@@ -1,7 +1,7 @@
 <template>
   <li class="message-wrap">
-    <span class="message-content">{{ message.content }}</span>
-    <span class="message-time">{{ message.createdAt | timeForToday }}</span>
+    <span class="message-content">{{ content }}</span>
+    <span class="message-time">{{ createdAt | timeForToday }}</span>
     <div>
       <button class="message-btn save-btn" type="button" @click="acceptMessage">
         수락
@@ -22,16 +22,45 @@ import { mapActions, mapState } from 'vuex';
 
 export default {
   props: {
-    message: {
-      type: Object,
-      require: false,
-      default: () => ({
-        boardId: 0,
-        content: '',
-        createdAt: '',
-        id: 0,
-        isRead: 'N',
-      }),
+    id: {
+      type: Number,
+      default: 0,
+      require: true,
+      validator(value) {
+        return typeof value === 'number';
+      },
+    },
+    boardId: {
+      type: Number,
+      default: 0,
+      require: true,
+      validator(value) {
+        return typeof value === 'number';
+      },
+    },
+    content: {
+      type: String,
+      require: true,
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
+    },
+    createdAt: {
+      type: String,
+      require: true,
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
+    },
+    isRead: {
+      type: String,
+      require: true,
+      default: 'N',
+      validator(value) {
+        return ['Y', 'N'].indexOf(value) !== -1;
+      },
     },
   },
 
@@ -53,15 +82,13 @@ export default {
     ]),
 
     setMessage() {
-      if (this.message.isRead === 'N') {
-        this.UPDATE_PUSH_MESSAGE({ id: this.message.id, isRead: 'Y' });
+      if (this.isRead === 'N') {
+        this.UPDATE_PUSH_MESSAGE({ id: this.id, isRead: 'Y' });
       }
     },
 
     async acceptMessage() {
-      const { data } = await this.READ_BOARD_FOR_ACCEPT_MESSAGE(
-        this.message.boardId,
-      );
+      const { data } = await this.READ_BOARD_FOR_ACCEPT_MESSAGE(this.boardId);
       const preInviteUser = data.data.invitedUser;
 
       let invitedUser = [];
@@ -73,7 +100,7 @@ export default {
       if (this.user.invitedBoard !== null) {
         invitedBoard = JSON.parse(this.user.invitedBoard);
       }
-      invitedBoard.push(this.message.boardId);
+      invitedBoard.push(this.boardId);
 
       if (!invitedUser.includes(this.user.id)) {
         invitedUser.push(this.user.id);
@@ -81,16 +108,16 @@ export default {
         const pushInvitedBoard = JSON.stringify(invitedBoard);
 
         await this.UPDATE_BOARD({
-          id: this.message.boardId,
+          id: this.boardId,
           invitedUser: pushInviteUser,
         });
         await this.UPDATE_USER({
           id: this.user.id,
           invitedBoard: pushInvitedBoard,
         });
-        await this.DELETE_PUSH_MESSAGE({ id: this.message.id });
+        await this.DELETE_PUSH_MESSAGE({ id: this.id });
         this.$emit('close');
-        await this.$router.push(`/board/${this.message.boardId}`);
+        await this.$router.push(`/board/${this.boardId}`);
       } else {
         alert('이미 초대되어 있습니다.');
       }
@@ -98,7 +125,7 @@ export default {
 
     rejectMessage() {
       if (window.confirm('해당 메세지를 삭제하시겠습니까?')) {
-        this.DELETE_PUSH_MESSAGE({ id: this.message.id });
+        this.DELETE_PUSH_MESSAGE({ id: this.id });
       }
     },
   },

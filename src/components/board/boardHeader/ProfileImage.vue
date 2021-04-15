@@ -1,26 +1,24 @@
 <template>
-  <span @click="$router.push(`/user/${board.createdBy}`)">
-    <span v-if="board" class="profile-wrap">
+  <span @click="$router.push(`/user/${createdBy}`)">
+    <span v-if="createdBy" class="profile-wrap">
       <span
-        v-if="
-          board.createdByPicture !== null && board.createdByPicture !== 'null'
-        "
+        v-if="createdByPicture"
         href=""
         class="invited-picture img"
-        :style="{ backgroundImage: `url(${board.createdByPicture})` }"
+        :style="{ backgroundImage: `url(${createdByPicture})` }"
       ></span>
       <awesome v-else icon="user" class="invited-picture fas fa-user"></awesome>
-      <span class="user-id">@{{ board.createdBy }}</span>
+      <span class="user-id">@{{ createdBy }}</span>
     </span>
     <span v-else class="profile-wrap">
       <span
-        v-if="item.picture !== null && item.picture !== 'null'"
+        v-if="picture"
         href=""
         class="invited-picture img"
-        :style="{ backgroundImage: `url(${item.picture})` }"
+        :style="{ backgroundImage: `url(${picture})` }"
       ></span>
       <awesome v-else icon="user" class="invited-picture fas fa-user"></awesome>
-      <span class="user-id">@{{ item.id }}</span>
+      <span class="user-id">@{{ id }}</span>
     </span>
   </span>
 </template>
@@ -28,18 +26,37 @@
 <script>
 export default {
   props: {
-    item: {
-      type: Object,
-      require: false,
-      default: () => ({
-        picture: '',
-        id: '',
-      }),
-    },
-    board: {
-      type: Object,
+    id: {
+      type: [String, Number],
       require: false,
       default: null,
+      validator(value) {
+        return typeof value === 'string' || typeof value === 'number';
+      },
+    },
+    picture: {
+      type: String,
+      require: false,
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
+    },
+    createdBy: {
+      type: String,
+      require: false,
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
+    },
+    createdByPicture: {
+      type: String,
+      require: false,
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
     },
   },
 };

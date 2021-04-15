@@ -1,7 +1,7 @@
 <template>
   <div ref="cardAbout" class="card-about">
     <div class="card-about-item">From Card</div>
-    <div class="card-about-item">{{ cardInfo.title }}</div>
+    <div class="card-about-item">{{ title }}</div>
   </div>
 </template>
 
@@ -10,14 +10,29 @@ import { mapState } from 'vuex';
 
 export default {
   props: {
-    cardInfo: {
-      type: Object,
+    title: {
+      type: String,
       require: true,
-      default: () => ({
-        title: '',
-        x: 0,
-        y: 0,
-      }),
+      default: '',
+      validator(value) {
+        return typeof value === 'string';
+      },
+    },
+    x: {
+      type: Number,
+      default: 0,
+      require: true,
+      validator(value) {
+        return typeof value === 'number';
+      },
+    },
+    y: {
+      type: Number,
+      default: 0,
+      require: true,
+      validator(value) {
+        return typeof value === 'number';
+      },
     },
   },
 
@@ -26,7 +41,7 @@ export default {
   },
 
   watch: {
-    cardInfo() {
+    title() {
       this.onPosition();
     },
   },
@@ -37,8 +52,8 @@ export default {
 
   methods: {
     onPosition() {
-      this.$refs.cardAbout.style.left = `${this.cardInfo.x - 130}px`;
-      this.$refs.cardAbout.style.top = `${this.cardInfo.y - 150}px`;
+      this.$refs.cardAbout.style.left = `${this.x - 130}px`;
+      this.$refs.cardAbout.style.top = `${this.y - 150}px`;
     },
   },
 };
