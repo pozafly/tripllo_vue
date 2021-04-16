@@ -55,16 +55,6 @@ const mutations = {
     state.card = card;
   },
 
-  // checklist
-  setChecklists(state, checklists) {
-    saveSessionStorage('checklists', checklists);
-    state.checklists = checklists;
-  },
-  deleteChecklists(state) {
-    deleteSessionStorage('checklists');
-    state.checklists = {};
-  },
-
   // socket
   setSocket(state, socket) {
     state.socket = socket;

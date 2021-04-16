@@ -29,7 +29,7 @@
         <DueDate />
         <Description :card-description="card.description" :card-id="card.id" />
         <Attachment />
-        <ChecklistWrapper v-if="checklists" />
+        <ChecklistWrapper />
         <Location />
         <Comment />
       </ul>
@@ -74,7 +74,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['board', 'card', 'checklists']),
+    ...mapState(['board', 'card']),
   },
 
   watch: {
@@ -92,11 +92,10 @@ export default {
   },
 
   methods: {
-    ...mapActions(['READ_CARD', 'UPDATE_CARD', 'READ_CHECKLIST', 'READ_FILE']),
+    ...mapActions(['READ_CARD', 'UPDATE_CARD', 'READ_FILE']),
 
     async readCardInfo() {
       await this.READ_CARD({ id: this.$route.params.cardId });
-      await this.READ_CHECKLIST({ id: this.card.id });
       await this.READ_FILE(this.card.id);
     },
 

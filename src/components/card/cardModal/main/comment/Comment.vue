@@ -91,7 +91,7 @@ export default {
       isComment: false,
       commentText: '',
       comment: {},
-      cardId: this.$route.params.cardId,
+      cardId: this.$route.params.cardId * 1,
     };
   },
 

@@ -75,7 +75,8 @@
 
 <script>
 import ChecklistItem from '@/components/card/cardModal/main/checklists/ChecklistItem.vue';
-import { mapActions } from 'vuex';
+import { updateChecklist, deleteChecklist } from '@/api/checklist';
+import { createChecklistItem } from '@/api/checklistItem';
 
 export default {
   components: {
@@ -119,6 +120,14 @@ export default {
         return typeof value === 'string';
       },
     },
+    readChecklist: {
+      type: Function,
+      require: true,
+      default: () => {},
+      validator(value) {
+        return typeof value === 'function';
+      },
+    },
   },
 
   data() {
@@ -138,23 +147,53 @@ export default {
     },
   },
 
-  methods: {
-    ...mapActions([
-      'DELETE_CHECKLIST',
-      'UPDATE_CHECKLIST',
-      'CREATE_CHECKLIST_ITEM',
-    ]),
+  mounted() {
+    this.onProgress();
+  },
 
+  methods: {
     editTitle() {
       this.isTitle = true;
       this.inputTitle = this.title;
     },
 
     deleteChecklist() {
-      this.DELETE_CHECKLIST({
+      deleteChecklist({
         checklistId: this.id,
         cardId: this.cardId,
-      });
+      })
+        .then(() => {
+          this.readChecklist(this.cardId);
+        })
+        .catch(error => {
+          console.log(error);
+          alert('체크리스트를 삭제하지 못했습니다.');
+        });
+    },
+
+    updateChecklist() {
+      updateChecklist(this.id, { title: this.inputTitle })
+        .then(() => {
+          this.readChecklist(this.cardId);
+        })
+        .catch(error => {
+          console.log(error);
+          alert('체크리스트를 업데이트 하지 못했습니다.');
+        });
+    },
+
+    createChecklistItem() {
+      createChecklistItem({
+        checklistId: this.id,
+        item: this.inputItem,
+      })
+        .then(() => {
+          this.readChecklist(this.cardId);
+        })
+        .catch(error => {
+          console.log(error);
+          alert('체크리스트 아이템을 생성하지 못했습니다.');
+        });
     },
 
     onSubmitTitle({ relatedTarget }) {
@@ -167,11 +206,7 @@ export default {
       if (this.inputTitle.trim() === this.title) {
         return;
       }
-
-      this.UPDATE_CHECKLIST({
-        id: this.id,
-        title: this.inputTitle,
-      });
+      this.updateChecklist();
     },
 
     isAddItem() {
@@ -193,10 +228,7 @@ export default {
         return;
       }
 
-      this.CREATE_CHECKLIST_ITEM({
-        checklistId: this.id,
-        item: this.inputItem,
-      });
+      this.createChecklistItem();
       this.inputItem = '';
       this.isAddItem();
     },
@@ -213,10 +245,10 @@ export default {
         }
       });
 
-      let computePercent = (count / this.items.length) * 100;
-      this.percent = Math.round(computePercent, -1);
+      let changeStatus = (count / this.items.length) * 100;
+      this.percent = Math.round(changeStatus, -1);
 
-      computePercent === 100
+      changeStatus === 100
         ? (this.status = 'success')
         : (this.status = 'error');
     },

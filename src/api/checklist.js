@@ -40,14 +40,17 @@ const createChecklist = createChecklistInfo =>
 
 /**
  * 체크리스트 조회
- * @param {string} id - 체크리스트 ID
+ * @param {number} id - 체크리스트 ID
  * @returns {Promise<Checklist[ChecklistItem[]]>}
  */
-const readChecklist = id => checklist.get(`/${id}`);
+const readChecklist = id => {
+  console.log(id);
+  return checklist.get(`/${id}`);
+};
 
 /**
  * 체크리스트 수정
- * @param {string} id - 체크리스트 ID
+ * @param {number} id - 체크리스트 ID
  * @param {string} title - 체크리스트 제목
  * @returns {Promise<string>} statusCode - 상태코드
  */

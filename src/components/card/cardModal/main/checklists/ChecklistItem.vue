@@ -5,7 +5,6 @@
       class="checkbox-input"
       :checked="computedIsChecked"
       maxlength="399"
-      @click="isCheckChange"
     />
     <template v-if="!isItem">
       <span v-if="!computedIsChecked" class="checkbox-item-text">
@@ -33,7 +32,9 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { updateChecklistItem, deleteChecklistItem } from '@/api/checklistItem';
+import bus from '@/utils/bus';
+import { mapState } from 'vuex';
 
 export default {
   props: {
@@ -71,6 +72,7 @@ export default {
   },
 
   computed: {
+    ...mapState(['card']),
     computedIsChecked() {
       const isChecked = this.isChecked;
       return isChecked === 'Y' ? true : false;
@@ -78,34 +80,15 @@ export default {
   },
 
   methods: {
-    ...mapActions(['DELETE_CHECKLIST_ITEM', 'UPDATE_CHECKLIST_ITEM']),
-
     onCheckChange({ target }) {
-      if (
-        target.localName === 'path' ||
-        target.localName === 'svg' ||
-        target.localName === 'input'
-      ) {
+      // 수정 버튼, 삭제 버튼 눌리지 않도록. 이벤트 캡쳐링 방지
+      if (target.localName === 'path' || target.localName === 'svg') {
         return;
       }
 
       let isChecked = '';
-      if (this.isChecked === 'Y') {
-        isChecked = 'N';
-      } else {
-        isChecked = 'Y';
-      }
-      this.UPDATE_CHECKLIST_ITEM({ checklistItemId: this.id, isChecked });
-    },
-
-    onDeleteItem() {
-      this.DELETE_CHECKLIST_ITEM(this.id);
-    },
-
-    isCheckChange(e) {
-      let isChecked = '';
-      e.target.checked === true ? (isChecked = 'Y') : (isChecked = 'N');
-      this.UPDATE_CHECKLIST_ITEM({ checklistItemId: this.id, isChecked });
+      this.isChecked === 'N' ? (isChecked = 'Y') : (isChecked = 'N');
+      this.updateChecklistItem({ isChecked });
     },
 
     onSubmitItem() {
@@ -113,10 +96,29 @@ export default {
       if (this.inputItem.trim() === this.item) {
         return;
       }
-      this.UPDATE_CHECKLIST_ITEM({
-        checklistItemId: this.id,
-        item: this.inputItem,
-      });
+      this.updateChecklistItem({ item: this.inputItem });
+    },
+
+    updateChecklistItem({ isChecked, item }) {
+      updateChecklistItem(this.id, { isChecked, item })
+        .then(() => {
+          bus.$emit('readChecklist', this.card.id);
+        })
+        .catch(error => {
+          console.log(error);
+          alert('체크리스트 아이템을 수정하지 못했습니다.');
+        });
+    },
+
+    onDeleteItem() {
+      deleteChecklistItem(this.id)
+        .then(() => {
+          bus.$emit('readChecklist', this.card.id);
+        })
+        .catch(error => {
+          console.log(error);
+          alert('체크리스트 아이템을 삭제하지 못했습니다.');
+        });
     },
 
     onEditItem() {

@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import { createChecklist } from '@/api/checklist';
+import bus from '@/utils/bus';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -30,15 +32,26 @@ export default {
   },
 
   computed: {
-    ...mapState(['card']),
+    ...mapState(['board', 'card']),
   },
 
   methods: {
-    ...mapActions(['CREATE_CHECKLIST']),
-
+    ...mapActions(['READ_BOARD_DETAIL']),
     addChecklist() {
       this.$emit('close');
-      this.CREATE_CHECKLIST({ title: this.inputTitle, cardId: this.card.id });
+      this.createChecklist();
+    },
+
+    createChecklist() {
+      createChecklist({ title: this.inputTitle, cardId: this.card.id })
+        .then(() => {
+          bus.$emit('readChecklist', this.card.id);
+          this.READ_BOARD_DETAIL(this.board.id);
+        })
+        .catch(error => {
+          console.log(error);
+          alert('체크리스트를 생성하지 못했습니다.');
+        });
     },
   },
 };
