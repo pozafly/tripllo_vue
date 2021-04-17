@@ -129,7 +129,8 @@
                 <li class="skill-list">AWS-EC2 (Amazon Linux 2)</li>
                 <li class="skill-list">AWS-RDS</li>
                 <li class="skill-list">AWS-S3</li>
-                <li class="skill-list">AWS-Route 53</li>
+                <li class="skill-list">AWS-CloudFront</li>
+                <li class="skill-list">AWS-Route53</li>
                 <li class="skill-list">AWS-CodeDeploy</li>
                 <li class="skill-list">Travis</li>
                 <li class="skill-list">Nginx</li>

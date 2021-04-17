@@ -1,3 +1,6 @@
+const USER_INFO = 'TRIPLLO-V1-U';
+const TOKEN = 'TRIPLLO-V1-T';
+
 // 인코딩, 디코딩 함수
 const makeIncodeValue = (key, value) => {
   const data = encodeURIComponent(JSON.stringify(value));
@@ -12,23 +15,23 @@ const returnDecodeValue = value => {
 
 // 로컬스토리지 관련 함수(user)
 const saveUserToLocalStorage = user => {
-  makeIncodeValue('TRIPLLO-V1-U', user);
+  makeIncodeValue(USER_INFO, user);
 };
 
 const getUserFromLocalStorage = () => {
-  if (localStorage.getItem('TRIPLLO-V1-U')) {
-    return returnDecodeValue(localStorage.getItem('TRIPLLO-V1-U'));
+  if (localStorage.getItem(USER_INFO)) {
+    return returnDecodeValue(localStorage.getItem(USER_INFO));
   }
 };
 
 // 로컬스토리지 관련 함수(token)
 const saveTokenToLocalStorage = token => {
-  makeIncodeValue('TRIPLLO-V1-T', token);
+  makeIncodeValue(TOKEN, token);
 };
 
 const getTokenFromLocalStorage = () => {
-  if (localStorage.getItem('TRIPLLO-V1-T')) {
-    return returnDecodeValue(localStorage.getItem('TRIPLLO-V1-T'));
+  if (localStorage.getItem(TOKEN)) {
+    return returnDecodeValue(localStorage.getItem(TOKEN));
   }
 };
 
