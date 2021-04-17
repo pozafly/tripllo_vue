@@ -36,10 +36,6 @@ const mutations = {
     saveSessionStorage('recentBoard', recentBoard);
     state.recentBoard = recentBoard;
   },
-  setInvitedBoard(state, invitedBoard) {
-    saveSessionStorage('invitedBoard', invitedBoard);
-    state.invitedBoard = invitedBoard;
-  },
   setBoardDetail(state, board) {
     saveSessionStorage('board', board);
     state.board = board;
@@ -53,11 +49,6 @@ const mutations = {
   setCard(state, card) {
     saveSessionStorage('card', card);
     state.card = card;
-  },
-
-  // socket
-  setSocket(state, socket) {
-    state.socket = socket;
   },
 
   // pushMessage
@@ -75,14 +66,6 @@ const mutations = {
   },
   deleteFile(state) {
     state.file = [];
-  },
-
-  // hashtagByBoard
-  setHashtagBoards(state, boards) {
-    state.hashtagBoards = state.hashtagBoards.concat(boards);
-  },
-  resetHashtagBoards(state) {
-    state.hashtagBoards = [];
   },
 };
 

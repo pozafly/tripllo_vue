@@ -9,7 +9,6 @@ import {
   readPersonalBoardAPI,
   readPersonalBoardLimitCountAPI,
   readRecentBoardAPI,
-  readInvitedBoardAPI,
   readBoardDetailAPI,
   createBoardAPI,
   updateBoardAPI,
@@ -35,7 +34,6 @@ import {
   deleteFileAPI,
 } from '@/api/upload';
 import { createLikeAPI, deleteLikeAPI } from '@/api/like';
-import { readBoardByHashtagAPI } from '@/api/hashtag';
 import {
   readIsInviteUserForModalAPI,
   readInvitedUserForBoardPageAPI,
@@ -148,16 +146,6 @@ const actions = {
       .catch(error => {
         console.log(error);
         alert('최근 Board 정보를 가져오지 못했습니다.');
-      });
-  },
-  READ_INVITED_BOARD({ commit }, invitedLists) {
-    return readInvitedBoardAPI(invitedLists)
-      .then(({ data }) => {
-        commit('setInvitedBoard', data.data);
-      })
-      .catch(error => {
-        console.log(error);
-        alert('초대된 Board 목록을 가져오지 못했습니다.');
       });
   },
   READ_BOARD_DETAIL({ commit }, boardId) {
@@ -421,12 +409,6 @@ const actions = {
         console.log(error);
         alert('좋아요를 삭제하는데 실패했습니다.');
       });
-  },
-
-  // hashtag
-  READ_BOARD_BY_HASHTAG(_, hashtagBoardInfo) {
-    // 에러처리 : PublicSection.vue
-    return readBoardByHashtagAPI(hashtagBoardInfo);
   },
 };
 

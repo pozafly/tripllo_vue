@@ -95,8 +95,10 @@
 <script>
 import BoardItem from '@/components/board/BoardItem.vue';
 import _ from 'lodash';
-import { readRankingByLikeCountAPI } from '@/api/hashtag';
-import { mapActions, mapMutations, mapState } from 'vuex';
+import {
+  readRankingByLikeCountAPI,
+  readBoardByHashtagAPI,
+} from '@/api/hashtag';
 
 export default {
   components: {
@@ -111,11 +113,8 @@ export default {
       infiniteId: +new Date(),
       isInfinity: true,
       hashtags: {},
+      hashtagBoards: [],
     };
-  },
-
-  computed: {
-    ...mapState(['hashtagBoards']),
   },
 
   watch: {
@@ -134,9 +133,6 @@ export default {
   },
 
   methods: {
-    ...mapActions(['READ_BOARD_BY_HASHTAG']),
-    ...mapMutations(['resetHashtagBoards', 'setHashtagBoards']),
-
     readHashtagRanking() {
       readRankingByLikeCountAPI()
         .then(({ data }) => {
@@ -155,20 +151,20 @@ export default {
     }, 750),
 
     infiniteHandler($state) {
-      this.READ_BOARD_BY_HASHTAG({
+      readBoardByHashtagAPI({
         hashtagName: this.searchHashValue,
         lastLikeCount: this.lastLikeCount,
         lastCreatedAt: this.lastCreatedAt,
       })
         .then(({ data }) => {
-          if (data.data === null) {
+          const boardItem = data.data;
+
+          if (boardItem === null) {
             this.isInfinity = false;
             $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
           } else {
-            this.setHashtagBoards(data.data);
-
+            this.hashtagBoards = this.hashtagBoards.concat(boardItem);
             setTimeout(() => {
-              const boardItem = data.data;
               const lastEl = boardItem[boardItem.length - 1];
 
               this.lastLikeCount = lastEl.likeCount;
@@ -187,7 +183,7 @@ export default {
     reset() {
       this.lastLikeCount = '';
       this.lastCreatedAt = '';
-      this.resetHashtagBoards();
+      this.hashtagBoards = [];
       this.isInfinity = true;
     },
 

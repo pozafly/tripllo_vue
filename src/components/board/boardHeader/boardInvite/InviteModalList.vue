@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { socketSend } from '@/utils/socket';
 import { mapState } from 'vuex';
 
 export default {
@@ -38,7 +39,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['socket', 'board', 'user']),
+    ...mapState(['board', 'user']),
     memberId() {
       return this.id;
     },
@@ -64,8 +65,7 @@ export default {
       );
       if (push) {
         // 소켓으로 초대 메세지 보내기.
-        console.log(this.memberId + '초대완료');
-        this.socket.send(
+        socketSend(
           JSON.stringify({
             userId: this.user.id,
             target: this.memberId,
@@ -73,6 +73,7 @@ export default {
             boardId: this.board.id,
           }),
         );
+        console.log(this.memberId + '초대완료');
         this.$emit('close', {
           memberId: this.memberId,
           boardTitle: this.board.title,

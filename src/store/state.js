@@ -7,15 +7,14 @@ import {
 const state = {
   token: getTokenFromLocalStorage() || '',
   user: getUserFromLocalStorage() || '',
-  personalBoard: [],
-  recentBoard: [],
-  invitedBoard: [],
-  hashtagBoards: [],
   board: getSessionStorage('board') || {},
   card: getSessionStorage('card') || {},
   bgColor: getSessionStorage('bgColor') || '',
-  socket: null, // socket은 socket.js와 InviteModalList.vue 2곳에서 사용하고 있다.
-  pushMessage: '', // pushMessage는 3depths & socket까지 사용하므로 store에 있어야 함.
+  // personalBoard, recentBoard는 서로 sync가 맞아야 하기때문에
+  // store에 있어야한다고 판단.
+  personalBoard: [],
+  recentBoard: [],
+  pushMessage: '', // pushMessage는 3depths & socket.js까지 사용하므로 store에 있는게 좋겠다.
   file: [], // 4depths
 };
 

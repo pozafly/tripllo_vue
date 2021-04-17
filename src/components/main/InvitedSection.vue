@@ -20,15 +20,22 @@
 
 <script>
 import BoardItem from '@/components/board/BoardItem.vue';
-import { mapActions, mapState } from 'vuex';
+import { readInvitedBoardAPI } from '@/api/board';
+import { mapState } from 'vuex';
 
 export default {
   components: {
     BoardItem,
   },
 
+  data() {
+    return {
+      invitedBoard: [],
+    };
+  },
+
   computed: {
-    ...mapState(['invitedBoard', 'user']),
+    ...mapState(['user']),
   },
 
   mounted() {
@@ -36,13 +43,18 @@ export default {
   },
 
   methods: {
-    ...mapActions(['READ_INVITED_BOARD']),
-
     getInvitedBoard() {
       if (!this.user.invitedBoard) {
         return;
       }
-      this.READ_INVITED_BOARD(JSON.parse(this.user.invitedBoard));
+      readInvitedBoardAPI(JSON.parse(this.user.invitedBoard))
+        .then(({ data }) => {
+          this.invitedBoard = data.data;
+        })
+        .catch(error => {
+          console.log(error);
+          alert('초대된 Board 목록을 가져오지 못했습니다.');
+        });
     },
   },
 };
