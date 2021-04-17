@@ -19,20 +19,21 @@ import { list } from '@/api';
  * @param {CreateListInfo} createListInfo
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const createList = createListInfo => list.post('/', createListInfo);
+const createListAPI = createListInfo => list.post('/', createListInfo);
 
 /**
  * 리스트 수정
  * @param {CreateListInfo} updateListInfo
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const updateList = (id, updateListInfo) => list.put(`/${id}`, updateListInfo);
+const updateListAPI = (id, updateListInfo) =>
+  list.put(`/${id}`, updateListInfo);
 
 /**
  * 리스트 삭제
  * @param {number} id - 리스트 ID
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const deleteList = id => list.delete(`/${id}`);
+const deleteListAPI = id => list.delete(`/${id}`);
 
-export { createList, updateList, deleteList };
+export { createListAPI, updateListAPI, deleteListAPI };

@@ -25,14 +25,14 @@ import { pushMessage } from '@/api';
  * @param {string} targetId - (로그인 한) 대상 유저 ID
  * @returns {Promise<PushMessage[]>}
  */
-const readPushMessage = targetId => pushMessage.get(`/${targetId}`);
+const readPushMessageAPI = targetId => pushMessage.get(`/${targetId}`);
 
 /**
  * 푸시 메세지 수정
  * @param {UpdateMessageInfo} updateMessageInfo
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const updatePushMessage = updateMessageInfo =>
+const updatePushMessageAPI = updateMessageInfo =>
   pushMessage.put('/', updateMessageInfo);
 
 /**
@@ -40,6 +40,6 @@ const updatePushMessage = updateMessageInfo =>
  * @param {number} id - 푸시 메세지 ID
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const deletePushMessage = id => pushMessage.delete(`/${id}`);
+const deletePushMessageAPI = id => pushMessage.delete(`/${id}`);
 
-export { readPushMessage, updatePushMessage, deletePushMessage };
+export { readPushMessageAPI, updatePushMessageAPI, deletePushMessageAPI };

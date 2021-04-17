@@ -17,7 +17,7 @@ import { checklistItem } from '@/api';
  * @param {CreateChecklistItemInfo} createChecklistItemInfo
  * @returns {Promise<string>} statusCode - 상태코드 (조회는 checklist에서 한번에 함)
  */
-const createChecklistItem = createChecklistItemInfo =>
+const createChecklistItemAPI = createChecklistItemInfo =>
   checklistItem.post('/', createChecklistItemInfo);
 
 /**
@@ -25,7 +25,7 @@ const createChecklistItem = createChecklistItemInfo =>
  * @param {UpdateChecklistItemInfo} updateChecklistItemInfo
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const updateChecklistItem = (checklistItemId, updateChecklistItemInfo) =>
+const updateChecklistItemAPI = (checklistItemId, updateChecklistItemInfo) =>
   checklistItem.put(`/${checklistItemId}`, updateChecklistItemInfo);
 
 /**
@@ -33,7 +33,11 @@ const updateChecklistItem = (checklistItemId, updateChecklistItemInfo) =>
  * @param {number} checklistItemId - 체크리스트 아이템 ID
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const deleteChecklistItem = checklistItemId =>
+const deleteChecklistItemAPI = checklistItemId =>
   checklistItem.delete(`/${checklistItemId}`);
 
-export { createChecklistItem, updateChecklistItem, deleteChecklistItem };
+export {
+  createChecklistItemAPI,
+  updateChecklistItemAPI,
+  deleteChecklistItemAPI,
+};

@@ -95,7 +95,7 @@
 <script>
 import BoardItem from '@/components/board/BoardItem.vue';
 import _ from 'lodash';
-import { readRankingByLikeCount } from '@/api/hashtag';
+import { readRankingByLikeCountAPI } from '@/api/hashtag';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
@@ -134,11 +134,11 @@ export default {
   },
 
   methods: {
-    ...mapActions(['READ_BOARD_BY_HASHTAG', 'READ_RANKING_BY_LIKE_COUNT']),
+    ...mapActions(['READ_BOARD_BY_HASHTAG']),
     ...mapMutations(['resetHashtagBoards', 'setHashtagBoards']),
 
     readHashtagRanking() {
-      readRankingByLikeCount()
+      readRankingByLikeCountAPI()
         .then(({ data }) => {
           this.hashtags = data.data;
         })

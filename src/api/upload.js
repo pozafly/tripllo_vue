@@ -16,27 +16,27 @@ import { upload } from '@/api';
  * @param {number} cardId - card ID
  * @returns {Promise<File[]>}
  */
-const readFile = cardId => upload.get(`/${cardId}`);
+const readFileAPI = cardId => upload.get(`/${cardId}`);
 
 /**
  * 파일 업로드
  * @param {multipart} formData - 파일
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const uploadFile = formData => upload.post(`/`, formData);
+const uploadFileAPI = formData => upload.post(`/`, formData);
 
 /**
  * 프로필 사진 업로드
  * @param {multipart} imageData - 파일/이미지
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const uploadImage = imageData => upload.post('/image', imageData);
+const uploadImageAPI = imageData => upload.post('/image', imageData);
 
 /**
  * 파일 삭제
  * @param {number} fileId - 파일 ID
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const deleteFile = fileId => upload.delete(`/${fileId}`);
+const deleteFileAPI = fileId => upload.delete(`/${fileId}`);
 
-export { readFile, uploadFile, uploadImage, deleteFile };
+export { readFileAPI, uploadFileAPI, uploadImageAPI, deleteFileAPI };

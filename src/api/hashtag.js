@@ -18,7 +18,7 @@ import { hashtag } from '@/api';
  * @param {HashtagBoardInfo} hashtagBoardInfo
  * @returns {Promise<Board[]>}
  */
-const readBoardByHashtag = ({ hashtagName, lastLikeCount, lastCreatedAt }) =>
+const readBoardByHashtagAPI = ({ hashtagName, lastLikeCount, lastCreatedAt }) =>
   // hashtag.get('/', { hashtagName, lastLikeCount, lastCreatedAt });
   // 이게 안먹힌다 ㅜㅜ 왜지..
   hashtag.get(
@@ -29,6 +29,6 @@ const readBoardByHashtag = ({ hashtagName, lastLikeCount, lastCreatedAt }) =>
  * public section에서, 해시태그 랭킹 표시
  * @returns {Promise<HashRanking[]>}
  */
-const readRankingByLikeCount = () => hashtag.get('/orderByCount');
+const readRankingByLikeCountAPI = () => hashtag.get('/orderByCount');
 
-export { readBoardByHashtag, readRankingByLikeCount };
+export { readBoardByHashtagAPI, readRankingByLikeCountAPI };

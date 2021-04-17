@@ -40,49 +40,50 @@ import { user } from '@/api';
  * @param {string} userId - 초대할 유저 ID
  * @returns {Promise<User[]>}
  */
-const readIsInviteUserForModal = userId => user.get(`isInvite/${userId}`);
+const readIsInviteUserForModalAPI = userId => user.get(`isInvite/${userId}`);
 
 /**
  * Board 페이지에서, 초대된 사람
  * @param {string[]} userList - 초대된 유저 ID 리스트
  * @returns {Promise<User[]>}
  */
-const readInvitedUserForBoardPage = userList => user.get(`invited/${userList}`);
+const readInvitedUserForBoardPageAPI = userList =>
+  user.get(`invited/${userList}`);
 
 /**
  * 회원 탈퇴
  * @param {string} password - 비밀번호
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const signout = password => user.delete(`${password}`);
+const signoutAPI = password => user.delete(`${password}`);
 
 /**
  * 회원 정보 수정시, 비밀번호 변경 시, 프로필 사진 변경 시 User 정보 재조회
  * @param {string} userId - 로그인 한 유저 ID
  * @returns {Promise<User>}
  */
-const readUser = userId => user.get(`${userId}`);
+const readUserAPI = userId => user.get(`${userId}`);
 
 /**
  * 유저 수정
  * @param {UpdateUserInfo} updateUserInfo
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const updateUser = updateUserInfo => user.put('', updateUserInfo);
+const updateUserAPI = updateUserInfo => user.put('', updateUserInfo);
 
 /**
  * 비밀번호 변경
  * @param {ChangePasswordInfo} changePasswordInfo
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const changePassword = changePasswordInfo =>
+const changePasswordAPI = changePasswordInfo =>
   user.post('changePw', changePasswordInfo);
 
 export {
-  readIsInviteUserForModal,
-  readInvitedUserForBoardPage,
-  signout,
-  readUser,
-  updateUser,
-  changePassword,
+  readIsInviteUserForModalAPI,
+  readInvitedUserForBoardPageAPI,
+  signoutAPI,
+  readUserAPI,
+  updateUserAPI,
+  changePasswordAPI,
 };

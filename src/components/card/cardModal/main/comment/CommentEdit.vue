@@ -55,7 +55,11 @@
 </template>
 
 <script>
-import { createComment, updateComment, deleteComment } from '@/api/comment';
+import {
+  createCommentAPI,
+  updateCommentAPI,
+  deleteCommentAPI,
+} from '@/api/comment';
 import { mapState } from 'vuex';
 
 export default {
@@ -127,7 +131,7 @@ export default {
   methods: {
     deleteComment() {
       this.isDelete = false;
-      deleteComment(this.id)
+      deleteCommentAPI(this.id)
         .then(() => {
           this.readComment();
         })
@@ -149,7 +153,7 @@ export default {
 
       const id = this.id;
       const comment = this.commentText;
-      updateComment({ id, comment })
+      updateCommentAPI({ id, comment })
         .then(() => {
           this.readComment();
         })
@@ -172,7 +176,7 @@ export default {
       const dept = '1';
       const groupNum = this.id;
 
-      createComment({ cardId, comment, dept, groupNum })
+      createCommentAPI({ cardId, comment, dept, groupNum })
         .then(() => {
           this.readComment();
         })

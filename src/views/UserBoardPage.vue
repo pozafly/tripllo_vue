@@ -53,8 +53,8 @@
 <script>
 import CommonHeader from '@/components/common/header/CommonHeader.vue';
 import BoardItem from '@/components/board/BoardItem.vue';
-import { readSearchUserBoard } from '@/api/board';
-import { readUser } from '@/api/user';
+import { readSearchUserBoardAPI } from '@/api/board';
+import { readUserAPI } from '@/api/user';
 
 export default {
   components: {
@@ -77,7 +77,7 @@ export default {
 
   methods: {
     readUser() {
-      readUser(this.$route.params.userId)
+      readUserAPI(this.$route.params.userId)
         .catch(error => {
           console.log(error);
           alert('유저 정보를 가져오지 못했습니다.');
@@ -91,7 +91,7 @@ export default {
       const searchUserId = this.$route.params.userId;
       const lastCreatedAt = this.lastCreatedAt;
 
-      readSearchUserBoard(searchUserId, lastCreatedAt)
+      readSearchUserBoardAPI(searchUserId, lastCreatedAt)
         .then(({ data }) => {
           if (data.data === null) {
             this.isInfinity = false;

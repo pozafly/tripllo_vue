@@ -37,33 +37,33 @@ import { instance } from '@/api';
  * @param {LoginData} loginData
  * @returns {Promise<User>} userData
  */
-const loginUser = loginData => instance.post('login', loginData);
+const loginUserAPI = loginData => instance.post('login', loginData);
 
 /**
  * 소셜 로그인을 이용해 로그인
  * @param {string} userId
  * @returns {Promise<User>} userData
  */
-const socialLogin = userId => instance.get(`login/social/${userId}`);
+const socialLoginAPI = userId => instance.get(`login/social/${userId}`);
 
 /**
  * 로그아웃
  * @returns {Promise}
  */
-const logoutUser = () => instance.get('logout');
+const logoutUserAPI = () => instance.get('logout');
 
 /**
  * 회원가입
  * @param {SignupData} signupData - 회원가입 Data
  * @returns {Promise<boolean>} isSignup
  */
-const signup = signupData => instance.post('user', signupData);
+const signupAPI = signupData => instance.post('user', signupData);
 
 /**
  * 회원가입 화면에서 회원ID가 사용되고 있는지 실시간 판별
  * @param {string} userId - 회원ID
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const validId = userId => instance.get(`user/valid/${userId}`);
+const validIdAPI = userId => instance.get(`user/valid/${userId}`);
 
-export { loginUser, socialLogin, logoutUser, signup, validId };
+export { loginUserAPI, socialLoginAPI, logoutUserAPI, signupAPI, validIdAPI };

@@ -75,8 +75,8 @@
 
 <script>
 import ChecklistItem from '@/components/card/cardModal/main/checklists/ChecklistItem.vue';
-import { updateChecklist, deleteChecklist } from '@/api/checklist';
-import { createChecklistItem } from '@/api/checklistItem';
+import { updateChecklistAPI, deleteChecklistAPI } from '@/api/checklist';
+import { createChecklistItemAPI } from '@/api/checklistItem';
 
 export default {
   components: {
@@ -158,7 +158,7 @@ export default {
     },
 
     deleteChecklist() {
-      deleteChecklist({
+      deleteChecklistAPI({
         checklistId: this.id,
         cardId: this.cardId,
       })
@@ -172,7 +172,7 @@ export default {
     },
 
     updateChecklist() {
-      updateChecklist(this.id, { title: this.inputTitle })
+      updateChecklistAPI(this.id, { title: this.inputTitle })
         .then(() => {
           this.readChecklist(this.cardId);
         })
@@ -183,7 +183,7 @@ export default {
     },
 
     createChecklistItem() {
-      createChecklistItem({
+      createChecklistItemAPI({
         checklistId: this.id,
         item: this.inputItem,
       })

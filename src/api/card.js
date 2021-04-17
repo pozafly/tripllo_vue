@@ -40,14 +40,14 @@ import { card } from '@/api';
  * @param {CreateCardInfo} createCardInfo
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const createCard = createCardInfo => card.post('/', createCardInfo);
+const createCardAPI = createCardInfo => card.post('/', createCardInfo);
 
 /**
  * 카드 상세 조회
  * @param {number} id - 카드 ID
  * @returns {Promise<CardDetail>}
  */
-const readCard = id => card.get(`/${id}`);
+const readCardAPI = id => card.get(`/${id}`);
 
 /**
  * 카드 수정
@@ -55,13 +55,14 @@ const readCard = id => card.get(`/${id}`);
  * @param {UpdateCardInfo} updateCardInfo
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const updateCard = (id, updateCardInfo) => card.put(`/${id}`, updateCardInfo);
+const updateCardAPI = (id, updateCardInfo) =>
+  card.put(`/${id}`, updateCardInfo);
 
 /**
  * 카드 삭제
  * @param {number} id - 카드 ID
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const deleteCard = id => card.delete(`/${id}`);
+const deleteCardAPI = id => card.delete(`/${id}`);
 
-export { createCard, readCard, updateCard, deleteCard };
+export { createCardAPI, readCardAPI, updateCardAPI, deleteCardAPI };

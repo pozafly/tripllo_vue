@@ -11,6 +11,6 @@ import { email } from '@/api';
  * @param {Email} emailInfo
  * @returns {Promise<string>} statusCode - 상태코드(성공여부)
  */
-const sendEmail = emailInfo => email.post(`/`, emailInfo);
+const sendEmailAPI = emailInfo => email.post(`/`, emailInfo);
 
-export { sendEmail };
+export { sendEmailAPI };

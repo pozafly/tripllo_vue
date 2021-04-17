@@ -35,7 +35,7 @@ import { comments } from '@/api';
  * @param {CreateCommentInfo} createCommentInfo
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const createComment = createCommentInfo =>
+const createCommentAPI = createCommentInfo =>
   comments.post(`/`, createCommentInfo);
 
 /**
@@ -43,20 +43,21 @@ const createComment = createCommentInfo =>
  * @param {number} cardId - Card ID
  * @returns {Promise<Comment[]>}
  */
-const readComment = cardId => comments.get(`/${cardId}`);
+const readCommentAPI = cardId => comments.get(`/${cardId}`);
 
 /**
  * 코멘트 수정
  * @param {UpdateCommentInfo} updateCommentInfo
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const updateComment = updateCommentInfo => comments.put(`/`, updateCommentInfo);
+const updateCommentAPI = updateCommentInfo =>
+  comments.put(`/`, updateCommentInfo);
 
 /**
  * 코멘트 삭제
  * @param {number} id - Comment ID
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const deleteComment = id => comments.delete(`/${id}`);
+const deleteCommentAPI = id => comments.delete(`/${id}`);
 
-export { createComment, readComment, updateComment, deleteComment };
+export { createCommentAPI, readCommentAPI, updateCommentAPI, deleteCommentAPI };

@@ -35,7 +35,7 @@ import { checklist } from '@/api';
  * @param {CreateChecklistInfo} createChecklistInfo
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const createChecklist = createChecklistInfo =>
+const createChecklistAPI = createChecklistInfo =>
   checklist.post('/', createChecklistInfo);
 
 /**
@@ -43,10 +43,7 @@ const createChecklist = createChecklistInfo =>
  * @param {number} id - 체크리스트 ID
  * @returns {Promise<Checklist[ChecklistItem[]]>}
  */
-const readChecklist = id => {
-  console.log(id);
-  return checklist.get(`/${id}`);
-};
+const readChecklistAPI = id => checklist.get(`/${id}`);
 
 /**
  * 체크리스트 수정
@@ -54,7 +51,7 @@ const readChecklist = id => {
  * @param {string} title - 체크리스트 제목
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const updateChecklist = (id, title) => checklist.put(`/${id}`, title);
+const updateChecklistAPI = (id, title) => checklist.put(`/${id}`, title);
 
 /**
  * 체크리스트 수정
@@ -62,8 +59,13 @@ const updateChecklist = (id, title) => checklist.put(`/${id}`, title);
  * @param {number} cardId - Checklist가 어느 Card에 속해있는지 구분
  * @returns {Promise<string>} statusCode - 상태코드
  */
-const deleteChecklist = ({ checklistId, cardId }) =>
+const deleteChecklistAPI = ({ checklistId, cardId }) =>
   // SpringBoot의 DeleteMapping에서 @PathVariable 때문에 payload(객체 전달) 불가
   checklist.delete(`/${checklistId}/${cardId}`);
 
-export { createChecklist, readChecklist, updateChecklist, deleteChecklist };
+export {
+  createChecklistAPI,
+  readChecklistAPI,
+  updateChecklistAPI,
+  deleteChecklistAPI,
+};

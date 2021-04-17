@@ -78,7 +78,7 @@ import { board } from '@/api';
  * @param {string} lastCreatedAt - 마지막 Board Item DOM의 생성날짜.
  * @returns {Promise<Board[]>}
  */
-const readPersonalBoard = lastCreatedAt =>
+const readPersonalBoardAPI = lastCreatedAt =>
   board.get(`/personal/${lastCreatedAt}`);
 
 /**
@@ -87,7 +87,7 @@ const readPersonalBoard = lastCreatedAt =>
  * @param {lastCreatedAt} searchUser - 마지막 Board Item DOM의 생성날짜.
  * @returns {Promise<Board[]>}
  */
-const readSearchUserBoard = (searchUserId, lastCreatedAt) =>
+const readSearchUserBoardAPI = (searchUserId, lastCreatedAt) =>
   // SpringBoot의 GetMapping에서 @PathVariable 때문에 payload(객체 전달) 불가
   board.get(`/${searchUserId}/${lastCreatedAt}`);
 
@@ -96,42 +96,43 @@ const readSearchUserBoard = (searchUserId, lastCreatedAt) =>
  * @param {number} count - 현재 뿌려진 Personal Board 갯수
  * @returns {Promise<Board[]>}
  */
-const readPersonalBoardLimitCount = count => board.get(`/rerender/${count}`);
+const readPersonalBoardLimitCountAPI = count => board.get(`/rerender/${count}`);
 
 /**
  * 로그인 한 유저의 최근 본 Board 목록 조회.
  * @param {string} recentLists - 최근 본 Board 목록 id Array를 stringify함.
  * @returns {Promise<Board[]>}
  */
-const readRecentBoard = recentLists => board.get(`/recent/${recentLists}`);
+const readRecentBoardAPI = recentLists => board.get(`/recent/${recentLists}`);
 
 /**
  * 로그인 한 유저의 초대된 Board 목록 조회.
  * @param {string} invitedLists - 초대된 Board 목록 id Array를 stringify함.
  * @returns {Promise<Board[]>}
  */
-const readInvitedBoard = invitedLists => board.get(`/invited/${invitedLists}`);
+const readInvitedBoardAPI = invitedLists =>
+  board.get(`/invited/${invitedLists}`);
 
 /**
  * Board 상세 페이지의 데이터를 모두 가져온다.
  * @param {number} boardId - 선택한 Board item의 ID
  * @returns {Promise<BoardDetail[List[Card]]>}
  */
-const readBoardDetail = boardId => board.get(`detail/${boardId}`);
+const readBoardDetailAPI = boardId => board.get(`detail/${boardId}`);
 
 /**
  * Board 생성
  * @param {CreateBoardInfo} createBoardInfo - Board 생성 정보
  * @returns {Promise<Board>}
  */
-const createBoard = createBoardInfo => board.post('/', createBoardInfo);
+const createBoardAPI = createBoardInfo => board.post('/', createBoardInfo);
 
 /**
  * Board 수정
  * @param {UpdateBoardInfo} updateBoardInfo - Board 수정 정보
  * @returns {Promise<Board>}
  */
-const updateBoard = (id, updateBoardInfo) =>
+const updateBoardAPI = (id, updateBoardInfo) =>
   board.put(`/${id}`, updateBoardInfo);
 
 /**
@@ -139,24 +140,24 @@ const updateBoard = (id, updateBoardInfo) =>
  * @param {number} id - Board ID
  * @returns {Promise<string>} - boardId
  */
-const deleteBoard = id => board.delete(`/${id}`);
+const deleteBoardAPI = id => board.delete(`/${id}`);
 
 /**
  * 푸시 메세지를 승락할 시, 해당 Board의 정보를 조회
  * @param {number} boardId - 푸시메세지에 등록된 Board ID
  * @returns {Promise<Board>}
  */
-const readBoardForAcceptMessage = boardId => board.get(`/${boardId}`);
+const readBoardForAcceptMessageAPI = boardId => board.get(`/${boardId}`);
 
 export {
-  readPersonalBoard,
-  readSearchUserBoard,
-  readPersonalBoardLimitCount,
-  readRecentBoard,
-  readInvitedBoard,
-  readBoardDetail,
-  createBoard,
-  updateBoard,
-  deleteBoard,
-  readBoardForAcceptMessage,
+  readPersonalBoardAPI,
+  readSearchUserBoardAPI,
+  readPersonalBoardLimitCountAPI,
+  readRecentBoardAPI,
+  readInvitedBoardAPI,
+  readBoardDetailAPI,
+  createBoardAPI,
+  updateBoardAPI,
+  deleteBoardAPI,
+  readBoardForAcceptMessageAPI,
 };

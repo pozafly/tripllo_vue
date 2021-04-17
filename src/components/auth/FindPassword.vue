@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
 import bus from '@/utils/bus';
+import { sendEmailAPI } from '@/api/email';
 
 export default {
   data() {
@@ -65,12 +65,10 @@ export default {
   },
 
   methods: {
-    ...mapActions(['SEND_EMAIL']),
-
     async submitForm() {
       bus.$emit('start:spinner');
       const { id, email } = this.userData;
-      this.SEND_EMAIL({
+      sendEmailAPI({
         userId: id,
         userEmail: email,
       })

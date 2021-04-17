@@ -32,7 +32,10 @@
 </template>
 
 <script>
-import { updateChecklistItem, deleteChecklistItem } from '@/api/checklistItem';
+import {
+  updateChecklistItemAPI,
+  deleteChecklistItemAPI,
+} from '@/api/checklistItem';
 import bus from '@/utils/bus';
 import { mapState } from 'vuex';
 
@@ -55,11 +58,11 @@ export default {
       },
     },
     item: {
-      type: String,
+      type: [String, Number],
       require: true,
       default: '',
       validator(value) {
-        return typeof value === 'string';
+        return typeof value === 'string' || typeof value === 'number';
       },
     },
   },
@@ -100,7 +103,7 @@ export default {
     },
 
     updateChecklistItem({ isChecked, item }) {
-      updateChecklistItem(this.id, { isChecked, item })
+      updateChecklistItemAPI(this.id, { isChecked, item })
         .then(() => {
           bus.$emit('readChecklist', this.card.id);
         })
@@ -111,7 +114,7 @@ export default {
     },
 
     onDeleteItem() {
-      deleteChecklistItem(this.id)
+      deleteChecklistItemAPI(this.id)
         .then(() => {
           bus.$emit('readChecklist', this.card.id);
         })

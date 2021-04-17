@@ -15,7 +15,7 @@
 <script>
 import Checklists from '@/components/card/cardModal/main/checklists/Checklists.vue';
 import bus from '@/utils/bus';
-import { readChecklist } from '@/api/checklist';
+import { readChecklistAPI } from '@/api/checklist';
 
 export default {
   components: {
@@ -40,9 +40,7 @@ export default {
 
   methods: {
     readChecklist(cardId) {
-      console.log('wrapper', cardId);
-
-      readChecklist(cardId)
+      readChecklistAPI(cardId)
         .then(({ data }) => {
           this.checklists = data.data;
         })

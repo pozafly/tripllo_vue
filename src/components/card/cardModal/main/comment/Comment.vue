@@ -78,7 +78,7 @@
 
 <script>
 import CommentEdit from '@/components/card/cardModal/main/comment/CommentEdit.vue';
-import { readComment, createComment } from '@/api/comment';
+import { readCommentAPI, createCommentAPI } from '@/api/comment';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -107,7 +107,7 @@ export default {
     ...mapActions(['READ_BOARD_DETAIL']),
 
     readComment() {
-      readComment(this.cardId)
+      readCommentAPI(this.cardId)
         .then(({ data }) => {
           this.comment = data.data;
           this.READ_BOARD_DETAIL(this.board.id);
@@ -132,7 +132,7 @@ export default {
 
       const cardId = this.cardId;
       const comment = this.commentText;
-      createComment({ cardId, comment })
+      createCommentAPI({ cardId, comment })
         .then(() => {
           this.readComment();
           this.READ_BOARD_DETAIL(this.board.id);

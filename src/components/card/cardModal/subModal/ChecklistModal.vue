@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { createChecklist } from '@/api/checklist';
+import { createChecklistAPI } from '@/api/checklist';
 import bus from '@/utils/bus';
 import { mapActions, mapState } from 'vuex';
 
@@ -43,7 +43,7 @@ export default {
     },
 
     createChecklist() {
-      createChecklist({ title: this.inputTitle, cardId: this.card.id })
+      createChecklistAPI({ title: this.inputTitle, cardId: this.card.id })
         .then(() => {
           bus.$emit('readChecklist', this.card.id);
           this.READ_BOARD_DETAIL(this.board.id);
