@@ -16,7 +16,7 @@
     </span>
 
     <span class="board-item owner-user">
-      <ProfileImage v-bind="board" />
+      <BoardHeaderProfileImage v-bind="board" />
     </span>
 
     <span v-if="isOwner" class="board-item">
