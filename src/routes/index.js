@@ -9,17 +9,21 @@ const requireAuth = (to, from, next) => {
   const loginPath = '/auth';
   if (store.getters.isAuth) {
     next();
+    return;
   } else {
     alert('로그인 되어있지 않습니다.');
     next(loginPath);
+    return;
   }
 };
 
 const firstAccess = (to, from, next) => {
   if (getUserFromLocalStorage()) {
     next('/main');
+    return;
   } else {
     next('/intro');
+    return;
   }
 };
 
