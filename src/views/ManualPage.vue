@@ -160,15 +160,15 @@
                 수 있습니다.
               </p>
               <p>
-                <span class="icon">📌</span> Invited Tap <br />
-                초대된 Board는 언제든지 Invited Tap에서 확인 가능합니다!
+                <span class="icon">📌</span> Invited Tab <br />
+                초대된 Board는 언제든지 Invited Tab에서 확인 가능합니다!
               </p>
             </div>
           </li>
         </ul>
       </div>
       <div class="content">
-        <h2 class="content-title">🌍 Public Tap 활용하기</h2>
+        <h2 class="content-title">🌍 Public Tab 활용하기</h2>
         <ul class="content-item">
           <li>
             <img
@@ -180,7 +180,7 @@
             <div class="text-items">
               <p>
                 <span class="icon">📌</span> Public <br />
-                Public Tap에서는 다양한 Public Board를 구경할 수 있습니다.
+                Public Tab에서는 다양한 Public Board를 구경할 수 있습니다.
                 <b>해시태그</b>를 설정하여 다른 사람들에게 내 Board를
                 공유해봅시다!
               </p>

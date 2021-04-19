@@ -26,7 +26,7 @@ export default {
   created() {
     bus.$on('start:spinner', this.startSpinner);
     bus.$on('end:spinner', this.endSpinner);
-    saveSessionStorage('mainTapId', 0);
+    saveSessionStorage('mainTabId', 0);
   },
 
   beforeDestroy() {

@@ -22,8 +22,8 @@
         </span>
       </div>
       <div class="tabs">
-        <TabItem
-          v-for="item in tapList"
+        <ProfileTabItem
+          v-for="item in tabList"
           :key="item.id"
           v-model="currentId"
           v-bind="item"
@@ -35,7 +35,6 @@
             <section :key="currentId">
               <template v-if="current.content === 'About'">
                 <AboutUser />
-                <SignoutUser />
               </template>
               <template v-else>
                 <PasswordChange />
@@ -51,8 +50,7 @@
 <script>
 import CommonHeader from '@/components/common/header/CommonHeader.vue';
 import AboutUser from '@/components/profile/AboutUser.vue';
-import SignoutUser from '@/components/profile/SignoutUser.vue';
-import TabItem from '@/components/profile/TapItem.vue';
+import ProfileTabItem from '@/components/profile/ProfileTabItem.vue';
 import PasswordChange from '@/components/profile/PasswordChange.vue';
 import { mapState } from 'vuex';
 
@@ -60,15 +58,14 @@ export default {
   components: {
     CommonHeader,
     AboutUser,
-    SignoutUser,
-    TabItem,
+    ProfileTabItem,
     PasswordChange,
   },
 
   data() {
     return {
       currentId: 1,
-      tapList: [
+      tabList: [
         { id: 1, label: 'About', content: 'About' },
         { id: 2, label: 'Change Password', content: 'ChangePassword' },
       ],
@@ -79,7 +76,7 @@ export default {
     ...mapState(['user']),
 
     current() {
-      return this.tapList.find(el => el.id === this.currentId) || {};
+      return this.tabList.find(el => el.id === this.currentId) || {};
     },
   },
 

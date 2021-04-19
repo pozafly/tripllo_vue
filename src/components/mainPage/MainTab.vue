@@ -1,8 +1,8 @@
 <template>
   <ul class="side-wrap">
     <li
-      :class="[{ active: mainTapId === 0 }, 'side-item']"
-      @click="changeMainTap(0)"
+      :class="[{ active: mainTabId === 0 }, 'side-item']"
+      @click="changeMainTab(0)"
     >
       <div class="item-wrap">
         <awesome icon="user" class="icon" />
@@ -10,8 +10,8 @@
       </div>
     </li>
     <li
-      :class="[{ active: mainTapId === 1 }, 'side-item']"
-      @click="changeMainTap(1)"
+      :class="[{ active: mainTabId === 1 }, 'side-item']"
+      @click="changeMainTab(1)"
     >
       <div class="item-wrap">
         <awesome icon="user-friends" class="icon" />
@@ -19,8 +19,8 @@
       </div>
     </li>
     <li
-      :class="[{ active: mainTapId === 2 }, 'side-item']"
-      @click="changeMainTap(2)"
+      :class="[{ active: mainTabId === 2 }, 'side-item']"
+      @click="changeMainTab(2)"
     >
       <div class="item-wrap">
         <awesome icon="globe-americas" class="icon" />
@@ -36,15 +36,15 @@ import { saveSessionStorage, getSessionStorage } from '@/utils/webStorage';
 export default {
   data() {
     return {
-      mainTapId: getSessionStorage('mainTapId'),
+      mainTabId: getSessionStorage('mainTabId'),
     };
   },
 
   methods: {
-    changeMainTap(value) {
-      this.mainTapId = value;
-      this.$emit('changeTap', value);
-      saveSessionStorage('mainTapId', value);
+    changeMainTab(value) {
+      this.mainTabId = value;
+      this.$emit('changeTab', value);
+      saveSessionStorage('mainTabId', value);
     },
   },
 };

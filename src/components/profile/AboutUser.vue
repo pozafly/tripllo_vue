@@ -53,16 +53,22 @@
         <button class="form-save" type="button" @click.prevent="updateUser">
           Save
         </button>
+        <AboutUserSignout />
       </form>
     </div>
   </div>
 </template>
 
 <script>
+import AboutUserSignout from '@/components/profile/AboutUserSignout.vue';
 import bus from '@/utils/bus.js';
 import { mapActions, mapState } from 'vuex';
 
 export default {
+  components: {
+    AboutUserSignout,
+  },
+
   data() {
     return {
       userData: {

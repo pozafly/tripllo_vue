@@ -2,11 +2,11 @@
   <div class="page">
     <CommonHeader />
     <div class="main-wrap">
-      <MainTap @changeTap="changeTap" />
-      <template v-if="mainTapId === 0">
+      <MainTab @changeTab="changeTab" />
+      <template v-if="mainTabId === 0">
         <PersonalSection />
       </template>
-      <template v-else-if="mainTapId === 1">
+      <template v-else-if="mainTabId === 1">
         <InvitedSection />
       </template>
       <template v-else>
@@ -18,7 +18,7 @@
 
 <script>
 import CommonHeader from '@/components/common/header/CommonHeader.vue';
-import MainTap from '@/components/mainPage/MainTap.vue';
+import MainTab from '@/components/mainPage/MainTab.vue';
 import PersonalSection from '@/components/mainPage/section/PersonalSection.vue';
 import InvitedSection from '@/components/mainPage/section/InvitedSection.vue';
 import PublicSection from '@/components/mainPage/section/PublicSection.vue';
@@ -27,7 +27,7 @@ import { getSessionStorage } from '@/utils/webStorage';
 export default {
   components: {
     CommonHeader,
-    MainTap,
+    MainTab,
     PersonalSection,
     InvitedSection,
     PublicSection,
@@ -35,13 +35,13 @@ export default {
 
   data() {
     return {
-      mainTapId: getSessionStorage('mainTapId'),
+      mainTabId: getSessionStorage('mainTabId'),
     };
   },
 
   methods: {
-    changeTap(value) {
-      this.mainTapId = value;
+    changeTab(value) {
+      this.mainTabId = value;
     },
   },
 };
