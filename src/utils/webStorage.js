@@ -1,9 +1,11 @@
+import { isEmpty } from '@/utils/libs';
+
 const USER_INFO = 'TRIPLLO-V1-U';
 const TOKEN = 'TRIPLLO-V1-T';
 
 // NOTE: 인코딩, 디코딩 함수
 const makeEncode = (key, value) => {
-  if (!value) {
+  if (isEmpty(value)) {
     return;
   }
   const data = JSON.stringify(value);
@@ -12,7 +14,7 @@ const makeEncode = (key, value) => {
 };
 
 const returnDecode = value => {
-  if (!value) {
+  if (isEmpty(value)) {
     return;
   }
   const decode = atob(value);
@@ -38,7 +40,7 @@ const returnDecode = value => {
  * @param {User} user
  */
 const saveUserToLocalStorage = user => {
-  if (!user) {
+  if (isEmpty(user)) {
     return;
   }
   return makeEncode(USER_INFO, user);
@@ -50,7 +52,7 @@ const saveUserToLocalStorage = user => {
  */
 const getUserFromLocalStorage = () => {
   const userInfo = localStorage.getItem(USER_INFO);
-  if (!userInfo) {
+  if (isEmpty(userInfo)) {
     return;
   }
   return returnDecode(userInfo);
@@ -61,7 +63,7 @@ const getUserFromLocalStorage = () => {
  * @param {string} token
  */
 const saveTokenToLocalStorage = token => {
-  if (!token) {
+  if (isEmpty(token)) {
     return;
   }
   makeEncode(TOKEN, token);
@@ -73,28 +75,28 @@ const saveTokenToLocalStorage = token => {
  */
 const getTokenFromLocalStorage = () => {
   const tokenInfo = localStorage.getItem(TOKEN);
-  if (!tokenInfo) {
+  if (isEmpty(tokenInfo)) {
     return;
   }
   return returnDecode(tokenInfo);
 };
 
 const saveSessionStorage = (key, value) => {
-  if (!value) {
+  if (isEmpty(value)) {
     return;
   }
   sessionStorage.setItem(key, JSON.stringify(value));
 };
 
 const getSessionStorage = key => {
-  if (!key) {
+  if (isEmpty(key)) {
     return;
   }
   return JSON.parse(sessionStorage.getItem(key));
 };
 
 const deleteSessionStorage = key => {
-  if (!key) {
+  if (isEmpty(key)) {
     return;
   }
   sessionStorage.removeItem(key);
