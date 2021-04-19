@@ -1,7 +1,7 @@
 <template>
   <div v-if="checklists">
     <li class="body-item">
-      <Checklists
+      <CardChecklistWrap
         v-for="checklist in checklists"
         :key="checklist.id"
         class="checklist"
@@ -13,13 +13,13 @@
 </template>
 
 <script>
-import Checklists from '@/components/card/cardModal/main/checklists/Checklists.vue';
+import CardChecklistWrap from '@/components/card/cardModal/mainModal/checklists/CardChecklistWrap.vue';
 import bus from '@/utils/bus';
 import { readChecklistAPI } from '@/api/checklist';
 
 export default {
   components: {
-    Checklists,
+    CardChecklistWrap,
   },
 
   data() {

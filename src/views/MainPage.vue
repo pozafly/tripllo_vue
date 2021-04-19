@@ -2,11 +2,11 @@
   <div class="page">
     <CommonHeader />
     <div class="main-wrap">
-      <NavTap @changeTab="changeTab" />
-      <template v-if="mainTabId === 0">
+      <MainTap @changeTap="changeTap" />
+      <template v-if="mainTapId === 0">
         <PersonalSection />
       </template>
-      <template v-else-if="mainTabId === 1">
+      <template v-else-if="mainTapId === 1">
         <InvitedSection />
       </template>
       <template v-else>
@@ -18,16 +18,16 @@
 
 <script>
 import CommonHeader from '@/components/common/header/CommonHeader.vue';
-import NavTap from '@/components/main/NavTap.vue';
-import PersonalSection from '@/components/main/PersonalSection.vue';
-import InvitedSection from '@/components/main/InvitedSection.vue';
-import PublicSection from '@/components/main/PublicSection.vue';
+import MainTap from '@/components/mainPage/MainTap.vue';
+import PersonalSection from '@/components/mainPage/section/PersonalSection.vue';
+import InvitedSection from '@/components/mainPage/section/InvitedSection.vue';
+import PublicSection from '@/components/mainPage/section/PublicSection.vue';
 import { getSessionStorage } from '@/utils/webStorage';
 
 export default {
   components: {
     CommonHeader,
-    NavTap,
+    MainTap,
     PersonalSection,
     InvitedSection,
     PublicSection,
@@ -35,13 +35,13 @@ export default {
 
   data() {
     return {
-      mainTabId: getSessionStorage('mainTabId'),
+      mainTapId: getSessionStorage('mainTapId'),
     };
   },
 
   methods: {
-    changeTab(value) {
-      this.mainTabId = value;
+    changeTap(value) {
+      this.mainTapId = value;
     },
   },
 };

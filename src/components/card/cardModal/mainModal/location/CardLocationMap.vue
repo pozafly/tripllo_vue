@@ -1,5 +1,5 @@
 <template>
-  <LocationMapBase>
+  <CardLocationMapBase>
     <div slot="header">
       <div class="map-header">
         <div class="loaction-map-cancel" @click="$emit('close')">&times;</div>
@@ -12,23 +12,23 @@
         class="form-control map-inside-input"
         placeholder="카드 location 변경"
       />
-      <LocationToCard v-if="isCardAbout" v-bind="cardInfo" />
+      <CardLocationMapPin v-if="isCardAbout" v-bind="cardInfo" />
       <div class="google-map-display"></div>
     </div>
-  </LocationMapBase>
+  </CardLocationMapBase>
 </template>
 
 <script>
-import LocationMapBase from '@/components/card/cardModal/main/location/LocationMapBase.vue';
-import LocationToCard from '@/components/card/cardModal/main/location/LocationToCard.vue';
+import CardLocationMapBase from '@/components/card/cardModal/mainModal/location/CardLocationMapBase.vue';
+import CardLocationMapPin from '@/components/card/cardModal/mainModal/location/CardLocationMapPin.vue';
 import { Loader } from '@googlemaps/js-api-loader';
 import MarkerClusterer from '@googlemaps/markerclustererplus';
 import { mapActions, mapState } from 'vuex';
 
 export default {
   components: {
-    LocationMapBase,
-    LocationToCard,
+    CardLocationMapBase,
+    CardLocationMapPin,
   },
 
   data() {

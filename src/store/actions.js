@@ -383,7 +383,7 @@ const actions = {
   CREATE_LIKE({ dispatch, state }, likeInfo) {
     return createLikeAPI(likeInfo)
       .then(() => {
-        if (getSessionStorage('mainTabId') === 0) {
+        if (getSessionStorage('mainTapId') === 0) {
           dispatch(
             'READ_PERSONAL_BOARD_LIMIT_COUNT',
             state.personalBoard.length,
@@ -398,7 +398,7 @@ const actions = {
   DELETE_LIKE({ dispatch, state }, { boardId, likeCount }) {
     return deleteLikeAPI({ boardId, likeCount })
       .then(() => {
-        if (getSessionStorage('mainTabId') === 0) {
+        if (getSessionStorage('mainTapId') === 0) {
           dispatch(
             'READ_PERSONAL_BOARD_LIMIT_COUNT',
             state.personalBoard.length,

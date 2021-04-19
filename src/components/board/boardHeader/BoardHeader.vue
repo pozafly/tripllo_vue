@@ -20,7 +20,10 @@
     </span>
 
     <span v-if="isOwner" class="board-item">
-      <DisclosureStatus :board-id="board.id" :public-yn="board.publicYn" />
+      <BoardHeaderDisclosureStatus
+        :board-id="board.id"
+        :public-yn="board.publicYn"
+      />
     </span>
 
     <span
@@ -44,13 +47,13 @@
           :key="item.id"
           @click="$router.push(`/user/${item.id}`)"
         >
-          <ProfileImage v-bind="item" />
+          <BoardHeaderProfileImage v-bind="item" />
         </span>
       </span>
     </span>
 
     <div v-if="board.publicYn === 'Y' && isOwner" class="board-hash-wrap">
-      <HashtagModal />
+      <BoardHeaderHashtagModal />
     </div>
 
     <a class="board-header-btn show-menu" href="" @click.prevent="menuOpen">
@@ -66,19 +69,19 @@
 
 <script>
 import InviteModal from '@/components/board/boardHeader/boardInvite/InviteModal.vue';
-import ProfileImage from '@/components/board/boardHeader/ProfileImage.vue';
-import HashtagModal from '@/components/board/boardHeader/HashtagModal.vue';
+import BoardHeaderProfileImage from '@/components/board/boardHeader/BoardHeaderProfileImage.vue';
+import BoardHeaderHashtagModal from '@/components/board/boardHeader/BoardHeaderHashtagModal.vue';
 import BoardMenu from '@/components/board/boardHeader/boardMenu/BoardMenu.vue';
-import DisclosureStatus from '@/components/board/boardHeader/DisclosureStatus.vue';
+import BoardHeaderDisclosureStatus from '@/components/board/boardHeader/BoardHeaderDisclosureStatus.vue';
 import { mapActions, mapState } from 'vuex';
 
 export default {
   components: {
     InviteModal,
-    ProfileImage,
-    HashtagModal,
+    BoardHeaderProfileImage,
+    BoardHeaderHashtagModal,
     BoardMenu,
-    DisclosureStatus,
+    BoardHeaderDisclosureStatus,
   },
 
   props: {

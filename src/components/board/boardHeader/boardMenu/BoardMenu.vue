@@ -46,7 +46,7 @@
               색상선택기
             </div>
           </a>
-          <ColorPicker v-if="isPicker" @cancel="isPicker = false" />
+          <BoardMenuColorPicker v-if="isPicker" @cancel="isPicker = false" />
         </div>
         <li class="menu-item delete-board" @click.prevent="onDeleteBoard">
           <awesome icon="trash-alt" class="fas fa-trash-alt"></awesome>
@@ -61,11 +61,11 @@
 
 <script>
 import { mapMutations, mapActions, mapState } from 'vuex';
-import ColorPicker from '@/components/board/boardHeader/boardMenu/ColorPicker.vue';
+import BoardMenuColorPicker from '@/components/board/boardHeader/boardMenu/BoardMenuColorPicker.vue';
 
 export default {
   components: {
-    ColorPicker,
+    BoardMenuColorPicker,
   },
 
   data() {

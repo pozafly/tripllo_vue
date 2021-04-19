@@ -1,7 +1,7 @@
 <template>
   <ul class="side-wrap">
     <li
-      :class="[{ active: mainTabId === 0 }, 'side-item']"
+      :class="[{ active: mainTapId === 0 }, 'side-item']"
       @click="changeMainTap(0)"
     >
       <div class="item-wrap">
@@ -10,7 +10,7 @@
       </div>
     </li>
     <li
-      :class="[{ active: mainTabId === 1 }, 'side-item']"
+      :class="[{ active: mainTapId === 1 }, 'side-item']"
       @click="changeMainTap(1)"
     >
       <div class="item-wrap">
@@ -19,7 +19,7 @@
       </div>
     </li>
     <li
-      :class="[{ active: mainTabId === 2 }, 'side-item']"
+      :class="[{ active: mainTapId === 2 }, 'side-item']"
       @click="changeMainTap(2)"
     >
       <div class="item-wrap">
@@ -36,15 +36,15 @@ import { saveSessionStorage, getSessionStorage } from '@/utils/webStorage';
 export default {
   data() {
     return {
-      mainTabId: getSessionStorage('mainTabId'),
+      mainTapId: getSessionStorage('mainTapId'),
     };
   },
 
   methods: {
     changeMainTap(value) {
-      this.mainTabId = value;
-      this.$emit('changeTab', value);
-      saveSessionStorage('mainTabId', value);
+      this.mainTapId = value;
+      this.$emit('changeTap', value);
+      saveSessionStorage('mainTapId', value);
     },
   },
 };

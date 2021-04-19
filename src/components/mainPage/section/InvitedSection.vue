@@ -11,7 +11,7 @@
         </div>
       </div>
       <div v-else>
-        <div class="nodata-text">아직 초대된 Board가 없습니다...</div>
+        <div class="nodata-text">아직 초대된 Board가 없습니다 🙉</div>
       </div>
     </div>
     <div class="space"></div>

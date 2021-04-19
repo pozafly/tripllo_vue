@@ -12,7 +12,7 @@ const mutations = {
     state.user = user;
   },
   setUserToken(state, token) {
-    saveSessionStorage('mainTabId', 0);
+    saveSessionStorage('mainTapId', 0);
     saveTokenToLocalStorage(token);
     state.token = token;
   },

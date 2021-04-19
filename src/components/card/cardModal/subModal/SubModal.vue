@@ -15,32 +15,32 @@
           <span class="side-item-text">{{ item }}</span>
         </li>
       </ul>
-      <LabelsModal
+      <SubModalLabels
         v-if="toggle === 'isLabels'"
         class="side-item-label"
         @close="onClose"
       />
-      <ChecklistModal
+      <SubModalChecklist
         v-if="toggle === 'isChecklist'"
         class="side-item-checklist"
         @close="onClose"
       />
-      <DueDateModal
+      <SubModalDueDate
         v-if="toggle === 'isDueDate'"
         class="side-item-duedate"
         @close="onClose"
       />
-      <AttachmentModal
+      <SubModalAttachment
         v-if="toggle === 'isAttachment'"
         class="side-item-attachment"
         @close="onClose"
       />
-      <LocationModal
+      <SubModalLocation
         v-if="toggle === 'isLocation'"
         class="side-item-location"
         @close="onClose"
       />
-      <DeleteCardModal
+      <SubModalDeleteCard
         v-if="toggle === 'isDelete'"
         class="side-item-delete"
         @close="onClose"
@@ -50,22 +50,22 @@
 </template>
 
 <script>
-import LabelsModal from '@/components/card/cardModal/subModal/LabelsModal.vue';
-import ChecklistModal from '@/components/card/cardModal/subModal/ChecklistModal.vue';
-import DueDateModal from '@/components/card/cardModal/subModal/DueDateModal.vue';
-import AttachmentModal from '@/components/card/cardModal/subModal/AttachmentModal.vue';
-import LocationModal from '@/components/card/cardModal/subModal/LocationModal.vue';
-import DeleteCardModal from '@/components/card/cardModal/subModal/DeleteCardModal.vue';
+import SubModalLabels from '@/components/card/cardModal/subModal/SubModalLabels.vue';
+import SubModalChecklist from '@/components/card/cardModal/subModal/SubModalChecklist.vue';
+import SubModalDueDate from '@/components/card/cardModal/subModal/SubModalDueDate.vue';
+import SubModalAttachment from '@/components/card/cardModal/subModal/SubModalAttachment.vue';
+import SubModalLocation from '@/components/card/cardModal/subModal/SubModalLocation.vue';
+import SubModalDeleteCard from '@/components/card/cardModal/subModal/SubModalDeleteCard.vue';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    LabelsModal,
-    ChecklistModal,
-    DueDateModal,
-    AttachmentModal,
-    LocationModal,
-    DeleteCardModal,
+    SubModalLabels,
+    SubModalChecklist,
+    SubModalDueDate,
+    SubModalAttachment,
+    SubModalLocation,
+    SubModalDeleteCard,
   },
 
   data() {

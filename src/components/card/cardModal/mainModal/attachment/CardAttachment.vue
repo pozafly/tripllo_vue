@@ -5,7 +5,7 @@
         <awesome icon="paperclip" class="far fa-paperclip"></awesome>
         <span class="body-card-text">Attachment</span>
         <div v-for="item in file" :key="item.id">
-          <AttachmentList v-bind="item" />
+          <CardAttachmentList v-bind="item" />
         </div>
       </div>
     </li>
@@ -13,12 +13,12 @@
 </template>
 
 <script>
-import AttachmentList from '@/components/card/cardModal/main/attachment/AttachmentList.vue';
+import CardAttachmentList from '@/components/card/cardModal/mainModal/attachment/CardAttachmentList.vue';
 import { mapState } from 'vuex';
 
 export default {
   components: {
-    AttachmentList,
+    CardAttachmentList,
   },
 
   computed: {

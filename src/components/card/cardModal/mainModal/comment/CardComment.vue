@@ -38,7 +38,7 @@
             </template>
           </div>
           <div class="side-comment">
-            <CommentEdit v-bind="item" :read-comment="readComment" />
+            <CardCommentEdit v-bind="item" :read-comment="readComment" />
           </div>
         </div>
       </div>
@@ -77,13 +77,13 @@
 </template>
 
 <script>
-import CommentEdit from '@/components/card/cardModal/main/comment/CommentEdit.vue';
+import CardCommentEdit from '@/components/card/cardModal/mainModal/comment/CardCommentEdit.vue';
 import { readCommentAPI, createCommentAPI } from '@/api/comment';
 import { mapActions, mapState } from 'vuex';
 
 export default {
   components: {
-    CommentEdit,
+    CardCommentEdit,
   },
 
   data() {

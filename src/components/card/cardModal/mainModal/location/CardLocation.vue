@@ -35,17 +35,17 @@
         </MiniModal>
       </div>
     </div>
-    <LocationMap v-if="isLocationMap" @close="isLocationMap = false" />
+    <CardLocationMap v-if="isLocationMap" @close="isLocationMap = false" />
   </li>
 </template>
 
 <script>
-import LocationMap from '@/components/card/cardModal/main/location/LocationMap';
+import CardLocationMap from '@/components/card/cardModal/mainModal/location/CardLocationMap';
 import { mapActions, mapState } from 'vuex';
 
 export default {
   components: {
-    LocationMap,
+    CardLocationMap,
   },
 
   data() {

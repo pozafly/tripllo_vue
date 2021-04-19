@@ -38,7 +38,7 @@
       :status="status"
     />
 
-    <ChecklistItem v-for="item in items" :key="item.id" v-bind="item" />
+    <CardChecklistWrapItem v-for="item in items" :key="item.id" v-bind="item" />
 
     <button
       v-if="!isItem"
@@ -74,13 +74,13 @@
 </template>
 
 <script>
-import ChecklistItem from '@/components/card/cardModal/main/checklists/ChecklistItem.vue';
+import CardChecklistWrapItem from '@/components/card/cardModal/mainModal/checklists/CardChecklistWrapItem.vue';
 import { updateChecklistAPI, deleteChecklistAPI } from '@/api/checklist';
 import { createChecklistItemAPI } from '@/api/checklistItem';
 
 export default {
   components: {
-    ChecklistItem,
+    CardChecklistWrapItem,
   },
 
   props: {
