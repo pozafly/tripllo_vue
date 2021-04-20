@@ -33,6 +33,7 @@ import ListItem from '@/components/list/ListItem.vue';
 import AddList from '@/components/list/AddList.vue';
 import BoardHeader from '@/components/board/boardHeader/BoardHeader.vue';
 import dragger from '@/utils/dragger';
+import { updateUserAPI } from '@/api/user';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
@@ -72,7 +73,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['READ_BOARD_DETAIL', 'UPDATE_USER']),
+    ...mapActions(['READ_BOARD_DETAIL', 'READ_USER']),
     ...mapMutations(['setTheme']),
 
     setOverflowStyle(type) {
@@ -109,8 +110,17 @@ export default {
       }
       recentArray.unshift(boardId);
 
-      const recentBoard = JSON.stringify(recentArray);
-      this.UPDATE_USER({ id: this.user.id, recentBoard });
+      this.updateUser(JSON.stringify(recentArray));
+    },
+
+    async updateUser(recentBoard) {
+      try {
+        await updateUserAPI({ id: this.user.id, recentBoard });
+        await this.READ_USER(this.user.id);
+      } catch (error) {
+        console.log(error);
+        alert('최근 board를 추가하지 못했습니다.');
+      }
     },
 
     listFocus() {

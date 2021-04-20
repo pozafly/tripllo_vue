@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { readBoardForAcceptMessageAPI } from '@/api/board';
+import { updateUserAPI } from '@/api/user';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -77,8 +79,7 @@ export default {
       'UPDATE_PUSH_MESSAGE',
       'DELETE_PUSH_MESSAGE',
       'UPDATE_BOARD',
-      'UPDATE_USER',
-      'READ_BOARD_FOR_ACCEPT_MESSAGE',
+      'READ_USER',
     ]),
 
     setMessage() {
@@ -88,10 +89,17 @@ export default {
     },
 
     async acceptMessage() {
-      const data = await this.READ_BOARD_FOR_ACCEPT_MESSAGE(this.boardId);
-      const preInviteUser = data.data.invitedUser;
+      let preInviteUser = null;
+      try {
+        const { data } = await readBoardForAcceptMessageAPI(this.boardId);
+        preInviteUser = data.data.invitedUser;
+      } catch (error) {
+        console.log(error);
+        alert('보드 정보를 가져오지 못해 초대 수락에 실패했습니다.');
+      }
 
       let invitedUser = [];
+
       if (preInviteUser !== null) {
         invitedUser = JSON.parse(preInviteUser);
       }
@@ -107,19 +115,29 @@ export default {
         const pushInviteUser = JSON.stringify(invitedUser);
         const pushInvitedBoard = JSON.stringify(invitedBoard);
 
+        this.updateBoardAndUser(pushInviteUser, pushInvitedBoard);
+        this.$emit('close');
+        this.$router.push(`/board/${this.boardId}`);
+      } else {
+        alert('이미 초대되어 있습니다.');
+      }
+    },
+
+    async updateBoardAndUser(pushInviteUser, pushInvitedBoard) {
+      try {
         await this.UPDATE_BOARD({
           id: this.boardId,
           invitedUser: pushInviteUser,
         });
-        await this.UPDATE_USER({
+        await updateUserAPI({
           id: this.user.id,
           invitedBoard: pushInvitedBoard,
         });
+        await this.READ_USER(this.user.id);
         await this.DELETE_PUSH_MESSAGE({ id: this.id });
-        this.$emit('close');
-        await this.$router.push(`/board/${this.boardId}`);
-      } else {
-        alert('이미 초대되어 있습니다.');
+      } catch (error) {
+        console.log(error);
+        alert('초대 수락에 실패했습니다.');
       }
     },
 

@@ -81,8 +81,9 @@
 <script>
 import _ from 'lodash';
 import { validateId, validatePw, validateEmail } from '@/utils/validation';
-import { mapActions } from 'vuex';
+import { signupAPI } from '@/api/auth';
 import { getUserFromLocalStorage } from '@/utils/webStorage';
+import { mapActions } from 'vuex';
 
 export default {
   data() {
@@ -138,7 +139,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['SIGNUP', 'LOGIN', 'VALID_ID']),
+    ...mapActions(['LOGIN', 'VALID_ID']),
 
     async submitForm() {
       const valid = this.valid;
@@ -161,7 +162,7 @@ export default {
       }
 
       try {
-        const isSignup = await this.SIGNUP(this.userData);
+        const isSignup = await signupAPI(this.userData);
         if (isSignup) {
           await this.LOGIN({
             id: this.userData.id,

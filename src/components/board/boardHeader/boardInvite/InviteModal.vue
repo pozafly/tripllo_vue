@@ -31,7 +31,8 @@
 <script>
 import InviteModalList from '@/components/board/boardHeader/boardInvite/InviteModalList.vue';
 import _ from 'lodash';
-import { mapActions, mapState } from 'vuex';
+import { readIsInviteUserForModalAPI } from '@/api/user';
+import { mapState } from 'vuex';
 
 export default {
   components: {
@@ -56,25 +57,12 @@ export default {
       if (id === '') {
         this.memberList = [];
       } else {
-        this.READ_IS_INVITE_USER_FOR_INVITE_MODAL(id)
-          .then(({ data }) => {
-            this.memberList = data.data;
-          })
-          .catch(({ response }) => {
-            if (response.status === 404) {
-              this.errorMessage = '해당 유저가 없습니다.';
-              this.memberList = [];
-            } else {
-              alert('알 수 없는 오류 발생');
-            }
-          });
+        this.readIsInviteUserForModal(id);
       }
     }, 750),
   },
 
   methods: {
-    ...mapActions(['READ_IS_INVITE_USER_FOR_INVITE_MODAL']),
-
     invitedUserFilter(member) {
       if (this.board.invitedUser) {
         return (
@@ -96,6 +84,20 @@ export default {
         closeOnClick: true,
         text: `${memberId}님에게 ${boardTitle} 보드를 초대했습니다.`,
       });
+    },
+
+    async readIsInviteUserForModal(id) {
+      try {
+        const { data } = await readIsInviteUserForModalAPI(id);
+        this.memberList = data.data;
+      } catch ({ response }) {
+        if (response.status === 404) {
+          this.errorMessage = '해당 유저가 없습니다.';
+          this.memberList = [];
+        } else {
+          alert('알 수 없는 오류 발생');
+        }
+      }
     },
   },
 };

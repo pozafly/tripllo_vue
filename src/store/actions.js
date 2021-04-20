@@ -1,10 +1,4 @@
-import {
-  loginUserAPI,
-  socialLoginAPI,
-  logoutUserAPI,
-  signupAPI,
-  validIdAPI,
-} from '@/api/auth';
+import { loginUserAPI, logoutUserAPI } from '@/api/auth';
 import {
   readPersonalBoardAPI,
   readPersonalBoardLimitCountAPI,
@@ -12,7 +6,6 @@ import {
   readBoardDetailAPI,
   createBoardAPI,
   updateBoardAPI,
-  readBoardForAcceptMessageAPI,
 } from '@/api/board';
 import { createListAPI, updateListAPI, deleteListAPI } from '@/api/list';
 import {
@@ -26,20 +19,9 @@ import {
   updatePushMessageAPI,
   deletePushMessageAPI,
 } from '@/api/pushMessage';
-import {
-  readFileAPI,
-  uploadFileAPI,
-  uploadImageAPI,
-  deleteFileAPI,
-} from '@/api/upload';
+import { readFileAPI, uploadFileAPI, deleteFileAPI } from '@/api/upload';
 import { createLikeAPI, deleteLikeAPI } from '@/api/like';
-import {
-  readIsInviteUserForModalAPI,
-  readInvitedUserForBoardPageAPI,
-  signoutAPI,
-  readUserAPI,
-  updateUserAPI,
-} from '@/api/user';
+import { signoutAPI, readUserAPI } from '@/api/user';
 
 import router from '@/routes';
 import bus from '@/utils/bus';
@@ -48,68 +30,23 @@ import { getSessionStorage } from '@/utils/webStorage';
 const actions = {
   // auth
   async LOGIN({ commit }, loginData) {
-    // 에러처리 : LoginForm.vue, SignupForm.vue
     const { data } = await loginUserAPI(loginData);
     commit('setUserToken', data.data.token);
     commit('setUser', data.data);
   },
-  SOCIAL_LOGIN(_, userId) {
-    // 에러처리 : utils/social/index.js
-    return socialLoginAPI(userId);
-  },
-  async LOGOUT({ commit }) {
-    try {
-      await logoutUserAPI();
-      commit('logout');
-    } catch (error) {
-      console.log(error);
-      alert('로그아웃 실패');
-    }
-  },
-  SIGNUP(_, userData) {
-    // 에러처리 SignupForm.vue
-    return signupAPI(userData);
-  },
-  VALID_ID(_, userId) {
-    // 에러처리 : SignupForm.vue
-    return validIdAPI(userId);
+  LOGOUT({ commit }) {
+    logoutUserAPI();
+    commit('logout');
   },
 
   // user
-  READ_IS_INVITE_USER_FOR_INVITE_MODAL(_, userId) {
-    // 에러처리 :InviteModal.vue
-    return readIsInviteUserForModalAPI(userId);
-  },
-  READ_INVITED_USER_FOR_BOARD_PAGE(_, userList) {
-    // 에러처리 BoardHeader.vue
-    return readInvitedUserForBoardPageAPI(userList);
-  },
-  async SIGNOUT({ commit }, password) {
-    try {
-      await signoutAPI(password);
-      commit('logout');
-    } catch (error) {
-      alert('회원이 탈퇴되지 않았습니다.');
-      console.log(error);
-    }
+  SIGNOUT({ commit }, password) {
+    signoutAPI(password);
+    commit('logout');
   },
   async READ_USER({ commit }, userId) {
-    try {
-      const { data } = await readUserAPI(userId);
-      commit('setUser', data.data);
-    } catch (error) {
-      console.log(error);
-      alert('유저 정보를 읽어오지 못했습니다.');
-    }
-  },
-  async UPDATE_USER({ dispatch, state }, updateUserInfo) {
-    try {
-      await updateUserAPI(updateUserInfo);
-      dispatch('READ_USER', state.user.id);
-    } catch (error) {
-      console.log(error);
-      alert('유저정보 수정 실패');
-    }
+    const { data } = await readUserAPI(userId);
+    commit('setUser', data.data);
   },
 
   // board
@@ -153,7 +90,6 @@ const actions = {
   async CREATE_BOARD(_, createBoardInfo) {
     try {
       const { data } = await createBoardAPI(createBoardInfo);
-      console.log(1);
       return data;
     } catch (error) {
       console.log(error);
@@ -180,15 +116,6 @@ const actions = {
     } catch (error) {
       console.log(error);
       alert('보드 정보를 업데이트 하지 못했습니다.');
-    }
-  },
-  async READ_BOARD_FOR_ACCEPT_MESSAGE(_, boardId) {
-    try {
-      const { data } = await readBoardForAcceptMessageAPI(boardId);
-      return data;
-    } catch (error) {
-      console.log(error);
-      alert('보드 정보를 가져오지 못했습니다.');
     }
   },
 
@@ -323,24 +250,6 @@ const actions = {
       } else {
         bus.$emit('end:spinner');
         alert('파일 업로드가 실패했습니다.');
-      }
-    } catch (error) {
-      console.log(error);
-      bus.$emit('end:spinner');
-      alert('알 수 없는 오류가 발생했습니다.');
-    }
-  },
-  async UPLOAD_IMAGE({ dispatch, state }, imageData) {
-    try {
-      const { data } = await uploadImageAPI(imageData);
-      if (data !== 'FAIL') {
-        setTimeout(() => {
-          bus.$emit('end:spinner');
-          dispatch('READ_USER', state.user.id);
-        }, 1500);
-      } else {
-        bus.$emit('end:spinner');
-        alert('사진 업로드가 실패했습니다.');
       }
     } catch (error) {
       console.log(error);

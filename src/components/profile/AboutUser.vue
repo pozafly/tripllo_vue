@@ -62,6 +62,9 @@
 <script>
 import AboutUserSignout from '@/components/profile/AboutUserSignout.vue';
 import bus from '@/utils/bus.js';
+import { updateUserAPI } from '@/api/user';
+import { uploadImageAPI } from '@/api/upload';
+
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -90,7 +93,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['UPDATE_USER', 'UPLOAD_IMAGE']),
+    ...mapActions(['READ_USER']),
 
     setUser() {
       this.userData.id = this.user.id !== 'null' ? this.user.id : '';
@@ -102,20 +105,39 @@ export default {
 
     async updateUser() {
       try {
-        await this.UPDATE_USER(this.userData);
+        await updateUserAPI(this.userData);
         alert('회원정보 수정 완료');
+        await this.READ_USER(this.user.id);
       } catch (error) {
         alert('회원정보 수정 실패');
       }
     },
 
-    uploadFile() {
+    async uploadFile() {
+      bus.$emit('start:spinner');
+
       const file = this.$refs.file.files[0];
       const imageData = new FormData();
       imageData.append('data', file);
 
-      bus.$emit('start:spinner');
-      this.UPLOAD_IMAGE(imageData);
+      try {
+        const { data } = await uploadImageAPI(imageData);
+        if (data !== 'FAIL') {
+          setTimeout(() => {
+            this.READ_USER(this.user.id);
+          }, 1500);
+          return;
+        } else {
+          alert('사진 업로드가 실패했습니다.');
+        }
+      } catch (error) {
+        console.log(error);
+        alert('사진 업로드가 실패했습니다.');
+      } finally {
+        setTimeout(() => {
+          bus.$emit('end:spinner');
+        }, 1500);
+      }
     },
   },
 };

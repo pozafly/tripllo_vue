@@ -111,11 +111,16 @@ export default {
         return;
       }
 
-      await this.SIGNOUT(this.password);
-      this.password = '';
-      this.isDelete = false;
-      alert('회원 탈퇴 완료');
-      this.$router.push(`/auth`);
+      try {
+        await this.SIGNOUT(this.password);
+        this.password = '';
+        this.isDelete = false;
+        alert('회원 탈퇴 완료');
+        this.$router.push(`/auth`);
+      } catch (error) {
+        alert('회원이 탈퇴되지 않았습니다.');
+        console.log(error);
+      }
     },
 
     validId({ target }) {

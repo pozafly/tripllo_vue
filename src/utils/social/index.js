@@ -1,9 +1,10 @@
 import store from '@/store';
 import router from '@/routes';
+import { socialLoginAPI, validIdAPI, signupAPI } from '@/api/auth';
 
 const socialLogin = async (req, isSignup) => {
   try {
-    const { data } = await store.dispatch('SOCIAL_LOGIN', req.id);
+    const { data } = await socialLoginAPI(req.id);
     store.commit('setUserToken', data.data.token);
     store.commit('setUser', data.data);
 
@@ -15,7 +16,7 @@ const socialLogin = async (req, isSignup) => {
   } catch (error) {
     console.log(error);
 
-    const { data } = await store.dispatch('VALID_ID', req.id);
+    const { data } = await validIdAPI(req.id);
     if (data.status === 'OK') {
       const confirmYn = confirm(
         '아직 가입되지 않은 회원입니다. \n회원가입 화면으로 이동하시겠습니까?',
@@ -29,8 +30,8 @@ const socialLogin = async (req, isSignup) => {
 
 const socialSignup = async req => {
   try {
-    await store.dispatch('VALID_ID', req.id);
-    await store.dispatch('SIGNUP', req);
+    await validIdAPI(req.id);
+    await signupAPI(req);
 
     socialLogin(req, 'afterSignup');
   } catch (error) {

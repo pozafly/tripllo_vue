@@ -37,9 +37,14 @@ export default {
   methods: {
     ...mapActions(['LOGOUT']),
 
-    logoutUser() {
-      this.LOGOUT();
-      this.$router.push('/auth/login');
+    async logoutUser() {
+      try {
+        this.LOGOUT();
+        this.$router.push('/auth/login');
+      } catch (error) {
+        console.log(error);
+        alert('로그아웃 되지 않았습니다.');
+      }
     },
   },
 };
