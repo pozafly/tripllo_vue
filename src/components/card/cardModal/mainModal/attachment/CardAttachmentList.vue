@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { deleteFileAPI } from '@/api/upload';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -61,12 +62,11 @@ export default {
   },
 
   computed: {
-    ...mapState(['board', 'user']),
+    ...mapState(['board', 'user', 'card']),
   },
 
   methods: {
-    ...mapActions(['DELETE_FILE']),
-
+    ...mapActions(['READ_FILE', 'READ_BOARD_DETAIL']),
     download(e) {
       if (!this.permission()) {
         alert('권한이 없습니다.');
@@ -83,7 +83,7 @@ export default {
       }
     },
 
-    deleteFile() {
+    async deleteFile() {
       if (!this.permission()) {
         alert('권한이 없습니다.');
         return;
@@ -92,7 +92,14 @@ export default {
         `${this.fileName} 파일을 삭제하시겠습니까?`,
       );
       if (deleteFile) {
-        this.DELETE_FILE(this.id);
+        try {
+          await deleteFileAPI(this.id);
+          this.READ_FILE(this.card.id);
+          this.READ_BOARD_DETAIL(this.board.id);
+        } catch (error) {
+          console.log(error);
+          alert('파일을 삭제하는데 실패했습니다.');
+        }
       }
     },
 

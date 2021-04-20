@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { createLikeAPI, deleteLikeAPI } from '@/api/like';
+import { getSessionStorage } from '@/utils/webStorage';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -65,8 +67,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['CREATE_LIKE', 'DELETE_LIKE']),
-
+    ...mapActions(['READ_PERSONAL_BOARD_LIMIT_COUNT']),
     setboardItemTheme() {
       this.$refs.boardItem.style.backgroundColor = this.board.bgColor;
     },
@@ -79,11 +80,36 @@ export default {
         this.board.ownLike = this.board.ownLike + 1;
         this.board.likeCount = likeCount + 1;
         const likeInfo = { boardId, likeCount: this.board.likeCount };
-        this.CREATE_LIKE(likeInfo);
+        this.createLike(likeInfo);
       } else {
         this.board.ownLike = this.board.ownLike - 1;
         this.board.likeCount = likeCount - 1;
-        this.DELETE_LIKE({ boardId, likeCount: this.board.likeCount });
+        const deleteInfo = { boardId, likeCount: this.board.likeCount };
+        this.deleteLike(deleteInfo);
+      }
+    },
+
+    async createLike(likeInfo) {
+      try {
+        await createLikeAPI(likeInfo);
+        if (getSessionStorage('mainTabId') === 0) {
+          this.READ_PERSONAL_BOARD_LIMIT_COUNT(this.personalBoard.length);
+        }
+      } catch (error) {
+        console.log(error);
+        alert('좋아요를 생성하지 못했습니다.');
+      }
+    },
+
+    async deleteLike(deleteInfo) {
+      try {
+        await deleteLikeAPI(deleteInfo);
+        if (getSessionStorage('mainTabId') === 0) {
+          this.READ_PERSONAL_BOARD_LIMIT_COUNT(this.personalBoard.length);
+        }
+      } catch (error) {
+        console.log(error);
+        alert('좋아요를 삭제하지 못했습니다.');
       }
     },
 

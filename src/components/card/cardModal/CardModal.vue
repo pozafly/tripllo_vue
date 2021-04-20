@@ -92,14 +92,28 @@ export default {
 
   created() {
     this.readCardInfo();
+    this.readFileInfo();
   },
 
   methods: {
     ...mapActions(['READ_CARD', 'UPDATE_CARD', 'READ_FILE']),
 
     async readCardInfo() {
-      await this.READ_CARD({ id: this.$route.params.cardId });
-      await this.READ_FILE(this.card.id);
+      try {
+        await this.READ_CARD({ id: this.$route.params.cardId });
+      } catch (error) {
+        console.log(error);
+        alert('카드 정보를 읽어오지 못했습니다.');
+      }
+    },
+
+    async readFileInfo() {
+      try {
+        await this.READ_FILE(this.card.id);
+      } catch (error) {
+        console.log(error);
+        alert('파일을 읽어오지 못했습니다.');
+      }
     },
 
     onEditTitle() {

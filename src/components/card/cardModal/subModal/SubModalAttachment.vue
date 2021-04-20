@@ -16,16 +16,16 @@
 
 <script>
 import bus from '@/utils/bus';
+import { uploadFileAPI } from '@/api/upload';
 import { mapActions, mapState } from 'vuex';
 
 export default {
   computed: {
-    ...mapState(['card', 'file']),
+    ...mapState(['card', 'file', 'board']),
   },
 
   methods: {
-    ...mapActions(['UPLOAD']),
-
+    ...mapActions(['READ_FILE', 'READ_BOARD_DETAIL']),
     uploadFile() {
       const file = this.$refs.fileInput.files[0];
       const fileData = new FormData();
@@ -53,8 +53,29 @@ export default {
       fileData.append('cardId', this.card.id);
 
       bus.$emit('start:spinner');
-      this.UPLOAD(fileData);
+      this.uploadApi(fileData);
       this.$emit('close');
+    },
+
+    async uploadApi(formData) {
+      try {
+        const { data } = await uploadFileAPI(formData);
+        if (data !== 'FAIL') {
+          setTimeout(() => {
+            this.READ_FILE(this.card.id);
+            this.READ_BOARD_DETAIL(this.board.id);
+          }, 1500);
+        } else {
+          alert('파일 업로드가 실패했습니다.');
+        }
+      } catch (error) {
+        console.log(error);
+        alert('알 수 없는 오류가 발생했습니다.');
+      } finally {
+        setTimeout(() => {
+          bus.$emit('end:spinner');
+        }, 1500);
+      }
     },
   },
 };

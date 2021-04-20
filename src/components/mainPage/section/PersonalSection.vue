@@ -43,6 +43,7 @@
 <script>
 import BoardItem from '@/components/board/BoardItem.vue';
 import AddBoardModal from '@/components/board/addBoard/AddBoardModal.vue';
+import { readPersonalBoardAPI } from '@/api/board';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
 export default {
@@ -72,7 +73,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['READ_PERSONAL_BOARD', 'READ_RECENT_BOARD']),
+    ...mapActions(['READ_RECENT_BOARD']),
     ...mapMutations(['resetPersonalBoard', 'pushPersonalBoard']),
 
     showAddBoard() {
@@ -87,7 +88,7 @@ export default {
 
     async infiniteHandler($state) {
       try {
-        const { data } = await this.READ_PERSONAL_BOARD(this.lastCreatedAt);
+        const { data } = await readPersonalBoardAPI(this.lastCreatedAt);
         if (data.data === null) {
           this.isInfinity = false;
           $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.

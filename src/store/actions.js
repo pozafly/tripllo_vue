@@ -1,6 +1,5 @@
 import { loginUserAPI, logoutUserAPI } from '@/api/auth';
 import {
-  readPersonalBoardAPI,
   readPersonalBoardLimitCountAPI,
   readRecentBoardAPI,
   readBoardDetailAPI,
@@ -19,13 +18,10 @@ import {
   updatePushMessageAPI,
   deletePushMessageAPI,
 } from '@/api/pushMessage';
-import { readFileAPI, uploadFileAPI, deleteFileAPI } from '@/api/upload';
-import { createLikeAPI, deleteLikeAPI } from '@/api/like';
+import { readFileAPI } from '@/api/upload';
 import { signoutAPI, readUserAPI } from '@/api/user';
 
 import router from '@/routes';
-import bus from '@/utils/bus';
-import { getSessionStorage } from '@/utils/webStorage';
 
 const actions = {
   // auth
@@ -50,12 +46,9 @@ const actions = {
   },
 
   // board
-  READ_PERSONAL_BOARD(_, lastCreatedAt) {
-    // 에러처리 : PersonalSection.vue
-    return readPersonalBoardAPI(lastCreatedAt);
-  },
-  // personal 탭에서 Recently Viewed와 My Boards의
-  // 좋아요 표시 연동 때문에 READ_PERSONAL_BOARD_LIMIT_COUNT 액션이 필요함.
+
+  /* personal 탭에서 Recently Viewed와 My Boards의
+     좋아요 표시 연동 때문에 READ_PERSONAL_BOARD_LIMIT_COUNT 액션이 필요함. */
   async READ_PERSONAL_BOARD_LIMIT_COUNT({ commit, dispatch, state }, count) {
     try {
       const { data } = await readPersonalBoardLimitCountAPI(count);
@@ -229,67 +222,9 @@ const actions = {
   },
 
   // upload
-  async READ_FILE({ commit, state, dispatch }, cardId) {
-    try {
-      const { data } = await readFileAPI(cardId);
-      commit('setFile', data.data);
-      dispatch('READ_BOARD_DETAIL', state.board.id);
-    } catch (error) {
-      console.log(error);
-      alert('파일을 읽어오지 못했습니다.');
-    }
-  },
-  async UPLOAD({ dispatch, state }, formData) {
-    try {
-      const { data } = await uploadFileAPI(formData);
-      if (data !== 'FAIL') {
-        setTimeout(() => {
-          bus.$emit('end:spinner');
-          dispatch('READ_FILE', state.card.id);
-        }, 1500);
-      } else {
-        bus.$emit('end:spinner');
-        alert('파일 업로드가 실패했습니다.');
-      }
-    } catch (error) {
-      console.log(error);
-      bus.$emit('end:spinner');
-      alert('알 수 없는 오류가 발생했습니다.');
-    }
-  },
-  async DELETE_FILE({ dispatch, state }, fileId) {
-    try {
-      await deleteFileAPI(fileId);
-      dispatch('READ_FILE', state.card.id);
-      dispatch('READ_BOARD_DETAIL', state.board.id);
-    } catch (error) {
-      console.log(error);
-      alert('파일을 삭제하는데 실패했습니다.');
-    }
-  },
-
-  // like
-  async CREATE_LIKE({ dispatch, state }, likeInfo) {
-    try {
-      await createLikeAPI(likeInfo);
-      if (getSessionStorage('mainTabId') === 0) {
-        dispatch('READ_PERSONAL_BOARD_LIMIT_COUNT', state.personalBoard.length);
-      }
-    } catch (error) {
-      console.log(error);
-      alert('좋아요를 추가하는데 실패했습니다.');
-    }
-  },
-  async DELETE_LIKE({ dispatch, state }, { boardId, likeCount }) {
-    try {
-      await deleteLikeAPI({ boardId, likeCount });
-      if (getSessionStorage('mainTabId') === 0) {
-        dispatch('READ_PERSONAL_BOARD_LIMIT_COUNT', state.personalBoard.length);
-      }
-    } catch (error) {
-      console.log(error);
-      alert('좋아요를 삭제하는데 실패했습니다.');
-    }
+  async READ_FILE({ commit }, cardId) {
+    const { data } = await readFileAPI(cardId);
+    commit('setFile', data.data);
   },
 };
 
