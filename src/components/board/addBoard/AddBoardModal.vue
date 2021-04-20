@@ -187,7 +187,7 @@ export default {
         title: '보드 생성 성공!',
         text: `'${this.title}' 보드가 만들어졌습니다.`,
       });
-      await this.$router.push(`/board/${data.data.id}`);
+      this.$router.push(`/board/${data.id}`);
     },
 
     pushHash() {

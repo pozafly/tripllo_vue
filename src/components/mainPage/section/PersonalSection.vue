@@ -85,27 +85,26 @@ export default {
       }
     },
 
-    infiniteHandler($state) {
-      this.READ_PERSONAL_BOARD(this.lastCreatedAt)
-        .then(({ data }) => {
-          if (data.data === null) {
-            this.isInfinity = false;
-            $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
-          } else {
-            this.pushPersonalBoard(data.data);
+    async infiniteHandler($state) {
+      try {
+        const { data } = await this.READ_PERSONAL_BOARD(this.lastCreatedAt);
+        if (data.data === null) {
+          this.isInfinity = false;
+          $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
+        } else {
+          this.pushPersonalBoard(data.data);
 
-            setTimeout(() => {
-              const boardItem = data.data;
-              const lastCreatedAt = boardItem[boardItem.length - 1].createdAt;
-              this.lastCreatedAt = lastCreatedAt;
-              $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
-            }, 1000);
-          }
-        })
-        .catch(error => {
-          console.log(error);
-          alert('Personal 보드를 가져오지 못했습니다.');
-        });
+          setTimeout(() => {
+            const boardItem = data.data;
+            const lastCreatedAt = boardItem[boardItem.length - 1].createdAt;
+            this.lastCreatedAt = lastCreatedAt;
+            $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
+          }, 1000);
+        }
+      } catch (error) {
+        console.log(error);
+        alert('Personal 보드를 가져오지 못했습니다.');
+      }
     },
   },
 };

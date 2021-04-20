@@ -48,7 +48,7 @@ const socialLoginAPI = userId => instance.get(`login/social/${userId}`);
 
 /**
  * 로그아웃
- * @returns {Promise}
+ * @returns {Promise<string>} statusCode - 상태코드
  */
 const logoutUserAPI = () => instance.get('logout');
 

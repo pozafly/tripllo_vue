@@ -60,8 +60,9 @@
 </template>
 
 <script>
-import { mapMutations, mapActions, mapState } from 'vuex';
+import { deleteBoardAPI } from '@/api/board';
 import BoardMenuColorPicker from '@/components/board/boardHeader/boardMenu/BoardMenuColorPicker.vue';
+import { mapMutations, mapActions, mapState } from 'vuex';
 
 export default {
   components: {
@@ -94,16 +95,18 @@ export default {
 
   methods: {
     ...mapMutations(['setTheme']),
-    ...mapActions(['DELETE_BOARD', 'UPDATE_BOARD']),
+    ...mapActions(['UPDATE_BOARD']),
     setColor() {},
     onClose() {
       this.$emit('close');
     },
-    onDeleteBoard() {
+    async onDeleteBoard() {
       if (!window.confirm(`Delete ${this.board.title} Board?`)) {
         return;
       }
-      this.DELETE_BOARD({ id: this.board.id }).then(() => {
+
+      try {
+        await deleteBoardAPI(this.board.id);
         this.$notify({
           group: 'custom-template',
           duration: 5000,
@@ -112,7 +115,10 @@ export default {
           text: `'${this.board.title}' 보드가 삭제되었습니다.`,
         });
         this.$router.push('/main');
-      });
+      } catch (error) {
+        console.log(error);
+        alert('해당 Board를 삭제하지 못했습니다.');
+      }
     },
     onChangeTheme(color) {
       const id = this.board.id;

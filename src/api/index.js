@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setInterceptors } from './common/interceptors';
+import { setInterceptors } from '@/api/common/interceptors';
 
 const environmentURL =
   process.env.NODE_ENV === 'production' ? process.env.VUE_APP_API_URL : '';

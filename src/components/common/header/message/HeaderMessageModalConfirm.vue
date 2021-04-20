@@ -88,7 +88,7 @@ export default {
     },
 
     async acceptMessage() {
-      const { data } = await this.READ_BOARD_FOR_ACCEPT_MESSAGE(this.boardId);
+      const data = await this.READ_BOARD_FOR_ACCEPT_MESSAGE(this.boardId);
       const preInviteUser = data.data.invitedUser;
 
       let invitedUser = [];

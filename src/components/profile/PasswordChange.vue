@@ -32,7 +32,8 @@
 <script>
 import bus from '@/utils/bus.js';
 import { validatePw } from '@/utils/validation';
-import { mapActions, mapState } from 'vuex';
+import { mapState } from 'vuex';
+import { changePasswordAPI } from '@/api/user';
 
 export default {
   data() {
@@ -48,9 +49,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['CHANGE_PASSWORD']),
-
-    change() {
+    async change() {
       bus.$emit('start:spinner');
 
       if (!this.validate()) {
@@ -61,18 +60,19 @@ export default {
         currentPw: this.currentPw,
         newPw: this.newPw,
       };
-      this.CHANGE_PASSWORD(changePasswordInfo)
-        .then(() => {
-          alert('비밀번호 변경 완료');
-        })
-        .catch(({ response }) => {
-          if (response.status === 404) {
-            alert(response.data.message);
-          } else {
-            alert('비밀번호 수정 실패');
-          }
-        })
-        .finally(() => bus.$emit('end:spinner'));
+
+      try {
+        await changePasswordAPI(changePasswordInfo);
+        alert('비밀번호 변경 완료');
+      } catch ({ response }) {
+        if (response.status === 404) {
+          alert(response.data.message);
+        } else {
+          alert('비밀번호 수정 실패');
+        }
+      } finally {
+        bus.$emit('end:spinner');
+      }
     },
 
     validate() {
