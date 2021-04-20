@@ -68,19 +68,19 @@ export default {
     async submitForm() {
       bus.$emit('start:spinner');
       const { id, email } = this.userData;
-      sendEmailAPI({
-        userId: id,
-        userEmail: email,
-      })
-        .then(data => {
-          bus.$emit('end:spinner');
-          alert(data.data.message);
-          this.$router.push({ name: 'login', params: { id } });
-        })
-        .catch(({ response }) => {
-          bus.$emit('end:spinner');
-          alert(response.data.message);
+
+      try {
+        const data = await sendEmailAPI({
+          userId: id,
+          userEmail: email,
         });
+        bus.$emit('end:spinner');
+        alert(data.data.message);
+        this.$router.push({ name: 'login', params: { id } });
+      } catch ({ response }) {
+        bus.$emit('end:spinner');
+        alert(response.data.message);
+      }
     },
   },
 };

@@ -39,15 +39,14 @@ export default {
   },
 
   methods: {
-    readChecklist(cardId) {
-      readChecklistAPI(cardId)
-        .then(({ data }) => {
-          this.checklists = data.data;
-        })
-        .catch(error => {
-          console.log(error);
-          alert('체크리스트를 정보를 가져오지 못했습니다.');
-        });
+    async readChecklist(cardId) {
+      try {
+        const { data } = await readChecklistAPI(cardId);
+        this.checklists = data.data;
+      } catch (error) {
+        console.log(error);
+        alert('체크리스트를 정보를 가져오지 못했습니다.');
+      }
     },
 
     busListener() {

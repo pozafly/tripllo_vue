@@ -71,10 +71,16 @@ export default {
         version: 'weekly',
         libraries: ['places'],
       });
-      loader.load().then(() => {
-        this.mapDraw();
-        this.searchControl();
-      });
+      loader
+        .load()
+        .then(() => {
+          this.mapDraw();
+          this.searchControl();
+        })
+        .catch(error => {
+          console.log(error);
+          alert('구글맵 서버와의 연동에 실패했습니다.');
+        });
     },
 
     mapDraw() {

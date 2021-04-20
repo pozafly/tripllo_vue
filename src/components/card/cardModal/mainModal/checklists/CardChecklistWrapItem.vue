@@ -102,26 +102,24 @@ export default {
       this.updateChecklistItem({ item: this.inputItem });
     },
 
-    updateChecklistItem({ isChecked, item }) {
-      updateChecklistItemAPI(this.id, { isChecked, item })
-        .then(() => {
-          bus.$emit('readChecklist', this.card.id);
-        })
-        .catch(error => {
-          console.log(error);
-          alert('체크리스트 아이템을 수정하지 못했습니다.');
-        });
+    async updateChecklistItem({ isChecked, item }) {
+      try {
+        await updateChecklistItemAPI(this.id, { isChecked, item });
+        bus.$emit('readChecklist', this.card.id);
+      } catch (error) {
+        console.log(error);
+        alert('체크리스트 아이템을 수정하지 못했습니다.');
+      }
     },
 
-    onDeleteItem() {
-      deleteChecklistItemAPI(this.id)
-        .then(() => {
-          bus.$emit('readChecklist', this.card.id);
-        })
-        .catch(error => {
-          console.log(error);
-          alert('체크리스트 아이템을 삭제하지 못했습니다.');
-        });
+    async onDeleteItem() {
+      try {
+        await deleteChecklistItemAPI(this.id);
+        bus.$emit('readChecklist', this.card.id);
+      } catch (error) {
+        console.log(error);
+        alert('체크리스트 아이템을 삭제하지 못했습니다.');
+      }
     },
 
     onEditItem() {

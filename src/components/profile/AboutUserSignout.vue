@@ -106,23 +106,16 @@ export default {
       this.isDelete = false;
     },
 
-    deleteUser() {
+    async deleteUser() {
       if (this.password === '') {
         return;
       }
 
-      this.SIGNOUT(this.password)
-        .then(() => {
-          this.password = '';
-          this.isDelete = false;
-          alert('회원 탈퇴 완료');
-          this.$router.push(`/auth`);
-        })
-        .catch(({ response }) => {
-          if (response.data.status === 'BAD_REQUEST') {
-            alert(response.data.message);
-          }
-        });
+      await this.SIGNOUT(this.password);
+      this.password = '';
+      this.isDelete = false;
+      alert('회원 탈퇴 완료');
+      this.$router.push(`/auth`);
     },
 
     validId({ target }) {

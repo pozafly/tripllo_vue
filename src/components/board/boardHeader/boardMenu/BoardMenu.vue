@@ -96,10 +96,11 @@ export default {
   methods: {
     ...mapMutations(['setTheme']),
     ...mapActions(['UPDATE_BOARD']),
-    setColor() {},
+
     onClose() {
       this.$emit('close');
     },
+
     async onDeleteBoard() {
       if (!window.confirm(`Delete ${this.board.title} Board?`)) {
         return;
@@ -120,11 +121,19 @@ export default {
         alert('해당 Board를 삭제하지 못했습니다.');
       }
     },
-    onChangeTheme(color) {
+
+    async onChangeTheme(color) {
       const id = this.board.id;
       const bgColor = color;
-      this.UPDATE_BOARD({ id, bgColor }).then(() => this.setTheme(bgColor));
+
+      try {
+        const { data } = await this.UPDATE_BOARD({ id, bgColor });
+        this.setTheme(data.bgColor);
+      } catch (error) {
+        console.log(error);
+      }
     },
+
     setStyle() {
       // icon image setting
       if (

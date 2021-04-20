@@ -106,19 +106,18 @@ export default {
   methods: {
     ...mapActions(['READ_BOARD_DETAIL']),
 
-    readComment() {
-      readCommentAPI(this.cardId)
-        .then(({ data }) => {
-          this.comment = data.data;
-          this.READ_BOARD_DETAIL(this.board.id);
-        })
-        .catch(error => {
-          console.log(error);
-          alert('코멘트를 읽어오지 못했습니다.');
-        });
+    async readComment() {
+      try {
+        const { data } = await readCommentAPI(this.cardId);
+        this.comment = data.data;
+        this.READ_BOARD_DETAIL(this.board.id);
+      } catch (error) {
+        console.log(error);
+        alert('코멘트를 읽어오지 못했습니다.');
+      }
     },
 
-    onSubmitComment({ relatedTarget }) {
+    async onSubmitComment({ relatedTarget }) {
       this.isComment = false;
       // body를 눌렀을 때, 이벤트 타겟이 null로 나오므로 그냥 통과(저장된단 말임.)
       if (relatedTarget) {
@@ -132,15 +131,17 @@ export default {
 
       const cardId = this.cardId;
       const comment = this.commentText;
-      createCommentAPI({ cardId, comment })
-        .then(() => {
-          this.readComment();
-          this.READ_BOARD_DETAIL(this.board.id);
-        })
-        .catch(error => {
-          console.log(error);
-          alert('코멘트를 생성하지 못했습니다.');
-        });
+
+      try {
+        await createCommentAPI({ cardId, comment });
+
+        this.readComment();
+        this.READ_BOARD_DETAIL(this.board.id);
+      } catch (error) {
+        console.log(error);
+        alert('코멘트를 생성하지 못했습니다.');
+      }
+
       this.commentText = '';
       this.scrollAction();
     },

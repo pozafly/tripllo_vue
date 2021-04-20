@@ -36,16 +36,25 @@ export default {
   methods: {
     ...mapActions(['UPDATE_BOARD']),
     ...mapMutations(['setTheme']),
+
     updateValue(e) {
       const rgba = e.rgba;
       const color = `rgba(${rgba.r}, ${rgba.g}, ${rgba.b}, ${rgba.a})`;
       this.selectColor = color;
     },
-    onSelect() {
+
+    async onSelect() {
       const id = this.board.id;
       const bgColor = this.selectColor;
-      this.UPDATE_BOARD({ id, bgColor }).then(() => this.setTheme(bgColor));
+
+      try {
+        const { data } = await this.UPDATE_BOARD({ id, bgColor });
+        this.setTheme(data.bgColor);
+      } catch (error) {
+        console.log(error);
+      }
     },
+
     onCancel() {
       this.$emit('cancel');
     },

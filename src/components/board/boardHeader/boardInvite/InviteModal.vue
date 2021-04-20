@@ -57,6 +57,9 @@ export default {
         this.memberList = [];
       } else {
         this.READ_IS_INVITE_USER_FOR_INVITE_MODAL(id)
+          .then(({ data }) => {
+            this.memberList = data.data;
+          })
           .catch(({ response }) => {
             if (response.status === 404) {
               this.errorMessage = '해당 유저가 없습니다.';
@@ -64,9 +67,6 @@ export default {
             } else {
               alert('알 수 없는 오류 발생');
             }
-          })
-          .then(({ data }) => {
-            this.memberList = data.data;
           });
       }
     }, 750),

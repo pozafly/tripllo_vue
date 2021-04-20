@@ -100,10 +100,13 @@ export default {
       this.userData.picture = this.user.picture;
     },
 
-    updateUser() {
-      this.UPDATE_USER(this.userData).then(() => {
+    async updateUser() {
+      try {
+        await this.UPDATE_USER(this.userData);
         alert('회원정보 수정 완료');
-      });
+      } catch (error) {
+        alert('회원정보 수정 실패');
+      }
     },
 
     uploadFile() {

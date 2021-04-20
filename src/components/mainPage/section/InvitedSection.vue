@@ -43,18 +43,20 @@ export default {
   },
 
   methods: {
-    getInvitedBoard() {
+    async getInvitedBoard() {
       if (!this.user.invitedBoard) {
         return;
       }
-      readInvitedBoardAPI(JSON.parse(this.user.invitedBoard))
-        .then(({ data }) => {
-          this.invitedBoard = data.data;
-        })
-        .catch(error => {
-          console.log(error);
-          alert('초대된 Board 목록을 가져오지 못했습니다.');
-        });
+
+      try {
+        const { data } = await readInvitedBoardAPI(
+          JSON.parse(this.user.invitedBoard),
+        );
+        this.invitedBoard = data.data;
+      } catch (error) {
+        console.log(error);
+        alert('초대된 Board 목록을 가져오지 못했습니다.');
+      }
     },
   },
 };

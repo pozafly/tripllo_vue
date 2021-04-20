@@ -81,14 +81,17 @@ const actions = {
     return readIsInviteUserForModalAPI(userId);
   },
   READ_INVITED_USER_FOR_BOARD_PAGE(_, userList) {
-    // 에러처리 BoardPage.vue
+    // 에러처리 BoardHeader.vue
     return readInvitedUserForBoardPageAPI(userList);
   },
-  SIGNOUT({ commit }, password) {
-    // 에러처리 : SignoutUser.vue
-    return signoutAPI(password).then(() => {
+  async SIGNOUT({ commit }, password) {
+    try {
+      await signoutAPI(password);
       commit('logout');
-    });
+    } catch (error) {
+      alert('회원이 탈퇴되지 않았습니다.');
+      console.log(error);
+    }
   },
   async READ_USER({ commit }, userId) {
     try {

@@ -42,16 +42,19 @@ export default {
       this.createChecklist();
     },
 
-    createChecklist() {
-      createChecklistAPI({ title: this.inputTitle, cardId: this.card.id })
-        .then(() => {
-          bus.$emit('readChecklist', this.card.id);
-          this.READ_BOARD_DETAIL(this.board.id);
-        })
-        .catch(error => {
-          console.log(error);
-          alert('체크리스트를 생성하지 못했습니다.');
+    async createChecklist() {
+      try {
+        await createChecklistAPI({
+          title: this.inputTitle,
+          cardId: this.card.id,
         });
+
+        bus.$emit('readChecklist', this.card.id);
+        this.READ_BOARD_DETAIL(this.board.id);
+      } catch (error) {
+        console.log(error);
+        alert('체크리스트를 생성하지 못했습니다.');
+      }
     },
   },
 };

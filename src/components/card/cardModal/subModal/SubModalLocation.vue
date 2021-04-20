@@ -38,16 +38,21 @@ export default {
       // loadScript는 컴포넌트 단위로 외부 script 태그를 삽입해줌.
       this.$loadScript(
         `https://maps.googleapis.com/maps/api/js?key=${process.env.VUE_APP_GOOGLE_MAP_API_KEY}&libraries=places`,
-      ).then(() => {
-        this.autocomplete = new google.maps.places.Autocomplete(
-          this.$refs.searchMap,
-          {
-            // geocode: 단순 주소    ||    establishment : 지역정보 서비스(업체)
-            types: ['geocode', 'establishment'],
-          },
-        );
-        this.autocomplete.addListener('place_changed', this.fillInAddress);
-      });
+      )
+        .then(() => {
+          this.autocomplete = new google.maps.places.Autocomplete(
+            this.$refs.searchMap,
+            {
+              // geocode: 단순 주소    ||    establishment : 지역정보 서비스(업체)
+              types: ['geocode', 'establishment'],
+            },
+          );
+          this.autocomplete.addListener('place_changed', this.fillInAddress);
+        })
+        .catch(error => {
+          console.log(error);
+          alert('구글맵 서버와의 연동에 실패했습니다.');
+        });
     },
 
     fillInAddress() {

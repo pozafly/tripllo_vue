@@ -157,43 +157,40 @@ export default {
       this.inputTitle = this.title;
     },
 
-    deleteChecklist() {
-      deleteChecklistAPI({
-        checklistId: this.id,
-        cardId: this.cardId,
-      })
-        .then(() => {
-          this.readChecklist(this.cardId);
-        })
-        .catch(error => {
-          console.log(error);
-          alert('체크리스트를 삭제하지 못했습니다.');
+    async deleteChecklist() {
+      try {
+        await deleteChecklistAPI({
+          checklistId: this.id,
+          cardId: this.cardId,
         });
+        this.readChecklist(this.cardId);
+      } catch (error) {
+        console.log(error);
+        alert('체크리스트를 삭제하지 못했습니다.');
+      }
     },
 
-    updateChecklist() {
-      updateChecklistAPI(this.id, { title: this.inputTitle })
-        .then(() => {
-          this.readChecklist(this.cardId);
-        })
-        .catch(error => {
-          console.log(error);
-          alert('체크리스트를 업데이트 하지 못했습니다.');
-        });
+    async updateChecklist() {
+      try {
+        await updateChecklistAPI(this.id, { title: this.inputTitle });
+        this.readChecklist(this.cardId);
+      } catch (error) {
+        console.log(error);
+        alert('체크리스트를 업데이트 하지 못했습니다.');
+      }
     },
 
-    createChecklistItem() {
-      createChecklistItemAPI({
-        checklistId: this.id,
-        item: this.inputItem,
-      })
-        .then(() => {
-          this.readChecklist(this.cardId);
-        })
-        .catch(error => {
-          console.log(error);
-          alert('체크리스트 아이템을 생성하지 못했습니다.');
+    async createChecklistItem() {
+      try {
+        await createChecklistItemAPI({
+          checklistId: this.id,
+          item: this.inputItem,
         });
+        this.readChecklist(this.cardId);
+      } catch (error) {
+        console.log(error);
+        alert('체크리스트 아이템을 생성하지 못했습니다.');
+      }
     },
 
     onSubmitTitle({ relatedTarget }) {

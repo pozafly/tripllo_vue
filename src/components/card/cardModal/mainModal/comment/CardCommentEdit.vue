@@ -129,23 +129,23 @@ export default {
   },
 
   methods: {
-    deleteComment() {
+    async deleteComment() {
       this.isDelete = false;
-      deleteCommentAPI(this.id)
-        .then(() => {
-          this.readComment();
-        })
-        .catch(error => {
-          console.log(error);
-          alert('코멘트를 삭제하지 못했습니다.');
-        });
+
+      try {
+        await deleteCommentAPI(this.id);
+        this.readComment();
+      } catch (error) {
+        console.log(error);
+        alert('코멘트를 삭제하지 못했습니다.');
+      }
     },
 
     onKeyupEnter(event) {
       event.target.blur();
     },
 
-    onSubmitComment() {
+    async onSubmitComment() {
       this.isEditComment = false;
       if (this.commentText === this.comment || this.commentText === '') {
         return;
@@ -153,17 +153,17 @@ export default {
 
       const id = this.id;
       const comment = this.commentText;
-      updateCommentAPI({ id, comment })
-        .then(() => {
-          this.readComment();
-        })
-        .catch(error => {
-          console.log(error);
-          alert('코멘트를 수정하지 못했습니다.');
-        });
+
+      try {
+        await updateCommentAPI({ id, comment });
+        this.readComment();
+      } catch (error) {
+        console.log(error);
+        alert('코멘트를 수정하지 못했습니다.');
+      }
     },
 
-    onSubmitNestedComment() {
+    async onSubmitNestedComment() {
       this.isEditNestedComment = false;
 
       if (this.nestedComment === '') {
@@ -176,14 +176,14 @@ export default {
       const dept = '1';
       const groupNum = this.id;
 
-      createCommentAPI({ cardId, comment, dept, groupNum })
-        .then(() => {
-          this.readComment();
-        })
-        .catch(error => {
-          console.log(error);
-          alert('답글을 생성하지 못했습니다.');
-        });
+      try {
+        await createCommentAPI({ cardId, comment, dept, groupNum });
+        this.readComment();
+      } catch (error) {
+        console.log(error);
+        alert('답글을 생성하지 못했습니다.');
+      }
+
       this.nestedComment = '';
     },
 

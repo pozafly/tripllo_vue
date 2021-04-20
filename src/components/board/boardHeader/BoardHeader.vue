@@ -150,18 +150,19 @@ export default {
       this.isBoardMenu = true;
     },
 
-    setInvitedUserImage() {
+    async setInvitedUserImage() {
       if (!this.board.invitedUser) {
         return;
       }
-      this.READ_INVITED_USER_FOR_BOARD_PAGE(JSON.parse(this.board.invitedUser))
-        .then(({ data }) => {
-          this.invitedUser = data.data;
-        })
-        .catch(({ response }) => {
-          console.log(response);
-          alert('초대된 유저 정보를 가져오는데 오류가 발생했습니다.');
-        });
+      try {
+        const { data } = await this.READ_INVITED_USER_FOR_BOARD_PAGE(
+          JSON.parse(this.board.invitedUser),
+        );
+        this.invitedUser = data.data;
+      } catch (error) {
+        console.log(error);
+        alert('초대된 유저 정보를 가져오는데 오류가 발생했습니다.');
+      }
     },
 
     openInviteModal(e) {

@@ -133,15 +133,14 @@ export default {
   },
 
   methods: {
-    readHashtagRanking() {
-      readRankingByLikeCountAPI()
-        .then(({ data }) => {
-          this.hashtags = data.data;
-        })
-        .catch(error => {
-          console.log(error);
-          alert('해시태그 랭킹을 가져오는데 실패했습니다.');
-        });
+    async readHashtagRanking() {
+      try {
+        const { data } = await readRankingByLikeCountAPI();
+        this.hashtags = data.data;
+      } catch (error) {
+        console.log(error);
+        alert('해시태그 랭킹을 가져오는데 실패했습니다.');
+      }
     },
 
     searchHash: _.debounce(function({ target }) {
@@ -150,34 +149,33 @@ export default {
       this.reset();
     }, 750),
 
-    infiniteHandler($state) {
-      readBoardByHashtagAPI({
-        hashtagName: this.searchHashValue,
-        lastLikeCount: this.lastLikeCount,
-        lastCreatedAt: this.lastCreatedAt,
-      })
-        .then(({ data }) => {
-          const boardItem = data.data;
-
-          if (boardItem === null) {
-            this.isInfinity = false;
-            $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
-          } else {
-            this.hashtagBoards = this.hashtagBoards.concat(boardItem);
-            setTimeout(() => {
-              const lastEl = boardItem[boardItem.length - 1];
-
-              this.lastLikeCount = lastEl.likeCount;
-              this.lastCreatedAt = lastEl.createdAt;
-
-              $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
-            }, 1000);
-          }
-        })
-        .catch(error => {
-          console.log(error);
-          alert('HashTag 보드를 가져오지 못했습니다.');
+    async infiniteHandler($state) {
+      try {
+        const { data } = await readBoardByHashtagAPI({
+          hashtagName: this.searchHashValue,
+          lastLikeCount: this.lastLikeCount,
+          lastCreatedAt: this.lastCreatedAt,
         });
+        const boardItem = data.data;
+
+        if (boardItem === null) {
+          this.isInfinity = false;
+          $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
+        } else {
+          this.hashtagBoards = this.hashtagBoards.concat(boardItem);
+          setTimeout(() => {
+            const lastEl = boardItem[boardItem.length - 1];
+
+            this.lastLikeCount = lastEl.likeCount;
+            this.lastCreatedAt = lastEl.createdAt;
+
+            $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
+          }, 1000);
+        }
+      } catch (error) {
+        console.log(error);
+        alert('HashTag 보드를 가져오지 못했습니다.');
+      }
     },
 
     reset() {

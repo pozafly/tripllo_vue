@@ -76,44 +76,46 @@ export default {
   },
 
   methods: {
-    readUser() {
-      readUserAPI(this.$route.params.userId)
-        .catch(error => {
-          console.log(error);
-          alert('유저 정보를 가져오지 못했습니다.');
-        })
-        .then(({ data }) => {
-          this.userInfo = data.data;
-        });
+    async readUser() {
+      try {
+        const { data } = await readUserAPI(this.$route.params.userId);
+        this.userInfo = data.data;
+      } catch (error) {
+        console.log(error);
+        alert('유저 정보를 가져오지 못했습니다.');
+      }
     },
 
-    infiniteHandler($state) {
+    async infiniteHandler($state) {
       const searchUserId = this.$route.params.userId;
       const lastCreatedAt = this.lastCreatedAt;
 
-      readSearchUserBoardAPI(searchUserId, lastCreatedAt)
-        .then(({ data }) => {
-          if (data.data === null) {
-            this.isInfinity = false;
-            $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
-          } else {
-            this.userBoards = this.userBoards.concat(data.data);
+      try {
+        const { data } = await readSearchUserBoardAPI(
+          searchUserId,
+          lastCreatedAt,
+        );
 
-            setTimeout(() => {
-              const boardItem = data.data;
-              const lastEl = boardItem[boardItem.length - 1];
+        if (data.data === null) {
+          this.isInfinity = false;
+          $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
+        } else {
+          this.userBoards = this.userBoards.concat(data.data);
 
-              this.lastLikeCount = lastEl.likeCount;
-              this.lastCreatedAt = lastEl.createdAt;
+          setTimeout(() => {
+            const boardItem = data.data;
+            const lastEl = boardItem[boardItem.length - 1];
 
-              $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
-            }, 1000);
-          }
-        })
-        .catch(error => {
-          console.log(error);
-          alert('유저 보드를 가져오지 못했습니다.');
-        });
+            this.lastLikeCount = lastEl.likeCount;
+            this.lastCreatedAt = lastEl.createdAt;
+
+            $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
+          }, 1000);
+        }
+      } catch (error) {
+        console.log(error);
+        alert('유저 보드를 가져오지 못했습니다.');
+      }
     },
   },
 };
