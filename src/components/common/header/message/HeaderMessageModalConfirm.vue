@@ -20,6 +20,7 @@
 <script>
 import { readBoardForAcceptMessageAPI, updateBoardAPI } from '@/api/board';
 import { updateUserAPI } from '@/api/user';
+import { updatePushMessageAPI, deletePushMessageAPI } from '@/api/pushMessage';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -75,11 +76,18 @@ export default {
   },
 
   methods: {
-    ...mapActions(['UPDATE_PUSH_MESSAGE', 'DELETE_PUSH_MESSAGE', 'READ_USER']),
+    ...mapActions(['READ_USER', 'READ_PUSH_MESSAGE']),
 
-    setMessage() {
-      if (this.isRead === 'N') {
-        this.UPDATE_PUSH_MESSAGE({ id: this.id, isRead: 'Y' });
+    async setMessage() {
+      if (this.isRead === 'Y') {
+        return;
+      }
+      try {
+        await updatePushMessageAPI({ id: this.id, isRead: 'Y' });
+        await this.READ_PUSH_MESSAGE(this.user.id);
+      } catch (error) {
+        console.log(error);
+        alert('푸시 메세지를 읽음으로 수정하지 못했습니다.');
       }
     },
 
@@ -133,9 +141,16 @@ export default {
       }
     },
 
-    rejectMessage() {
-      if (window.confirm('해당 메세지를 삭제하시겠습니까?')) {
-        this.DELETE_PUSH_MESSAGE({ id: this.id });
+    async rejectMessage() {
+      if (!window.confirm('해당 메세지를 삭제하시겠습니까?')) {
+        return;
+      }
+      try {
+        await deletePushMessageAPI(this.id);
+        await this.READ_PUSH_MESSAGE(this.user.id);
+      } catch (error) {
+        console.log(error);
+        alert('푸시 메세지를 삭제하지 못했습니다.');
       }
     },
   },

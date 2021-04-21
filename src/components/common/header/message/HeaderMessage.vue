@@ -73,7 +73,12 @@ export default {
     ...mapActions(['READ_PUSH_MESSAGE']),
 
     readPushMessage() {
-      this.READ_PUSH_MESSAGE(this.user.id);
+      try {
+        this.READ_PUSH_MESSAGE(this.user.id);
+      } catch (error) {
+        console.log(error);
+        alert('푸시 메세지를 읽어오지 못했습니다.');
+      }
     },
 
     receiveMessageListener() {

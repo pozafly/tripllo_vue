@@ -5,15 +5,9 @@ import {
   readBoardDetailAPI,
 } from '@/api/board';
 import { readCardAPI } from '@/api/card';
-import {
-  readPushMessageAPI,
-  updatePushMessageAPI,
-  deletePushMessageAPI,
-} from '@/api/pushMessage';
+import { readPushMessageAPI } from '@/api/pushMessage';
 import { readFileAPI } from '@/api/upload';
 import { signoutAPI, readUserAPI } from '@/api/user';
-
-import router from '@/routes';
 
 const actions = {
   // auth
@@ -38,7 +32,6 @@ const actions = {
   },
 
   // board
-
   /* personal 탭에서 Recently Viewed와 My Boards의
      좋아요 표시 연동 때문에 READ_PERSONAL_BOARD_LIMIT_COUNT 액션이 필요함. */
   async READ_PERSONAL_BOARD_LIMIT_COUNT({ commit }, count) {
@@ -52,7 +45,6 @@ const actions = {
   async READ_BOARD_DETAIL({ commit }, boardId) {
     const { data } = await readBoardDetailAPI(boardId);
     commit('setBoardDetail', data.data);
-    // router.push('/main');
   },
 
   // card
@@ -64,31 +56,8 @@ const actions = {
 
   // pushMessage
   async READ_PUSH_MESSAGE({ commit }, targetId) {
-    try {
-      const { data } = await readPushMessageAPI(targetId);
-      commit('setPushMessage', data.data);
-    } catch (error) {
-      console.log(error);
-      alert('푸시 메세지를 읽어오지 못했습니다.');
-    }
-  },
-  async UPDATE_PUSH_MESSAGE({ dispatch, state }, updateMessageInfo) {
-    try {
-      await updatePushMessageAPI(updateMessageInfo);
-      dispatch('READ_PUSH_MESSAGE', state.user.id);
-    } catch (error) {
-      console.log(error);
-      alert('푸시 메세지를 수정하지 못했습니다.');
-    }
-  },
-  async DELETE_PUSH_MESSAGE({ dispatch, state }, { id }) {
-    try {
-      await deletePushMessageAPI(id);
-      dispatch('READ_PUSH_MESSAGE', state.user.id);
-    } catch (error) {
-      console.log(error);
-      alert('푸시 메세지를 삭제하지 못했습니다.');
-    }
+    const { data } = await readPushMessageAPI(targetId);
+    commit('setPushMessage', data.data);
   },
 
   // upload

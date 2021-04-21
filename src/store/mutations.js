@@ -1,7 +1,6 @@
 import {
   saveUserToLocalStorage,
   saveSessionStorage,
-  deleteSessionStorage,
   saveTokenToLocalStorage,
 } from '@/utils/webStorage';
 

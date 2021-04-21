@@ -28,7 +28,13 @@ const socketReceive = () => {
   socketInstance.onmessage = ({ data }) => {
     console.log('메세지 수신', data);
     bus.$emit('receive-message', data);
-    store.dispatch('READ_PUSH_MESSAGE', store.state.user.id);
+
+    try {
+      store.dispatch('READ_PUSH_MESSAGE', store.state.user.id);
+    } catch (error) {
+      console.log(error);
+      alert('푸시메세지를 읽어오지 못했습니다.');
+    }
   };
 };
 
