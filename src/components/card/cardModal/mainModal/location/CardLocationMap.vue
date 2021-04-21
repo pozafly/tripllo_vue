@@ -23,6 +23,7 @@ import CardLocationMapBase from '@/components/card/cardModal/mainModal/location/
 import CardLocationMapPin from '@/components/card/cardModal/mainModal/location/CardLocationMapPin.vue';
 import { Loader } from '@googlemaps/js-api-loader';
 import MarkerClusterer from '@googlemaps/markerclustererplus';
+import { updateCardAPI } from '@/api/card';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -63,7 +64,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['UPDATE_CARD']),
+    ...mapActions(['READ_BOARD_DETAIL', 'READ_CARD']),
 
     setLoader() {
       const loader = new Loader({
@@ -141,7 +142,7 @@ export default {
         { types: ['geocode', 'establishment'] },
       );
       // 장소가 변화하면,
-      this.autocomplete.addListener('place_changed', () => {
+      this.autocomplete.addListener('place_changed', async () => {
         const place = this.autocomplete.getPlace();
         const geometry = {
           lat: place.geometry.location.lat(), // 위도
@@ -151,7 +152,16 @@ export default {
         };
         // 객체를 문자열로 저장 name
         const location = JSON.stringify(geometry);
-        this.UPDATE_CARD({ id: this.card.id, location });
+
+        try {
+          await updateCardAPI(this.card.id, { location });
+          await this.READ_BOARD_DETAIL(this.board.id);
+          await this.READ_CARD(this.card.id);
+        } catch (error) {
+          console.log(error);
+          alert('지도 정보를 수정하지 못했습니다.');
+        }
+
         this.$refs.searchMap.value = '';
       });
     },

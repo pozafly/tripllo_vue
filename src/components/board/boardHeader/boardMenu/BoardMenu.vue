@@ -60,9 +60,9 @@
 </template>
 
 <script>
-import { deleteBoardAPI } from '@/api/board';
 import BoardMenuColorPicker from '@/components/board/boardHeader/boardMenu/BoardMenuColorPicker.vue';
-import { mapMutations, mapActions, mapState } from 'vuex';
+import { deleteBoardAPI, updateBoardAPI } from '@/api/board';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
   components: {
@@ -95,7 +95,6 @@ export default {
 
   methods: {
     ...mapMutations(['setTheme']),
-    ...mapActions(['UPDATE_BOARD']),
 
     onClose() {
       this.$emit('close');
@@ -127,8 +126,8 @@ export default {
       const bgColor = color;
 
       try {
-        const { data } = await this.UPDATE_BOARD({ id, bgColor });
-        this.setTheme(data.bgColor);
+        const { data } = await updateBoardAPI(id, { bgColor });
+        this.setTheme(data.data.bgColor);
       } catch (error) {
         console.log(error);
         alert('배경 색상을 변경하지 못했습니다.');

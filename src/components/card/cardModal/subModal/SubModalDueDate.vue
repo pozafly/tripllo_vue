@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { updateCardAPI } from '@/api/card';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -37,7 +38,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['card']),
+    ...mapState(['card', 'board']),
   },
 
   mounted() {
@@ -45,7 +46,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['UPDATE_CARD']),
+    ...mapActions(['READ_BOARD_DETAIL', 'READ_CARD']),
 
     cardDueDateSync() {
       if (this.card.dueDate === null) {
@@ -66,7 +67,7 @@ export default {
       const minutes = this.plusZero(this.date.getMinutes());
       const dueDate = `${year}${month}${date}${hours}${minutes}`;
 
-      this.UPDATE_CARD({ id: this.card.id, dueDate });
+      this.updateCard(dueDate);
     },
 
     plusZero(value) {
@@ -75,7 +76,18 @@ export default {
 
     onRemove() {
       this.$emit('close');
-      this.UPDATE_CARD({ id: this.card.id, dueDate: '' });
+      this.updateCard('');
+    },
+
+    async updateCard(dueDate) {
+      try {
+        await updateCardAPI(this.card.id, { dueDate });
+        await this.READ_BOARD_DETAIL(this.board.id);
+        await this.READ_CARD(this.card.id);
+      } catch (error) {
+        console.log(error);
+        alert('마감 일자를 수정하지 못했습니다.');
+      }
     },
   },
 };

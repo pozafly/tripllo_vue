@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { updateCardAPI } from '@/api/card';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -24,7 +25,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['card']),
+    ...mapState(['card', 'board']),
   },
 
   mounted() {
@@ -32,7 +33,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['UPDATE_CARD']),
+    ...mapActions(['READ_BOARD_DETAIL', 'READ_CARD']),
 
     mapLoadScript() {
       // loadScript는 컴포넌트 단위로 외부 script 태그를 삽입해줌.
@@ -55,7 +56,7 @@ export default {
         });
     },
 
-    fillInAddress() {
+    async fillInAddress() {
       const place = this.autocomplete.getPlace();
       const geometry = {
         lat: place.geometry.location.lat(),
@@ -65,7 +66,16 @@ export default {
       };
       // 객체를 문자열로 저장name
       const location = JSON.stringify(geometry);
-      this.UPDATE_CARD({ id: this.card.id, location });
+
+      try {
+        await updateCardAPI(this.card.id, { location });
+        await this.READ_BOARD_DETAIL(this.board.id);
+        await this.READ_CARD(this.card.id);
+      } catch (error) {
+        console.log(error);
+        alert('지도 정보를 가져오지 못했습니다.');
+      }
+
       this.$emit('close');
     },
   },

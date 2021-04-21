@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { createCardAPI } from '@/api/card';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -52,9 +53,9 @@ export default {
   },
 
   methods: {
-    ...mapActions(['CREATE_CARD']),
+    ...mapActions(['READ_BOARD_DETAIL']),
 
-    onSubmit() {
+    async onSubmit() {
       if (this.invalidInput) {
         this.$emit('close');
         return;
@@ -63,11 +64,17 @@ export default {
       const pos = this.newCardPos();
       const createCardInfo = { title: inputTitle, listId, pos };
 
-      this.CREATE_CARD(createCardInfo).finally(() => {
+      try {
+        await createCardAPI(createCardInfo);
+        await this.READ_BOARD_DETAIL(this.board.id);
+      } catch (error) {
+        console.log(error);
+        alert('카드를 생성하지 못했습니다.');
+      } finally {
         this.inputTitle = '';
         this.$refs.inputTitle.focus();
         this.$emit('cardFocus');
-      });
+      }
     },
 
     newCardPos() {

@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { updateCardAPI } from '@/api/card';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -40,7 +41,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['card']),
+    ...mapState(['board', 'card']),
   },
 
   mounted() {
@@ -48,7 +49,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['UPDATE_CARD']),
+    ...mapActions(['READ_BOARD_DETAIL', 'READ_CARD']),
 
     makeLabelArray() {
       // 밑에서 join으로 만든 문자열을 받아와서 split으로 다시 array로 만든다.
@@ -77,7 +78,18 @@ export default {
       }
       // join을 사용하여 문자열로 만든다.
       const labelColor = this.colorArray.join(',');
-      this.UPDATE_CARD({ id: this.card.id, labelColor });
+      this.updateCard(labelColor);
+    },
+
+    async updateCard(labelColor) {
+      try {
+        await updateCardAPI(this.card.id, { labelColor });
+        await this.READ_BOARD_DETAIL(this.board.id);
+        await this.READ_CARD(this.card.id);
+      } catch (error) {
+        console.log(error);
+        alert('라벨을 수정하지 못했습니다.');
+      }
     },
   },
 };

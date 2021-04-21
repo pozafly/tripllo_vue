@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { deleteCardAPI } from '@/api/card';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -18,11 +19,20 @@ export default {
   },
 
   methods: {
-    ...mapActions(['DELETE_CARD']),
+    ...mapActions(['READ_BOARD_DETAIL']),
 
-    onDelete() {
-      this.DELETE_CARD({ id: this.card.id });
-      this.$router.push(`/board/${this.board.id}`);
+    async onDelete() {
+      try {
+        const boardId = this.board.id;
+
+        await deleteCardAPI(this.card.id);
+        await this.READ_BOARD_DETAIL(boardId);
+
+        this.$router.push(`/board/${boardId}`);
+      } catch (error) {
+        console.log(error);
+        alert('카드를 삭제하지 못했습니다.');
+      }
     },
   },
 };

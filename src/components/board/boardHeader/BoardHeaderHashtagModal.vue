@@ -36,6 +36,7 @@
 
 <script>
 import MiniModal from '@/components/common/MiniModal.vue';
+import { updateBoardAPI } from '@/api/board';
 import { isEmpty } from '@/utils/libs';
 import { mapActions, mapState } from 'vuex';
 
@@ -74,7 +75,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['UPDATE_BOARD', 'READ_BOARD_DETAIL']),
+    ...mapActions(['READ_BOARD_DETAIL']),
 
     setHashList() {
       const hashtag = this.board.hashtag;
@@ -116,7 +117,7 @@ export default {
     async updateBoard(hashtag) {
       const id = this.board.id;
       try {
-        await this.UPDATE_BOARD({ id, hashtag });
+        await updateBoardAPI(id, { hashtag });
         await this.READ_BOARD_DETAIL(id);
       } catch (error) {
         console.log(error);

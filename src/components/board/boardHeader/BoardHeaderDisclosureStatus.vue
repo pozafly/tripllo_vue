@@ -5,7 +5,9 @@
 </template>
 
 <script>
+import { updateBoardAPI } from '@/api/board';
 import { mapActions } from 'vuex';
+
 export default {
   props: {
     publicYn: {
@@ -37,7 +39,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['UPDATE_BOARD', 'READ_BOARD_DETAIL']),
+    ...mapActions(['READ_BOARD_DETAIL']),
 
     async changePublic() {
       let status;
@@ -58,7 +60,7 @@ export default {
         return;
       }
       try {
-        await this.UPDATE_BOARD({ id: this.boardId, publicYn: status });
+        await updateBoardAPI(this.boardId, { publicYn: status });
         await this.READ_BOARD_DETAIL(this.boardId);
       } catch (error) {
         console.log(error);

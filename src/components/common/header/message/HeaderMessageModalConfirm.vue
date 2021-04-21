@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { readBoardForAcceptMessageAPI } from '@/api/board';
+import { readBoardForAcceptMessageAPI, updateBoardAPI } from '@/api/board';
 import { updateUserAPI } from '@/api/user';
 import { mapActions, mapState } from 'vuex';
 
@@ -75,12 +75,7 @@ export default {
   },
 
   methods: {
-    ...mapActions([
-      'UPDATE_PUSH_MESSAGE',
-      'DELETE_PUSH_MESSAGE',
-      'UPDATE_BOARD',
-      'READ_USER',
-    ]),
+    ...mapActions(['UPDATE_PUSH_MESSAGE', 'DELETE_PUSH_MESSAGE', 'READ_USER']),
 
     setMessage() {
       if (this.isRead === 'N') {
@@ -125,10 +120,7 @@ export default {
 
     async updateBoardAndUser(pushInviteUser, pushInvitedBoard) {
       try {
-        await this.UPDATE_BOARD({
-          id: this.boardId,
-          invitedUser: pushInviteUser,
-        });
+        await updateBoardAPI(this.boardId, { invitedUser: pushInviteUser });
         await updateUserAPI({
           id: this.user.id,
           invitedBoard: pushInvitedBoard,

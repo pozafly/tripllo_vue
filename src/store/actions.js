@@ -3,16 +3,8 @@ import {
   readPersonalBoardLimitCountAPI,
   readRecentBoardAPI,
   readBoardDetailAPI,
-  createBoardAPI,
-  updateBoardAPI,
 } from '@/api/board';
-import { createListAPI, updateListAPI, deleteListAPI } from '@/api/list';
-import {
-  createCardAPI,
-  readCardAPI,
-  updateCardAPI,
-  deleteCardAPI,
-} from '@/api/card';
+import { readCardAPI } from '@/api/card';
 import {
   readPushMessageAPI,
   updatePushMessageAPI,
@@ -58,87 +50,16 @@ const actions = {
     commit('setRecentBoard', data.data);
   },
   async READ_BOARD_DETAIL({ commit }, boardId) {
-    try {
-      const { data } = await readBoardDetailAPI(boardId);
-      commit('setBoardDetail', data.data);
-    } catch (error) {
-      console.log(error);
-      alert('해당 보드 정보를 가져오지 못했습니다.');
-      router.push('/main');
-    }
-  },
-  async CREATE_BOARD(_, createBoardInfo) {
-    try {
-      const { data } = await createBoardAPI(createBoardInfo);
-      return data;
-    } catch (error) {
-      console.log(error);
-      alert('보드 생성 실패');
-    }
-  },
-  async UPDATE_BOARD(
-    _,
-    { id, title, bgColor, invitedUser, hashtag, publicYn },
-  ) {
-    const { data } = await updateBoardAPI(id, {
-      title,
-      bgColor,
-      invitedUser,
-      hashtag,
-      publicYn,
-    });
-    return data;
+    const { data } = await readBoardDetailAPI(boardId);
+    commit('setBoardDetail', data.data);
+    // router.push('/main');
   },
 
   // card
-  async CREATE_CARD({ dispatch, state }, createCardInfo) {
-    try {
-      await createCardAPI(createCardInfo);
-      dispatch('READ_BOARD_DETAIL', state.board.id);
-    } catch (error) {
-      console.log(error);
-      alert('카드를 생성하지 못했습니다.');
-    }
-  },
-  async READ_CARD({ commit }, { id }) {
-    try {
-      const { data } = await readCardAPI(id);
-      await commit('setCard', data.data);
-      return data.data;
-    } catch (error) {
-      console.log(error);
-      alert('카드 정보를 가져오지 못했습니다.');
-    }
-  },
-  async UPDATE_CARD(
-    { dispatch, state },
-    { id, title, pos, description, labelColor, location, dueDate, listId },
-  ) {
-    try {
-      await updateCardAPI(id, {
-        title,
-        pos,
-        description,
-        labelColor,
-        location,
-        dueDate,
-        listId,
-      });
-      await dispatch('READ_BOARD_DETAIL', state.board.id);
-      await dispatch('READ_CARD', { id });
-    } catch (error) {
-      console.log(error);
-      alert('카드 정보를 수정하지 못했습니다.');
-    }
-  },
-  async DELETE_CARD({ dispatch, state }, { id }) {
-    try {
-      await deleteCardAPI(id);
-      dispatch('READ_BOARD_DETAIL', state.board.id);
-    } catch (error) {
-      console.log(error);
-      alert('카드를 삭제하지 못했습니다.');
-    }
+  async READ_CARD({ commit }, id) {
+    const { data } = await readCardAPI(id);
+    await commit('setCard', data.data);
+    return data.data;
   },
 
   // pushMessage

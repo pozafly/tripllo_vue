@@ -56,6 +56,7 @@ export default {
   },
 
   created() {
+    console.log('어 왔니?');
     this.readBoardDetail();
   },
 
@@ -80,10 +81,17 @@ export default {
       window.document.body.style.overflowY = type;
     },
 
-    readBoardDetail() {
-      this.READ_BOARD_DETAIL(this.$route.params.boardId).then(() => {
+    async readBoardDetail() {
+      try {
+        await this.READ_BOARD_DETAIL(this.$route.params.boardId);
         this.setTheme(this.board.bgColor);
-      });
+      } catch (error) {
+        console.log(error);
+        if (error.response.status === 404) {
+          alert('해당 Board의 정보가 없습니다.');
+        }
+        this.$router.push('/main');
+      }
     },
 
     updateDragger() {

@@ -114,7 +114,7 @@
 
 <script>
 import AddBoardModalBase from '@/components/board/addBoard/AddBoardModalBase.vue';
-import { mapActions } from 'vuex';
+import { createBoardAPI } from '@/api/board';
 
 export default {
   components: {
@@ -165,13 +165,12 @@ export default {
   },
 
   methods: {
-    ...mapActions(['CREATE_BOARD']),
-
     async addBoard() {
       const title = this.title.trim();
       const bgColor = this.selectColor;
       const publicYn = this.publicYn;
       const hashtag = JSON.stringify(this.hashList);
+
       const createBoardInfo = {
         title,
         bgColor,
@@ -179,15 +178,20 @@ export default {
         hashtag,
       };
 
-      const { data } = await this.CREATE_BOARD(createBoardInfo);
-      await this.$notify({
-        group: 'custom-template',
-        duration: 5000,
-        closeOnClick: true,
-        title: '보드 생성 성공!',
-        text: `'${this.title}' 보드가 만들어졌습니다.`,
-      });
-      this.$router.push(`/board/${data.id}`);
+      try {
+        const { data } = await createBoardAPI(createBoardInfo);
+        this.$notify({
+          group: 'custom-template',
+          duration: 5000,
+          closeOnClick: true,
+          title: '보드 생성 성공!',
+          text: `'${this.title}' 보드가 만들어졌습니다.`,
+        });
+        this.$router.push(`/board/${data.data.id}`);
+      } catch (error) {
+        console.log(error);
+        alert('보드 생성 실패');
+      }
     },
 
     pushHash() {

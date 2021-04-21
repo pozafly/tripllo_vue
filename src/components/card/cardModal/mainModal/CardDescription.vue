@@ -32,7 +32,9 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { updateCardAPI } from '@/api/card';
+import { mapActions, mapState } from 'vuex';
+
 export default {
   props: {
     cardDescription: {
@@ -60,8 +62,12 @@ export default {
     };
   },
 
+  computed: {
+    ...mapState(['board']),
+  },
+
   methods: {
-    ...mapActions(['UPDATE_CARD']),
+    ...mapActions(['READ_BOARD_DETAIL', 'READ_CARD']),
 
     onEditDesc() {
       this.isEditDesc = true;
@@ -69,7 +75,7 @@ export default {
     },
 
     // relatedTarget: 이벤트 발생 타겟을 의미함.
-    onSubmitDesc({ relatedTarget }) {
+    async onSubmitDesc({ relatedTarget }) {
       this.isEditDesc = false;
 
       // body를 눌렀을 때, 이벤트 타겟이 null로 나오므로 그냥 통과(저장된단 말임.)
@@ -81,7 +87,15 @@ export default {
       if (this.description === this.cardDescription) {
         return;
       }
-      this.UPDATE_CARD({ id: this.cardId, description: this.description });
+
+      try {
+        await updateCardAPI(this.cardId, { description: this.description });
+        await this.READ_BOARD_DETAIL(this.board.id);
+        await this.READ_CARD(this.cardId);
+      } catch (error) {
+        console.log(error);
+        alert('카드 정보를 수정하지 못했습니다.');
+      }
     },
 
     onKeyupEnter(event) {

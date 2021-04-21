@@ -41,6 +41,7 @@
 
 <script>
 import CardLocationMap from '@/components/card/cardModal/mainModal/location/CardLocationMap';
+import { updateCardAPI } from '@/api/card';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -58,7 +59,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['card']),
+    ...mapState(['card', 'board']),
   },
 
   watch: {
@@ -76,7 +77,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['UPDATE_CARD']),
+    ...mapActions(['READ_BOARD_DETAIL', 'READ_CARD']),
 
     setImg() {
       if (!this.card.location) {
@@ -103,9 +104,17 @@ export default {
       window.open(url, '_blank');
     },
 
-    deleteLocation() {
+    async deleteLocation() {
       this.isDelete = false;
-      this.UPDATE_CARD({ id: this.card.id, location: '' });
+
+      try {
+        await updateCardAPI(this.card.id, { location: '' });
+        await this.READ_BOARD_DETAIL(this.board.id);
+        await this.READ_CARD(this.card.id);
+      } catch (error) {
+        console.log(error);
+        alert('카드 정보를 수정하지 못했습니다.');
+      }
     },
   },
 };

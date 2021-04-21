@@ -16,7 +16,8 @@
 
 <script>
 import { Chrome } from 'vue-color';
-import { mapActions, mapMutations, mapState } from 'vuex';
+import { updateBoardAPI } from '@/api/board';
+import { mapMutations, mapState } from 'vuex';
 
 export default {
   components: {
@@ -34,7 +35,6 @@ export default {
   },
 
   methods: {
-    ...mapActions(['UPDATE_BOARD']),
     ...mapMutations(['setTheme']),
 
     updateValue(e) {
@@ -48,8 +48,8 @@ export default {
       const bgColor = this.selectColor;
 
       try {
-        const { data } = await this.UPDATE_BOARD({ id, bgColor });
-        this.setTheme(data.bgColor);
+        const { data } = await updateBoardAPI(id, { bgColor });
+        this.setTheme(data.data.bgColor);
       } catch (error) {
         console.log(error);
       }

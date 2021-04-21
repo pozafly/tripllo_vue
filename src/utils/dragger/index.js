@@ -1,5 +1,6 @@
 import dragula from 'dragula';
 import { updateListAPI } from '@/api/list';
+import { updateCardAPI } from '@/api/card';
 import './dragula.css';
 import store from '@/store';
 
@@ -50,13 +51,12 @@ const dragger = {
       Array.from(document.querySelectorAll('.card-list')),
     );
 
-    cDragger.on('drop', (el, wrapper, target, siblings) => {
-      const targetCard = {
-        id: el.getAttribute('cardId') * 1,
-        // list 이동과는 다르게, card 이동은 list간의 이동도 가능해야하기때문에 listId 를 줌.
-        listId: wrapper.getAttribute('listId') * 1,
-        pos: 65535,
-      };
+    cDragger.on('drop', async (el, wrapper, target, siblings) => {
+      const id = el.getAttribute('cardId') * 1;
+      // list 이동과는 다르게, card 이동은 list간의 이동도 가능해야하기때문에 listId 를 줌.
+      const listId = wrapper.getAttribute('listId') * 1;
+      let pos = 65535;
+
       const { prev, next } = this.siblings({
         el,
         wrapper,
@@ -66,16 +66,22 @@ const dragger = {
 
       if (!prev && next) {
         // 맨 앞으로 옮겼다면,
-        targetCard.pos = next.pos / 2;
+        pos = next.pos / 2;
       } else if (!next && prev) {
         // 맨 뒤로 옮겼다면,
-        targetCard.pos = prev.pos * 2;
+        pos = prev.pos * 2;
       } else if (prev && next) {
         // 중간 어딘가로 옮겼다면,
-        targetCard.pos = (prev.pos + next.pos) / 2;
+        pos = (prev.pos + next.pos) / 2;
       }
 
-      store.dispatch('UPDATE_CARD', targetCard);
+      try {
+        await updateCardAPI(id, { listId, pos });
+        await store.dispatch('READ_BOARD_DETAIL', store.state.board.id);
+      } catch (error) {
+        console.log(error);
+        alert('카드 순서가 업데이트 되지 않았습니다.');
+      }
     });
   },
 

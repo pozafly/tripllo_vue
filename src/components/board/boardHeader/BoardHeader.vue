@@ -73,7 +73,9 @@ import BoardHeaderProfileImage from '@/components/board/boardHeader/BoardHeaderP
 import BoardHeaderHashtagModal from '@/components/board/boardHeader/BoardHeaderHashtagModal.vue';
 import BoardMenu from '@/components/board/boardHeader/boardMenu/BoardMenu.vue';
 import BoardHeaderDisclosureStatus from '@/components/board/boardHeader/BoardHeaderDisclosureStatus.vue';
+
 import { readInvitedUserForBoardPageAPI } from '@/api/user';
+import { updateBoardAPI } from '@/api/board';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -121,7 +123,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['UPDATE_BOARD', 'READ_BOARD_DETAIL']),
+    ...mapActions(['READ_BOARD_DETAIL']),
 
     onClickTitle() {
       this.isEditTitle = true;
@@ -142,7 +144,7 @@ export default {
       }
 
       try {
-        await this.UPDATE_BOARD({ id, title });
+        await updateBoardAPI(id, { title });
         await this.READ_BOARD_DETAIL(this.board.id);
       } catch (error) {
         console.log(error);

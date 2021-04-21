@@ -54,6 +54,8 @@ import CardLocation from '@/components/card/cardModal/mainModal/location/CardLoc
 import CardDescription from '@/components/card/cardModal/mainModal/CardDescription.vue';
 import CardComment from '@/components/card/cardModal/mainModal/comment/CardComment.vue';
 import CardAttachment from '@/components/card/cardModal/mainModal/attachment/CardAttachment.vue';
+
+import { updateCardAPI } from '@/api/card';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -81,7 +83,7 @@ export default {
   },
 
   watch: {
-    // UPDATE_CARD 후 card가 들어오면 실행되도록.
+    // updateCard 후 card가 들어오면 실행되도록.
     card() {
       const { title } = this.board.lists.filter(l => {
         return l.id == this.card.listId;
@@ -95,11 +97,11 @@ export default {
   },
 
   methods: {
-    ...mapActions(['READ_CARD', 'UPDATE_CARD']),
+    ...mapActions(['READ_CARD', 'READ_BOARD_DETAIL']),
 
     async readCardInfo() {
       try {
-        await this.READ_CARD({ id: this.$route.params.cardId });
+        await this.READ_CARD(this.$route.params.cardId);
       } catch (error) {
         console.log(error);
         alert('카드 정보를 읽어오지 못했습니다.');
@@ -110,14 +112,22 @@ export default {
       this.isEditTitle = true;
     },
 
-    onSubmitTitle() {
+    async onSubmitTitle() {
       this.isEditTitle = false;
 
       const inputTitle = this.$refs.inputTitle.value || '';
       if (inputTitle === this.card.title) {
         return;
       }
-      this.UPDATE_CARD({ id: this.card.id, title: inputTitle });
+
+      try {
+        await updateCardAPI(this.card.id, { title: inputTitle });
+        await this.READ_BOARD_DETAIL(this.board.id);
+        await this.readCardInfo();
+      } catch (error) {
+        console.log(error);
+        alert('카드 정보를 수정하지 못했습니다.');
+      }
     },
 
     onKeyupEnter(event) {
