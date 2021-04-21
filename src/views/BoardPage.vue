@@ -56,7 +56,6 @@ export default {
   },
 
   created() {
-    console.log('어 왔니?');
     this.readBoardDetail();
   },
 

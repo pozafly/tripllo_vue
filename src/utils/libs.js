@@ -1,3 +1,4 @@
+// null 체크
 const isEmpty = value => {
   if (
     value === '' ||
