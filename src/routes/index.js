@@ -1,31 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import store from '@/store';
-import { getUserFromLocalStorage } from '@/utils/webStorage';
+import { firstAccess, requireAuth, intoBoard } from '@/routes/navigationGuard';
 
 Vue.use(VueRouter);
-
-const requireAuth = (to, from, next) => {
-  const loginPath = '/auth';
-  if (store.getters.isAuth) {
-    next();
-    return;
-  } else {
-    alert('로그인 되어있지 않습니다.');
-    next(loginPath);
-    return;
-  }
-};
-
-const firstAccess = (to, from, next) => {
-  if (getUserFromLocalStorage()) {
-    next('/main');
-    return;
-  } else {
-    next('/intro');
-    return;
-  }
-};
 
 const router = new VueRouter({
   mode: 'history',
@@ -72,7 +49,7 @@ const router = new VueRouter({
     {
       path: '/board/:boardId',
       component: () => import('@/views/BoardPage.vue'),
-      beforeEnter: requireAuth,
+      beforeEnter: intoBoard,
       children: [
         {
           path: 'card/:cardId',

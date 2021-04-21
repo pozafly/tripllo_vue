@@ -22,11 +22,8 @@ export const setInterceptors = instance => {
       console.log(error.response);
       if (error.response.status === 401) {
         alert('권한이 없습니다.');
-        return;
-        // return Promise.reject(error);
       } else if (error.response.status === 400) {
         alert('잘못된 요청입니다.');
-        return;
       }
       //  else {
       //   alert(response.data.message);
