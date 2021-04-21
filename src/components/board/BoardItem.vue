@@ -29,6 +29,7 @@
 <script>
 import { createLikeAPI, deleteLikeAPI } from '@/api/like';
 import { getSessionStorage } from '@/utils/webStorage';
+import { isEmpty } from '@/utils/libs';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -49,7 +50,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['personalBoard']),
+    ...mapState(['personalBoard', 'user']),
 
     hashtag() {
       return JSON.parse(this.board.hashtag);
@@ -67,7 +68,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['READ_PERSONAL_BOARD_LIMIT_COUNT']),
+    ...mapActions(['READ_PERSONAL_BOARD_LIMIT_COUNT', 'READ_RECENT_BOARD']),
     setboardItemTheme() {
       this.$refs.boardItem.style.backgroundColor = this.board.bgColor;
     },
@@ -92,9 +93,7 @@ export default {
     async createLike(likeInfo) {
       try {
         await createLikeAPI(likeInfo);
-        if (getSessionStorage('mainTabId') === 0) {
-          this.READ_PERSONAL_BOARD_LIMIT_COUNT(this.personalBoard.length);
-        }
+        this.readPersonalBoardLimitCount();
       } catch (error) {
         console.log(error);
         alert('좋아요를 생성하지 못했습니다.');
@@ -104,12 +103,27 @@ export default {
     async deleteLike(deleteInfo) {
       try {
         await deleteLikeAPI(deleteInfo);
-        if (getSessionStorage('mainTabId') === 0) {
-          this.READ_PERSONAL_BOARD_LIMIT_COUNT(this.personalBoard.length);
-        }
+        this.readPersonalBoardLimitCount();
       } catch (error) {
         console.log(error);
         alert('좋아요를 삭제하지 못했습니다.');
+      }
+    },
+
+    async readPersonalBoardLimitCount() {
+      try {
+        if (getSessionStorage('mainTabId') !== 0) {
+          return;
+        }
+        await this.READ_PERSONAL_BOARD_LIMIT_COUNT(this.personalBoard.length);
+        const recentBoard = this.user.recentBoard;
+        if (isEmpty(recentBoard)) {
+          return;
+        }
+        await this.READ_RECENT_BOARD(JSON.parse(recentBoard));
+      } catch (error) {
+        console.log(error);
+        alert('최근 보드와 사용자 보드의 연동이 실패했습니다.');
       }
     },
 

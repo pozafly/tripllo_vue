@@ -131,6 +131,7 @@ export default {
         this.setTheme(data.bgColor);
       } catch (error) {
         console.log(error);
+        alert('배경 색상을 변경하지 못했습니다.');
       }
     },
 

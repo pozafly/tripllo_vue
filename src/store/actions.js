@@ -49,26 +49,13 @@ const actions = {
 
   /* personal 탭에서 Recently Viewed와 My Boards의
      좋아요 표시 연동 때문에 READ_PERSONAL_BOARD_LIMIT_COUNT 액션이 필요함. */
-  async READ_PERSONAL_BOARD_LIMIT_COUNT({ commit, dispatch, state }, count) {
-    try {
-      const { data } = await readPersonalBoardLimitCountAPI(count);
-      commit('readPersonalBoardLimitCount', data.data);
-      if (state.user.recentBoard !== null) {
-        dispatch('READ_RECENT_BOARD', JSON.parse(state.user.recentBoard));
-      }
-    } catch (error) {
-      console.log(error);
-      alert('Board 리렌더링 실패');
-    }
+  async READ_PERSONAL_BOARD_LIMIT_COUNT({ commit }, count) {
+    const { data } = await readPersonalBoardLimitCountAPI(count);
+    commit('readPersonalBoardLimitCount', data.data);
   },
   async READ_RECENT_BOARD({ commit }, recentLists) {
-    try {
-      const { data } = await readRecentBoardAPI(recentLists);
-      commit('setRecentBoard', data.data);
-    } catch (error) {
-      console.log(error);
-      alert('최근 보드 정보를 가져오지 못했습니다.');
-    }
+    const { data } = await readRecentBoardAPI(recentLists);
+    commit('setRecentBoard', data.data);
   },
   async READ_BOARD_DETAIL({ commit }, boardId) {
     try {
@@ -90,55 +77,17 @@ const actions = {
     }
   },
   async UPDATE_BOARD(
-    { dispatch, state },
+    _,
     { id, title, bgColor, invitedUser, hashtag, publicYn },
   ) {
-    try {
-      const { data } = await updateBoardAPI(id, {
-        title,
-        bgColor,
-        invitedUser,
-        hashtag,
-        publicYn,
-      });
-      if (data.data.invitedUser) {
-        return;
-      }
-      dispatch('READ_BOARD_DETAIL', state.board.id);
-      return data;
-    } catch (error) {
-      console.log(error);
-      alert('보드 정보를 업데이트 하지 못했습니다.');
-    }
-  },
-
-  // list
-  async CREATE_LIST({ dispatch, state }, createListInfo) {
-    try {
-      await createListAPI(createListInfo);
-      dispatch('READ_BOARD_DETAIL', state.board.id);
-    } catch (error) {
-      console.log(error);
-      alert('리스트를 생성하지 못했습니다.');
-    }
-  },
-  async UPDATE_LIST({ dispatch, state }, { id, pos, title }) {
-    try {
-      await updateListAPI(id, { pos, title });
-      dispatch('READ_BOARD_DETAIL', state.board.id);
-    } catch (error) {
-      console.log(error);
-      alert('리스트를 수정하지 못했습니다.');
-    }
-  },
-  async DELETE_LIST({ dispatch, state }, { id }) {
-    try {
-      await deleteListAPI(id);
-      dispatch('READ_BOARD_DETAIL', state.board.id);
-    } catch (error) {
-      console.log(error);
-      alert('리스트를 삭제하지 못했습니다.');
-    }
+    const { data } = await updateBoardAPI(id, {
+      title,
+      bgColor,
+      invitedUser,
+      hashtag,
+      publicYn,
+    });
+    return data;
   },
 
   // card
@@ -225,6 +174,9 @@ const actions = {
   async READ_FILE({ commit }, cardId) {
     const { data } = await readFileAPI(cardId);
     commit('setFile', data.data);
+  },
+  DELETE_FILE_FROM_STATE({ commit }) {
+    commit('deleteFile');
   },
 };
 

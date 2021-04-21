@@ -43,6 +43,7 @@
 <script>
 import BoardItem from '@/components/board/BoardItem.vue';
 import AddBoardModal from '@/components/board/addBoard/AddBoardModal.vue';
+import { isEmpty } from '@/utils/libs';
 import { readPersonalBoardAPI } from '@/api/board';
 import { mapActions, mapMutations, mapState } from 'vuex';
 
@@ -80,9 +81,16 @@ export default {
       this.isShowAddBoard = !this.isShowAddBoard;
     },
 
-    getRecentBoard() {
-      if (!!this.user.recentBoard) {
-        this.READ_RECENT_BOARD(JSON.parse(this.user.recentBoard));
+    async getRecentBoard() {
+      const recentBoard = this.user.recentBoard;
+      if (isEmpty(recentBoard)) {
+        return;
+      }
+      try {
+        await this.READ_RECENT_BOARD(JSON.parse(recentBoard));
+      } catch (error) {
+        console.log(error);
+        alert('최근 보드 정보를 가져오지 못했습니다.');
       }
     },
 

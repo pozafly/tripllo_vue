@@ -42,6 +42,7 @@
 <script>
 import AddCard from '@/components/card/AddCard.vue';
 import CardItem from '@/components/card/CardItem.vue';
+import { updateListAPI, deleteListAPI } from '@/api/list';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -106,7 +107,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['UPDATE_LIST', 'DELETE_LIST']),
+    ...mapActions(['DELETE_LIST', 'READ_BOARD_DETAIL']),
 
     insertListTitle() {
       this.inputTitle = this.title;
@@ -121,7 +122,7 @@ export default {
       event.target.blur();
     },
 
-    onSubmitTitle() {
+    async onSubmitTitle() {
       this.isEditTitle = false;
 
       this.inputTitle = this.inputTitle.trim();
@@ -135,13 +136,25 @@ export default {
         return;
       }
 
-      this.UPDATE_LIST({ id, title });
+      try {
+        await updateListAPI(id, { title });
+        await this.READ_BOARD_DETAIL(this.board.id);
+      } catch (error) {
+        console.log(error);
+        alert('리스트 제목이 업데이트 되지 않았습니다.');
+      }
     },
 
-    onDeleteList() {
+    async onDeleteList() {
       // if (!window.confirm(`${this.title} 리스트를 삭제하시겠습니까?`))
       //   return;
-      this.DELETE_LIST({ id: this.id });
+      try {
+        await deleteListAPI(this.id);
+        await this.READ_BOARD_DETAIL(this.board.id);
+      } catch (error) {
+        console.log(error);
+        alert('리스트를 삭제하지 못했습니다.');
+      }
     },
 
     cardFocus() {

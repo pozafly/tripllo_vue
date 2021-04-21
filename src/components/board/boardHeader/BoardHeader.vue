@@ -121,14 +121,14 @@ export default {
   },
 
   methods: {
-    ...mapActions(['UPDATE_BOARD']),
+    ...mapActions(['UPDATE_BOARD', 'READ_BOARD_DETAIL']),
 
     onClickTitle() {
       this.isEditTitle = true;
       this.inputTitle = this.board.title;
     },
 
-    onSubmitTitle() {
+    async onSubmitTitle() {
       this.isEditTitle = false;
       this.inputTitle = this.inputTitle.trim();
       if (!this.inputTitle) {
@@ -140,7 +140,14 @@ export default {
       if (title === this.board.title) {
         return;
       }
-      this.UPDATE_BOARD({ id, title });
+
+      try {
+        await this.UPDATE_BOARD({ id, title });
+        await this.READ_BOARD_DETAIL(this.board.id);
+      } catch (error) {
+        console.log(error);
+        alert('보드 제목을 업데이트 하지 못했습니다.');
+      }
     },
 
     onKeyupEnter(event) {

@@ -14,15 +14,47 @@
 
 <script>
 import CardAttachmentList from '@/components/card/cardModal/mainModal/attachment/CardAttachmentList.vue';
-import { mapState } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
   components: {
     CardAttachmentList,
   },
 
+  data() {
+    return {
+      cardId: this.$route.params.cardId * 1,
+    };
+  },
+
   computed: {
     ...mapState(['file']),
+  },
+
+  created() {
+    this.readFileInfo();
+  },
+
+  beforeDestroy() {
+    this.deleteFileInfo();
+  },
+
+  methods: {
+    ...mapActions(['READ_FILE', 'DELETE_FILE_FROM_STATE']),
+
+    async readFileInfo() {
+      try {
+        console.log('readFileInfo');
+        await this.READ_FILE(this.cardId);
+      } catch (error) {
+        console.log(error);
+        alert('파일을 읽어오지 못했습니다.');
+      }
+    },
+
+    async deleteFileInfo() {
+      await this.DELETE_FILE_FROM_STATE();
+    },
   },
 };
 </script>

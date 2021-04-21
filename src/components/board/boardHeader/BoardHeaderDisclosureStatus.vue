@@ -37,9 +37,9 @@ export default {
   },
 
   methods: {
-    ...mapActions(['UPDATE_BOARD']),
+    ...mapActions(['UPDATE_BOARD', 'READ_BOARD_DETAIL']),
 
-    changePublic() {
+    async changePublic() {
       let status;
       let sentense;
 
@@ -54,8 +54,15 @@ export default {
       }
 
       let change = window.confirm(sentense);
-      if (change) {
-        this.UPDATE_BOARD({ id: this.boardId, publicYn: status });
+      if (!change) {
+        return;
+      }
+      try {
+        await this.UPDATE_BOARD({ id: this.boardId, publicYn: status });
+        await this.READ_BOARD_DETAIL(this.boardId);
+      } catch (error) {
+        console.log(error);
+        alert('보드 공개여부를 업데이트 하지 못했습니다.');
       }
     },
   },

@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { createListAPI } from '@/api/list';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -32,13 +33,13 @@ export default {
   },
 
   methods: {
-    ...mapActions(['CREATE_LIST']),
+    ...mapActions(['READ_BOARD_DETAIL']),
 
     onAddList() {
       this.isAddList = true;
     },
 
-    onSubmitTitle() {
+    async onSubmitTitle() {
       this.inputTitle = this.inputTitle.trim();
       if (!this.inputTitle) {
         this.isAddList = false;
@@ -52,11 +53,17 @@ export default {
 
       const createListInfo = { title, boardId, pos };
 
-      this.CREATE_LIST(createListInfo).finally(() => {
+      try {
+        await createListAPI(createListInfo);
+        await this.READ_BOARD_DETAIL(this.board.id);
+      } catch (error) {
+        console.log(error);
+        alert('리스트를 생성하지 못했습니다.');
+      } finally {
         this.inputTitle = '';
         this.$refs.inputTitle.focus();
         this.$emit('listFocus');
-      });
+      }
     },
 
     onKeyupEnter(event) {

@@ -1,4 +1,5 @@
 import dragula from 'dragula';
+import { updateListAPI } from '@/api/list';
 import './dragula.css';
 import store from '@/store';
 
@@ -78,7 +79,7 @@ const dragger = {
     });
   },
 
-  listDragger() {
+  async listDragger() {
     if (lDragger) {
       lDragger.destroy();
     }
@@ -92,11 +93,10 @@ const dragger = {
       options,
       'list',
     );
-    lDragger.on('drop', (el, wrapper, target, siblings) => {
-      const targetList = {
-        id: el.getAttribute('listId') * 1,
-        pos: 65535,
-      };
+    lDragger.on('drop', async (el, wrapper, target, siblings) => {
+      const id = el.getAttribute('listId') * 1;
+      let pos = 65535;
+
       const { prev, next } = this.siblings({
         el,
         wrapper,
@@ -105,14 +105,20 @@ const dragger = {
       });
 
       if (!prev && next) {
-        targetList.pos = next.pos / 2;
+        pos = next.pos / 2;
       } else if (!next && prev) {
-        targetList.pos = prev.pos * 2;
+        pos = prev.pos * 2;
       } else if (prev && next) {
-        targetList.pos = (prev.pos + next.pos) / 2;
+        pos = (prev.pos + next.pos) / 2;
       }
 
-      store.dispatch('UPDATE_LIST', targetList);
+      try {
+        await updateListAPI(id, { pos });
+        await store.dispatch('READ_BOARD_DETAIL', store.state.board.id);
+      } catch (error) {
+        console.log(error);
+        alert('리스트 순서가 업데이트 되지 않았습니다.');
+      }
     });
   },
 };

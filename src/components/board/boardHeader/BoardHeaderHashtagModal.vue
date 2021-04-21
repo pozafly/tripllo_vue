@@ -36,6 +36,7 @@
 
 <script>
 import MiniModal from '@/components/common/MiniModal.vue';
+import { isEmpty } from '@/utils/libs';
 import { mapActions, mapState } from 'vuex';
 
 export default {
@@ -73,14 +74,14 @@ export default {
   },
 
   methods: {
-    ...mapActions(['UPDATE_BOARD']),
+    ...mapActions(['UPDATE_BOARD', 'READ_BOARD_DETAIL']),
 
     setHashList() {
-      if (this.board.hashtag) {
-        this.hashList = JSON.parse(this.board.hashtag);
-      } else {
-        this.hashtag = [];
+      const hashtag = this.board.hashtag;
+      if (isEmpty(hashtag)) {
+        return;
       }
+      this.hashList = JSON.parse(hashtag);
     },
 
     pushHash() {
@@ -99,20 +100,28 @@ export default {
 
       this.hashList.push(this.hashItem.replace(/(\s*)/g, '').trim());
       this.hashItem = '';
-
-      const id = this.board.id;
       const hashtag = JSON.stringify(this.hashList);
 
-      this.UPDATE_BOARD({ id, hashtag });
+      this.updateBoard(hashtag);
     },
 
     deleteHash(hash) {
       let pos = this.hashList.indexOf(hash);
       this.hashList.splice(pos, 1);
-
-      const id = this.board.id;
       const hashtag = JSON.stringify(this.hashList);
-      this.UPDATE_BOARD({ id, hashtag });
+
+      this.updateBoard(hashtag);
+    },
+
+    async updateBoard(hashtag) {
+      const id = this.board.id;
+      try {
+        await this.UPDATE_BOARD({ id, hashtag });
+        await this.READ_BOARD_DETAIL(id);
+      } catch (error) {
+        console.log(error);
+        alert('해시태그를 수정하지 못했습니다.');
+      }
     },
 
     openMadal() {
