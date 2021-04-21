@@ -50,6 +50,7 @@
     </button>
     <span v-else>
       <input
+        ref="addItem"
         v-model="inputItem"
         v-focus
         type="text"
@@ -208,7 +209,7 @@ export default {
 
     isAddItem() {
       this.isItem = true;
-      this.$el.querySelector(`.checkbox-input-title`).focus();
+      this.$refs.addItem.focus();
     },
 
     onSubmitItem({ relatedTarget }) {

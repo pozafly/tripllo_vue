@@ -12,7 +12,11 @@
         @keypress.enter="onKeyupEnter"
         @blur="onSubmitTitle"
       />
-      <div v-else class="list-header-title" @click.prevent="onClickTitle">
+      <div
+        v-else
+        class="list-header-title"
+        @click.prevent="() => (isEditTitle = true)"
+      >
         {{ title }} <awesome icon="edit" class="fas fa-edit"></awesome>
       </div>
       <a class="delete-list-btn" href="" @click.prevent="onDeleteList">
@@ -111,11 +115,6 @@ export default {
 
     insertListTitle() {
       this.inputTitle = this.title;
-    },
-
-    onClickTitle() {
-      this.isEditTitle = true;
-      this.$refs.inputTitle.value = this.title;
     },
 
     onKeyupEnter(event) {

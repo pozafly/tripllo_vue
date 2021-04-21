@@ -45,6 +45,7 @@
     <CommonHeaderMenu
       v-if="isMenuShow"
       v-click-outside="() => (isMenuShow = false)"
+      @closeMenu="() => (isMenuShow = false)"
     />
   </nav>
 </template>
