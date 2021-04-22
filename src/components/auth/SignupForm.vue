@@ -50,10 +50,10 @@
           <span>{{ push.message }}</span>
         </div>
       </div>
-      <template v-if="isSocialForm">
+      <div v-show="isSocialForm">
         <div class="text">OR</div>
         <div class="external-items">
-          <div id="loginBtn">
+          <div id="google-login-btn">
             <button class="external-item" type="button">
               <img src="@/assets/user/logo/google.png" />
               <b> Continue with Google</b>
@@ -68,7 +68,7 @@
             <b> Continue with KakaoTalk</b>
           </button>
         </div>
-      </template>
+      </div>
       <div class="login">
         <router-link to="/auth/login">
           Already have an account? Log In
@@ -136,6 +136,10 @@ export default {
     'userData.email': _.debounce(function(e) {
       this.validateEmail(e);
     }, 750),
+  },
+
+  created() {
+    this.googleLoad();
   },
 
   methods: {
@@ -227,6 +231,17 @@ export default {
     pushInsert(message) {
       this.push.pushYn = true;
       this.push.message = message;
+    },
+
+    googleLoad() {
+      this.$loadScript(`https://apis.google.com/js/api:client.js`)
+        .then(() => {
+          this.$_Google.init();
+        })
+        .catch(error => {
+          console.log(error);
+          alert('구글 로그인 서버와의 연동에 실패했습니다.');
+        });
     },
 
     facebookSignup() {

@@ -10,7 +10,6 @@
       <div class="submit-items">
         <input
           v-model="userData.id"
-          v-focus
           class="submit-item"
           type="text"
           placeholder="Enter id"
@@ -26,10 +25,10 @@
         </button>
       </div>
     </form>
-    <template v-show="isSocialForm">
+    <div v-show="isSocialForm">
       <div class="text">OR</div>
       <div class="external-items">
-        <div id="loginBtn">
+        <div id="google-login-btn">
           <button class="external-item" type="button">
             <img src="@/assets/user/logo/google.png" />
             <b> Continue with Google</b>
@@ -44,7 +43,7 @@
           <b> Continue with KakaoTalk</b>
         </button>
       </div>
-    </template>
+    </div>
     <div class="sign_up">
       <router-link to="/auth/signup" class="go_to_signup">
         Do you want to Sign up?
@@ -58,6 +57,7 @@
 </template>
 
 <script>
+import { isEmpty } from '@/utils/libs';
 import { mapActions } from 'vuex';
 import { getUserFromLocalStorage } from '@/utils/webStorage';
 
@@ -81,7 +81,7 @@ export default {
   watch: {
     userData: {
       handler(e) {
-        e.id === '' && e.password === ''
+        isEmpty(e.id) && isEmpty(e.password)
           ? (this.isSocialForm = true)
           : (this.isSocialForm = false);
 
@@ -93,10 +93,12 @@ export default {
     },
   },
 
+  created() {
+    this.googleLoad();
+  },
+
   mounted() {
-    if (this.$route.params) {
-      this.userData.id = this.$route.params.id;
-    }
+    this.afterPushEmail();
   },
 
   methods: {
@@ -110,6 +112,23 @@ export default {
         this.push.pushYn = true;
         this.push.message = response.data.message;
       }
+    },
+
+    afterPushEmail() {
+      if (this.$route.params) {
+        this.userData.id = this.$route.params.id;
+      }
+    },
+
+    googleLoad() {
+      this.$loadScript(`https://apis.google.com/js/api:client.js`)
+        .then(() => {
+          this.$_Google.init();
+        })
+        .catch(error => {
+          console.log(error);
+          alert('구글 로그인 서버와의 연동에 실패했습니다.');
+        });
     },
 
     facebookLogin() {

@@ -31,7 +31,6 @@ export default {
   },
 
   created() {
-    this.googleLoad();
     this.kakaoLoad();
     this.facebookLoad();
   },
@@ -39,17 +38,6 @@ export default {
   methods: {
     goMain() {
       this.$router.push('/main');
-    },
-
-    googleLoad() {
-      this.$loadScript(`https://apis.google.com/js/api:client.js`)
-        .then(() => {
-          this.$_Google.init();
-        })
-        .catch(error => {
-          console.log(error);
-          alert('구글 로그인 서버와의 연동에 실패했습니다.');
-        });
     },
 
     kakaoLoad() {

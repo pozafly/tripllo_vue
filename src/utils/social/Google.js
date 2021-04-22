@@ -9,7 +9,7 @@ const Google = {
         client_id: process.env.VUE_APP_GOOGLE_CLIENT_ID,
         cookiepolicy: 'single_host_origin',
       });
-      this.attachSignin(document.getElementById('loginBtn'), auth2);
+      this.attachSignin(document.getElementById('google-login-btn'), auth2);
     });
   },
 
@@ -33,7 +33,7 @@ const Google = {
         }
       },
       error => {
-        alert(JSON.stringify(error, undefined, 2));
+        // alert(JSON.stringify(error, undefined, 2));
         console.log(JSON.stringify(error, undefined, 2));
       },
     );
