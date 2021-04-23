@@ -182,6 +182,14 @@ export default {
       }
     },
 
+    /**
+     * relatedTarget
+     *
+     * mouseover 이벤트와 함께 사용되어 커서가 방금 떠난 요소를 나타낸다.
+     * onSubmitTitle은 키보드 Enter를 누르거나 blur 이벤트가 있을 때와 함께
+     * Save 버튼을 누를 때 실행된다. Save 버튼은 target에 잡히지 않으므로 (input이 잡힘)
+     * relatedTarget 을 사용해 이벤트가 일어날 시점의 마우스가 가리킨 DOM의 요소를 가져와 체크한다.
+     */
     onSubmitTitle({ relatedTarget }) {
       this.isTitle = false;
       if (relatedTarget) {

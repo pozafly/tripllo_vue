@@ -53,7 +53,7 @@ export default {
   methods: {
     ...mapActions(['READ_FILE', 'READ_BOARD_DETAIL']),
     download(e) {
-      if (!this.permission()) {
+      if (!this.isPermission()) {
         alert('권한이 없습니다.');
         return;
       }
@@ -69,7 +69,7 @@ export default {
     },
 
     async deleteFile() {
-      if (!this.permission()) {
+      if (!this.isPermission()) {
         alert('권한이 없습니다.');
         return;
       }
@@ -88,7 +88,7 @@ export default {
       }
     },
 
-    permission() {
+    isPermission() {
       if (this.board.createdBy === this.user.id) {
         return true;
       }
@@ -96,7 +96,9 @@ export default {
         if (this.board.invitedUser.includes(this.user.id)) {
           return true;
         }
-      } else return false;
+      } else {
+        return false;
+      }
     },
   },
 };
