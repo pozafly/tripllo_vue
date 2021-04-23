@@ -25,7 +25,7 @@ export const setInterceptors = instance => {
       } else if (errorCode === 400) {
         alert('잘못된 요청입니다.');
       }
-      return Promise.reject('cancel');
+      return Promise.reject(error);
     },
   );
 

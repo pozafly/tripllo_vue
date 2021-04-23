@@ -84,12 +84,12 @@
 
     - 파일 업로드 시 local에 파일을 저장 후 S3에 올린 다음 local에 남은 파일을 지웁니다.
     - Spring Cloud AWS를 이용해 S3에 static_[유저이름] 으로 된 폴더를 생성해 파일을 저장합니다. :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/5a0c0d1fd697f5c6ec74d39b4e9f058ac6ab914c/src/main/java/com/pozafly/tripllo/fileUpload/S3Uploader.java#L29)
-    - **isPermission** 파일은 권한 체크 후 다운받거나 삭제할 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailAttachment/AttachmentList.vue#L48)
+    - 파일은 권한 체크 후 다운받거나 삭제할 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/components/card/cardModal/mainModal/attachment/CardAttachmentList.vue#L91)
 
   - Checklist
 
     - KProgress 모듈을 사용해 체크 목록이 변화할 때마다 게이지가 변합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/203c0c3913b1a6326a36b6d58ca353d584e0614d/src/components/card/cardModal/mainModal/checklists/CardChecklistWrap.vue#L222)
-    - **relatedTarget** 이름을 변경할 때 *event.relatedTaget*으로 이벤트가 일어난 DOM을 체크해 메서드를 실행합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailChecklists/Checklists.vue#L119)
+    - 이름을 변경할 때 *event.relatedTaget*으로 이벤트가 일어난 DOM을 체크해 메서드를 실행합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/components/card/cardModal/mainModal/checklists/CardChecklistWrap.vue#L185)
 
   - Comments
 
@@ -100,24 +100,24 @@
 - **드래그 앤 드롭** 
 
   - dragula 모듈을 사용해, List와 Card를 드래그해서 위치를 변화시킬 수 있습니다.
-  - 대상의 이전 DOM과 다음 DOM을 비교해서 pos(포지션) 값을 지정 후 UPDATE 합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/utils/dragger/dragger.js#L8)
-- **화면 렌더링**
-  - Action 함수 호출 후 Component를 다시 그려줄 수 있는 Action 함수를 호출합니다. :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_vue/blob/d83f89c1f799b4281fcf43d8a40242991fb7afb2/src/store/actions.js#L158)
-  - Board 페이지에서 수정 시 1:N 관계를 가진 컴포넌트가 readBoardDetail 이라는 쿼리문 조회된 후 리랜더링 됩니다.  :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/77266edb3c874cd43132425e75a587641e4983fd/src/main/resources/mapper/BoardMapper.xml#L195)
+  - 대상의 이전 DOM과 다음 DOM을 비교해서 pos(포지션) 값을 지정 후 UPDATE 합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/utils/dragger/index.js#L68)
+- **BoardPage & CardModal 화면 연동**
+  - Board 혹은 Card를 수정 했을 시 api 함수 호출 후 Component를 다시 그려줄 수 있는 Action 함수를 호출합니다. :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/components/card/cardModal/CardModal.vue#L123)
+  - 1:N 관계를 가진 컴포넌트가 readBoardDetail 이라는 쿼리문 조회된 후 리랜더링 됩니다.  :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/77266edb3c874cd43132425e75a587641e4983fd/src/main/resources/mapper/BoardMapper.xml#L195)
 
 <br/>
 
 ### 4.3 사용자 초대
 
 - **유저 검색**
-  - 모달 창에서 초대하고 싶은 회원의 ID를 검색합니다. filter를 사용해 자신과 이미 초대된 사람은 목록에 뜨지 않습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/board/Invite.vue#L64)
+  - 모달 창에서 초대하고 싶은 회원의 ID를 검색합니다. filter를 사용해 자신과 이미 초대된 사람은 목록에 뜨지 않습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/components/board/boardHeader/boardInvite/InviteModal.vue#L66)
 
 - **실시간 messaging**
-  - 로그인 후 sockjs-client로 공통 컴포넌트인 Header.vue에서 Connection을 실행합니다.  :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/666fd04cd62171bd760f8788c59eb467e1c26b20/src/utils/socket.js#L5)
+  - sockjs-client로 Connection을 실행합니다.  :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/utils/socket.js#L7)
   - Spring WebSocket에서 HandshakeInterceptor 를 통해 socket 세션을 받아온 후, 현재 접속자 끼리 초대장을 보낼 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/java/com/pozafly/tripllo/webSocket/WebSocketHandler.java#L19)
-  - Header.vue에서 초대장을 받고, Notification 처리와, 초대장 개수를 표현합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/common/Header.vue#L161)
+  - 초대장을 받고, Notification 처리와, 초대장 개수를 표현합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/components/common/header/message/HeaderMessage.vue#L48)
 - **초대 수락**
-  - 유저가 초대된 Board의 invitedUser 목록에 추가되고, 해당 유저의 invitedBoard 목록에 추가됩니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/common/MessageDetail.vue#L30)
+  - 유저가 초대된 Board의 invitedUser 목록에 추가되고, 해당 유저의 invitedBoard 목록에 추가됩니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/components/common/header/message/HeaderMessageModalConfirm.vue#L82)
   - 이때, 초대한 사람의 Board가 수정되어야 하므로 Spring Interceptor에서 권한 체크를 합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/java/com/pozafly/tripllo/common/interceptor/BoardAuthInterceptor.java#L77)
 
 <br/>
@@ -125,8 +125,8 @@
 ### 4.4 소셜 기능
 
 - 해시태그
-  - Array - push, splice를 통해 해시태그를 지정, 삭제할 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/fa0b24d02ad944a63ae18f1734024faebdfab76b/src/components/board/HashtagDisplay.vue#L72)
-  - Board를 만든 주인만 해시태그를 수정할 수 있도록 화면 숨김 처리되어 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/fa0b24d02ad944a63ae18f1734024faebdfab76b/src/views/BoardPage.vue#L62)
+  - Array - push, splice를 통해 해시태그를 지정, 삭제할 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/components/board/boardHeader/BoardHeaderHashtagModal.vue#L88)
+  - Board를 만든 주인만 해시태그를 수정할 수 있도록 화면 숨김 처리되어 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/components/board/boardHeader/BoardHeader.vue#L30)
   - N:M 관계를 board_has_hashtag 중간 테이블을 두고 1:N 관계로 풀어서 조회합니다.  :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/resources/mapper/HashtagMapper.xml#L12)
   
 - 좋아요
@@ -144,7 +144,7 @@
 
 - Board 조회 시, Data를 **한 번**에 조회하는 방식이었습니다.
 - 무한 스크롤을 적용할 때 전체를 조회하는 것이 아니라 이어지는 일부분을 가져와야 했습니다.
-- [커서 기반 페이지네이션](https://velog.io/@minsangk/%EC%BB%A4%EC%84%9C-%EA%B8%B0%EB%B0%98-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-Cursor-based-Pagination-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)을 읽고 MySQL의 limit와 offset을 사용해서 들고 오면, **Table 전체를 조회** 후 offset에 맞는 Data를 가져오게 되므로 성능상 문제가 생긴다는 사실을 알게 되었습니다. 
+- [커서 기반 페이지네이션](https://velog.io/@minsangk/%EC%BB%A4%EC%84%9C-%EA%B8%B0%EB%B0%98-%ED%8E%98%EC%9D%B4%EC%A7%80%EB%84%A4%EC%9D%B4%EC%85%98-Cursor-based-Pagination-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0)을 읽고 MySQL의 limit와 offset을 사용해서 들고 오면, **Table 전체를 조회** 후 offset에 맞는 Data를 가져오게 되므로 성능상 문제가 생긴다는 사실을 알게 되었습니다.
 
 <details>
 <summary><b>기존SQL</b></summary>
@@ -220,25 +220,13 @@
 </div>
 </details>
 
-- Vue에서는 `vue-infinite-loading` 패키지를 설치하고, lastCreatedAt 변수에 담길 값을 HTML dataset 에 두어 정보를 가져오게 했습니다.
+- Vue에서는 `vue-infinite-loading` 패키지를 설치하고, `<infinite-loading>` 를 이용해 `infiniteHandler` 메서드를 호출하도록 했습니다.
 
 <details>
 <summary><b>Vue templete 코드</b></summary>
 <div markdown="1">
 
 ```html
-<div class="list-wrap" ref="boardItem">  <!-- 여기 ref 등록해주어야 자식의 마지막 DOM을 가져올 수 있다. -->
-  ...
-  <div
-    class="board-list"
-    v-for="board in personalBoardList"
-    :key="board.id"
-    :data-last-created-at="board.createdAt"  <!-- dataset을 지정해두었음. -->
-  >
-    <BoardItem :board="board" />
-  </div>
-</div>
-...
 <infinite-loading @infinite="infiniteHandler" spinner="waveDots">
   <div
     slot="no-more"
@@ -252,8 +240,8 @@
 </div>
 </details>
 
-- 이때, vue-infinite-loading는 `$state.loaded`와 `$state.complete`로 무한스크롤이 끝났는지 판단합니다.
-- 판단을 위해 구분값이 필요했는데, state에 isInfinity 변수를 생성하여 판단하도록 했습니다.
+- script에서는 lastCreatedAt 변수에 담길 값을 저장합니다.
+- 이때, vue-infinite-loading는 `$state.loaded`와 `$state.complete` 로 무한스크롤이 끝났는지 지속해야 하는지 판단합니다.
 
 <details>
 <summary><b>Vue script 코드</b></summary>
@@ -267,20 +255,27 @@ data() {
   }
 }
 ...
-infiniteHandler($state) {
-  this.READ_PERSONAL_BOARD_LIST({   // 퍼스널 보드를 조회하는 action함수
-    lastCreatedAt: this.lastCreatedAt,
-  });
-  setTimeout(() => {
-    // isInfinity는 state에 올라가 있다. 초기 값은 Y
-    if (this.isInfinity === 'Y') {
-    // 마지막 DOM의 dataset에서 createdAt을 가져와, data에 등록된 lastCreateAt에 집어넣는다.
-      this.lastCreatedAt = this.$refs.boardItem.lastChild.dataset.lastCreatedAt;
-      $state.loaded();  // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
+async infiniteHandler($state) {
+  try {
+    const { data } = await readPersonalBoardAPI(this.lastCreatedAt);
+    
+    if (data.data === null) {
+      this.isInfinity = false;
+      $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
     } else {
-      $state.complete();  // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
+      (...)
+      setTimeout(() => {
+        const boardItem = data.data;
+        // BoardItem의 마지막 값을 가져옴
+        const lastCreatedAt = boardItem[boardItem.length - 1].createdAt;
+        this.lastCreatedAt = lastCreatedAt;
+        $state.loaded(); // 계속 데이터가 남아있다는 것을 infinity에게 알려준다.
+      }, 1000);
     }
-  }, 1000);
+  } catch (error) {
+    console.log(error);
+    alert('Personal 보드를 가져오지 못했습니다.');
+  }
 },
 ```
 
@@ -356,12 +351,7 @@ watch: {
   'userData.password': _.debounce(function(e) {
     this.validatePw(e);
   }, 750),
-  againPassword: _.debounce(function(e) {
-    this.validateAgainPw(e);
-  }, 750),
-  'userData.email': _.debounce(function(e) {
-    this.validateEmail(e);
-  }, 750),
+  (...)
 },
 ```
 
@@ -375,7 +365,7 @@ watch: {
 - Vue는 SPA이므로 새로고침 했을 때, state에 jwt(token), user 정보 등의 데이터가 지워져 여러 오류를 발생시켰습니다.
 - 이를 해결하기 위해서 브라우저 저장소(쿠키)를 이용 하여 문제를 해결했습니다.
 - 하지만, 쿠키는 4kb밖에 되지 않고 서버에 계속해서 쿠키를 보내기 때문에 제외하고 webStorage를 사용하기로 했습니다.
-- `localStorage`는 user와 token 정보를 저장합니다. 재접속 시, 로그인된 상태로 이용하게 하기 위함입니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/666fd04cd62171bd760f8788c59eb467e1c26b20/src/routes/index.js#L8)
+- `localStorage`는 user와 token 정보를 저장합니다. 재접속 시 localStorage에 user 관련 정보가 있다면, 라우터 가드에서 main 페이지로 이동시킵니다. 로그인된 상태로 이용하게 하기 위함입니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/666fd04cd62171bd760f8788c59eb467e1c26b20/src/routes/index.js#L8)
 - `sessionStorage`는 새롭게 api를 연동해야 하는 휘발성이 있는 객체들을 저장합니다. :pushpin: [commit 보기](https://github.com/pozafly/tripllo_vue/commit/5c239dc691985746a44d2d6bd128216ea4374c85)
 - 새로고침 시, state에서 webStorage에 저장된 Data를 가져오도록 했습니다.
 

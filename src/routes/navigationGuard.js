@@ -1,5 +1,4 @@
 import store from '@/store';
-import router from '@/routes';
 import { getUserFromLocalStorage } from '@/utils/webStorage';
 import { isEmpty } from '@/utils/libs';
 
@@ -35,7 +34,8 @@ const intoBoard = async (to, from, next) => {
     if (error.response.status === 404) {
       alert('해당 Board의 정보가 없습니다.');
     }
-    router.push('/main');
+    next('/main');
+    return;
   }
 };
 
