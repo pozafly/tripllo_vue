@@ -68,17 +68,11 @@ export default {
       type: Number,
       default: 0,
       require: true,
-      validator(value) {
-        return typeof value === 'number';
-      },
     },
     comment: {
       type: String,
       require: true,
       default: '',
-      validator(value) {
-        return typeof value === 'string';
-      },
     },
     deleteYn: {
       type: String,
@@ -100,17 +94,11 @@ export default {
       type: String,
       require: true,
       default: '',
-      validator(value) {
-        return typeof value === 'string';
-      },
     },
     readComment: {
       type: Function,
       require: true,
       default: () => {},
-      validator(value) {
-        return typeof value === 'function';
-      },
     },
   },
 

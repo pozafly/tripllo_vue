@@ -14,25 +14,16 @@ export default {
       type: String,
       require: true,
       default: '',
-      validator(value) {
-        return typeof value === 'string';
-      },
     },
     x: {
       type: Number,
       default: 0,
       require: true,
-      validator(value) {
-        return typeof value === 'number';
-      },
     },
     y: {
       type: Number,
       default: 0,
       require: true,
-      validator(value) {
-        return typeof value === 'number';
-      },
     },
   },
 

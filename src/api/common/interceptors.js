@@ -20,7 +20,7 @@ export const setInterceptors = instance => {
     },
     error => {
       const errorCode = error.response.status;
-      if (errorCode === 401) {
+      if (errorCode === 401 || errorCode === 403) {
         alert('권한이 없습니다.');
       } else if (errorCode === 400) {
         alert('잘못된 요청입니다.');

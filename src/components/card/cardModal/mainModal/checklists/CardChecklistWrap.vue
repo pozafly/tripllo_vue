@@ -89,17 +89,11 @@ export default {
       type: Number,
       default: 0,
       require: true,
-      validator(value) {
-        return typeof value === 'number';
-      },
     },
     id: {
       type: Number,
       default: 0,
       require: true,
-      validator(value) {
-        return typeof value === 'number';
-      },
     },
     items: {
       type: Array,
@@ -117,17 +111,11 @@ export default {
       type: String,
       require: true,
       default: '',
-      validator(value) {
-        return typeof value === 'string';
-      },
     },
     readChecklist: {
       type: Function,
       require: true,
       default: () => {},
-      validator(value) {
-        return typeof value === 'function';
-      },
     },
   },
 

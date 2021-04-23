@@ -29,33 +29,21 @@ export default {
       type: Number,
       default: 0,
       require: true,
-      validator(value) {
-        return typeof value === 'number';
-      },
     },
     boardId: {
       type: Number,
       default: 0,
       require: true,
-      validator(value) {
-        return typeof value === 'number';
-      },
     },
     content: {
       type: String,
       require: true,
       default: '',
-      validator(value) {
-        return typeof value === 'string';
-      },
     },
     createdAt: {
       type: String,
       require: true,
       default: '',
-      validator(value) {
-        return typeof value === 'string';
-      },
     },
     isRead: {
       type: String,

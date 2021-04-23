@@ -23,41 +23,26 @@ export default {
       type: Number,
       default: 0,
       require: false,
-      validator(value) {
-        return typeof value === 'number';
-      },
     },
     link: {
       type: String,
       require: true,
       default: '',
-      validator(value) {
-        return typeof value === 'string';
-      },
     },
     extension: {
       type: String,
       require: true,
       default: '',
-      validator(value) {
-        return typeof value === 'string';
-      },
     },
     fileName: {
       type: [String, Number],
       require: true,
       default: '',
-      validator(value) {
-        return typeof value === 'string' || typeof value === 'number';
-      },
     },
     createdAt: {
       type: String,
       require: true,
       default: '',
-      validator(value) {
-        return typeof value === 'string';
-      },
     },
   },
 

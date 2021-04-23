@@ -45,9 +45,6 @@ export default {
       type: Number,
       default: 0,
       require: true,
-      validator(value) {
-        return typeof value === 'number';
-      },
     },
     isChecked: {
       type: String,
@@ -61,9 +58,6 @@ export default {
       type: [String, Number],
       require: true,
       default: '',
-      validator(value) {
-        return typeof value === 'string' || typeof value === 'number';
-      },
     },
   },
 

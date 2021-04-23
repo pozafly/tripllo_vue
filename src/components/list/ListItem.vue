@@ -60,25 +60,16 @@ export default {
       type: Number,
       default: 0,
       require: true,
-      validator(value) {
-        return typeof value === 'number';
-      },
     },
     pos: {
       type: Number,
       default: 0,
       require: true,
-      validator(value) {
-        return typeof value === 'number';
-      },
     },
     title: {
       type: String,
       require: false,
       default: '',
-      validator(value) {
-        return typeof value === 'string';
-      },
     },
     cards: {
       type: Array,

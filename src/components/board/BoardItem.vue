@@ -53,6 +53,9 @@ export default {
     ...mapState(['personalBoard', 'user']),
 
     hashtag() {
+      if (isEmpty(this.board.hashtag)) {
+        return;
+      }
       return JSON.parse(this.board.hashtag);
     },
   },
