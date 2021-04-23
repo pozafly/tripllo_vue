@@ -75,12 +75,12 @@
 
     - 파일 업로드 시 local에 파일을 저장 후 S3에 올린 다음 local에 남은 파일을 지웁니다.
     - Spring Cloud AWS를 이용해 S3에 static_[유저이름] 으로 된 폴더를 생성해 파일을 저장합니다. :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/5a0c0d1fd697f5c6ec74d39b4e9f058ac6ab914c/src/main/java/com/pozafly/tripllo/fileUpload/S3Uploader.java#L29)
-    - 파일은 권한 체크 후 다운받거나 삭제할 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailAttachment/AttachmentList.vue#L48)
+    - **isPermission** 파일은 권한 체크 후 다운받거나 삭제할 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailAttachment/AttachmentList.vue#L48)
 
   - Checklist
 
-    - KProgress 모듈을 사용해 체크 목록이 변화할 때마다 게이지가 변합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailChecklists/Checklists.vue#L155)
-    - 이름을 변경할 때 *event.relatedTaget*으로 이벤트 버블링을 방지합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailChecklists/Checklists.vue#L119)
+    - KProgress 모듈을 사용해 체크 목록이 변화할 때마다 게이지가 변합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/203c0c3913b1a6326a36b6d58ca353d584e0614d/src/components/card/cardModal/mainModal/checklists/CardChecklistWrap.vue#L222)
+    - **relatedTarget** 이름을 변경할 때 *event.relatedTaget*으로 이벤트가 일어난 DOM을 체크해 메서드를 실행합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailChecklists/Checklists.vue#L119)
 
   - Comments
 

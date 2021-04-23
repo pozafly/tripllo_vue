@@ -44,7 +44,6 @@ export default {
 
     async readFileInfo() {
       try {
-        console.log('readFileInfo');
         await this.READ_FILE(this.cardId);
       } catch (error) {
         console.log(error);
