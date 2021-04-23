@@ -134,7 +134,7 @@
                 <li class="skill-list">AWS-CodeDeploy</li>
                 <li class="skill-list">Travis</li>
                 <li class="skill-list">Nginx</li>
-                <li class="skill-list">Let's Encrypt(TLS)</li>
+                <li class="skill-list">Let's Encrypt(SSL)</li>
               </ul>
             </div>
           </li>
