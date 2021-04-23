@@ -20,21 +20,24 @@
 `Front-end`
 
 - Vue 2.6.11 + Vuex + Vue-router
-- scss
-- axios
-- dragula [(https://bevacqua.github.io/dragula/)](https://bevacqua.github.io/dragula/)
-- sockjs-client
+- Scss
+- Webpack
+- Axios
+- Dragula [(https://bevacqua.github.io/dragula/)](https://bevacqua.github.io/dragula/)
+- Sockjs-client
+- Sentry
 
 `Back-end`
 
 - Java 8
 - SpringBoot 2.1.9
-- Gradle
-- MyBatis
-- H2
+  - Spring Security + JWT
+  - Websocket
+  - Swagger 2
+  - Spring Mail
+  - Spring Cloud-AWS
 - Mysql 8.0.22
-- Spring Security
-- Swagger 2
+- MyBatis
 
 <br/>
 
@@ -58,7 +61,9 @@
 
 ### 4.1 전체 흐름
 
-![전체 프로세스](https://user-images.githubusercontent.com/59427983/108020126-06030f80-705f-11eb-934d-d115b3e90e20.jpg)
+![Frontend-process](https://user-images.githubusercontent.com/59427983/115862474-2ab8a080-a46f-11eb-990e-9da8549f1b12.png)
+
+![Backend-process](https://user-images.githubusercontent.com/59427983/115862524-37d58f80-a46f-11eb-8884-156df3ae651e.png)
 
 <br/>
 
