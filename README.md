@@ -360,13 +360,13 @@ watch: {
 
 <br/>
 
-### 5.3 새로고침 시 state가 사라지는 문제
+### 5.3 새로고침 시 state가 사라지는 문제(webStorage 사용)
 
 - Vue는 SPA이므로 새로고침 했을 때, state에 jwt(token), user 정보 등의 데이터가 지워져 여러 오류를 발생시켰습니다.
 - 이를 해결하기 위해서 브라우저 저장소(쿠키)를 이용 하여 문제를 해결했습니다.
 - 하지만, 쿠키는 4kb밖에 되지 않고 서버에 계속해서 쿠키를 보내기 때문에 제외하고 webStorage를 사용하기로 했습니다.
-- `localStorage`는 user와 token 정보를 저장합니다. 재접속 시 localStorage에 user 관련 정보가 있다면, 라우터 가드에서 main 페이지로 이동시킵니다. 로그인된 상태로 이용하게 하기 위함입니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/666fd04cd62171bd760f8788c59eb467e1c26b20/src/routes/index.js#L8)
-- `sessionStorage`는 새롭게 api를 연동해야 하는 휘발성이 있는 객체들을 저장합니다. :pushpin: [commit 보기](https://github.com/pozafly/tripllo_vue/commit/5c239dc691985746a44d2d6bd128216ea4374c85)
+- `localStorage`는 user와 token 정보를 저장합니다. 재접속 시 localStorage에 user 관련 정보가 있다면, 라우터 가드에서 main 페이지로 이동시킵니다. 로그인된 상태로 이용하게 하기 위함입니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/281b593ccd57069b25ed087324d268d00381d803/src/routes/navigationGuard.js#L5)
+- localStorage는 userInfo와 token을 저장하고 인코딩 합니다. 또한 `sessionStorage`는 새롭게 api를 연동해야 하는 휘발성이 있는 객체들을 저장합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/281b593ccd57069b25ed087324d268d00381d803/src/utils/webStorage.js#L3)
 - 새로고침 시, state에서 webStorage에 저장된 Data를 가져오도록 했습니다.
 
 <details>
@@ -375,94 +375,12 @@ watch: {
 
 ```javascript
 const state = {
-  token: getUserFromLocalStorage('user_token') || '',
-  user: {
-    id: getUserFromLocalStorage('user_id') || '',
-    email: getUserFromLocalStorage('user_email') || '',
-    name: getUserFromLocalStorage('user_name') || '',
-    bio: getUserFromLocalStorage('user_bio') || '',
-    social: getUserFromLocalStorage('user_social' || ''),
-    picture: getUserFromLocalStorage('user_picture') || '',
-    recentBoard: getUserFromLocalStorage('user_recentBoard') || '',
-    invitedBoard: getUserFromLocalStorage('user_invitedBoard') || '',
-    createdAt: getUserFromLocalStorage('user_created_at') || '',
-  },
-  isInfinity: 'Y',
-  personalBoard: [],
-  recentBoard: [],
-  invitedBoard: [],
+  token: getTokenFromLocalStorage() || '',
+  user: getUserFromLocalStorage() || '',
   board: getSessionStorage('board') || {},
   card: getSessionStorage('card') || {},
-  checklists: getSessionStorage('checklists') || [],
   bgColor: getSessionStorage('bgColor') || '',
-  comment: [],
-  socket: null,
-  pushMessage: '',
-  file: [],
-  mainTabId: 0,
-  hashtagBoards: [],
-  hashtags: [],
-};
-```
-
-</div>
-</details>
-
-<details>
-<summary><b>webStorage 코드</b></summary>
-<div markdown="1">
-
-```javascript
-function saveUserToLocalStorage(user) {
-  localStorage.setItem('user_id', user.id);
-  localStorage.setItem('user_email', user.email);
-  localStorage.setItem('user_name', user.name);
-  localStorage.setItem('user_social', user.social);
-  localStorage.setItem('user_bio', user.bio);
-  localStorage.setItem('user_picture', user.picture);
-  localStorage.setItem('user_recentBoard', user.recentBoard);
-  localStorage.setItem('user_invitedBoard', user.invitedBoard);
-  localStorage.setItem('user_created_at', user.createdAt);
-}
-
-function saveUserToken(token) {
-  localStorage.setItem('user_token', token);
-}
-
-function getUserFromLocalStorage(key) {
-  return localStorage.getItem(key);
-}
-
-function clearStorage() {
-  localStorage.clear();
-  sessionStorage.clear();
-}
-
-function clearSessionStorage() {
-  sessionStorage.clear();
-}
-
-function saveSessionStorage(key, value) {
-  sessionStorage.setItem(key, JSON.stringify(value));
-}
-
-function getSessionStorage(key) {
-  return JSON.parse(sessionStorage.getItem(key));
-}
-
-function deleteSessionStorage(key) {
-  sessionStorage.removeItem(key);
-}
-
-export {
-  saveUserToLocalStorage,
-  saveUserToken,
-  getUserFromLocalStorage,
-  clearStorage,
-  saveSessionStorage,
-  getSessionStorage,
-  deleteSessionStorage,
-  clearSessionStorage,
+  (...)
 };
 ```
 
@@ -480,12 +398,13 @@ export {
 <div markdown="1">
 
 ```javascript
+// request
 instance.interceptors.request.use(
-  function(config) {
+  config => {
     config.headers.Authorization = store.state.token;
     return config;
   },
-  function(error) {
+  error => {
     return Promise.reject(error);
   },
 );
@@ -545,7 +464,7 @@ Error: PostCSS received undefined instead of CSS string
 <div markdown="1">
 
 - JSON.parse는 문자열을 json 형태로 만들어주는데, 이때, null 값이 들어가게 되면 파싱 오류를 뱉음.
-- 따라서 파싱 전 if문으로 null 체크를 해줌. :pushpin: [코드 보기](https://github.com/pozafly/tripllo_vue/blob/9e857c084e89d48b45402f60ece3c1857678c8f1/src/components/main/PersonalSection.vue#L79)
+- 따라서 공통 함수를 만들어 파싱 전 if문으로 null 체크를 해줌. :pushpin: [코드 보기](https://github.com/pozafly/tripllo_vue/blob/281b593ccd57069b25ed087324d268d00381d803/src/utils/libs.js#L1)
 
 </div>
 </details>
@@ -556,7 +475,7 @@ Error: PostCSS received undefined instead of CSS string
 
 - 커뮤니티에 링크를 공유 후 다른 접속자들의 환경에서는 접속이 안 된다는 제보를 받음.
 - test시 크롬은 동작하는데 사파리에서 구글 로그인을 사용하니 아무 동작을 하지 않음.
-- 플러그인을 지우고, Google 공식 버전으로 직접 코딩 후 해결. :pushpin: [코드 보기](https://github.com/pozafly/tripllo_vue/blob/master/src/utils/social/Google.js)
+- 플러그인을 지우고, Google 공식 버전으로 직접 코딩 후 해결. :pushpin: [코드 보기](https://github.com/pozafly/tripllo_vue/blob/281b593ccd57069b25ed087324d268d00381d803/src/utils/social/Google.js#L5)
 
 </div>
 </details>
@@ -572,11 +491,11 @@ Error: PostCSS received undefined instead of CSS string
 </details>
 
 <details>
-<summary><b>비동기 처리 문제</b></summary>
+<summary><b>actions 로직파악 어려운 문제</b></summary>
 <div markdown="1">
 
-- async await를 사용하여 가독성이 좋게 만들어보려 했지만, Promise가 return 되지 않는 메서드에도 await를 사용하는 바람에 처리되지 않음.
-- `(Promise 객체).then(() => {})` 문법으로 체이닝 하여 해결. :pushpin: [코드 보기](https://github.com/pozafly/tripllo_vue/blob/9e857c084e89d48b45402f60ece3c1857678c8f1/src/store/actions.js#L91)
+- Vuex의 action안에서 다른 action을 부르기 때문에 actions가 굉장히 복잡했다. actions를 사용할 필요가 없는 것은 전부 컴포넌트 단으로 api 함수를 옮겼고, actions에 Mutation를 발생시키는 commit 메서드만 남기도록 수정함.
+- actions.js가 415줄에서 73줄이 되었다. :pushpin: [코드 보기](https://github.com/pozafly/tripllo_vue/blob/281b593ccd57069b25ed087324d268d00381d803/src/store/actions.js#L1)
 
 </div>
 </details>
@@ -766,7 +685,7 @@ Error: PostCSS received undefined instead of CSS string
 - Spring Scheduler를 사용하여 Test ID를 만들고, 7-23시 사이에 2시간 간격으로 Test ID의 모든 데이터가 재구성되도록 만들어 놓았음.
 - 하지만 누군가 Test ID의 비밀번호를 바꾸는 바람에 접속할 수 없게 되었음.
 - SpringSecurity에서 제공하는 passwordEncoder의 BCrypt 방식으로 비밀번호를 저장하고 login 시 복호화하여 login 하므로 쿼리문으로 비밀번호를 원상태로 돌리는 것은 불가능함.
-- 미리 만들어둔 ApplicationRunner를 구현한 class가 있었기 때문에 다시 build 후 원상복구 시킨 뒤, 방어 로직을 추가함.
+- 미리 만들어둔 ApplicationRunner를 구현한 class가 있었기 때문에 다시 build 후 원상복구 시킨 뒤, 방어 로직을 추가함. :pushpin:  [코드 보기](https://github.com/pozafly/tripllo_springBoot/blob/cf8c8165223910f8a5bfbbe2c2984eb99a941b08/src/main/java/com/pozafly/tripllo/common/scheduler/DataApplicationRunner.java#L13)
 
 </div>
 </details>
@@ -838,3 +757,5 @@ Error: PostCSS received undefined instead of CSS string
 
 
 [프로젝트 문제점 및 후기](https://pozafly.github.io/tripllo/tripllo-epilogue/)
+
+[Frontend(vue) 리팩토링](https://pozafly.github.io/tripllo/(8)vue-refactor1/)
