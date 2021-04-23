@@ -61,9 +61,13 @@
 
 ### 4.1 전체 흐름
 
-![Frontend-process](https://user-images.githubusercontent.com/59427983/115862474-2ab8a080-a46f-11eb-990e-9da8549f1b12.png)
+- Frontend
 
-![Backend-process](https://user-images.githubusercontent.com/59427983/115862524-37d58f80-a46f-11eb-8884-156df3ae651e.png)
+![Frontend-process](https://user-images.githubusercontent.com/59427983/115864975-a36d2c00-a472-11eb-8891-b7fcfa4fe55f.png)
+
+- Backend
+
+![Backend-process](https://user-images.githubusercontent.com/59427983/115865001-abc56700-a472-11eb-8297-9c206f981451.png)
 
 <br/>
 
@@ -843,4 +847,4 @@ Error: PostCSS received undefined instead of CSS string
 
 
 
-[프로젝트 문제점 및 후기](https://pozafly.github.io/tripllo/%ED%9B%84%EA%B8%B0/)
+[프로젝트 문제점 및 후기](https://pozafly.github.io/tripllo/tripllo-epilogue/)
