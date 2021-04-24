@@ -122,7 +122,7 @@ export default {
           invitedBoard: pushInvitedBoard,
         });
         await this.READ_USER(this.user.id);
-        await this.DELETE_PUSH_MESSAGE({ id: this.id });
+        await deletePushMessageAPI(this.id);
       } catch (error) {
         console.log(error);
         alert('초대 수락에 실패했습니다.');
