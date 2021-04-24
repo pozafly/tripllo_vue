@@ -53,6 +53,8 @@
 <script>
 import CommonHeader from '@/components/common/header/CommonHeader.vue';
 import BoardItem from '@/components/board/BoardItem.vue';
+
+import { isEmpty } from '@/utils/libs';
 import { readSearchUserBoardAPI } from '@/api/board';
 import { readUserAPI } from '@/api/user';
 
@@ -77,8 +79,13 @@ export default {
 
   methods: {
     async readUser() {
+      const userId = this.$route.params.userId;
+      if (isEmpty(userId)) {
+        return;
+      }
+
       try {
-        const { data } = await readUserAPI(this.$route.params.userId);
+        const { data } = await readUserAPI(userId);
         this.userInfo = data.data;
       } catch (error) {
         console.log(error);

@@ -1,10 +1,10 @@
 <template>
-  <span @click="$router.push(`/user/${createdBy}`)">
+  <span @click="moveToUserPage">
     <span v-if="createdBy" class="profile-wrap">
       <span
         v-if="createdByPicture"
         href=""
-        class="invited-picture img"
+        class="owner-picture img"
         :style="{ backgroundImage: `url(${createdByPicture})` }"
       ></span>
       <awesome v-else icon="user" class="invited-picture fas fa-user"></awesome>
@@ -59,12 +59,38 @@ export default {
       },
     },
   },
+
+  methods: {
+    moveToUserPage(event) {
+      if (event.target.className === 'owner-picture img') {
+        this.$router.push(`/user/${this.createdBy}`);
+      }
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .profile-wrap {
   position: relative;
+  .owner-picture {
+    padding: 5px 14px;
+    background-color: rgba(255, 255, 255, 0.5);
+    color: white;
+    transition: all 0.3s;
+    &.fa-user {
+      position: relative;
+      top: 7px;
+      padding: 7px 8px;
+      border-radius: 50%;
+    }
+    &.img {
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
   .invited-picture {
     padding: 5px 14px;
     background-color: rgba(255, 255, 255, 0.5);

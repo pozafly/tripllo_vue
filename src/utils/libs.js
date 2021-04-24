@@ -4,6 +4,8 @@ const isEmpty = value => {
     value === '' ||
     value === null ||
     value === undefined ||
+    value === 'null' ||
+    value === '[]' ||
     value.length === 0
   ) {
     return true;

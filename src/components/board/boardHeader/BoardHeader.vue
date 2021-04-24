@@ -74,6 +74,7 @@ import BoardHeaderHashtagModal from '@/components/board/boardHeader/BoardHeaderH
 import BoardMenu from '@/components/board/boardHeader/boardMenu/BoardMenu.vue';
 import BoardHeaderDisclosureStatus from '@/components/board/boardHeader/BoardHeaderDisclosureStatus.vue';
 
+import { isEmpty } from '@/utils/libs';
 import { readInvitedUserForBoardPageAPI } from '@/api/user';
 import { updateBoardAPI } from '@/api/board';
 import { mapActions, mapState } from 'vuex';
@@ -161,13 +162,13 @@ export default {
     },
 
     async setInvitedUserImage() {
-      if (!this.board.invitedUser) {
+      if (isEmpty(this.board.invitedUser)) {
         return;
       }
+      const invitedUser = JSON.parse(this.board.invitedUser);
+
       try {
-        const { data } = await readInvitedUserForBoardPageAPI(
-          JSON.parse(this.board.invitedUser),
-        );
+        const { data } = await readInvitedUserForBoardPageAPI(invitedUser);
         this.invitedUser = data.data;
       } catch (error) {
         console.log(error);
