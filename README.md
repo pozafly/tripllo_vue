@@ -52,6 +52,18 @@
 - Mysql 8.0.22
 - MyBatis
 
+`Deploy`
+
+- AWS-EC2 (Amazon Linux 2)
+- AWS-RDS
+- AWS-S3
+- AWS-CloudFront
+- AWS-Route53
+- AWS-CodeDeploy
+- Travis
+- Nginx
+- Let's Encrypt(SSL)
+
 <br/>
 
 ## 3. ERD 설계
