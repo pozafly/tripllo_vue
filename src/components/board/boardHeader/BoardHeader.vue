@@ -42,11 +42,7 @@
 
     <span v-if="board.invitedUser">
       <span class="board-item invited-user">
-        <span
-          v-for="item in invitedUser"
-          :key="item.id"
-          @click="$router.push(`/user/${item.id}`)"
-        >
+        <span v-for="item in invitedUser" :key="item.id">
           <BoardHeaderProfileImage v-bind="item" />
         </span>
       </span>
