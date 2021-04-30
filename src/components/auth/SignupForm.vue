@@ -59,11 +59,19 @@
               <b> Continue with Google</b>
             </button>
           </div>
-          <button class="external-item" type="button" @click="facebookSignup">
+          <button
+            class="external-item"
+            type="button"
+            @click="socialSignup('facebook')"
+          >
             <img src="@/assets/user/logo/facebook.png" />
             <b> Continue with Facebook</b>
           </button>
-          <button class="external-item" type="button" @click="kakaoSignup">
+          <button
+            class="external-item"
+            type="button"
+            @click="socialSignup('kakao')"
+          >
             <img src="@/assets/user/logo/kakao.png" />
             <b> Continue with KakaoTalk</b>
           </button>
@@ -244,21 +252,12 @@ export default {
         });
     },
 
-    facebookSignup() {
+    socialSignup(social) {
       if (getUserFromLocalStorage()) {
         alert('이미 로그인 되어 있습니다.');
         this.$router.push('/main');
       } else {
-        this.$_Facebook.signup();
-      }
-    },
-
-    kakaoSignup() {
-      if (getUserFromLocalStorage()) {
-        alert('이미 로그인 되어 있습니다.');
-        this.$router.push('/main');
-      } else {
-        this.$_Kakao.signup();
+        social === 'kakao' ? this.$_Kakao.signup() : this.$_Facebook.signup();
       }
     },
   },
