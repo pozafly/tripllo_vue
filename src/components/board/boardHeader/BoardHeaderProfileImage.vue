@@ -61,10 +61,14 @@ export default {
   },
 
   methods: {
-    moveToUserPage(event) {
-      if (event.target.className === 'owner-picture img') {
-        this.$router.push(`/user/${this.createdBy}`);
+    moveToUserPage() {
+      let id;
+      if (this.createdBy) {
+        id = this.createdBy;
+      } else {
+        id = this.id;
       }
+      this.$router.push(`/user/${id}`);
     },
   },
 };
