@@ -10,6 +10,7 @@
             v-focus
             class="submit-item"
             type="text"
+            maxlength="20"
             placeholder="Enter id"
           />
           <input
@@ -88,9 +89,15 @@
 
 <script>
 import _ from 'lodash';
-import { validateId, validatePw, validateEmail } from '@/utils/validation';
+import {
+  idValidCheck,
+  passwordValidCheck,
+  emailValidCheck,
+  passwordAgainCheck,
+} from '@/utils/validation';
 import { signupAPI } from '@/api/auth';
 import { getUserFromLocalStorage } from '@/utils/webStorage';
+import { validIdAPI } from '@/api/auth';
 import { mapActions } from 'vuex';
 
 export default {
@@ -133,16 +140,16 @@ export default {
       deep: true,
     },
     'userData.id': _.debounce(function(e) {
-      this.validUserId(e);
+      this.validFunction('id', e);
     }, 750),
     'userData.password': _.debounce(function(e) {
-      this.validatePw(e);
+      this.validFunction('password', e);
     }, 750),
     againPassword: _.debounce(function(e) {
-      this.validateAgainPw(e);
+      this.validFunction('againPassword', e);
     }, 750),
     'userData.email': _.debounce(function(e) {
-      this.validateEmail(e);
+      this.validFunction('email', e);
     }, 750),
   },
 
@@ -151,10 +158,11 @@ export default {
   },
 
   methods: {
-    ...mapActions(['LOGIN', 'VALID_ID']),
+    ...mapActions(['LOGIN']),
 
     async submitForm() {
-      const valid = this.valid;
+      const { valid } = this;
+
       if (valid.id === false) {
         alert('ID 조건을 확인하세요');
         this.$refs.id.focus();
@@ -189,50 +197,42 @@ export default {
       }
     },
 
-    async validUserId(id) {
-      // lodash logic
-      if (!validateId(id)) {
-        this.pushInsert(
-          '아이디는 영문자로 시작하는 6~20자 영문자 또는 숫자이어야 합니다.',
-        );
+    validFunction(type, arg) {
+      let result = {};
+      switch (type) {
+        case 'id':
+          result = idValidCheck(arg);
+          if (result.flag) {
+            this.idCheckApi(arg);
+          }
+          break;
+        case 'password':
+          result = passwordValidCheck(arg);
+          break;
+        case 'againPassword':
+          const realPw = this.userData.password;
+          const againPw = this.againPassword;
+          result = passwordAgainCheck(realPw, againPw);
+          break;
+        case 'email':
+          result = emailValidCheck(arg);
+          break;
+      }
+      if (result.flag) {
+        this.push.pushYn = false;
+        this.valid[type] = true;
       } else {
-        try {
-          await this.VALID_ID(id);
-          this.push.pushYn = false;
-          this.valid.id = true;
-        } catch ({ response }) {
-          this.pushInsert(response.data.message);
-        }
+        this.pushInsert(result.message);
       }
     },
 
-    validatePw(pw) {
-      let pwValid = validatePw(pw);
-      if (!pwValid[0]) {
-        this.pushInsert(pwValid[1]);
-      } else {
+    async idCheckApi(id) {
+      try {
+        await validIdAPI(id);
         this.push.pushYn = false;
-        this.valid.password = true;
-      }
-    },
-
-    validateAgainPw() {
-      const realPw = this.userData.password;
-      const againPw = this.againPassword;
-      if (realPw !== againPw) {
-        this.pushInsert('다시 입력한 비밀번호가 같지 않습니다.');
-      } else {
-        this.push.pushYn = false;
-        this.valid.againPassword = true;
-      }
-    },
-
-    validateEmail(email) {
-      if (!validateEmail(email)) {
-        this.pushInsert('이메일 유형에 맞지 않습니다.');
-      } else {
-        this.push.pushYn = false;
-        this.valid.email = true;
+        this.valid.id = true;
+      } catch ({ response }) {
+        this.pushInsert(response.data.message);
       }
     },
 

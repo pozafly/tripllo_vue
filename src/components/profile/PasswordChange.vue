@@ -31,7 +31,7 @@
 
 <script>
 import bus from '@/utils/bus.js';
-import { validatePw } from '@/utils/validation';
+import { passwordValidCheck } from '@/utils/validation';
 import { mapState } from 'vuex';
 import { changePasswordAPI } from '@/api/user';
 
@@ -76,7 +76,7 @@ export default {
     },
 
     validate() {
-      let pwValid = validatePw(this.newPw);
+      let pwValid = passwordValidCheck(this.newPw);
       if (!pwValid[0]) {
         alert(pwValid[1]);
         this.newPw = '';
