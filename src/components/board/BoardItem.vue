@@ -36,7 +36,7 @@ export default {
   props: {
     board: {
       type: Object,
-      require: true,
+      required: true,
       default: () => ({
         bgColor: '',
         hashtag: '[]',

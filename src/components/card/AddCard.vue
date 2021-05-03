@@ -31,7 +31,7 @@ export default {
     listId: {
       type: Number,
       default: 0,
-      require: true,
+      required: true,
       validator(value) {
         return typeof value === 'number';
       },

@@ -50,7 +50,7 @@ const timeForToday = value => {
   return `${Math.floor(betweenTimeDay / 365)}년전`;
 };
 
-export const useFilter = Vue => {
+export const filters = Vue => {
   Vue.filter('normalFormatDate', normalFormatDate);
   Vue.filter('timeForToday', timeForToday);
 };

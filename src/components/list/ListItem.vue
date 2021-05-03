@@ -59,22 +59,22 @@ export default {
     id: {
       type: Number,
       default: 0,
-      require: true,
+      required: true,
     },
     pos: {
       type: Number,
       default: 0,
-      require: true,
+      required: true,
     },
     title: {
       type: String,
-      require: false,
+      required: false,
       default: '',
     },
     cards: {
       type: Array,
       default: () => [],
-      require: false,
+      required: false,
       validator: prop =>
         prop.every(
           e =>

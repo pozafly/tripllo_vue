@@ -39,12 +39,12 @@ export default {
   props: {
     cardDescription: {
       type: String,
-      require: false,
+      required: false,
       default: '',
     },
     cardId: {
       type: Number,
-      require: false,
+      required: false,
       default: 0,
     },
   },

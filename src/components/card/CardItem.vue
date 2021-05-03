@@ -49,7 +49,7 @@ export default {
     id: {
       type: Number,
       default: 0,
-      require: false,
+      required: false,
       validator(value) {
         return typeof value === 'number';
       },
@@ -57,14 +57,14 @@ export default {
     pos: {
       type: Number,
       default: 0,
-      require: false,
+      required: false,
       validator(value) {
         return typeof value === 'number';
       },
     },
     title: {
       type: String,
-      require: true,
+      required: true,
       default: '',
       validator(value) {
         return typeof value === 'string';
@@ -72,7 +72,7 @@ export default {
     },
     description: {
       type: String,
-      require: true,
+      required: true,
       default: '',
       validator(value) {
         return typeof value === 'string';
@@ -80,7 +80,7 @@ export default {
     },
     isChecklist: {
       type: String,
-      require: true,
+      required: true,
       default: 'N',
       validator(value) {
         return ['Y', 'N'].indexOf(value) !== -1;
@@ -88,7 +88,7 @@ export default {
     },
     dueDate: {
       type: String,
-      require: true,
+      required: true,
       default: '',
       validator(value) {
         return typeof value === 'string';
@@ -96,7 +96,7 @@ export default {
     },
     isAttachment: {
       type: String,
-      require: true,
+      required: true,
       default: 'N',
       validator(value) {
         return ['Y', 'N'].indexOf(value) !== -1;
@@ -104,7 +104,7 @@ export default {
     },
     location: {
       type: String,
-      require: true,
+      required: true,
       default: '',
       validator(value) {
         return typeof value === 'string';
@@ -113,7 +113,7 @@ export default {
     isComment: {
       type: Number,
       default: 0,
-      require: false,
+      required: false,
       validator(value) {
         // 0: 없음, 1: 있음
         return [0, 1].indexOf(value) !== -1;
@@ -121,7 +121,7 @@ export default {
     },
     labelColor: {
       type: String,
-      require: true,
+      required: true,
       default: '',
       validator(value) {
         return typeof value === 'string';

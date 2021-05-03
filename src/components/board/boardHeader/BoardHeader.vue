@@ -87,7 +87,7 @@ export default {
   props: {
     userId: {
       type: [String, Number],
-      require: true,
+      required: true,
       default: '',
       validator(value) {
         return typeof value === 'string' || typeof value === 'number';

@@ -44,11 +44,11 @@ export default {
     id: {
       type: Number,
       default: 0,
-      require: true,
+      required: true,
     },
     isChecked: {
       type: String,
-      require: true,
+      required: true,
       default: 'N',
       validator(value) {
         return ['Y', 'N'].indexOf(value) !== -1;
@@ -56,7 +56,7 @@ export default {
     },
     item: {
       type: [String, Number],
-      require: true,
+      required: true,
       default: '',
     },
   },

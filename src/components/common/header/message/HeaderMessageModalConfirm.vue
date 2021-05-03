@@ -28,26 +28,26 @@ export default {
     id: {
       type: Number,
       default: 0,
-      require: true,
+      required: true,
     },
     boardId: {
       type: Number,
       default: 0,
-      require: true,
+      required: true,
     },
     content: {
       type: String,
-      require: true,
+      required: true,
       default: '',
     },
     createdAt: {
       type: String,
-      require: true,
+      required: true,
       default: '',
     },
     isRead: {
       type: String,
-      require: true,
+      required: true,
       default: 'N',
       validator(value) {
         return ['Y', 'N'].indexOf(value) !== -1;

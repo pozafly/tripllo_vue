@@ -67,16 +67,16 @@ export default {
     id: {
       type: Number,
       default: 0,
-      require: true,
+      required: true,
     },
     comment: {
       type: String,
-      require: true,
+      required: true,
       default: '',
     },
     deleteYn: {
       type: String,
-      require: true,
+      required: true,
       default: 'N',
       validator(value) {
         return ['Y', 'N'].indexOf(value) !== -1;
@@ -85,19 +85,19 @@ export default {
     dept: {
       type: Number,
       default: 0,
-      require: false,
+      required: false,
       validator(value) {
         return [0, 1].indexOf(value) !== -1;
       },
     },
     createdBy: {
       type: String,
-      require: true,
+      required: true,
       default: '',
     },
     readComment: {
       type: Function,
-      require: true,
+      required: true,
       default: () => {},
     },
   },

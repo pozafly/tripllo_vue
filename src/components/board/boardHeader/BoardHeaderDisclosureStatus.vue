@@ -12,7 +12,7 @@ export default {
   props: {
     publicYn: {
       type: String,
-      require: true,
+      required: true,
       default: 'Y',
       validator(value) {
         return ['Y', 'N'].indexOf(value) !== -1;
@@ -20,7 +20,7 @@ export default {
     },
     boardId: {
       type: Number,
-      require: true,
+      required: true,
       default: 0,
       validator(value) {
         return typeof value === 'number';

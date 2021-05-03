@@ -10,7 +10,7 @@ import $_vClickOutside from 'v-click-outside';
 import $_InfiniteLoading from 'vue-infinite-loading';
 import $_LoadScript from 'vue-plugin-load-script';
 
-const usePlugin = Vue => {
+const plugins = Vue => {
   Vue.prototype.$_Kakao = $_Kakao;
   Vue.prototype.$_Google = $_Google;
   Vue.prototype.$_Facebook = $_Facebook;
@@ -23,4 +23,4 @@ const usePlugin = Vue => {
   Vue.use($_InfiniteLoading);
 };
 
-export { usePlugin };
+export { plugins };

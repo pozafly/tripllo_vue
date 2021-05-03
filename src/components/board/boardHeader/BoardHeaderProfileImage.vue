@@ -28,7 +28,7 @@ export default {
   props: {
     id: {
       type: [String, Number],
-      require: false,
+      required: false,
       default: null,
       validator(value) {
         return typeof value === 'string' || typeof value === 'number';
@@ -36,7 +36,7 @@ export default {
     },
     picture: {
       type: String,
-      require: false,
+      required: false,
       default: '',
       validator(value) {
         return typeof value === 'string';
@@ -44,7 +44,7 @@ export default {
     },
     createdBy: {
       type: String,
-      require: false,
+      required: false,
       default: '',
       validator(value) {
         return typeof value === 'string';
@@ -52,7 +52,7 @@ export default {
     },
     createdByPicture: {
       type: String,
-      require: false,
+      required: false,
       default: '',
       validator(value) {
         return typeof value === 'string';

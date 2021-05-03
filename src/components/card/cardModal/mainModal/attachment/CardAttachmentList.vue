@@ -22,26 +22,26 @@ export default {
     id: {
       type: Number,
       default: 0,
-      require: false,
+      required: false,
     },
     link: {
       type: String,
-      require: true,
+      required: true,
       default: '',
     },
     extension: {
       type: String,
-      require: true,
+      required: true,
       default: '',
     },
     fileName: {
       type: [String, Number],
-      require: true,
+      required: true,
       default: '',
     },
     createdAt: {
       type: String,
-      require: true,
+      required: true,
       default: '',
     },
   },

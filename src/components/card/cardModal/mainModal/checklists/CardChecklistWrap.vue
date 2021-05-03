@@ -88,17 +88,17 @@ export default {
     cardId: {
       type: Number,
       default: 0,
-      require: true,
+      required: true,
     },
     id: {
       type: Number,
       default: 0,
-      require: true,
+      required: true,
     },
     items: {
       type: Array,
       default: () => [],
-      require: false,
+      required: false,
       validator: prop =>
         prop.every(
           e =>
@@ -109,12 +109,12 @@ export default {
     },
     title: {
       type: String,
-      require: true,
+      required: true,
       default: '',
     },
     readChecklist: {
       type: Function,
-      require: true,
+      required: true,
       default: () => {},
     },
   },

@@ -22,7 +22,7 @@ export default {
   props: {
     id: {
       type: [String, Number],
-      require: true,
+      required: true,
       default: '',
       validator(value) {
         return typeof value === 'string' || typeof value === 'number';
@@ -30,7 +30,7 @@ export default {
     },
     picture: {
       type: String,
-      require: true,
+      required: true,
       default: '',
       validator(value) {
         return typeof value === 'string';

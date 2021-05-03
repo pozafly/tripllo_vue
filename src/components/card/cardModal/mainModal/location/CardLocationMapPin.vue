@@ -12,18 +12,18 @@ export default {
   props: {
     title: {
       type: String,
-      require: true,
+      required: true,
       default: '',
     },
     x: {
       type: Number,
       default: 0,
-      require: true,
+      required: true,
     },
     y: {
       type: Number,
       default: 0,
-      require: true,
+      required: true,
     },
   },
 
