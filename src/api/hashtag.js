@@ -1,14 +1,14 @@
 import { hashtag } from '@/api';
 
 /**
- * @typedef {object} HashtagBoardInfo
+ * @typedef {Object} HashtagBoardInfo
  * @property {string} hashtagName - 해시태그 이름
  * @property {string} lastLikeCount - 무한 로딩에 필요한 마지막 좋아요 갯수(조회 조건에 필요 - 커서 기반 페이지네이션)
  * @property {string} lastCreatedAt - 무한 로딩에 필요한 마지막 생성날짜(조회 조건에 필요)
  */
 
 /**
- * @typedef {object} HashRanking
+ * @typedef {Object} HashRanking
  * @property {number} count - 해시태그가 등록된 갯수
  * @property {number} name - 해시태그 이름
  */

@@ -1,13 +1,13 @@
 import { checklistItem } from '@/api';
 
 /**
- * @typedef {object} CreateChecklistItemInfo
+ * @typedef {Object} CreateChecklistItemInfo
  * @property {number} checklistId - ChecklistItem이 어느 Checklist에 속해있는지 구분
  * @property {string} item - ChecklistItem 하나의 item 명
  */
 
 /**
- * @typedef {object} UpdateChecklistItemInfo
+ * @typedef {Object} UpdateChecklistItemInfo
  * @property {string} isChecked - 체크 여부
  * @property {string} item - ChecklistItem 하나의 item 명
  */

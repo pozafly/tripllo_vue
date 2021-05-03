@@ -1,7 +1,7 @@
 import { checklist } from '@/api';
 
 /**
- * @typedef {object} Checklist
+ * @typedef {Object} Checklist
  * @property {number} cardId - Checklist가 어느 Card에 속해있는지 구분
  * @property {number} id - Checklist ID
  * @property {ChecklistItem[]} item - Checklist 안에 있는 item 목록
@@ -13,7 +13,7 @@ import { checklist } from '@/api';
  */
 
 /**
- * @typedef {object} ChecklistItem
+ * @typedef {Object} ChecklistItem
  * @property {number} checklistId - ChecklistItem이 어느 Checklist에 속해있는지 구분
  * @property {number} id - ChecklistItem ID
  * @property {string} isChecked - 완료 여부
@@ -25,7 +25,7 @@ import { checklist } from '@/api';
  */
 
 /**
- * @typedef {object} CreateChecklistInfo
+ * @typedef {Object} CreateChecklistInfo
  * @property {string} title - 제목
  * @property {number} cardId - Checklist가 어느 Card에 속해있는지 구분
  */

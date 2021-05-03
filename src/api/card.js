@@ -1,7 +1,7 @@
 import { card } from '@/api';
 
 /**
- * @typedef {object} CardDetail
+ * @typedef {Object} CardDetail
  * @property {string} description - 메모(설명)
  * @property {string} dueDate - 날짜 체크 값
  * @property {number} id - card의 ID
@@ -17,14 +17,14 @@ import { card } from '@/api';
  */
 
 /**
- * @typedef {object} CreateCardInfo
+ * @typedef {Object} CreateCardInfo
  * @property {number} title - Card 제목
  * @property {number} listId - Card가 어느 list에 속해있는지 구분
  * @property {number} pos - Dragula 포지션 값
  */
 
 /**
- * @typedef {object} UpdateCardInfo
+ * @typedef {Object} UpdateCardInfo
  * @property {number} id - Card ID
  * @property {number} title - Card 제목
  * @property {number} pos - Dragula 포지션 값

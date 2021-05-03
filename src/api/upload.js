@@ -1,7 +1,7 @@
 import { upload } from '@/api';
 
 /**
- * @typedef {object} File
+ * @typedef {Object} File
  * @property {string} id - file ID
  * @property {string} extension - 확장자 명
  * @property {string} fileName - file 명

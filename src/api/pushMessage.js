@@ -1,7 +1,7 @@
 import { pushMessage } from '@/api';
 
 /**
- * @typedef {object} PushMessage
+ * @typedef {Object} PushMessage
  * @property {number} id - Push Message ID
  * @property {number} boardId - 어느 Board에 초대했는지 구분
  * @property {string} content - 초대 내용
@@ -15,7 +15,7 @@ import { pushMessage } from '@/api';
  */
 
 /**
- * @typedef {object} UpdateMessageInfo
+ * @typedef {Object} UpdateMessageInfo
  * @property {string} id - 푸시 메세지 ID
  * @property {string} isRead - 초대장을 읽었는지 여부
  */

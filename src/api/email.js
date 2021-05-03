@@ -1,7 +1,7 @@
 import { email } from '@/api';
 
 /**
- * @typedef {object} Email
+ * @typedef {Object} Email
  * @property {string} userId - 이메일을 보낼 대상 ID
  * @property {string} userEmail - 이메일 주소
  */

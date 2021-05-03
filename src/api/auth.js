@@ -2,13 +2,13 @@
 import { instance } from '@/api';
 
 /**
- * @typedef {object} LoginData
+ * @typedef {Object} LoginData
  * @property {string} id - 로그인 아이디
  * @property {string} password - 로그인 비밀번호
  */
 
 /**
- * @typedef {object} User
+ * @typedef {Object} User
  * @property {string} bio - 소개
  * @property {string} email - 이메일
  * @property {string} id - 아이디
@@ -25,7 +25,7 @@ import { instance } from '@/api';
  */
 
 /**
- * @typedef {object} SignupData
+ * @typedef {Object} SignupData
  * @property {string} id - 회원가입 아이디
  * @property {string} password - 회원가입 비밀번호
  * @property {string} email - 회원가입 이메일

@@ -1,7 +1,7 @@
 import { comments } from '@/api';
 
 /**
- * @typedef {object} Comment
+ * @typedef {Object} Comment
  * @property {number} id - Comment ID
  * @property {number} cardId - Comment가 어느 Card에 속해있는지 구분
  * @property {string} comment - Comment(댓글)
@@ -17,7 +17,7 @@ import { comments } from '@/api';
  */
 
 /**
- * @typedef {object} CreateCommentInfo
+ * @typedef {Object} CreateCommentInfo
  * @property {number} cardId - Comment가 어느 Card에 속해있는지 구분
  * @property {string} comment - Comment(댓글)
  * @property {number} dept - 대댓글 여부(깊이) : 0|1
@@ -25,7 +25,7 @@ import { comments } from '@/api';
  */
 
 /**
- * @typedef {object} UpdateCommentInfo
+ * @typedef {Object} UpdateCommentInfo
  * @property {number} id - Comment ID
  * @property {string} comment - 수정될 코멘트
  */

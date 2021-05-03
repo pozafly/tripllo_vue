@@ -1,7 +1,7 @@
 import { board } from '@/api';
 
 /**
- * @typedef {object} Board
+ * @typedef {Object} Board
  * @property {string} userId - Board의 주인ID
  * @property {number} id - Board의 ID
  * @property {string} title - Board의 제목
@@ -18,7 +18,7 @@ import { board } from '@/api';
  */
 
 /**
- * @typedef {object} BoardDetail
+ * @typedef {Object} BoardDetail
  * @property {List[]} lists - board가 가지고 있는 list 목록
  * @property {string} createdByPicture - 생성자 프로필 사진 경로
  * @property {number} id - Board의 ID
@@ -43,7 +43,7 @@ import { board } from '@/api';
  */
 
 /**
- * @typedef {object} Card
+ * @typedef {Object} Card
  * @property {string} description - 메모(설명)
  * @property {string} dueDate - 날짜 체크 값
  * @property {number} id - card의 ID
@@ -57,7 +57,7 @@ import { board } from '@/api';
  */
 
 /**
- * @typedef {object} CreateBoardInfo
+ * @typedef {Object} CreateBoardInfo
  * @property {string} title - 제목
  * @property {string} publicYn - 공개여부
  * @property {string[]} hashtag - 해시태그
@@ -65,7 +65,7 @@ import { board } from '@/api';
  */
 
 /**
- * @typedef {object} UpdateBoardInfo
+ * @typedef {Object} UpdateBoardInfo
  * @property {string} title - 제목
  * @property {string} publicYn - 공개여부
  * @property {string[]} hashtag - 해시태그

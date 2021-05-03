@@ -1,7 +1,7 @@
 import { user } from '@/api';
 
 /**
- * @typedef {object} User
+ * @typedef {Object} User
  * @property {string} bio - 소개
  * @property {string} email - 이메일
  * @property {string} id - 아이디
@@ -18,7 +18,7 @@ import { user } from '@/api';
  */
 
 /**
- * @typedef {object} UpdateUserInfo
+ * @typedef {Object} UpdateUserInfo
  * @property {string} id - 유저 ID
  * @property {string} email - 이메일
  * @property {string} name - 이름
@@ -30,7 +30,7 @@ import { user } from '@/api';
  */
 
 /**
- * @typedef {object} ChangePasswordInfo
+ * @typedef {Object} ChangePasswordInfo
  * @property {string} currentPw - 현재 비밀번호
  * @property {string} newPw - 변경 될 비밀번호
  */

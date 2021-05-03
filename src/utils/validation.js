@@ -1,5 +1,5 @@
 /**
- * @typedef {object} Result
+ * @typedef {Object} Result
  * @property {boolean} flag - 체크 결과
  * @property {string} message - 실패 이유
  */

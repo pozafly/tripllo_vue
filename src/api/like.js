@@ -1,7 +1,7 @@
 import { boardHasLike } from '@/api';
 
 /**
- * @typedef {object} LikeInfo
+ * @typedef {Object} LikeInfo
  * @property {number} boardId - Board ID
  * @property {number} likeCount - 좋아요 갯수
  */
