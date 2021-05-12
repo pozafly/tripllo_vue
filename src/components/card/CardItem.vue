@@ -50,37 +50,25 @@ export default {
       type: Number,
       default: 0,
       required: false,
-      validator(value) {
-        return typeof value === 'number';
-      },
     },
     pos: {
       type: Number,
       default: 0,
       required: false,
-      validator(value) {
-        return typeof value === 'number';
-      },
     },
     title: {
       type: String,
-      required: true,
+      required: false,
       default: '',
-      validator(value) {
-        return typeof value === 'string';
-      },
     },
     description: {
       type: String,
-      required: true,
+      required: false,
       default: '',
-      validator(value) {
-        return typeof value === 'string';
-      },
     },
     isChecklist: {
       type: String,
-      required: true,
+      required: false,
       default: 'N',
       validator(value) {
         return ['Y', 'N'].indexOf(value) !== -1;
@@ -88,15 +76,12 @@ export default {
     },
     dueDate: {
       type: String,
-      required: true,
+      required: false,
       default: '',
-      validator(value) {
-        return typeof value === 'string';
-      },
     },
     isAttachment: {
       type: String,
-      required: true,
+      required: false,
       default: 'N',
       validator(value) {
         return ['Y', 'N'].indexOf(value) !== -1;
@@ -104,11 +89,8 @@ export default {
     },
     location: {
       type: String,
-      required: true,
+      required: false,
       default: '',
-      validator(value) {
-        return typeof value === 'string';
-      },
     },
     isComment: {
       type: Number,
@@ -121,11 +103,8 @@ export default {
     },
     labelColor: {
       type: String,
-      required: true,
+      required: false,
       default: '',
-      validator(value) {
-        return typeof value === 'string';
-      },
     },
   },
 
