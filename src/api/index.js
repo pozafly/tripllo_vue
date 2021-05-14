@@ -2,13 +2,13 @@ import axios from 'axios';
 import { setInterceptors } from '@/api/common/interceptors';
 
 const environmentURL =
-  // process.env.NODE_ENV === 'production' ? process.env.VUE_APP_API_URL : '';
-  process.env.VUE_APP_API_URL;
+  process.env.NODE_ENV === 'production' ? process.env.VUE_APP_API_URL : '';
 
 // header 붙이지 않음. login시 사용됨.
 const createInstance = () => {
   return axios.create({
     baseURL: `${environmentURL}/api/`,
+    // withCredentials: true,
   });
 };
 
