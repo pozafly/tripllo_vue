@@ -8,7 +8,6 @@ const environmentURL =
 const createInstance = () => {
   return axios.create({
     baseURL: `${environmentURL}/api/`,
-    // withCredentials: true,
   });
 };
 

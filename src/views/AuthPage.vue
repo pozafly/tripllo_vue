@@ -13,6 +13,10 @@
       <aside>
         <a href="" @click.prevent="$router.push('/privacy')">Privacy Policy</a>
       </aside>
+      <div v-if="hideTestId()" class="test-id-wrap">
+        <span>테스트 ID: test</span>
+        <span>테스트 PW: test</span>
+      </div>
     </div>
     <Footer />
     <div class="back">
@@ -38,6 +42,15 @@ export default {
   methods: {
     goMain() {
       this.$router.push('/main');
+    },
+
+    hideTestId() {
+      console.log(this.$route.name === 'login');
+      if (this.$route.name === 'login') {
+        return true;
+      } else {
+        return false;
+      }
     },
 
     kakaoLoad() {
@@ -99,6 +112,14 @@ export default {
       text-align: center;
       margin-top: 1.6rem;
       font-size: 0.9rem;
+    }
+    .test-id-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 3rem;
+      color: rgb(245, 66, 66);
     }
   }
   .back {
