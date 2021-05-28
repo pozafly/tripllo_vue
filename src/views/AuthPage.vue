@@ -45,7 +45,6 @@ export default {
     },
 
     hideTestId() {
-      console.log(this.$route.name === 'login');
       if (this.$route.name === 'login') {
         return true;
       } else {
