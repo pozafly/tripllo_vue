@@ -2,7 +2,8 @@
   <div class="wrap">
     <CommonHeader />
     <div class="content">
-      <div class="user-header">
+      <section class="user-header">
+        <h1 hidden>유저 보드 페이지</h1>
         <div class="auth-items">
           <span
             v-if="userInfo.picture !== null && userInfo.picture !== 'null'"
@@ -18,8 +19,9 @@
         </div>
         <span v-if="userInfo.bio" class="bio">{{ userInfo.bio }}</span>
         <span v-else class="bio">작성된 Bio가 없습니다..</span>
-      </div>
-      <div class="user-info">
+      </section>
+
+      <section class="user-info">
         <div class="info-wrap">
           <span class="info-text">
             <awesome icon="globe-americas" class="icon" /> Board List
@@ -35,7 +37,8 @@
             </div>
           </div>
         </div>
-        <div class="infinity">
+
+        <aside class="infinity">
           <infinite-loading spinner="waveDots" @infinite="infiniteHandler">
             <div
               slot="no-more"
@@ -44,8 +47,8 @@
               목록의 끝입니다 :)
             </div>
           </infinite-loading>
-        </div>
-      </div>
+        </aside>
+      </section>
     </div>
   </div>
 </template>
@@ -137,7 +140,7 @@ export default {
     min-height: 100%;
     position: relative;
     overflow-y: auto;
-    margin: -40px auto;
+    margin: 0 auto;
     padding: 40px 0 0 0;
     box-sizing: border-box;
     .user-header {

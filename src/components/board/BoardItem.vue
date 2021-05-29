@@ -1,29 +1,29 @@
 <template>
-  <div>
-    <div ref="boardItem" class="board-item" @click="goBoardPage">
-      <div class="board-item-title">{{ board.title }}</div>
-      <div v-if="board.publicYn === 'Y'" class="side-wrap">
-        <span class="heart" @click="countHeart">
-          <transition name="slide-fade">
-            <template v-if="board.ownLike === 0">
-              <awesome :icon="['far', 'heart']" />
-            </template>
-          </transition>
-          <template v-if="board.ownLike === 1">
-            <awesome icon="heart" class="fill-heart" />
+  <article ref="boardItem" class="board-item" @click="goBoardPage">
+    <header>
+      <h2 class="board-item-title">{{ board.title }}</h2>
+    </header>
+    <div v-if="board.publicYn === 'Y'" class="side-wrap">
+      <span class="heart" @click="countHeart">
+        <transition name="slide-fade">
+          <template v-if="board.ownLike === 0">
+            <awesome :icon="['far', 'heart']" />
           </template>
-          <span v-if="board.likeCount != 0" class="heart-num">
-            {{ board.likeCount }}
-          </span>
+        </transition>
+        <template v-if="board.ownLike === 1">
+          <awesome icon="heart" class="fill-heart" />
+        </template>
+        <span v-if="board.likeCount != 0" class="heart-num">
+          {{ board.likeCount }}
         </span>
-        <div v-if="board.hashtag" class="hash-wrap">
-          <span v-for="hash in hashtag" :key="hash" class="hashtag">
-            {{ hash }}
-          </span>
-        </div>
+      </span>
+      <div v-if="board.hashtag" class="hash-wrap">
+        <span v-for="hash in hashtag" :key="hash" class="hashtag">
+          {{ hash }}
+        </span>
       </div>
     </div>
-  </div>
+  </article>
 </template>
 
 <script>
