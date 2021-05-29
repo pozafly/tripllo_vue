@@ -142,6 +142,7 @@ export default {
 <style scoped lang="scss">
 .board-page {
   position: relative;
+  top: 40px;
   height: 100%;
   .board-section {
     position: relative;

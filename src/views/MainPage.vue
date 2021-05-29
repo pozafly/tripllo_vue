@@ -49,10 +49,12 @@ export default {
 
 <style scoped lang="scss">
 .page {
-  height: 100%;
+  height: auto;
   margin-top: -40px;
   padding-top: 40px;
   box-sizing: border-box;
+  position: relative;
+  top: 40px;
   .main-wrap {
     height: auto;
     min-height: 80%;
