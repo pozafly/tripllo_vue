@@ -5,35 +5,49 @@
         <header>
           <ul class="title-wrap">
             <li><awesome icon="suitcase" class="fas fa-suitcase"></awesome></li>
-            <li><span class="title">Tripllo</span></li>
+            <li><h1 class="title">Tripllo</h1></li>
           </ul>
         </header>
-        <div v-if="!isAuth" class="button-wrap">
-          <button
-            class="move-btn"
-            type="button"
-            @click="$router.push('/auth/login')"
-          >
-            Login
-          </button>
-          <button
-            class="move-btn"
-            type="button"
-            @click="$router.push('/auth/signUp')"
-          >
-            Sign Up
-          </button>
-        </div>
-        <div v-else class="button-wrap">
-          <button class="return-btn" type="button" @click="$router.go(-1)">
-            되돌아가기
-          </button>
-        </div>
+        <nav>
+          <ul>
+            <div v-if="!isAuth" class="button-wrap">
+              <li>
+                <button
+                  class="move-btn"
+                  type="button"
+                  @click="$router.push('/auth/login')"
+                >
+                  Login
+                </button>
+              </li>
+              <li>
+                <button
+                  class="move-btn"
+                  type="button"
+                  @click="$router.push('/auth/signUp')"
+                >
+                  Sign Up
+                </button>
+              </li>
+            </div>
+            <div v-else class="button-wrap">
+              <li>
+                <button
+                  class="return-btn"
+                  type="button"
+                  @click="$router.go(-1)"
+                >
+                  되돌아가기
+                </button>
+              </li>
+            </div>
+          </ul>
+        </nav>
       </div>
     </div>
-    <div class="content-wrap">
+    <main class="content-wrap">
       <h1 class="manual-title">🎯 간단 메뉴얼 v2.0</h1>
-      <div class="content">
+      <article class="content">
         <h2 class="content-title">💼 Board 생성</h2>
         <ul class="content-item">
           <li>
@@ -66,8 +80,8 @@
             </div>
           </li>
         </ul>
-      </div>
-      <div class="content">
+      </article>
+      <article class="content">
         <h2 class="content-title">📖 List, Card 만들기 & 이동</h2>
         <ul class="content-item">
           <li>
@@ -90,8 +104,8 @@
             </div>
           </li>
         </ul>
-      </div>
-      <div class="content">
+      </article>
+      <article class="content">
         <h2 class="content-title">🔖 Card 사용하기</h2>
         <ul class="content-item">
           <li>
@@ -136,8 +150,8 @@
             </div>
           </li>
         </ul>
-      </div>
-      <div class="content">
+      </article>
+      <article class="content">
         <h2 class="content-title">👩‍❤️‍👨 초대기능</h2>
         <ul class="content-item">
           <li>
@@ -166,8 +180,8 @@
             </div>
           </li>
         </ul>
-      </div>
-      <div class="content">
+      </article>
+      <article class="content">
         <h2 class="content-title">🌍 Public Tab 활용하기</h2>
         <ul class="content-item">
           <li>
@@ -197,8 +211,8 @@
             </div>
           </li>
         </ul>
-      </div>
-      <div class="content">
+      </article>
+      <article class="content">
         <h2 class="content-title">🙋🏻 유저 페이지</h2>
         <ul class="content-item">
           <li>
@@ -228,8 +242,9 @@
             </div>
           </li>
         </ul>
-      </div>
-    </div>
+      </article>
+    </main>
+
     <div class="footer">
       <Footer />
     </div>
@@ -303,7 +318,7 @@ export default {
       height: 90px;
       width: 100%;
       position: fixed;
-      background: linear-gradient(to right, #0979bf, #4f68c5);
+
       header {
         font-family: 'Pacifico', cursive;
         color: #fff;
@@ -313,13 +328,17 @@ export default {
         align-items: center;
         height: 90px;
         .title-wrap {
+          display: flex;
+          align-items: center;
+          position: relative;
           margin: 32px 0;
           padding: 0.1rem;
-          display: flex;
-          position: relative;
           .fas.fa-suitcase {
             font-size: 3rem;
             padding-right: 0.3rem;
+          }
+          .title {
+            font-size: 2rem;
           }
         }
       }
@@ -371,6 +390,7 @@ export default {
       width: 900px;
       .content-title {
         margin-left: 55px;
+        margin-top: 30px;
         font-size: 25px;
       }
       .content-item {
