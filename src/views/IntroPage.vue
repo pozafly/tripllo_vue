@@ -5,29 +5,37 @@
         <header>
           <ul class="title-wrap">
             <li><awesome icon="suitcase" class="fas fa-suitcase"></awesome></li>
-            <li><span class="title">Tripllo</span></li>
+            <li><h1 class="title">Tripllo</h1></li>
           </ul>
         </header>
-        <div class="button-wrap">
-          <button
-            class="move-btn"
-            type="button"
-            @click="$router.push('/auth/login')"
-          >
-            Login
-          </button>
-          <button
-            class="move-btn"
-            type="button"
-            @click="$router.push('/auth/signUp')"
-          >
-            Sign Up
-          </button>
-        </div>
+        <nav>
+          <ul class="button-wrap">
+            <li>
+              <button
+                class="move-btn"
+                type="button"
+                @click="$router.push('/auth/login')"
+              >
+                Login
+              </button>
+            </li>
+            <li>
+              <button
+                class="move-btn"
+                type="button"
+                @click="$router.push('/auth/signUp')"
+              >
+                Sign Up
+              </button>
+            </li>
+          </ul>
+        </nav>
       </div>
+
       <main>
-        <div class="main-wrap">
+        <article class="main-wrap">
           <div class="main-text">
+            <h2 hidden>Tripllo 소개</h2>
             <p class="main-text-item text1">
               Tripllo는 이슈트래커인 웹기반 Trello 어플리케이션을 Clone한
               <br />웹 어플리케이션 입니다.
@@ -41,11 +49,13 @@
             src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/main4.jpg"
             class="img img2"
           />
-        </div>
+        </article>
+
         <div class="space"></div>
-        <div class="main-wrap main2">
+
+        <article class="main-wrap main2">
           <div class="main-text">
-            <p class="main-text-item text3">카드 속 다양한 기능</p>
+            <h2 class="main-text-item text3">카드 속 다양한 기능</h2>
             <p class="main-text-item text4">
               계획을 세우기 유용하도록 <br />
               몇 가지 기능이 포함되어 있습니다.
@@ -62,113 +72,123 @@
             src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/main3.jpg"
             class="img img3"
           />
-        </div>
-        <div class="space"></div>
-        <div class="main-wrap">
-          <div class="main-text">
-            <p class="main-text-item text5">사용한 기술</p>
-          </div>
-        </div>
-        <ul class="skill">
-          <li class="skill-item">
-            <div class="vue">
-              <img
-                src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/vue.png"
-                class="img4"
-              />
-            </div>
-            <div class="content-wrap">
-              <span class="skill-title">Front-end</span>
-              <ul class="skill-list">
-                <li class="skill-list">Vue 2.6.11 + Vuex + Vue-router</li>
-                <li class="skill-list">Scss</li>
-                <li class="skill-list">Webpack</li>
-                <li class="skill-list">Axios</li>
-                <li class="skill-list">
-                  Dragula
-                  <a href="https://bevacqua.github.io/dragula/"
-                    >(https://bevacqua.github.io/dragula/)</a
-                  >
-                </li>
-                <li class="skill-list">Sockjs-client</li>
-                <li class="skill-list">Sentry(Error Monitoring)</li>
-              </ul>
-            </div>
-          </li>
-          <li class="skill-item">
-            <img
-              src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/springboot.png"
-              class="img5"
-            />
-            <div class="content-wrap">
-              <span class="skill-title">Back-end</span>
-              <ul class="skill-list">
-                <li class="skill-list">
-                  SpringBoot 2.1.9
-                  <ul li class="skill-list-inside">
-                    <li li class="skill-list-inside">Spring Security + JWT</li>
-                    <li li class="skill-list-inside">Websocket</li>
-                    <li li class="skill-list-inside">Swagger 2</li>
-                    <li li class="skill-list-inside">Spring Mail</li>
-                    <li li class="skill-list-inside">Spring Cloud-AWS</li>
-                  </ul>
-                </li>
-                <li class="skill-list">Mysql 8.0.22</li>
-                <li class="skill-list">MyBatis</li>
-              </ul>
-            </div>
-          </li>
-          <li class="skill-item">
-            <img
-              src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/aws.jpg"
-              class="img5"
-            />
-            <div class="content-wrap">
-              <span class="skill-title">Deploy</span>
-              <ul class="skill-list">
-                <li class="skill-list">AWS-EC2 (Amazon Linux 2)</li>
-                <li class="skill-list">AWS-RDS</li>
-                <li class="skill-list">AWS-S3</li>
-                <li class="skill-list">AWS-CloudFront</li>
-                <li class="skill-list">AWS-Route53</li>
-                <li class="skill-list">AWS-CodeDeploy</li>
-                <li class="skill-list">Travis</li>
-                <li class="skill-list">Nginx</li>
-                <li class="skill-list">Let's Encrypt(SSL)</li>
-              </ul>
-            </div>
-          </li>
-        </ul>
+        </article>
 
-        <div class="side-btn">
-          <button
-            class="side-btn-item"
-            type="button"
-            @click="$router.push('/manual')"
-          >
-            Tripllo 사용설명서
-          </button>
-          <div class="code">
-            <button
-              class="side-btn-item"
-              type="button"
-              @click="goPage('https://github.com/pozafly/tripllo_vue')"
-            >
-              Tripllo_vue GITHUB
-            </button>
-            <button
-              class="side-btn-item"
-              type="button"
-              @click="goPage('https://github.com/pozafly/tripllo_springBoot')"
-            >
-              Tripllo_SpringBoot GITHUB
-            </button>
+        <div class="space"></div>
+
+        <article>
+          <div class="main-wrap">
+            <div class="main-text">
+              <h2 class="main-text-item text5">사용한 기술</h2>
+            </div>
           </div>
-        </div>
-        <div class="footer">
-          <Footer />
-        </div>
+          <ul class="skill">
+            <li class="skill-item">
+              <div class="vue">
+                <img
+                  src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/vue.png"
+                  class="img4"
+                />
+              </div>
+              <div class="content-wrap">
+                <h3 class="skill-title">Front-end</h3>
+                <ul class="skill-list">
+                  <li class="skill-list">Vue 2.6.11 + Vuex + Vue-router</li>
+                  <li class="skill-list">Scss</li>
+                  <li class="skill-list">Webpack</li>
+                  <li class="skill-list">Axios</li>
+                  <li class="skill-list">
+                    Dragula
+                    <a href="https://bevacqua.github.io/dragula/"
+                      >(https://bevacqua.github.io/dragula/)</a
+                    >
+                  </li>
+                  <li class="skill-list">Sockjs-client</li>
+                  <li class="skill-list">Sentry(Error Monitoring)</li>
+                </ul>
+              </div>
+            </li>
+            <li class="skill-item">
+              <img
+                src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/springboot.png"
+                class="img5"
+              />
+              <div class="content-wrap">
+                <h3 class="skill-title">Back-end</h3>
+                <ul class="skill-list">
+                  <li class="skill-list">
+                    SpringBoot 2.1.9
+                    <ul li class="skill-list-inside">
+                      <li li class="skill-list-inside">
+                        Spring Security + JWT
+                      </li>
+                      <li li class="skill-list-inside">Websocket</li>
+                      <li li class="skill-list-inside">Swagger 2</li>
+                      <li li class="skill-list-inside">Spring Mail</li>
+                      <li li class="skill-list-inside">Spring Cloud-AWS</li>
+                    </ul>
+                  </li>
+                  <li class="skill-list">Mysql 8.0.22</li>
+                  <li class="skill-list">MyBatis</li>
+                </ul>
+              </div>
+            </li>
+            <li class="skill-item">
+              <img
+                src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/aws.jpg"
+                class="img5"
+              />
+              <div class="content-wrap">
+                <h3 class="skill-title">Deploy</h3>
+                <ul class="skill-list">
+                  <li class="skill-list">AWS-EC2 (Amazon Linux 2)</li>
+                  <li class="skill-list">AWS-RDS</li>
+                  <li class="skill-list">AWS-S3</li>
+                  <li class="skill-list">AWS-CloudFront</li>
+                  <li class="skill-list">AWS-Route53</li>
+                  <li class="skill-list">AWS-CodeDeploy</li>
+                  <li class="skill-list">Travis</li>
+                  <li class="skill-list">Nginx</li>
+                  <li class="skill-list">Let's Encrypt(SSL)</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </article>
+
+        <section>
+          <h2 hidden>사용 설명서와 Github</h2>
+          <div class="side-btn">
+            <button
+              class="side-btn-item"
+              type="button"
+              @click="$router.push('/manual')"
+            >
+              Tripllo 사용설명서
+            </button>
+            <div class="code">
+              <button
+                class="side-btn-item"
+                type="button"
+                @click="goPage('https://github.com/pozafly/tripllo_vue')"
+              >
+                Tripllo_vue GITHUB
+              </button>
+              <button
+                class="side-btn-item"
+                type="button"
+                @click="goPage('https://github.com/pozafly/tripllo_springBoot')"
+              >
+                Tripllo_SpringBoot GITHUB
+              </button>
+            </div>
+          </div>
+        </section>
       </main>
+
+      <div class="footer">
+        <Footer />
+      </div>
     </div>
   </div>
 </template>
@@ -217,6 +237,7 @@ export default {
 .intro-wrap {
   height: 100%;
   .header-wrap {
+    height: 800px;
     position: relative;
     background: #06beb6; /* fallback for old browsers */
     background: -webkit-linear-gradient(
@@ -237,7 +258,7 @@ export default {
       height: 90px;
       width: 100%;
       position: fixed;
-      background: linear-gradient(to right, #0979bf, #4f68c5);
+
       header {
         font-family: 'Pacifico', cursive;
         color: #fff;
@@ -247,13 +268,17 @@ export default {
         align-items: center;
         height: 90px;
         .title-wrap {
+          display: flex;
+          align-items: center;
+          position: relative;
           margin: 32px 0;
           padding: 0.1rem;
-          display: flex;
-          position: relative;
           .fas.fa-suitcase {
             font-size: 3rem;
             padding-right: 0.3rem;
+          }
+          .title {
+            font-size: 2rem;
           }
         }
       }
@@ -269,6 +294,8 @@ export default {
           height: 40px;
           box-shadow: rgba(0, 0, 0, 0.2) 0 0 19px;
           background-color: #43ab5f;
+          text-align: center;
+          color: #fff;
           &:hover {
             filter: brightness(90%);
           }
@@ -279,7 +306,6 @@ export default {
     main {
       margin-top: 170px;
       width: 1100px;
-      height: 630px;
       .main-wrap {
         display: flex;
         justify-content: space-between;
@@ -369,6 +395,10 @@ export default {
           .content-wrap {
             width: 100%;
             margin-left: 100px;
+            h3 {
+              margin: 0 0 0.5rem;
+            }
+
             .skill-title {
               display: block;
               margin-left: 15px;
