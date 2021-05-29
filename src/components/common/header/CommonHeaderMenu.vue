@@ -1,5 +1,5 @@
 <template>
-  <div class="menu">
+  <aside class="menu">
     <div
       v-if="user.picture !== null && user.picture !== 'null'"
       class="menu-item img"
@@ -11,18 +11,26 @@
       <div class="profile-item id">@{{ user.id }}</div>
     </div>
     <a class="menu-close" @click.prevent="$emit('closeMenu')">&times;</a>
-    <a class="menu-item" @click="$router.push('/profile')">
-      <awesome icon="user-edit" class="fas fa-user-edit"></awesome>
-      <span>Edit profile</span>
-    </a>
-    <a v-if="isAuth" class="menu-item" href="" @click.prevent="logoutUser">
-      <awesome icon="running" class="fas fa-running"></awesome>
-      <span>Logout</span>
-    </a>
-    <router-link v-else class="menu-item" to="/auth/login">
-      <span>Login</span>
-    </router-link>
-  </div>
+    <ul>
+      <li>
+        <a class="menu-item" @click="$router.push('/profile')">
+          <awesome icon="user-edit" class="fas fa-user-edit"></awesome>
+          <span>Edit profile</span>
+        </a>
+      </li>
+      <li v-if="isAuth">
+        <a class="menu-item" href="" @click.prevent="logoutUser">
+          <awesome icon="running" class="fas fa-running"></awesome>
+          <span>Logout</span>
+        </a>
+      </li>
+      <li v-else>
+        <router-link class="menu-item" to="/auth/login">
+          <span>Login</span>
+        </router-link>
+      </li>
+    </ul>
+  </aside>
 </template>
 
 <script>

@@ -1,53 +1,64 @@
 <template>
-  <nav class="header">
-    <div class="header-home">
-      <ul class="home-wrap">
-        <li class="home-items">
-          <a href="" class="home-item" @click.prevent="goToMain">
-            <awesome icon="home" class="fas fa-home"></awesome>
-          </a>
+  <header>
+    <nav class="header">
+      <ul>
+        <li class="header-home">
+          <div class="home-wrap">
+            <div class="home-items">
+              <a href="" class="home-item" @click.prevent="goToMain">
+                <awesome icon="home" class="fas fa-home"></awesome>
+              </a>
+            </div>
+          </div>
         </li>
-      </ul>
-    </div>
 
-    <div class="header-logo">
-      <router-link to="/main">
-        <awesome icon="suitcase" class="fas fa-suitcase"></awesome>&nbsp;
-        <span>Tripllo</span>
-      </router-link>
-    </div>
+        <li class="header-logo">
+          <router-link to="/main">
+            <awesome icon="suitcase" class="fas fa-suitcase"></awesome>&nbsp;
+            <h1 class="title">Tripllo</h1>
+          </router-link>
+        </li>
 
-    <div class="header-auth">
-      <ul class="auth-wrap">
-        <Message />
-        <li class="auth-items">
-          <a href="" class="auth-item" @click.prevent="$router.push('/manual')">
-            <awesome icon="info-circle" class="fas fa-info-circle"></awesome>
-          </a>
+        <li class="header-auth">
+          <ul class="auth-wrap">
+            <Message />
+            <li class="auth-items">
+              <a
+                href=""
+                class="auth-item"
+                @click.prevent="$router.push('/manual')"
+              >
+                <awesome
+                  icon="info-circle"
+                  class="fas fa-info-circle"
+                ></awesome>
+              </a>
+            </li>
+            <li class="auth-items">
+              <a
+                v-if="user.picture"
+                href=""
+                class="auth-item img"
+                :style="{ backgroundImage: `url(${user.picture})` }"
+                @click.prevent="() => (isMenuShow = true)"
+              ></a>
+              <awesome
+                v-else
+                icon="user"
+                class="fas fa-user auth-item"
+                @click.prevent="() => (isMenuShow = true)"
+              ></awesome>
+            </li>
+          </ul>
         </li>
-        <li class="auth-items">
-          <a
-            v-if="user.picture"
-            href=""
-            class="auth-item img"
-            :style="{ backgroundImage: `url(${user.picture})` }"
-            @click.prevent="() => (isMenuShow = true)"
-          ></a>
-          <awesome
-            v-else
-            icon="user"
-            class="fas fa-user auth-item"
-            @click.prevent="() => (isMenuShow = true)"
-          ></awesome>
-        </li>
+        <CommonHeaderMenu
+          v-if="isMenuShow"
+          v-click-outside="() => (isMenuShow = false)"
+          @closeMenu="() => (isMenuShow = false)"
+        />
       </ul>
-    </div>
-    <CommonHeaderMenu
-      v-if="isMenuShow"
-      v-click-outside="() => (isMenuShow = false)"
-      @closeMenu="() => (isMenuShow = false)"
-    />
-  </nav>
+    </nav>
+  </header>
 </template>
 
 <script>
@@ -118,8 +129,10 @@ export default {
   z-index: 3;
   height: 32px;
   padding: 4px;
-  position: sticky;
+  position: fixed;
   top: 0;
+  width: 100%;
+
   &:after {
     position: absolute;
     content: '';
@@ -176,6 +189,10 @@ export default {
     a:hover {
       color: white;
     }
+    .title {
+      display: inline;
+      font-size: 1.34rem;
+    }
   }
   .header-auth {
     position: absolute;
@@ -187,6 +204,7 @@ export default {
       display: flex;
       margin: 0;
       padding: 0;
+      margin-right: 10px;
       .auth-items {
         margin-right: 5px;
         .auth-item {
