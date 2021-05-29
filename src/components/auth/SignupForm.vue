@@ -1,7 +1,9 @@
 <template>
-  <main>
+  <article>
     <div class="container">
-      <span class="sign-up-text"><b>Sign up to Tripllo</b></span>
+      <header>
+        <h2 class="sign-up-text"><strong>Sign up to Tripllo</strong></h2>
+      </header>
       <form @submit.prevent="submitForm">
         <div class="submit-items">
           <input
@@ -46,11 +48,11 @@
           </button>
         </div>
       </form>
-      <div v-if="push.pushYn" class="push-conatiner">
+      <aside v-if="push.pushYn" class="push-conatiner">
         <div class="push-box">
           <span>{{ push.message }}</span>
         </div>
-      </div>
+      </aside>
       <div v-show="isSocialForm">
         <div class="text">OR</div>
         <div class="external-items">
@@ -84,7 +86,7 @@
         </router-link>
       </div>
     </div>
-  </main>
+  </article>
 </template>
 
 <script>

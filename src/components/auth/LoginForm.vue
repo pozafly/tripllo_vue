@@ -1,11 +1,13 @@
 <template>
-  <div class="container">
-    <div v-if="push.pushYn" class="push-container">
+  <article class="container">
+    <aside v-if="push.pushYn" class="push-container">
       <div class="push-box">
         <span>{{ push.message }}</span>
       </div>
-    </div>
-    <span class="login-text"><b>Login to Tripllo</b></span>
+    </aside>
+    <header>
+      <h2 class="login-text"><strong>Login to Tripllo</strong></h2>
+    </header>
     <form @submit.prevent="submitForm">
       <div class="submit-items">
         <input
@@ -61,7 +63,7 @@
         Lost your password?
       </router-link>
     </div>
-  </div>
+  </article>
 </template>
 
 <script>

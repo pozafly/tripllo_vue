@@ -1,5 +1,8 @@
 <template>
-  <div class="container">
+  <article class="container">
+    <header>
+      <h2 hidden>비밀번호 찾기</h2>
+    </header>
     <div class="icon-wrap">
       <awesome :icon="['far', 'meh']" class="find-icon"></awesome>
     </div>
@@ -35,7 +38,7 @@
         Do you want to Sign up?
       </router-link>
     </div>
-  </div>
+  </article>
 </template>
 
 <script>
