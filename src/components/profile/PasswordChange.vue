@@ -1,7 +1,10 @@
 <template>
-  <div>
-    <h3 class="title">Change Password</h3>
-    <hr />
+  <article>
+    <header>
+      <h3 class="title">Change Password</h3>
+      <hr />
+    </header>
+
     <div class="change-wrap">
       <form class="form">
         <div class="form-item">
@@ -26,7 +29,7 @@
         </button>
       </form>
     </div>
-  </div>
+  </article>
 </template>
 
 <script>

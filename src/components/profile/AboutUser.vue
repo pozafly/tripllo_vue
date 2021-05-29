@@ -1,10 +1,13 @@
 <template>
-  <div>
-    <h3 class="title">About</h3>
-    <hr />
+  <article>
+    <header>
+      <h3 class="title">About</h3>
+      <hr />
+    </header>
+
     <div class="about-wrap">
-      <div class="profile-avatar">
-        <h3>Avatar</h3>
+      <section class="profile-avatar">
+        <h3 class="title">Avatar</h3>
         <div class="avatar-wrap" @click="$refs.file.click()">
           <div
             v-if="user.picture !== null && user.picture !== 'null'"
@@ -21,7 +24,8 @@
             @change="uploadFile"
           />
         </div>
-      </div>
+      </section>
+
       <form class="form">
         <div class="form-item">
           <span>Name</span>
@@ -56,7 +60,7 @@
         <AboutUserSignout />
       </form>
     </div>
-  </div>
+  </article>
 </template>
 
 <script>
@@ -149,10 +153,9 @@ export default {
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
-  margin-top: 28px;
   font-weight: 500;
   line-height: 26px;
-  margin-top: 40px;
+  margin: 40px 0 20px 0;
 }
 .about-wrap {
   display: flex;

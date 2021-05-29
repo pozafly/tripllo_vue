@@ -2,7 +2,8 @@
   <div class="wrap">
     <CommonHeader />
     <div class="content">
-      <div class="user-header">
+      <section class="user-header">
+        <h1 hidden>유저 페이지</h1>
         <div class="auth-items">
           <span
             v-if="user.picture !== null && user.picture !== 'null'"
@@ -17,19 +18,23 @@
           <span class="auth-item name">{{ user.name }}</span>
           <span class="auth-item id">@{{ user.id }}</span>
         </div>
-        <span class="createdAt">
+        <aside class="createdAt">
           {{ user.createdAt | normalFormatDate }} 생성됨
-        </span>
-      </div>
-      <div class="tabs">
-        <ProfileTabItem
-          v-for="item in tabList"
-          :key="item.id"
-          v-model="currentId"
-          v-bind="item"
-        />
-      </div>
-      <div class="user-info">
+        </aside>
+      </section>
+
+      <nav class="tabs">
+        <ul class="tab-list">
+          <ProfileTabItem
+            v-for="item in tabList"
+            :key="item.id"
+            v-model="currentId"
+            v-bind="item"
+          />
+        </ul>
+      </nav>
+
+      <main class="user-info">
         <div class="info-wrap">
           <div class="info-inside">
             <section :key="currentId">
@@ -42,7 +47,7 @@
             </section>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   </div>
 </template>
@@ -100,7 +105,7 @@ export default {
     min-height: 100%;
     position: relative;
     overflow-y: auto;
-    margin: -40px auto;
+    margin: 0 auto;
     padding: 40px 0 0 0;
     box-sizing: border-box;
     .user-header {
@@ -173,6 +178,9 @@ export default {
       top: -30px;
       display: flex;
       justify-content: center;
+      .tab-list {
+        display: flex;
+      }
     }
     .user-info {
       position: relative;

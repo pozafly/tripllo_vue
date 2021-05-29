@@ -1,7 +1,9 @@
 <template>
-  <button :class="[active, 'tab']" type="button" @click="$emit('input', id)">
-    {{ label }}
-  </button>
+  <li>
+    <button :class="[active, 'tab']" type="button" @click="$emit('input', id)">
+      {{ label }}
+    </button>
+  </li>
 </template>
 
 <script>

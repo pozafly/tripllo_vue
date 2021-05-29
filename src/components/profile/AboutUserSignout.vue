@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <h3 class="title">Signout</h3>
+  <section>
+    <header>
+      <h3 class="title">Signout</h3>
+    </header>
     <div class="about-wrap">
       <button
         class="signout-btn"
@@ -71,7 +73,7 @@
         </template>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -143,6 +145,7 @@ export default {
   margin-top: 50px;
 }
 .about-wrap {
+  margin-top: 15px;
   .signout-btn {
     display: block;
     margin-top: -4px;
