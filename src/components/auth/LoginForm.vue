@@ -32,7 +32,7 @@
       <div class="external-items">
         <div id="google-login-btn">
           <button class="external-item" type="button">
-            <img src="@/assets/user/logo/google.png" />
+            <img src="@/assets/user/logo/google.png" alt="google login" />
             <b> Continue with Google</b>
           </button>
         </div>
@@ -41,7 +41,7 @@
           type="button"
           @click="socialLogin('facebook')"
         >
-          <img src="@/assets/user/logo/facebook.png" />
+          <img src="@/assets/user/logo/facebook.png" alt="facebook login" />
           <b> Continue with Facebook</b>
         </button>
         <button
@@ -49,7 +49,7 @@
           type="button"
           @click="socialLogin('kakao')"
         >
-          <img src="@/assets/user/logo/kakao.png" />
+          <img src="@/assets/user/logo/kakao.png" alt="kakaotalk login" />
           <b> Continue with KakaoTalk</b>
         </button>
       </div>

@@ -58,7 +58,7 @@
         <div class="external-items">
           <div id="google-login-btn">
             <button class="external-item" type="button">
-              <img src="@/assets/user/logo/google.png" />
+              <img src="@/assets/user/logo/google.png" alt="google signup" />
               <b> Continue with Google</b>
             </button>
           </div>
@@ -67,7 +67,7 @@
             type="button"
             @click="socialSignup('facebook')"
           >
-            <img src="@/assets/user/logo/facebook.png" />
+            <img src="@/assets/user/logo/facebook.png" alt="facebook signup" />
             <b> Continue with Facebook</b>
           </button>
           <button
@@ -75,7 +75,7 @@
             type="button"
             @click="socialSignup('kakao')"
           >
-            <img src="@/assets/user/logo/kakao.png" />
+            <img src="@/assets/user/logo/kakao.png" alt="kakaotalk signup" />
             <b> Continue with KakaoTalk</b>
           </button>
         </div>

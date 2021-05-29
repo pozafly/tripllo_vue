@@ -5,6 +5,7 @@
         v-if="memberPicture !== null && memberPicture !== 'null'"
         ref="img"
         class="invite-img"
+        alt="user profile"
       />
       <div v-else class="invite-icon">
         <awesome icon="user" class="fas fa-user svg"></awesome>

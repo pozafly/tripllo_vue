@@ -48,6 +48,7 @@
           <img
             src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/main4.jpg"
             class="img img2"
+            alt="Tripllo"
           />
         </article>
 
@@ -71,6 +72,7 @@
           <img
             src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/main3.jpg"
             class="img img3"
+            alt="Tripllo Card"
           />
         </article>
 
@@ -88,6 +90,7 @@
                 <img
                   src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/vue.png"
                   class="img4"
+                  alt="vue logo"
                 />
               </div>
               <div class="content-wrap">
@@ -112,6 +115,7 @@
               <img
                 src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/springboot.png"
                 class="img5"
+                alt="springboot logo"
               />
               <div class="content-wrap">
                 <h3 class="skill-title">Back-end</h3>
@@ -137,6 +141,7 @@
               <img
                 src="https://tripllo-file.s3.ap-northeast-2.amazonaws.com/static/aws.jpg"
                 class="img5"
+                alt="aws logo"
               />
               <div class="content-wrap">
                 <h3 class="skill-title">Deploy</h3>

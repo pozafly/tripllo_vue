@@ -20,8 +20,16 @@
     </div>
     <Footer />
     <div class="back">
-      <img class="back item1" src="@/assets/user/back/1.png" alt="" />
-      <img class="back item2" src="@/assets/user/back/2.png" alt="" />
+      <img
+        class="back item1"
+        src="@/assets/user/back/1.png"
+        alt="background image"
+      />
+      <img
+        class="back item2"
+        src="@/assets/user/back/2.png"
+        alt="background image"
+      />
     </div>
   </div>
 </template>

@@ -5,7 +5,7 @@
       <span class="body-card-text">Loction</span>
       <div class="google-map-static-display" @click="openMap">
         <div class="location-wrapper">
-          <img :src="imgUrl" class="location-img" />
+          <img :src="imgUrl" class="location-img" alt="google location" />
           <div class="location-detail">
             <div class="location-name">{{ location.name }}</div>
             <div class="location-address">{{ location.address }}</div>
