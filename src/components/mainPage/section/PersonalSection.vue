@@ -1,22 +1,23 @@
 <template>
   <section class="wrap">
-    <div v-if="recentBoard" class="boards">
-      <div class="page-title">
+    <h1 hidden>Personal Section</h1>
+    <article v-if="recentBoard" class="boards">
+      <header class="page-title">
         <awesome :icon="['far', 'clock']" class="icon"></awesome>
-        <span class="title-text">Recently Viewed</span>
-      </div>
+        <h2 class="title-text">Recently Viewed</h2>
+      </header>
       <div class="list-wrap">
         <div v-for="recent in recentBoard" :key="recent.id" class="board-list">
           <BoardItem :board="recent" />
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="boards">
-      <div class="page-title">
+    <article class="boards">
+      <header class="page-title">
         <awesome icon="layer-group" class="icon"></awesome>
-        <span class="title-text">My Boards</span>
-      </div>
+        <h2 class="title-text">My Boards</h2>
+      </header>
       <div class="list-wrap">
         <a class="add-board" href="" @click.prevent="showAddBoard">
           <span class="add-board-title">Create new board...</span>
@@ -26,8 +27,9 @@
           <BoardItem :board="board" />
         </div>
       </div>
-    </div>
-    <div class="infinity">
+    </article>
+
+    <aside class="infinity">
       <infinite-loading spinner="waveDots" @infinite="infiniteHandler">
         <div
           slot="no-more"
@@ -36,7 +38,7 @@
           목록의 끝입니다 :)
         </div>
       </infinite-loading>
-    </div>
+    </aside>
   </section>
 </template>
 
@@ -137,6 +139,7 @@ export default {
         color: #444e61;
       }
       .title-text {
+        display: inline;
         color: #212732;
         margin-left: 10px;
       }

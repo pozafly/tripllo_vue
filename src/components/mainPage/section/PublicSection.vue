@@ -1,11 +1,14 @@
 <template>
   <section class="wrap">
+    <h1 hidden>Public Section</h1>
     <div class="inside-wrap">
       <div class="boards">
-        <div class="page-title main-title">
-          <awesome icon="search" class="icon" />
-          <span class="title-text">Search</span>
-          <span class="side-text search-side"> - Search you want..</span>
+        <article class="page-title main-title">
+          <header>
+            <awesome icon="search" class="icon" />
+            <h2 class="title-text">Search</h2>
+            <aside class="side-text search-side">- Search you want..</aside>
+          </header>
           <input
             v-model="searchHashValue"
             v-focus
@@ -15,14 +18,16 @@
             placeholder="Write you want Searching Hashtag"
             maxlength="14"
           />
-        </div>
+        </article>
       </div>
 
-      <div class="boards">
+      <article class="boards">
         <div class="page-title">
-          <awesome icon="crown" class="icon" />
-          <span class="title-text">Hash tags Ranking</span>
-          <span class="side-text"> - Top 5</span>
+          <header>
+            <awesome icon="crown" class="icon" />
+            <h2 class="title-text">Hash tags Ranking</h2>
+            <aside class="side-text">- Top 5</aside>
+          </header>
           <div class="hashtag">
             <span
               v-for="hashtag in hashtags"
@@ -35,14 +40,14 @@
             </span>
           </div>
         </div>
-      </div>
+      </article>
 
-      <div class="boards">
-        <div class="page-title">
+      <article class="boards">
+        <header class="page-title">
           <awesome icon="globe-americas" class="icon" />
-          <span class="title-text">Public Boards</span>
-          <span class="side-text"> - order by like</span>
-        </div>
+          <h2 class="title-text">Public Boards</h2>
+          <aside class="side-text">- order by like</aside>
+        </header>
         <div class="list-wrap">
           <div
             v-for="board in hashtagBoards"
@@ -73,8 +78,9 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="infinity">
+      </article>
+
+      <aside class="infinity">
         <infinite-loading
           spinner="waveDots"
           :identifier="infiniteId"
@@ -87,7 +93,7 @@
             목록의 끝입니다 :)
           </div>
         </infinite-loading>
-      </div>
+      </aside>
     </div>
   </section>
 </template>
@@ -224,10 +230,13 @@ export default {
           color: #444e61;
         }
         .title-text {
+          display: inline;
           color: #212732;
           margin-left: 10px;
         }
         .side-text {
+          display: inline;
+          margin-left: 5px;
           font-size: 13px;
           color: gray;
           &.search-side {

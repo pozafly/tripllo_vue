@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <CommonHeader />
-    <div class="main-wrap">
+    <main class="main-wrap">
       <MainTab @changeTab="changeTab" />
       <template v-if="mainTabId === 0">
         <PersonalSection />
@@ -12,7 +12,7 @@
       <template v-else>
         <PublicSection />
       </template>
-    </div>
+    </main>
   </div>
 </template>
 

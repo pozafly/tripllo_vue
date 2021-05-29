@@ -1,33 +1,35 @@
 <template>
-  <ul class="side-wrap">
-    <li
-      :class="[{ active: mainTabId === 0 }, 'side-item']"
-      @click="changeMainTab(0)"
-    >
-      <div class="item-wrap">
-        <awesome icon="user" class="icon" />
-        <span class="move-text">Personal</span>
-      </div>
-    </li>
-    <li
-      :class="[{ active: mainTabId === 1 }, 'side-item']"
-      @click="changeMainTab(1)"
-    >
-      <div class="item-wrap">
-        <awesome icon="user-friends" class="icon" />
-        <span class="move-text">Invited</span>
-      </div>
-    </li>
-    <li
-      :class="[{ active: mainTabId === 2 }, 'side-item']"
-      @click="changeMainTab(2)"
-    >
-      <div class="item-wrap">
-        <awesome icon="globe-americas" class="icon" />
-        <span class="move-text">Public</span>
-      </div>
-    </li>
-  </ul>
+  <aside>
+    <ul class="side-wrap">
+      <li
+        :class="[{ active: mainTabId === 0 }, 'side-item']"
+        @click="changeMainTab(0)"
+      >
+        <div class="item-wrap">
+          <awesome icon="user" class="icon" />
+          <span class="move-text">Personal</span>
+        </div>
+      </li>
+      <li
+        :class="[{ active: mainTabId === 1 }, 'side-item']"
+        @click="changeMainTab(1)"
+      >
+        <div class="item-wrap">
+          <awesome icon="user-friends" class="icon" />
+          <span class="move-text">Invited</span>
+        </div>
+      </li>
+      <li
+        :class="[{ active: mainTabId === 2 }, 'side-item']"
+        @click="changeMainTab(2)"
+      >
+        <div class="item-wrap">
+          <awesome icon="globe-americas" class="icon" />
+          <span class="move-text">Public</span>
+        </div>
+      </li>
+    </ul>
+  </aside>
 </template>
 
 <script>
