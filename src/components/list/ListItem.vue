@@ -1,5 +1,5 @@
 <template>
-  <div class="list" :listId="id" :pos="pos">
+  <article class="list" :listId="id" :pos="pos">
     <div class="list-header">
       <input
         v-if="isEditTitle"
@@ -12,13 +12,13 @@
         @keypress.enter="onKeyupEnter"
         @blur="onSubmitTitle"
       />
-      <div
+      <h2
         v-else
         class="list-header-title"
         @click.prevent="() => (isEditTitle = true)"
       >
         {{ title }} <awesome icon="edit" class="fas fa-edit"></awesome>
-      </div>
+      </h2>
       <a class="delete-list-btn" href="" @click.prevent="onDeleteList">
         &times;
       </a>
@@ -40,7 +40,7 @@
         &plus; Add another card
       </a>
     </div>
-  </div>
+  </article>
 </template>
 
 <script>

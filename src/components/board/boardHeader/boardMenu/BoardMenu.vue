@@ -1,5 +1,5 @@
 <template>
-  <div class="board-menu">
+  <aside class="board-menu">
     <div class="board-menu-wrap">
       <div class="board-menu-header">
         <div class="header-title">Menu</div>
@@ -56,7 +56,7 @@
         </li>
       </ul>
     </div>
-  </div>
+  </aside>
 </template>
 
 <script>

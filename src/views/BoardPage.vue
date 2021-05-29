@@ -5,7 +5,7 @@
       <div class="board-wrapper">
         <div class="board">
           <BoardHeader :user-id="user.id" />
-          <div class="list-section-wrapper">
+          <main class="list-section-wrapper">
             <div class="list-section">
               <div
                 v-for="list in board.lists"
@@ -19,7 +19,7 @@
                 <AddList @listFocus="listFocus" />
               </div>
             </div>
-          </div>
+          </main>
         </div>
       </div>
       <router-view></router-view>

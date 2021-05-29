@@ -1,5 +1,5 @@
 <template>
-  <div class="board-header">
+  <header class="board-header">
     <input
       v-if="isEditTitle"
       ref="inputTitle"
@@ -11,9 +11,9 @@
       @keypress.enter="onKeyupEnter"
       @blur="onSubmitTitle"
     />
-    <span v-else class="board-item" @click="onClickTitle">
+    <h2 v-else class="board-item" @click="onClickTitle">
       {{ board.title }}
-    </span>
+    </h2>
 
     <span class="board-item owner-user">
       <BoardHeaderProfileImage v-bind="board" />
@@ -60,7 +60,7 @@
       v-click-outside="() => (isBoardMenu = false)"
       @close="isBoardMenu = false"
     />
-  </div>
+  </header>
 </template>
 
 <script>
@@ -199,6 +199,7 @@ export default {
     display: inline;
   }
   .board-item {
+    display: inline;
     position: relative;
     color: #fff;
     font-weight: 500;

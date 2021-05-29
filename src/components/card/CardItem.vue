@@ -1,5 +1,5 @@
 <template>
-  <div class="card-item" :cardId="id" :pos="pos">
+  <section class="card-item" :cardId="id" :pos="pos">
     <router-link :to="`/board/${board.id}/card/${id}`">
       <!-- 라벨링 -->
       <div
@@ -38,7 +38,7 @@
         </div>
       </div>
     </router-link>
-  </div>
+  </section>
 </template>
 
 <script>
