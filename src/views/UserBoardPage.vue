@@ -62,6 +62,13 @@ import { readSearchUserBoardAPI } from '@/api/board';
 import { readUserAPI } from '@/api/user';
 
 export default {
+  metaInfo() {
+    return {
+      title: this.userInfo.name,
+      titleTemplate: '%s | Tripllo',
+    };
+  },
+
   components: {
     CommonHeader,
     BoardItem,

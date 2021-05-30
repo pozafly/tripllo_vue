@@ -35,8 +35,48 @@ import BoardHeader from '@/components/board/boardHeader/BoardHeader.vue';
 import dragger from '@/utils/dragger';
 import { updateUserAPI } from '@/api/user';
 import { mapActions, mapMutations, mapState } from 'vuex';
+import { isEmpty } from '@/utils/libs';
 
 export default {
+  metaInfo() {
+    return {
+      title: this.board.title,
+      titleTemplate: '%s | Tripllo',
+      meta: [
+        {
+          vmid: 'description',
+          name: 'description',
+          content: this.makeContent,
+        },
+        {
+          vmid: 'keywords',
+          name: 'keywords',
+          content: this.makeContent,
+        },
+        {
+          vmid: 'author',
+          name: 'author',
+          content: this.user.id,
+        },
+        {
+          vmid: 'og:title',
+          property: 'og:title',
+          content: this.board.title,
+        },
+        {
+          vmid: 'og:description',
+          property: 'og:description',
+          content: this.makeContent,
+        },
+        {
+          vmid: 'og:url',
+          property: 'og:url',
+          content: `${process.env.VUE_APP_API_URL}/board/${this.board.id}`,
+        },
+      ],
+    };
+  },
+
   components: {
     CommonHeader,
     ListItem,
@@ -53,6 +93,15 @@ export default {
 
   computed: {
     ...mapState(['board', 'user']),
+    makeContent() {
+      if (isEmpty(this.board.hashtag)) {
+        return;
+      } else {
+        const hashList = JSON.parse(this.board.hashtag);
+        const listToString = hashList.join(',');
+        return listToString;
+      }
+    },
   },
 
   created() {

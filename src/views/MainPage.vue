@@ -25,6 +25,13 @@ import PublicSection from '@/components/mainPage/section/PublicSection.vue';
 import { getSessionStorage } from '@/utils/webStorage';
 
 export default {
+  metaInfo() {
+    return {
+      title: this.sectionTitle(),
+      titleTemplate: '%s | Tripllo',
+    };
+  },
+
   components: {
     CommonHeader,
     MainTab,
@@ -42,6 +49,15 @@ export default {
   methods: {
     changeTab(value) {
       this.mainTabId = value;
+    },
+    sectionTitle() {
+      if (this.mainTabId === 0) {
+        return '개인 공간';
+      } else if (this.mainTabId === 1) {
+        return '초대 공간';
+      } else {
+        return '공용 공간';
+      }
     },
   },
 };
