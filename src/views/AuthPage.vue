@@ -13,10 +13,10 @@
       <aside>
         <a href="" @click.prevent="$router.push('/privacy')">Privacy Policy</a>
       </aside>
-      <div v-if="hideTestId()" class="test-id-wrap">
+      <!-- <div v-if="hideTestId()" class="test-id-wrap">
         <span>테스트 ID: test</span>
         <span>테스트 PW: test</span>
-      </div>
+      </div> -->
     </div>
     <Footer />
     <div class="back">
