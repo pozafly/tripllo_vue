@@ -2,12 +2,12 @@
 
 > Trello Clone, 계획 공유 서비스
 >
-> AWS 프리티어 만료 및 도메인 만료로 메뉴얼만 보실 수 있습니다.
+> AWS 프리티어 만료 및 도메인 만료로 **메뉴얼만 보실 수 있습니다**.
 > 메뉴얼에는 프로젝트 GIF와 기능 설명이 있습니다.
 >
-> 메인 : ~~<a>https://tripllo.tech</a>~~
+> 간단 메뉴얼 : <a href="https://pozafly.github.io/tripllo-manual/" target="_blank">https://pozafly.github.io/tripllo-manual/</a>
 >
-> 간단 메뉴얼 : <a>https://pozafly.github.io/tripllo-manual/</a>
+> 메인 : ~~<a>https://tripllo.tech</a>~~
 >
 > API : ~~<a>https://api.tripllo.tech/swagger-ui.html</a>~~
 
