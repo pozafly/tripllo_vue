@@ -2,11 +2,14 @@
 
 > Trello Clone, 계획 공유 서비스
 >
-> 메인 : <a>https://tripllo.tech</a>
+> AWS 프리티어 만료 및 도메인 만료로 메뉴얼만 보실 수 있습니다.
+> 메뉴얼에는 프로젝트 GIF와 기능 설명이 있습니다.
 >
-> 간단 메뉴얼 : <a>https://tripllo.tech/manual</a>
+> 메인 : ~~<a>https://tripllo.tech</a>~~
 >
-> API : <a>https://api.tripllo.tech/swagger-ui.html</a>
+> 간단 메뉴얼 : <a>https://pozafly.github.io/tripllo-manual/</a>
+>
+> API : ~~<a>https://api.tripllo.tech/swagger-ui.html</a>~~
 
 <br/>
 
@@ -83,7 +86,6 @@
 <summary><b>핵심 기능 설명 펼치기</b></summary>
 <div markdown="1">
 
-
 ### 4.1 전체 흐름
 
 - Frontend
@@ -100,15 +102,15 @@
 
 - **카드 기능**
 
-  - Location(구글맵 API) 
+  - Location(구글맵 API)
 
     - 구글맵 API를 사용해서 card에서는 static 이미지를 불러오며 클릭 시, 구글맵 전체를 볼 수 있습니다.
-    - 구글맵 상세 페이지에서는 해당 Board에서 등록된 모든 location이 지도에 표시되는 클러스터 기능이 구현되어 있습니다. :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailLocation/LocationMap.vue#L56)
+    - 구글맵 상세 페이지에서는 해당 Board에서 등록된 모든 location이 지도에 표시되는 클러스터 기능이 구현되어 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/8148cee37d7700444dafc9c8d2c303942172957a/src/components/card/cardDetail/detailItems/detailLocation/LocationMap.vue#L56)
 
   - Attachment
 
     - 파일 업로드 시 local에 파일을 저장 후 S3에 올린 다음 local에 남은 파일을 지웁니다.
-    - Spring Cloud AWS를 이용해 S3에 static_[유저이름] 으로 된 폴더를 생성해 파일을 저장합니다. :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/5a0c0d1fd697f5c6ec74d39b4e9f058ac6ab914c/src/main/java/com/pozafly/tripllo/fileUpload/S3Uploader.java#L29)
+    - Spring Cloud AWS를 이용해 S3에 static\_[유저이름] 으로 된 폴더를 생성해 파일을 저장합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/5a0c0d1fd697f5c6ec74d39b4e9f058ac6ab914c/src/main/java/com/pozafly/tripllo/fileUpload/S3Uploader.java#L29)
     - 파일은 권한 체크 후 다운받거나 삭제할 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/components/card/cardModal/mainModal/attachment/CardAttachmentList.vue#L91)
 
   - Checklist
@@ -119,26 +121,29 @@
   - Comments
 
     - 답글(대댓글)을 위한 group_num, dept 칼럼을 두어 답글을 표현합니다.
-    - 삭제 시 댓글에 답글이 없을 경우는 화면에서 사라지지만, 답글이 존재하는 경우 *삭제된 메세지 입니다.* 라고 표시됩니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/5a0c0d1fd697f5c6ec74d39b4e9f058ac6ab914c/src/main/java/com/pozafly/tripllo/comment/service/impl/CommentServiceImpl.java#L91)
+    - 삭제 시 댓글에 답글이 없을 경우는 화면에서 사라지지만, 답글이 존재하는 경우 _삭제된 메세지 입니다._ 라고 표시됩니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/5a0c0d1fd697f5c6ec74d39b4e9f058ac6ab914c/src/main/java/com/pozafly/tripllo/comment/service/impl/CommentServiceImpl.java#L91)
 
   - 그 외 기능 - Description(메모), Labels(라벨링), dueDate(날짜 지정)
-- **드래그 앤 드롭** 
+
+- **드래그 앤 드롭**
 
   - dragula 모듈을 사용해, List와 Card를 드래그해서 위치를 변화시킬 수 있습니다.
   - 대상의 이전 DOM과 다음 DOM을 비교해서 pos(포지션) 값을 지정 후 UPDATE 합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/utils/dragger/index.js#L68)
+
 - **BoardPage & CardModal 화면 연동**
-  - Board 혹은 Card를 수정 했을 시 api 함수 호출 후 Component를 다시 그려줄 수 있는 Action 함수를 호출합니다. :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/components/card/cardModal/CardModal.vue#L123)
-  - 1:N 관계를 가진 컴포넌트가 readBoardDetail 이라는 쿼리문 조회된 후 리랜더링 됩니다.  :pushpin:  [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/77266edb3c874cd43132425e75a587641e4983fd/src/main/resources/mapper/BoardMapper.xml#L195)
+  - Board 혹은 Card를 수정 했을 시 api 함수 호출 후 Component를 다시 그려줄 수 있는 Action 함수를 호출합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/components/card/cardModal/CardModal.vue#L123)
+  - 1:N 관계를 가진 컴포넌트가 readBoardDetail 이라는 쿼리문 조회된 후 리랜더링 됩니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/77266edb3c874cd43132425e75a587641e4983fd/src/main/resources/mapper/BoardMapper.xml#L195)
 
 <br/>
 
 ### 4.3 사용자 초대
 
 - **유저 검색**
+
   - 모달 창에서 초대하고 싶은 회원의 ID를 검색합니다. filter를 사용해 자신과 이미 초대된 사람은 목록에 뜨지 않습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/components/board/boardHeader/boardInvite/InviteModal.vue#L66)
 
 - **실시간 messaging**
-  - sockjs-client로 Connection을 실행합니다.  :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/utils/socket.js#L7)
+  - sockjs-client로 Connection을 실행합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/utils/socket.js#L7)
   - Spring WebSocket에서 HandshakeInterceptor 를 통해 socket 세션을 받아온 후, 현재 접속자 끼리 초대장을 보낼 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/java/com/pozafly/tripllo/webSocket/WebSocketHandler.java#L19)
   - 초대장을 받고, Notification 처리와, 초대장 개수를 표현합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/components/common/header/message/HeaderMessage.vue#L48)
 - **초대 수락**
@@ -150,10 +155,11 @@
 ### 4.4 소셜 기능
 
 - 해시태그
+
   - Array - push, splice를 통해 해시태그를 지정, 삭제할 수 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/components/board/boardHeader/BoardHeaderHashtagModal.vue#L88)
   - Board를 만든 주인만 해시태그를 수정할 수 있도록 화면 숨김 처리되어 있습니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_vue/blob/6c457b4d7a9a360d9fc6d499d45606b32f401130/src/components/board/boardHeader/BoardHeader.vue#L30)
-  - N:M 관계를 board_has_hashtag 중간 테이블을 두고 1:N 관계로 풀어서 조회합니다.  :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/resources/mapper/HashtagMapper.xml#L12)
-  
+  - N:M 관계를 board_has_hashtag 중간 테이블을 두고 1:N 관계로 풀어서 조회합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/resources/mapper/HashtagMapper.xml#L12)
+
 - 좋아요
   - 좋아요 순서로 Public Tab의 상단에 표현됩니다.
   - Board 조회 시, 유저의 좋아요 클릭 여부를 판단하기 위해 own_like 칼럼을 표현합니다. :pushpin: [코드 확인](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/resources/mapper/BoardMapper.xml#L23)
@@ -203,7 +209,7 @@
 
 - 커서(기준)는 정렬하고 있는 대상인 created_at 이며
 - 처음 조회 시 lastCreatedAt 변수에 `firstCall` 문자열을 주어, 14개의 데이터만 조회했습니다.
-- 이후 조회 시 lastCreatedAt 변수에 `화면에 뿌려진 마지막 DOM의 createdAt`로 조회하면, 커서(기준)보다 작은 순서로 Data를 가져옵니다. 
+- 이후 조회 시 lastCreatedAt 변수에 `화면에 뿌려진 마지막 DOM의 createdAt`로 조회하면, 커서(기준)보다 작은 순서로 Data를 가져옵니다.
 
 <details>
 <summary><b>수정된 SQL</b></summary>
@@ -283,7 +289,7 @@ data() {
 async infiniteHandler($state) {
   try {
     const { data } = await readPersonalBoardAPI(this.lastCreatedAt);
-    
+
     if (data.data === null) {
       this.isInfinity = false;
       $state.complete(); // 데이터는 모두 소진되고 다시 가져올 필요가 없다는 것을 알려준다.
@@ -328,7 +334,7 @@ data() {
       email: '',
       name: '',
       response: '',
-      name: '',       
+      name: '',
     },
   },
 }
@@ -351,7 +357,7 @@ watch: {
 </details>
 
 - 아래와 같이
-- 객체 내부의 변수 1개만 감지 :  `'객체.변수명': [some function]`
+- 객체 내부의 변수 1개만 감지 : `'객체.변수명': [some function]`
 - 객체 내부 요소가 하나라도 변화할 때 감지 : `handler(e)`, `deep: true`
 - debounce는 즉시 실행 함수로 선언하는 것이 아니라, 함수 자체를 등록해줘야 한다는 것을 알게 되어 개선할 수 있었습니다.
 
@@ -431,7 +437,7 @@ instance.interceptors.request.use(
   },
   error => {
     return Promise.reject(error);
-  },
+  }
 );
 ```
 
@@ -456,7 +462,7 @@ public String resolveToken(HttpServletRequest request) {
 </details>
 
 - 사진과 같이 크롬 Network 탭의 Request Header를 확인해보면,
-- token을,  `Authorization` 이라는 이름으로 보내고 있었기 때문에 JwtTokenProvider에서 이를 불러오지 못하고 있었습니다.
+- token을, `Authorization` 이라는 이름으로 보내고 있었기 때문에 JwtTokenProvider에서 이를 불러오지 못하고 있었습니다.
 
 <img width="711" alt="스크린샷 2021-02-17 오후 2 45 26" src="https://user-images.githubusercontent.com/59427983/108161686-e20eff00-712e-11eb-85b9-8cde73d9b596.png">
 
@@ -478,11 +484,11 @@ Error: PostCSS received undefined instead of CSS string
 ...
 ```
 
-- PostCSS는 자바스크립트로 CSS 변환을 해주는 도구이며, **CSS 작성 경험을 향상 시켜주는 도구**. 
+- PostCSS는 자바스크립트로 CSS 변환을 해주는 도구이며, **CSS 작성 경험을 향상 시켜주는 도구**.
 - npm을 업데이트했는데 node-sass, sass-loader 두 가지는 npm 버전을 많이 가린다고 알고 있었음.
 - [npm 설치가 안되는 에러](https://velog.io/@2ujin/npm-설치가-안되는-에러) 를 참고하여 node-module을 지우고 다시 설치로 해결.
-</div>
-</details>
+  </div>
+  </details>
 
 <details>
 <summary><b>JSON.parse 문제</b></summary>
@@ -509,7 +515,7 @@ Error: PostCSS received undefined instead of CSS string
 <summary><b>모달 외부 클릭 시 닫히지 않는 문제</b></summary>
 <div markdown="1">
 
-- 모달 외부 wrapper에 click 이벤트를 걸어, 모달 DOM을 제외한 곳을 click시 닫히도록 함. 📌  [코드 보기](https://github.com/pozafly/tripllo_vue/blob/6c87de7448e6d1666b93c516493327b7f72cf2f9/src/views/BoardPage.vue#L235)
+- 모달 외부 wrapper에 click 이벤트를 걸어, 모달 DOM을 제외한 곳을 click시 닫히도록 함. 📌 [코드 보기](https://github.com/pozafly/tripllo_vue/blob/6c87de7448e6d1666b93c516493327b7f72cf2f9/src/views/BoardPage.vue#L235)
 - v-click-outside 모듈 사용.
 
 </div>
@@ -540,7 +546,7 @@ Error: PostCSS received undefined instead of CSS string
 <summary><b>event 중첩 문제</b></summary>
 <div markdown="1">
 
-- 프로젝트 내 input 수정 로직은 Enter를 누르거나, input에서 포커스를 벗어나면 UPDATE 되는 방식을 사용함. 
+- 프로젝트 내 input 수정 로직은 Enter를 누르거나, input에서 포커스를 벗어나면 UPDATE 되는 방식을 사용함.
 - input 태그에 @keyup.enter와 @blur를 사용하는데 keyup 이벤트가 발생하면 blur 이벤트까지 같이 일어나 api가 2번 요청되는 이슈가 있었음.
 
   <details>
@@ -548,12 +554,9 @@ Error: PostCSS received undefined instead of CSS string
   <div markdown="1">
 
   ```html
-  <input
-    ...
-    @keyup.enter="onSubmitTitle"
-    @blur="onSubmitTitle"
-  />
+  <input ... @keyup.enter="onSubmitTitle" @blur="onSubmitTitle" />
   ```
+
   </div>
   </details>
 
@@ -564,16 +567,10 @@ Error: PostCSS received undefined instead of CSS string
   <div markdown="1">
 
   ```html
-  <input
-    ...
-    @keypress.enter="onKeyupEnter"
-    @blur="onSubmitTitle"
-  />
-  ...
-  onKeyupEnter(event) {
-    event.target.blur();
-  },
+  <input ... @keypress.enter="onKeyupEnter" @blur="onSubmitTitle" /> ...
+  onKeyupEnter(event) { event.target.blur(); },
   ```
+
   </div>
   </details>
 
@@ -613,7 +610,7 @@ Error: PostCSS received undefined instead of CSS string
 <summary><b>무한 스크롤 시 한번 멈춰버리면 같은 페이지 내 다른 컴포넌트에서 동작하지 않는 문제</b></summary>
 <div markdown="1">
 
-- 무한 스크롤이 $state.complete 코드를 만나면 다음 탭에서 동작하지 않음.
+- 무한 스크롤이 \$state.complete 코드를 만나면 다음 탭에서 동작하지 않음.
 - infinite-loading 태그의 :identifier 속성을 선언해서, 탭이 바뀌면 **infiniteId**를 변화시켜주어 다른 컴포넌트에서도 재동작 하도록 수정. :pushpin: [commit 보기](https://github.com/pozafly/tripllo_vue/commit/554baeffb0adb7eb6b82c4c728e5014e218315ad)
 
 </div>
@@ -657,7 +654,7 @@ Error: PostCSS received undefined instead of CSS string
 - token으로 해당 User의 ID를 자동으로 받을 수 없을까 고민했음.
 - 보안상으로 클라이언트가 직접 userId를 매개변수로 하여 api를 호출하면 다른 user의 정보가 변경될 수 있으므로.
 - JwtTokenProvider에 있는 getUserPk() 메서드를 static화 하여 Contorller에서 끌어다 사용하기로 했음. (Controller에서 @RequestHeader(value = "Authorization")을 통해 token을 얻고 getUserPK() 메서드로 userId를 가져오는 방식) :pushpin: [commit 보기](https://github.com/pozafly/tripllo_springBoot/commit/419b5266c3531eb5e02204262ca7d72d3cd6f1da#diff-6fd385944e33e2fa5d338023a92a71e2ba0161719f5ffc7fbcf106bf513554e0)
-- 하지만, SpringSecurity에서 제공하는 @AuthenticationPrincipal을 통해 손쉽게 가져오는 방법을 사용. :pushpin:  [commit 보기](https://github.com/pozafly/tripllo_springBoot/commit/dc5fb1c1b28642abadbdd8f968e0f7967aac69bd#diff-a85245a5e6338e27e8e77061d7faf11669d2b964173a405c125ecf439ab0373a)
+- 하지만, SpringSecurity에서 제공하는 @AuthenticationPrincipal을 통해 손쉽게 가져오는 방법을 사용. :pushpin: [commit 보기](https://github.com/pozafly/tripllo_springBoot/commit/dc5fb1c1b28642abadbdd8f968e0f7967aac69bd#diff-a85245a5e6338e27e8e77061d7faf11669d2b964173a405c125ecf439ab0373a)
 
 </div>
 </details>
@@ -678,8 +675,8 @@ Error: PostCSS received undefined instead of CSS string
 
 - 프로젝트에서 권한 문제는 큰 문제였으므로, SpringSecurity의 role을 이용하여 권한을 줄 수 있을지 고민.
 - 하지만 role은 각기 다른 도메인에 부여할 수 없는 것. 도메인별 Interceptor를 만들어야겠다고 생각.
-- Interceptor에서 권한을 체크하기 위해 Controller로 들어오는 @ReqeustBody를 끌어와야 했다. 그러려면 HttpServletRequestWrapper 객체를 상속받아 재구현해야 했다. 참고자료 :  [Interceptor에서 권한 관리하기](https://lannstark.tistory.com/19), [RequestBody의 내용을 로그로 남기고 싶다.](https://singun.github.io/2017/02/04/logging-requestbody/)
-- ReadableRequestWrapper class 생성으로 해결. :pushpin:  [코드 보기](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/java/com/pozafly/tripllo/common/filter/ReadableRequestWrapper.java#L14)
+- Interceptor에서 권한을 체크하기 위해 Controller로 들어오는 @ReqeustBody를 끌어와야 했다. 그러려면 HttpServletRequestWrapper 객체를 상속받아 재구현해야 했다. 참고자료 : [Interceptor에서 권한 관리하기](https://lannstark.tistory.com/19), [RequestBody의 내용을 로그로 남기고 싶다.](https://singun.github.io/2017/02/04/logging-requestbody/)
+- ReadableRequestWrapper class 생성으로 해결. :pushpin: [코드 보기](https://github.com/pozafly/tripllo_springBoot/blob/48742b42e895ccf6121ef285eb11a1b5ff468a0b/src/main/java/com/pozafly/tripllo/common/filter/ReadableRequestWrapper.java#L14)
 
 </div>
 </details>
@@ -710,7 +707,7 @@ Error: PostCSS received undefined instead of CSS string
 - Spring Scheduler를 사용하여 Test ID를 만들고, 7-23시 사이에 2시간 간격으로 Test ID의 모든 데이터가 재구성되도록 만들어 놓았음.
 - 하지만 누군가 Test ID의 비밀번호를 바꾸는 바람에 접속할 수 없게 되었음.
 - SpringSecurity에서 제공하는 passwordEncoder의 BCrypt 방식으로 비밀번호를 저장하고 login 시 복호화하여 login 하므로 쿼리문으로 비밀번호를 원상태로 돌리는 것은 불가능함.
-- 미리 만들어둔 ApplicationRunner를 구현한 class가 있었기 때문에 다시 build 후 원상복구 시킨 뒤, 방어 로직을 추가함. :pushpin:  [코드 보기](https://github.com/pozafly/tripllo_springBoot/blob/cf8c8165223910f8a5bfbbe2c2984eb99a941b08/src/main/java/com/pozafly/tripllo/common/scheduler/DataApplicationRunner.java#L13)
+- 미리 만들어둔 ApplicationRunner를 구현한 class가 있었기 때문에 다시 build 후 원상복구 시킨 뒤, 방어 로직을 추가함. :pushpin: [코드 보기](https://github.com/pozafly/tripllo_springBoot/blob/cf8c8165223910f8a5bfbbe2c2984eb99a941b08/src/main/java/com/pozafly/tripllo/common/scheduler/DataApplicationRunner.java#L13)
 
 </div>
 </details>
@@ -737,7 +734,7 @@ Error: PostCSS received undefined instead of CSS string
 
 - AWS free 유저이기 때문에 SpringBoot build 시 메모리 부족으로 build가 되지 않는 문제가 발생.
 - swap 파일을 생성하여 설정해서 문제를 해결.
-- 참고자료 : [리눅스 메모리 부족 문제 해결 방법](https://hiseon.me/linux/linux-swap-file/), [AWS(EC2) - swap 메모리 생성](http://www.macnorton.com/csLab/886323), [aws공식 swap 메모리 사용법](https://aws.amazon.com/ko/premiumsupport/knowledge-center/ec2-memory-swap-file/) 
+- 참고자료 : [리눅스 메모리 부족 문제 해결 방법](https://hiseon.me/linux/linux-swap-file/), [AWS(EC2) - swap 메모리 생성](http://www.macnorton.com/csLab/886323), [aws공식 swap 메모리 사용법](https://aws.amazon.com/ko/premiumsupport/knowledge-center/ec2-memory-swap-file/)
 
 </div>
 </details>
@@ -779,8 +776,6 @@ Error: PostCSS received undefined instead of CSS string
 </div>
 </details>
 
-
-
 [프로젝트 문제점 및 후기](https://pozafly.github.io/tripllo/tripllo-epilogue/)
 
-[Frontend(vue) 리팩토링](https://pozafly.github.io/tripllo/(8)vue-refactor1/)
+[Frontend(vue) 리팩토링](<https://pozafly.github.io/tripllo/(8)vue-refactor1/>)
